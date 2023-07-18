@@ -38,7 +38,8 @@ val Typography = Typography(
         fontWeight = FontWeight.Bold,
         fontSize = 24.sp,
         lineHeight = 32.sp,
-        letterSpacing = 0.5.sp
+        letterSpacing = 0.5.sp,
+        color = DarkGreen
     ),
     titleLarge = TextStyle(
         fontFamily = sofia_pro,

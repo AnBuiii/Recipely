@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 import com.anbui.recipely.R
@@ -104,7 +105,7 @@ fun OnBoardingScreen(
                 )
                 Text(
                     text = onBoardings[it].subtitle,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
                     textAlign = TextAlign.Center,
                     color = MediumGrey,
                     modifier = Modifier.padding(horizontal = SpaceLarge)
@@ -176,11 +177,7 @@ fun OnBoardingScreen(
                             pageState.animateScrollToPage(pageState.currentPage + 1)
                         }
                     } else {
-                        navController.navigate(Screen.HomeScreen.route) {
-                            popUpTo(Screen.SplashScreen.route) {
-                                inclusive = true
-                            }
-                        }
+                        navController.navigate(Screen.LoginScreen.route)
                     }
                 },
                 shape = MaterialTheme.shapes.large,

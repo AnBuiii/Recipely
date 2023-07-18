@@ -1,0 +1,137 @@
+package com.anbui.recipely.presentation.login
+
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.anbui.recipely.R
+import com.anbui.recipely.presentation.components.StandardTextField
+import com.anbui.recipely.presentation.components.StandardToolbar
+import com.anbui.recipely.presentation.ui.theme.SpaceLarge
+import com.anbui.recipely.presentation.ui.theme.SpaceMedium
+import com.anbui.recipely.presentation.ui.theme.SpaceSmall
+import com.anbui.recipely.presentation.util.Screen
+import kotlinx.coroutines.launch
+
+@ExperimentalMaterial3Api
+@Composable
+fun LoginScreen(
+    navController: NavController
+) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var isPasswordVisible by remember {
+        mutableStateOf(true)
+    }
+    Column(
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        StandardToolbar(
+            navController = navController,
+            title = stringResource(id = R.string.login),
+            showBackArrow = true
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(SpaceLarge)
+        ) {
+            Text(
+                text = stringResource(R.string.email_address),
+                style = MaterialTheme.typography.bodyMedium
+            )
+
+            Spacer(modifier = Modifier.height(SpaceMedium))
+
+            StandardTextField(
+                text = email,
+                onValueChange = { email = it },
+                hint = stringResource(R.string.email_hint),
+                leadingIcon = painterResource(id = R.drawable.ic_message)
+            )
+
+            Spacer(modifier = Modifier.height(SpaceMedium))
+
+            Text(
+                text = stringResource(R.string.password),
+                style = MaterialTheme.typography.bodyMedium
+            )
+
+            Spacer(modifier = Modifier.height(SpaceMedium))
+
+            StandardTextField(
+                text = password,
+                onValueChange = { password = it },
+                hint = stringResource(
+                    R.string.password_hint
+                ),
+                leadingIcon = painterResource(id = R.drawable.ic_lock),
+                keyboardType = KeyboardType.Password,
+                isPasswordVisible = isPasswordVisible,
+                onPasswordToggleClick = {
+                    isPasswordVisible = it
+                }
+            )
+
+            Spacer(modifier = Modifier.height(SpaceLarge))
+
+            Button(
+                onClick = {
+                    navController.navigate(Screen.HomeScreen.route)
+                },
+                shape = MaterialTheme.shapes.large,
+                modifier = Modifier.fillMaxWidth()
+
+            ) {
+                Text(
+                    text = stringResource(id = R.string.login),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(vertical = SpaceSmall)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(SpaceLarge))
+
+            TextButton(
+                onClick = {
+                    navController.navigate(Screen.ForgotPasswordScreen.route)
+                },
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            ) {
+                Text(
+                    text = stringResource(R.string.forgot_password),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
+        }
+
+
+    }
+}
+
+@ExperimentalMaterial3Api
+@Preview(showBackground = true)
+@Composable
+fun LoginScreenPreview() {
+    LoginScreen(navController = rememberNavController())
+}
