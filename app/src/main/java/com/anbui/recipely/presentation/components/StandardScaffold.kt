@@ -56,7 +56,7 @@ fun StandardScaffold(
         ),
     ),
     onFabClick: () -> Unit = {},
-    content: @Composable (PaddingValues) -> Unit
+    content: @Composable () -> Unit
 ) {
     Scaffold(
         bottomBar = {
@@ -100,10 +100,11 @@ fun StandardScaffold(
 //        floatingActionButtonPosition = FabPosition.Center,
         modifier = modifier
     ) {
+        val a = it
         Box(
 
         ) {
-            content(it)
+            content()
         }
 
     }

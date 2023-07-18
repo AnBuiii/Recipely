@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import com.anbui.recipely.presentation.account.AccountScreen
 import com.anbui.recipely.presentation.home.HomeScreen
 import com.anbui.recipely.presentation.notification.NotificationScreen
+import com.anbui.recipely.presentation.onboard.OnBoardingScreen
 import com.anbui.recipely.presentation.search.SearchScreen
 import com.anbui.recipely.presentation.splash.SplashScreen
 
@@ -23,6 +24,9 @@ fun Navigation(
     NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
         composable(Screen.SplashScreen.route) {
             SplashScreen(navController = navController)
+        }
+        composable(Screen.OnBoardingScreen.route) {
+            OnBoardingScreen(navController = navController)
         }
         composable(Screen.HomeScreen.route) {
             HomeScreen(navController = navController)

@@ -9,4 +9,17 @@
     <string name="hide_password">Hide password</string>
     <string name="back">Back</string>
     <string name="splash">splash</string>
+    <string name="background">background</string>
+    <string name="onboarding_title_1">Discover all the best recipes you needed</string>
+    <string name="onboarding_subtitle_1">5000+ healthy recipes made by people for your healthy life</string>
+    <string name="onboarding_title_2">Order directly the ingredients</string>
+    <string name="onboarding_subtitle_2">Order the ingredients you need quickly with a fast process</string>
+    <string name="onboarding_title_3">Let\'s cook with the recipe you found</string>
+    <string name="onboarding_subtitle_3">Cooking based on the food recipes you find and the food you love</string>
+    <string name="onboarding_image">onboarding image %1$s</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="get_started">Get started</string>
+    <string name="login">Login</string>
+    <string name="create_new_account">Create new account</string>
 </resources>

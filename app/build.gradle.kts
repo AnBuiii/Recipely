@@ -108,6 +108,9 @@ dependencies {
     // Timber
     implementation (libs.timber)
 
+    // Pager indicator
+//    implementation(libs.accompanist.pager.indicators)
+
     // Local Unit Tests
     implementation(libs.androidx.core)
     testImplementation(libs.junit)

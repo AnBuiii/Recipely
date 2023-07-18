@@ -1,5 +1,6 @@
 package com.anbui.recipely.presentation.ui.theme
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -29,7 +30,8 @@ val Typography = Typography(
         fontWeight = FontWeight.Bold,
         fontSize = 28.sp,
         lineHeight = 36.sp,
-        letterSpacing = 0.5.sp
+        letterSpacing = 0.5.sp,
+        color = ExtraDarkGrey
     ),
     headlineSmall = TextStyle(
         fontFamily = sofia_pro,
@@ -43,7 +45,8 @@ val Typography = Typography(
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp,
         lineHeight = 26.sp,
-        letterSpacing = 0.5.sp
+        letterSpacing = 0.5.sp,
+        color = DarkGreen
     ),
     bodyLarge = TextStyle(
         fontFamily = sofia_pro,
