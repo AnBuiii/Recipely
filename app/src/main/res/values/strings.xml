@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Recipely</string>
+    <string name="notification">Notification</string>
+    <string name="search">Search</string>
+    <string name="home">Home</string>
+    <string name="account">Account</string>
+    <string name="make_recipe">Make recipe</string>
+    <string name="show_password">Show password</string>
+    <string name="hide_password">Hide password</string>
+    <string name="back">Back</string>
+    <string name="splash">splash</string>
+</resources>
