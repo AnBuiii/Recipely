@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Button
@@ -27,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.OnBoardingItem
@@ -50,17 +52,17 @@ fun OnBoardingScreen(
         OnBoardingItem(
             title = stringResource(R.string.onboarding_title_1),
             subtitle = stringResource(R.string.onboarding_subtitle_1),
-            img = R.drawable.img_illustration_1
+            img = R.drawable.img_illu_1
         ),
         OnBoardingItem(
             title = stringResource(R.string.onboarding_title_2),
             subtitle = stringResource(R.string.onboarding_subtitle_2),
-            img = R.drawable.img_illustration_2
+            img = R.drawable.img_illu_2
         ),
         OnBoardingItem(
             title = stringResource(R.string.onboarding_title_3),
             subtitle = stringResource(R.string.onboarding_subtitle_3),
-            img = R.drawable.img_illustration_3
+            img = R.drawable.img_illu_3
         )
     )
     Box(
@@ -90,6 +92,7 @@ fun OnBoardingScreen(
                     contentDescription = stringResource(
                         R.string.onboarding_image, it
                     ),
+                    modifier = Modifier.size(280.dp)
                 )
                 Spacer(
                     modifier = Modifier.height(SpaceHuge)

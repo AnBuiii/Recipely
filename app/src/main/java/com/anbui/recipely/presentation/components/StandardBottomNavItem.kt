@@ -20,8 +20,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.presentation.ui.theme.MediumGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
@@ -35,7 +33,8 @@ fun RowScope.StandardBottomNavItem(
     modifier: Modifier = Modifier,
 //    icon: @Composable () -> Unit = {},
     contentDescription: String? = "",
-    painter: Painter,
+    unselectedPainter: Painter,
+    selectedPainter: Painter,
     selected: Boolean = false,
     alertCount: Int? = null,
     selectedColor: Color = MaterialTheme.colorScheme.primary,
@@ -104,11 +103,22 @@ fun RowScope.StandardBottomNavItem(
                     },
                     modifier = Modifier.align(Alignment.Center)
                 ) {
+//                    if(selected){
+//
+//                    } else {
+//                        Icon(
+//                            painter = unselectedPainter,
+//                            contentDescription = contentDescription,
+//                            modifier = Modifier.align(Alignment.Center)
+//                        )
+//                    }
+
                     Icon(
-                        painter = painter,
+                        painter = selectedPainter,
                         contentDescription = contentDescription,
                         modifier = Modifier.align(Alignment.Center)
                     )
+
                 }
             }
         }

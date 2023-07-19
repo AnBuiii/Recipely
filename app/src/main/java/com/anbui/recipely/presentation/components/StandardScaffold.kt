@@ -1,27 +1,21 @@
 package com.anbui.recipely.presentation.components
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.outlined.*
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.BottomNavItem
-import com.anbui.recipely.domain.models.BottomNavItem.*
 import com.anbui.recipely.presentation.util.Screen
 
 @ExperimentalMaterial3Api
@@ -35,23 +29,27 @@ fun StandardScaffold(
     bottomNavItems: List<BottomNavItem> = listOf(
         BottomNavItem(
             route = Screen.HomeScreen.route,
-            icon = R.drawable.ic_home,
+            unselectedIcon = R.drawable.ic_home,
+            selectedIcon = R.drawable.ic_home_filled,
             contentDescription = stringResource(R.string.home)
         ),
 
         BottomNavItem(
             route = Screen.SearchScreen.route,
-            icon = R.drawable.ic_search,
+            unselectedIcon = R.drawable.ic_search,
+            selectedIcon = R.drawable.ic_search_filled,
             contentDescription = stringResource(R.string.search)
         ),
         BottomNavItem(
             route = Screen.NotificationScreen.route,
-            icon = R.drawable.ic_notification,
+            selectedIcon = R.drawable.ic_notification_filled,
+            unselectedIcon = R.drawable.ic_notification,
             contentDescription = stringResource(R.string.notification)
         ),
         BottomNavItem(
             route = Screen.AccountScreen.route,
-            icon = R.drawable.ic_profile,
+            selectedIcon = R.drawable.ic_profile_filled,
+            unselectedIcon = R.drawable.ic_profile,
             contentDescription = stringResource(R.string.account)
         ),
     ),
@@ -62,37 +60,38 @@ fun StandardScaffold(
         bottomBar = {
             if (showBottomBar) {
                 NavigationBar(
-                    containerColor = MaterialTheme.colorScheme.surface,
-                    tonalElevation = 0.dp
+//                    containerColor = MaterialTheme.colorScheme.background,
+//                    tonalElevation = 1.dp
                 ) {
                     bottomNavItems.forEachIndexed { i, bottomNavItem ->
                         StandardBottomNavItem(
-                            painter = painterResource(id = bottomNavItem.icon),
                             contentDescription = bottomNavItem.contentDescription,
+                            unselectedPainter = painterResource(id = bottomNavItem.unselectedIcon),
+                            selectedPainter = painterResource(id = bottomNavItem.selectedIcon),
                             selected = navController.currentDestination?.route?.startsWith(
                                 bottomNavItem.route
                             ) == true,
                             alertCount = bottomNavItem.alertCount,
                             enabled = true,
-                            onClick = {
-                                if (navController.currentDestination?.route != bottomNavItem.route) {
-                                    navController.navigate(bottomNavItem.route)
-                                }
-                            },
-                        )
+                        ) {
+                            if (navController.currentDestination?.route != bottomNavItem.route) {
+                                navController.navigate(bottomNavItem.route)
+                            }
+                        }
                     }
                 }
             }
         },
         floatingActionButton = {
             if (showBottomBar) {
-                FloatingActionButton(
+                SmallFloatingActionButton(
                     containerColor = MaterialTheme.colorScheme.primary,
                     onClick = onFabClick
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = stringResource(R.string.make_recipe)
+                        painterResource(id = R.drawable.ic_recipely_foreground),
+                        contentDescription = stringResource(R.string.make_recipe),
+                        modifier = Modifier.size(64.dp)
                     )
                 }
             }
