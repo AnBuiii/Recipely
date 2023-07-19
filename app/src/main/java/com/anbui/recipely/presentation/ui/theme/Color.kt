@@ -14,6 +14,8 @@ val LightGrey = Color(0xFFCCD4DE)
 val ThinGrey = Color(0xFFE6EBF2)
 val TrueWhite = Color(0xFFFFFFFF)
 
+val GoogleRed = Color(0xFFF06155)
+
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)

@@ -1,13 +1,17 @@
 package com.anbui.recipely.presentation.login
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -20,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
@@ -27,6 +32,9 @@ import androidx.navigation.compose.rememberNavController
 import com.anbui.recipely.R
 import com.anbui.recipely.presentation.components.StandardTextField
 import com.anbui.recipely.presentation.components.StandardToolbar
+import com.anbui.recipely.presentation.ui.theme.GoogleRed
+import com.anbui.recipely.presentation.ui.theme.MediumGrey
+import com.anbui.recipely.presentation.ui.theme.SpaceHuge
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
@@ -93,7 +101,7 @@ fun LoginScreen(
                 }
             )
 
-            Spacer(modifier = Modifier.height(SpaceLarge))
+            Spacer(modifier = Modifier.height(SpaceLarge + SpaceSmall))
 
             Button(
                 onClick = {
@@ -110,7 +118,7 @@ fun LoginScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(SpaceLarge))
+            Spacer(modifier = Modifier.height(SpaceMedium))
 
             TextButton(
                 onClick = {
@@ -119,10 +127,51 @@ fun LoginScreen(
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
                 Text(
-                    text = stringResource(R.string.forgot_password),
+                    text = stringResource(R.string.forgot_password) + "?",
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
+            Spacer(modifier = Modifier.weight(1f))
+            Text(
+                stringResource(R.string.or_continue_with),
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.Normal,
+                    color = MediumGrey
+                ),
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+            Spacer(modifier = Modifier.height(SpaceMedium))
+            Button(
+                onClick = {
+                    navController.navigate(Screen.HomeScreen.route)
+                },
+                shape = MaterialTheme.shapes.large,
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = GoogleRed
+                )
+
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(SpaceSmall),
+                ) {
+                    Icon(
+                        painterResource(id = R.drawable.ic_google),
+                        contentDescription = stringResource(
+                            R.string.google
+                        )
+                    )
+                    Text(
+                        text = stringResource(R.string.login_with_google),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(vertical = SpaceSmall)
+                    )
+                }
+
+            }
+            Spacer(modifier =  Modifier.height(SpaceLarge))
+
         }
 
 

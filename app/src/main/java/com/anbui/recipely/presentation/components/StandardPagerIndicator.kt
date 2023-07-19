@@ -133,7 +133,7 @@ private fun HorizontalPagerIndicator(
                 .drawBehind {
                     drawCircle(
                         activeColor,
-                        radius = (indicatorHeight - 1.dp).toPx(),
+                        radius = (indicatorHeight).toPx()/ 2 + 2.dp.toPx(),
                         center = Offset(
                             x = size.width - indicatorWidth.toPx() / 2,
                             y = size.height - indicatorWidth.toPx() / 2
