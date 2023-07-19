@@ -2,6 +2,7 @@ package com.anbui.recipely.presentation.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -41,6 +42,12 @@ fun StandardScaffold(
             contentDescription = stringResource(R.string.search)
         ),
         BottomNavItem(
+            route = Screen.SearchScreen.route,
+            unselectedIcon = null,
+            selectedIcon = R.drawable.ic_search_filled,
+            contentDescription = stringResource(R.string.search)
+        ),
+        BottomNavItem(
             route = Screen.NotificationScreen.route,
             selectedIcon = R.drawable.ic_notification_filled,
             unselectedIcon = R.drawable.ic_notification,
@@ -58,47 +65,40 @@ fun StandardScaffold(
 ) {
     Scaffold(
         bottomBar = {
-//            if (showBottomBar) {
-////                NavigationBar(
-//////                    containerColor = MaterialTheme.colorScheme.background,
-//////                    tonalElevation = 1.dp
-////                ) {
-////                    bottomNavItems.forEachIndexed { i, bottomNavItem ->
-////                        StandardBottomNavItem(
-////                            contentDescription = bottomNavItem.contentDescription,
-////                            unselectedPainter = painterResource(id = bottomNavItem.unselectedIcon),
-////                            selectedPainter = painterResource(id = bottomNavItem.selectedIcon),
-////                            selected = navController.currentDestination?.route?.startsWith(
-////                                bottomNavItem.route
-////                            ) == true,
-////                            alertCount = bottomNavItem.alertCount,
-////                            enabled = true,
-////                        ) {
-////                            if (navController.currentDestination?.route != bottomNavItem.route) {
-////                                navController.navigate(bottomNavItem.route)
-////                            }
-////                        }
-////                    }
-////                }
-//
-//            }
-            StandardBottomNavigation()
-        },
-        floatingActionButton = {
             if (showBottomBar) {
-                SmallFloatingActionButton(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    onClick = onFabClick
-                ) {
-                    Icon(
-                        painterResource(id = R.drawable.ic_recipely_foreground),
-                        contentDescription = stringResource(R.string.make_recipe),
-                        modifier = Modifier.size(64.dp)
-                    )
+                StandardBottomNavigation{
+                    bottomNavItems.forEachIndexed { i, bottomNavItem ->
+                        if(bottomNavItem.unselectedIcon != null){
+                            StandardBottomNavItem(
+                                contentDescription = bottomNavItem.contentDescription,
+                                unselectedPainter = painterResource(id = bottomNavItem.unselectedIcon),
+                                selectedPainter = painterResource(id = bottomNavItem.selectedIcon),
+                                selected = navController.currentDestination?.route?.startsWith(
+                                    bottomNavItem.route
+                                ) == true,
+                                alertCount = bottomNavItem.alertCount,
+                                enabled = true,
+                            ) {
+                                if (navController.currentDestination?.route != bottomNavItem.route) {
+                                    navController.navigate(bottomNavItem.route){
+                                        navController.currentDestination?.route?.let {
+                                            popUpTo(it){
+                                                inclusive = true
+                                            }
+                                        }
+
+                                    }
+                                }
+                            }
+                        } else {
+                            Box(modifier = Modifier.width(64.dp))
+                        }
+
+                    }
                 }
             }
+
         },
-//        floatingActionButtonPosition = FabPosition.Center,
         modifier = modifier
     ) {
         val a = it

@@ -103,7 +103,11 @@ fun LoginScreen(
 
             Button(
                 onClick = {
-                    navController.navigate(Screen.HomeScreen.route)
+                    navController.navigate(Screen.HomeScreen.route){
+                        popUpTo(0){
+                            inclusive = true
+                        }
+                    }
                 },
                 shape = MaterialTheme.shapes.large,
                 modifier = Modifier.fillMaxWidth()

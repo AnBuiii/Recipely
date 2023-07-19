@@ -1,5 +1,7 @@
 package com.anbui.recipely.presentation.components
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
@@ -23,21 +25,22 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.presentation.ui.theme.MediumGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
+import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.util.NoRippleInteractionSource
 
 
+@OptIn(ExperimentalAnimationApi::class)
 @ExperimentalMaterial3Api
 @Composable
 @Throws(IllegalArgumentException::class)
 fun RowScope.StandardBottomNavItem(
     modifier: Modifier = Modifier,
-//    icon: @Composable () -> Unit = {},
     contentDescription: String? = "",
     unselectedPainter: Painter,
     selectedPainter: Painter,
     selected: Boolean = false,
     alertCount: Int? = null,
-    selectedColor: Color = MaterialTheme.colorScheme.primary,
+    selectedColor: Color = MaterialTheme.colorScheme.secondary,
     unselectedColor: Color = MediumGrey,
     enabled: Boolean = true,
     onClick: () -> Unit
@@ -58,6 +61,7 @@ fun RowScope.StandardBottomNavItem(
         modifier = modifier,
         enabled = enabled,
         colors = NavigationBarItemDefaults.colors(
+            indicatorColor = TrueWhite,
             selectedIconColor = selectedColor,
             unselectedIconColor = unselectedColor,
 //            indicatorColor = MaterialTheme.colorScheme.surface
@@ -103,21 +107,22 @@ fun RowScope.StandardBottomNavItem(
                     },
                     modifier = Modifier.align(Alignment.Center)
                 ) {
-//                    if(selected){
-//
-//                    } else {
-//                        Icon(
-//                            painter = unselectedPainter,
-//                            contentDescription = contentDescription,
-//                            modifier = Modifier.align(Alignment.Center)
-//                        )
-//                    }
+                    AnimatedContent(targetState = selected, label = "") {
+                        if(it){
+                            Icon(
+                                painter = selectedPainter,
+                                contentDescription = contentDescription,
+                                modifier = Modifier.align(Alignment.Center)
+                            )
+                        } else {
+                            Icon(
+                                painter = unselectedPainter,
+                                contentDescription = contentDescription,
+                                modifier = Modifier.align(Alignment.Center)
+                            )
+                        }
+                    }
 
-                    Icon(
-                        painter = selectedPainter,
-                        contentDescription = contentDescription,
-                        modifier = Modifier.align(Alignment.Center)
-                    )
 
                 }
             }

@@ -1,33 +1,100 @@
 package com.anbui.recipely.presentation.components
 
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.Card
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.anbui.recipely.R
+import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.toPx
 import kotlin.math.sqrt
 
 @Composable
-fun StandardBottomNavigation() {
-    Card(
+fun StandardBottomNavigation(
+    windowInsets: WindowInsets = NavigationBarDefaults.windowInsets,
+    content: @Composable RowScope.() -> Unit
+) {
+    Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(96.dp),
-        shape = BottomNavigationShape(16.dp.toPx()),
+            .height(128.dp)
+    ) {
+        FilledIconButton(
+            onClick = { /*TODO*/ },
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .shadow(
+                    elevation = 40.dp,
+                    spotColor = MaterialTheme.colorScheme.secondary,
+                    ambientColor = MaterialTheme.colorScheme.secondary,
+                )
+                .size(56.dp)
+        ) {
+            Icon(
+                painterResource(id = R.drawable.ic_recipely_foreground),
+                contentDescription = stringResource(R.string.make_recipe),
+//                modifier = Modifier.size(200.dp)
+            )
+        }
+        ElevatedCard(
+            modifier = Modifier
+                .shadow(
+                    elevation = 25.dp,
+                    spotColor = MaterialTheme.colorScheme.primary,
+                    ambientColor = MaterialTheme.colorScheme.primary,
+                    shape = BottomNavigationShape(16.dp.toPx())
+                )
+                .fillMaxWidth()
+                .height(96.dp)
+                .align(Alignment.BottomCenter),
+            shape = BottomNavigationShape(16.dp.toPx()),
+            colors = CardDefaults.elevatedCardColors(
+                containerColor = TrueWhite
+            ),
+//        elevation = CardDefaults.elevatedCardElevation(
+//            defaultElevation = 1.dp
+//        )
 
         ) {
-        Text("asd")
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .windowInsetsPadding(windowInsets),
+                content = content
+            )
+
+
+        }
     }
+
 }
 
 
