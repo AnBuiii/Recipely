@@ -156,7 +156,7 @@ fun OnBoardingScreen(
             ) {
                 TextButton(
                     onClick = {
-                        navController.navigate(Screen.HomeScreen.route) {
+                        navController.navigate(Screen.CreateAccountScreen.route) {
                             popUpTo(Screen.SplashScreen.route) {
                                 inclusive = true
                             }

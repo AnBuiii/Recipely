@@ -7,12 +7,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.anbui.recipely.presentation.account.AccountScreen
+import com.anbui.recipely.presentation.create_account.CreateAccountScreen
 import com.anbui.recipely.presentation.forgot_password.ForgotPasswordScreen
 import com.anbui.recipely.presentation.home.HomeScreen
 import com.anbui.recipely.presentation.login.LoginScreen
 import com.anbui.recipely.presentation.notification.NotificationScreen
 import com.anbui.recipely.presentation.onboard.OnBoardingScreen
 import com.anbui.recipely.presentation.search.SearchScreen
+import com.anbui.recipely.presentation.select_interest.SelectInterestScreen
 import com.anbui.recipely.presentation.splash.SplashScreen
 
 @ExperimentalLayoutApi
@@ -46,13 +48,15 @@ fun Navigation(
         composable(Screen.LoginScreen.route) {
             LoginScreen(navController = navController)
         }
-
         composable(Screen.ForgotPasswordScreen.route) {
             ForgotPasswordScreen(navController = navController)
         }
-//        composable(Screen.RegisterScreen.route) {
-//            RegisterScreen(navController = navController)
-//        }
+        composable(Screen.CreateAccountScreen.route) {
+            CreateAccountScreen(navController = navController)
+        }
+        composable(Screen.SelectInterestScreen.route){
+            SelectInterestScreen(navController = navController)
+        }
 //        composable(Screen.MainFeedScreen.route) {
 //            MainFeedScreen(navController = navController)
 //        }
