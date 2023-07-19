@@ -58,29 +58,31 @@ fun StandardScaffold(
 ) {
     Scaffold(
         bottomBar = {
-            if (showBottomBar) {
-                NavigationBar(
-//                    containerColor = MaterialTheme.colorScheme.background,
-//                    tonalElevation = 1.dp
-                ) {
-                    bottomNavItems.forEachIndexed { i, bottomNavItem ->
-                        StandardBottomNavItem(
-                            contentDescription = bottomNavItem.contentDescription,
-                            unselectedPainter = painterResource(id = bottomNavItem.unselectedIcon),
-                            selectedPainter = painterResource(id = bottomNavItem.selectedIcon),
-                            selected = navController.currentDestination?.route?.startsWith(
-                                bottomNavItem.route
-                            ) == true,
-                            alertCount = bottomNavItem.alertCount,
-                            enabled = true,
-                        ) {
-                            if (navController.currentDestination?.route != bottomNavItem.route) {
-                                navController.navigate(bottomNavItem.route)
-                            }
-                        }
-                    }
-                }
-            }
+//            if (showBottomBar) {
+////                NavigationBar(
+//////                    containerColor = MaterialTheme.colorScheme.background,
+//////                    tonalElevation = 1.dp
+////                ) {
+////                    bottomNavItems.forEachIndexed { i, bottomNavItem ->
+////                        StandardBottomNavItem(
+////                            contentDescription = bottomNavItem.contentDescription,
+////                            unselectedPainter = painterResource(id = bottomNavItem.unselectedIcon),
+////                            selectedPainter = painterResource(id = bottomNavItem.selectedIcon),
+////                            selected = navController.currentDestination?.route?.startsWith(
+////                                bottomNavItem.route
+////                            ) == true,
+////                            alertCount = bottomNavItem.alertCount,
+////                            enabled = true,
+////                        ) {
+////                            if (navController.currentDestination?.route != bottomNavItem.route) {
+////                                navController.navigate(bottomNavItem.route)
+////                            }
+////                        }
+////                    }
+////                }
+//
+//            }
+            StandardBottomNavigation()
         },
         floatingActionButton = {
             if (showBottomBar) {
