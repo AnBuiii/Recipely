@@ -166,7 +166,7 @@ fun CreateAccountScreen(
 
             Button(
                 onClick = {
-                    navController.navigate(Screen.HomeScreen.route)
+                    navController.navigate(Screen.SelectInterestScreen.route)
                 },
                 shape = MaterialTheme.shapes.large,
                 modifier = Modifier.fillMaxWidth()
@@ -176,20 +176,6 @@ fun CreateAccountScreen(
                     text = stringResource(R.string.s_continue),
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(vertical = SpaceSmall)
-                )
-            }
-
-            Spacer(modifier = Modifier.height(SpaceMedium))
-
-            TextButton(
-                onClick = {
-                    navController.navigate(Screen.ForgotPasswordScreen.route)
-                },
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            ) {
-                Text(
-                    text = stringResource(R.string.forgot_password) + "?",
-                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
 
