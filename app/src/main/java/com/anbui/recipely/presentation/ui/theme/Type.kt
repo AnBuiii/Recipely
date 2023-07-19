@@ -60,18 +60,22 @@ val Typography = Typography(
         fontWeight = FontWeight.Bold,
         fontSize = 16.sp,
         lineHeight = 22.sp,
+        color = ExtraDarkGrey
     ),
     bodySmall = TextStyle(
         fontFamily = sofia_pro,
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp,
         lineHeight = 18.sp,
+        color = ExtraDarkGrey
+
     ),
     labelLarge = TextStyle(
         fontFamily = sofia_pro,
         fontWeight = FontWeight.Bold,
         fontSize = 12.sp,
         lineHeight = 16.sp,
+        color = ExtraDarkGrey
     ),
 
 )

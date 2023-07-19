@@ -1,5 +1,3 @@
-import com.android.build.api.dsl.Packaging
-
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.com.android.application)
@@ -19,7 +17,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner ="androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -39,17 +37,17 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget ="17"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion ="1.4.8"
+        kotlinCompilerExtensionVersion = "1.4.8"
     }
     packaging {
         resources {
-            excludes +="/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
 //            excludes +="/META-INF/*"
 
         }
@@ -97,19 +95,19 @@ dependencies {
     kapt(libs.hilt.android.compiler)
 //    implementation(libs.androidx.hilt.lifecycle.viewmodel)
     kapt(libs.androidx.hilt.compiler)
-    implementation (libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // Retrofit
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
 
     // Timber
-    implementation (libs.timber)
+    implementation(libs.timber)
 
-    // Pager indicator
-//    implementation(libs.accompanist.pager.indicators)
+    // Coil
+    implementation(libs.coil.compose)
 
     // Local Unit Tests
     implementation(libs.androidx.core)
@@ -121,16 +119,16 @@ dependencies {
     testImplementation(libs.truth)
     testImplementation(libs.mockwebserver)
     testImplementation(libs.mockk)
-    androidTestImplementation (libs.hilt.android.testing)
-    kaptAndroidTest (libs.hilt.android.compiler)
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest(libs.hilt.android.compiler)
 
     // Instrumented Unit Tests
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.core.testing)
     androidTestImplementation(libs.truth)
-    androidTestImplementation (libs.androidx.test.ext.junit)
-    androidTestImplementation (libs.androidx.core.ktx)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.core.ktx)
     androidTestImplementation(libs.mockwebserver)
     androidTestImplementation(libs.mockk.android)
 }

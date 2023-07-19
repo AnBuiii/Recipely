@@ -25,7 +25,7 @@ fun Navigation(
     navController: NavHostController,
 ) {
 
-    NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.HomeScreen.route) {
         composable(Screen.SplashScreen.route) {
             SplashScreen(navController = navController)
         }
@@ -35,13 +35,13 @@ fun Navigation(
         composable(Screen.HomeScreen.route) {
             HomeScreen(navController = navController)
         }
-        composable (Screen.SearchScreen.route){
+        composable(Screen.SearchScreen.route) {
             SearchScreen(navController = navController)
         }
-        composable (Screen.NotificationScreen.route){
+        composable(Screen.NotificationScreen.route) {
             NotificationScreen(navController = navController)
         }
-        composable (Screen.AccountScreen.route){
+        composable(Screen.AccountScreen.route) {
             AccountScreen(navController = navController)
         }
 
@@ -54,7 +54,7 @@ fun Navigation(
         composable(Screen.CreateAccountScreen.route) {
             CreateAccountScreen(navController = navController)
         }
-        composable(Screen.SelectInterestScreen.route){
+        composable(Screen.SelectInterestScreen.route) {
             SelectInterestScreen(navController = navController)
         }
 //        composable(Screen.MainFeedScreen.route) {
