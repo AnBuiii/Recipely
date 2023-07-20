@@ -1,14 +1,9 @@
 package com.anbui.recipely.presentation.components
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -64,9 +59,9 @@ fun StandardScaffold(
     Scaffold(
         bottomBar = {
             if (showBottomBar) {
-                StandardBottomNavigation{
+                StandardBottomNavigation {
                     bottomNavItems.forEachIndexed { i, bottomNavItem ->
-                        if(bottomNavItem.unselectedIcon != null){
+                        if (bottomNavItem.unselectedIcon != null) {
                             StandardBottomNavItem(
                                 contentDescription = bottomNavItem.contentDescription,
                                 unselectedPainter = painterResource(id = bottomNavItem.unselectedIcon),
@@ -78,11 +73,11 @@ fun StandardScaffold(
                                 enabled = true,
                             ) {
                                 if (navController.currentDestination?.route != bottomNavItem.route) {
-                                    navController.navigate(bottomNavItem.route){
-                                        navController.currentDestination?.route?.let {
-                                            popUpTo(it){
-                                                inclusive = true
-                                            }
+                                    navController.navigate(bottomNavItem.route) {
+                                        launchSingleTop = true
+                                        restoreState = true
+                                        popUpTo(Screen.HomeScreen.route) {
+                                            saveState = true
                                         }
 
                                     }

@@ -27,6 +27,7 @@ import com.anbui.recipely.presentation.ui.theme.DarkGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
+import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
 
 @ExperimentalMaterial3Api
@@ -84,7 +85,7 @@ fun ForgotPasswordScreen(navController: NavController) {
             ) {
                 Text(
                     text = stringResource(R.string.send_email),
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyMedium.copy(color = TrueWhite),
                     modifier = Modifier.padding(vertical = SpaceSmall)
                 )
             }

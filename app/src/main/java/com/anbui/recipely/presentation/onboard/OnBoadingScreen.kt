@@ -38,6 +38,7 @@ import com.anbui.recipely.presentation.ui.theme.SpaceHuge
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
+import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
 import kotlinx.coroutines.launch
 
@@ -191,7 +192,7 @@ fun OnBoardingScreen(
                     text = if (pageState.currentPage != onBoardings.size - 1) stringResource(R.string.next) else stringResource(
                         R.string.login
                     ),
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyMedium.copy(TrueWhite),
                     modifier = Modifier.padding(vertical = SpaceSmall)
                 )
             }

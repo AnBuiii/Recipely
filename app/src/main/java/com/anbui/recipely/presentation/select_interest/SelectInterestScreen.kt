@@ -24,6 +24,7 @@ import com.anbui.recipely.presentation.components.StandardToolbar
 import com.anbui.recipely.presentation.select_interest.components.InterestCard
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
+import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
 
 @ExperimentalLayoutApi
@@ -91,7 +92,7 @@ fun SelectInterestScreen(
         ) {
             Text(
                 text = stringResource(R.string.s_continue),
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodyMedium.copy(color = TrueWhite),
                 modifier = Modifier.padding(vertical = SpaceSmall)
             )
         }
