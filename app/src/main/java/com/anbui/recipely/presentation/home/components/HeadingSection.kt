@@ -16,8 +16,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.anbui.recipely.R
-import com.anbui.recipely.presentation.ui.theme.ExtraDarkGrey
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceTiny
 
 @Composable
@@ -48,7 +46,7 @@ fun HeadingSection(
                 Text(
                     "Good morning",
                     style = MaterialTheme.typography.bodySmall.copy(
-                        color = ExtraDarkGrey,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Normal
                     )
                 )

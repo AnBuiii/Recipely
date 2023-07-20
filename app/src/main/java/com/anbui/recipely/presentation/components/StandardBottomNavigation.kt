@@ -10,9 +10,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -25,13 +27,17 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.R
+import com.anbui.recipely.domain.models.BottomNavItem
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
+import com.anbui.recipely.presentation.util.Screen
 import com.anbui.recipely.presentation.util.toPx
 import kotlin.math.sqrt
 
@@ -98,7 +104,7 @@ fun StandardBottomNavigation(
 }
 
 
-class BottomNavigationShape(private val cornerRadius: Float) : androidx.compose.ui.graphics.Shape {
+class BottomNavigationShape(private val cornerRadius: Float) : Shape {
     override fun createOutline(
         size: Size,
         layoutDirection: LayoutDirection,
@@ -110,7 +116,7 @@ class BottomNavigationShape(private val cornerRadius: Float) : androidx.compose.
         val path = Path().apply {
             reset()
             // Corner left
-            moveTo(x = cornerRadius, y = 0f)
+            moveTo(x = 0f, y = cornerRadius)
             arcTo(
                 rect = Rect(
                     left = 0f,
@@ -167,7 +173,7 @@ class BottomNavigationShape(private val cornerRadius: Float) : androidx.compose.
             lineTo(x = size.width - cornerRadius, y = 0f)
             arcTo(
                 rect = Rect(
-                    left = size.width - circleRadius * 2,
+                    left = size.width - cornerRadius * 2,
                     top = 0f,
                     right = size.width,
                     bottom = cornerRadius * 2
@@ -185,6 +191,61 @@ class BottomNavigationShape(private val cornerRadius: Float) : androidx.compose.
         }
         return Outline.Generic(path)
     }
+}
 
+@ExperimentalMaterial3Api
+@Preview
+@Composable
+fun StandardBottomNavigationPreview() {
+    val bottomNavItems: List<BottomNavItem> = listOf(
+        BottomNavItem(
+            route = Screen.HomeScreen.route,
+            unselectedIcon = R.drawable.ic_home,
+            selectedIcon = R.drawable.ic_home_filled,
+            contentDescription = stringResource(R.string.home)
+        ),
 
+        BottomNavItem(
+            route = Screen.SearchScreen.route,
+            unselectedIcon = R.drawable.ic_search,
+            selectedIcon = R.drawable.ic_search_filled,
+            contentDescription = stringResource(R.string.search)
+        ),
+        BottomNavItem(
+            route = Screen.SearchScreen.route,
+            unselectedIcon = null,
+            selectedIcon = R.drawable.ic_search_filled,
+            contentDescription = stringResource(R.string.search)
+        ),
+        BottomNavItem(
+            route = Screen.NotificationScreen.route,
+            selectedIcon = R.drawable.ic_notification_filled,
+            unselectedIcon = R.drawable.ic_notification,
+            contentDescription = stringResource(R.string.notification)
+        ),
+        BottomNavItem(
+            route = Screen.AccountScreen.route,
+            selectedIcon = R.drawable.ic_profile_filled,
+            unselectedIcon = R.drawable.ic_profile,
+            contentDescription = stringResource(R.string.account)
+        ),
+    )
+    StandardBottomNavigation {
+        bottomNavItems.forEachIndexed { i, bottomNavItem ->
+            if (bottomNavItem.unselectedIcon != null) {
+                StandardBottomNavItem(
+                    contentDescription = bottomNavItem.contentDescription,
+                    unselectedPainter = painterResource(id = bottomNavItem.unselectedIcon),
+                    selectedPainter = painterResource(id = bottomNavItem.selectedIcon),
+                    selected = i == 0,
+                    alertCount = bottomNavItem.alertCount,
+                    enabled = true,
+                    onClick = {}
+                )
+            } else {
+                Box(modifier = Modifier.width(64.dp))
+            }
+
+        }
+    }
 }

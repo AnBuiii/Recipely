@@ -25,8 +25,6 @@ fun StandardScaffold(
     navController: NavController,
     modifier: Modifier = Modifier,
     showBottomBar: Boolean = true,
-//    state: ScaffoldState,
-
     bottomNavItems: List<BottomNavItem> = listOf(
         BottomNavItem(
             route = Screen.HomeScreen.route,

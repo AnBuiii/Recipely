@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.FeaturedItem
+import com.anbui.recipely.domain.models.Recipe
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
@@ -35,12 +37,14 @@ import com.anbui.recipely.presentation.ui.theme.TrueWhite
 
 @Composable
 fun FeaturedCard(
-    featuredItem: FeaturedItem,
+    recipe: Recipe,
     modifier: Modifier = Modifier
 ) {
     Card(
         modifier = Modifier
-            .size(height = 172.dp, width = 264.dp)
+            .size(height = 172.dp, width = 264.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        shape = MaterialTheme.shapes.large
 //            .then(modifier)
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
@@ -54,8 +58,8 @@ fun FeaturedCard(
             )
 
             AsyncImage(
-                model = featuredItem.image,
-                contentDescription = featuredItem.title,
+                model = recipe.imageUrl,
+                contentDescription = recipe.description,
                 modifier = Modifier
                     .align(
                         Alignment.TopEnd
@@ -73,7 +77,7 @@ fun FeaturedCard(
                 verticalArrangement = Arrangement.spacedBy(SpaceTiny)
             ) {
                 Text(
-                    text = featuredItem.title,
+                    text = recipe.title,
                     style = MaterialTheme.typography.bodyLarge.copy(color = TrueWhite)
                 )
                 Row(
@@ -86,15 +90,15 @@ fun FeaturedCard(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         AsyncImage(
-                            model = featuredItem.ownerImage,
-                            contentDescription = featuredItem.title,
+                            model = recipe.ownerAvatarUrl,
+                            contentDescription = recipe.ownerName,
                             modifier = Modifier
                                 .size(16.dp)
                                 .clip(CircleShape),
                             contentScale = ContentScale.FillBounds
                         )
                         Text(
-                            text = featuredItem.ownerName,
+                            text = recipe.ownerName,
                             style = MaterialTheme.typography.bodySmall.copy(
                                 fontWeight = FontWeight.Normal,
                                 color = TrueWhite
@@ -114,7 +118,7 @@ fun FeaturedCard(
                             tint = TrueWhite
                         )
                         Text(
-                            text = featuredItem.time,
+                            text = recipe.cookTime,
                             style = MaterialTheme.typography.bodySmall.copy(
                                 fontWeight = FontWeight.Normal,
                                 color = TrueWhite
