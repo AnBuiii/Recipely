@@ -15,9 +15,9 @@ import androidx.compose.ui.unit.dp
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.FeaturedItem
 import com.anbui.recipely.domain.models.exampleRecipes
+import com.anbui.recipely.presentation.components.RecipelyLargeCard
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 
 @Composable
 fun FeaturedSection(
@@ -52,7 +52,7 @@ fun FeaturedSection(
             horizontalArrangement = Arrangement.spacedBy(SpaceLarge)
         ) {
             items(exampleRecipes) {
-                FeaturedCard(recipe = it, modifier = Modifier.padding(horizontal = SpaceLarge))
+                RecipelyLargeCard(recipe = it, modifier = Modifier.padding(horizontal = SpaceLarge))
             }
 
         }

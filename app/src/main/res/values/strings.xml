@@ -56,4 +56,7 @@
     <string name="heart">heart</string>
     <string name="calories">calories</string>
     <string name="seperator">seperator</string>
+    <string name="recent_search">Recent search</string>
+    <string name="popular_recipes">Popular Recipes</string>
+    <string name="arrow_right">arrow right</string>
 </resources>

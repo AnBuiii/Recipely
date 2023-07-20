@@ -37,6 +37,7 @@ import com.anbui.recipely.presentation.ui.theme.MediumGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
+import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
 
 @ExperimentalMaterial3Api
@@ -103,8 +104,8 @@ fun LoginScreen(
 
             Button(
                 onClick = {
-                    navController.navigate(Screen.HomeScreen.route){
-                        popUpTo(0){
+                    navController.navigate(Screen.HomeScreen.route) {
+                        popUpTo(0) {
                             inclusive = true
                         }
                     }
@@ -115,7 +116,7 @@ fun LoginScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.login),
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyMedium.copy(color = TrueWhite),
                     modifier = Modifier.padding(vertical = SpaceSmall)
                 )
             }
@@ -172,7 +173,7 @@ fun LoginScreen(
                 }
 
             }
-            Spacer(modifier =  Modifier.height(SpaceLarge))
+            Spacer(modifier = Modifier.height(SpaceLarge))
 
         }
 
