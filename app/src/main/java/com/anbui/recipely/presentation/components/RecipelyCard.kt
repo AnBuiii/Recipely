@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,14 +14,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -38,8 +37,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.anbui.recipely.R
+import com.anbui.recipely.domain.models.Notification
+import com.anbui.recipely.domain.models.NotificationType
 import com.anbui.recipely.domain.models.Recipe
 import com.anbui.recipely.domain.models.exampleRecipes
+import com.anbui.recipely.presentation.ui.theme.GoogleRed
 import com.anbui.recipely.presentation.ui.theme.MediumGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
@@ -187,7 +189,8 @@ fun RecipelyVerticallyCard(
                         id = if (recipe.isLike) R.drawable.ic_heart_filled
                         else R.drawable.ic_heart
                     ),
-                    contentDescription = stringResource(R.string.heart)
+                    contentDescription = stringResource(R.string.heart),
+                    tint = Color.Unspecified
                 )
             }
         }
@@ -244,7 +247,7 @@ fun RecipelyHorizontallyCard(
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.spacedBy(SpaceMedium),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
@@ -252,19 +255,20 @@ fun RecipelyHorizontallyCard(
                 contentDescription = recipe.title,
                 modifier = Modifier
                     .fillMaxHeight()
-                    .width(100.dp)
+                    .aspectRatio(100f / 84f)
                     .clip(MaterialTheme.shapes.large),
                 contentScale = ContentScale.Crop
 
             )
             Column(
-                modifier = Modifier.width(184.dp),
-                verticalArrangement = Arrangement.SpaceBetween
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(
                     text = recipe.title,
                     style = MaterialTheme.typography.bodyMedium,
                     maxLines = 2,
+                    softWrap = true
                 )
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(SpaceSmall),
@@ -283,7 +287,7 @@ fun RecipelyHorizontallyCard(
                         style = MaterialTheme.typography.bodySmall.copy(
                             fontWeight = FontWeight.Normal,
                             color = MediumGrey
-                        )
+                        ),
                     )
                 }
             }
@@ -293,7 +297,9 @@ fun RecipelyHorizontallyCard(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = TrueWhite
                 ),
-                modifier = Modifier.padding(end = SpaceTiny).size(32.dp),
+                modifier = Modifier
+                    .padding(end = SpaceTiny)
+                    .size(32.dp),
                 shape = MaterialTheme.shapes.medium
 
             ) {
@@ -324,7 +330,8 @@ fun RecipelyTinyCard(
             contentDescription = recipe.title,
             modifier = Modifier
                 .clip(MaterialTheme.shapes.large)
-                .size(84.dp)
+                .fillMaxWidth()
+                .aspectRatio(1f)
         )
         Text(
             text = recipe.title,
@@ -332,6 +339,158 @@ fun RecipelyTinyCard(
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
+    }
+}
+
+@ExperimentalMaterial3Api
+@Composable
+fun RecipelyNotificationCard(
+    notification: Notification,
+    modifier: Modifier = Modifier
+) {
+    val titleText = when (notification.notificationType) {
+        NotificationType.CommentedOnRecipe, NotificationType.LikedRecipe -> {
+            stringResource(R.string.recipe_interaction)
+        }
+
+        NotificationType.FollowedUser -> {
+            stringResource(R.string.about_you)
+        }
+
+        NotificationType.Promo -> {
+            stringResource(R.string.promo)
+        }
+
+        NotificationType.RecipeRecommendation -> {
+            stringResource(R.string.recipe_recommendation)
+        }
+
+        NotificationType.Order -> {
+            stringResource(R.string.order)
+        }
+    }
+
+    val icon = when (notification.notificationType) {
+        NotificationType.CommentedOnRecipe, NotificationType.LikedRecipe -> {
+            null
+        }
+
+        NotificationType.FollowedUser -> {
+            painterResource(id = R.drawable.ic_profile_filled)
+        }
+
+        NotificationType.Promo -> {
+            painterResource(id = R.drawable.ic_discount)
+        }
+
+        NotificationType.RecipeRecommendation -> {
+            painterResource(id = R.drawable.ic_discount)
+        }
+
+        NotificationType.Order -> {
+            painterResource(id = R.drawable.ic_bag)
+        }
+    }
+
+
+    StandardCard(
+        modifier = modifier.height(80.dp),
+        contentPadding = SpaceMedium
+    ) {
+
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            horizontalArrangement = Arrangement.spacedBy(SpaceMedium),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            if (notification.imageUrl != null) {
+                AsyncImage(
+                    model = notification.imageUrl,
+                    contentDescription = stringResource(id = R.string.notification),
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .aspectRatio(1f)
+                        .clip(MaterialTheme.shapes.large),
+                    contentScale = ContentScale.Crop
+
+                )
+            } else {
+                FilledIconButton(
+                    onClick = { },
+                    enabled = false,
+                    shape = MaterialTheme.shapes.large,
+                    colors = IconButtonDefaults.filledIconButtonColors(
+                        disabledContainerColor = MaterialTheme.colorScheme.surface,
+                        disabledContentColor = MaterialTheme.colorScheme.secondary
+                    ),
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .aspectRatio(1f)
+                ) {
+                    if (icon != null) {
+                        Icon(
+                            painter = icon,
+                            contentDescription = stringResource(id = R.string.notification),
+                            tint = Color.Unspecified
+
+                        )
+                    }
+                }
+            }
+
+
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = titleText,
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontWeight = FontWeight.Normal,
+                            color = MediumGrey
+                        ),
+                        maxLines = 1,
+                        modifier = Modifier.weight(1f)
+                    )
+                    Text(
+                        text = notification.formattedTime,
+                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Normal),
+                        maxLines = 1,
+                        softWrap = true
+                    )
+
+                }
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(SpaceLarge),
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = notification.message,
+                        style = MaterialTheme.typography.bodyMedium,
+                        overflow = TextOverflow.Ellipsis,
+                        softWrap = true,
+                        modifier = Modifier.weight(1f)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .size(8.dp)
+                            .clip(CircleShape)
+                            .background(GoogleRed)
+                    )
+                }
+
+
+            }
+
+
+        }
+
     }
 }
 

@@ -14,7 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.anbui.recipely.presentation.ui.theme.MediumGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
+import com.anbui.recipely.presentation.ui.theme.ThinGrey
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 
 @ExperimentalMaterial3Api
@@ -30,7 +32,7 @@ fun StandardCard(
         modifier = modifier
             .shadow(
                 elevation = 16.dp,
-                spotColor = TrueWhite,
+                spotColor = ThinGrey,
                 ambientColor = MaterialTheme.colorScheme.primary,
                 shape = MaterialTheme.shapes.large
             ),

@@ -59,4 +59,10 @@
     <string name="recent_search">Recent search</string>
     <string name="popular_recipes">Popular Recipes</string>
     <string name="arrow_right">arrow right</string>
+    <string name="commented_on">commented on</string>
+    <string name="recipe_interaction">Recipe interaction</string>
+    <string name="about_you">About you</string>
+    <string name="promo">Promo</string>
+    <string name="recipe_recommendation">Recipe recommendation</string>
+    <string name="order">Order</string>
 </resources>

@@ -93,7 +93,7 @@ fun RowScope.StandardBottomNavItem(
             ) {
                 BadgedBox(
                     badge = {
-                        if(alertCount != null){
+                        if (alertCount != null) {
                             Badge(
                                 containerColor = MaterialTheme.colorScheme.primary,
                                 contentColor = MaterialTheme.colorScheme.onPrimary
@@ -108,17 +108,19 @@ fun RowScope.StandardBottomNavItem(
                     modifier = Modifier.align(Alignment.Center)
                 ) {
                     AnimatedContent(targetState = selected, label = "") {
-                        if(it){
+                        if (it) {
                             Icon(
                                 painter = selectedPainter,
                                 contentDescription = contentDescription,
-                                modifier = Modifier.align(Alignment.Center)
+                                modifier = Modifier.align(Alignment.Center),
+                                tint = Color.Unspecified
                             )
                         } else {
                             Icon(
                                 painter = unselectedPainter,
                                 contentDescription = contentDescription,
-                                modifier = Modifier.align(Alignment.Center)
+                                modifier = Modifier.align(Alignment.Center),
+                                tint = Color.Unspecified
                             )
                         }
                     }

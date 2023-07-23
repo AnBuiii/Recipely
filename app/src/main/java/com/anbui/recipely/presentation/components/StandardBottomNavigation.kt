@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.BottomNavItem
+import com.anbui.recipely.presentation.ui.theme.MediumGrey
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
 import com.anbui.recipely.presentation.util.toPx
@@ -72,7 +73,7 @@ fun StandardBottomNavigation(
             modifier = Modifier
                 .shadow(
                     elevation = 25.dp,
-                    spotColor = MaterialTheme.colorScheme.primary,
+                    spotColor = MediumGrey,
                     ambientColor = MaterialTheme.colorScheme.primary,
                     shape = BottomNavigationShape(16.dp.toPx())
                 )
