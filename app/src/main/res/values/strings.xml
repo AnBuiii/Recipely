@@ -65,4 +65,6 @@
     <string name="promo">Promo</string>
     <string name="recipe_recommendation">Recipe recommendation</string>
     <string name="order">Order</string>
+    <string name="setting">Setting</string>
+    <string name="my_favourite">My favourite</string>
 </resources>

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -37,10 +38,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.anbui.recipely.R
+import com.anbui.recipely.domain.models.Account
 import com.anbui.recipely.domain.models.Notification
 import com.anbui.recipely.domain.models.NotificationType
 import com.anbui.recipely.domain.models.Recipe
 import com.anbui.recipely.domain.models.exampleRecipes
+import com.anbui.recipely.presentation.ui.theme.DarkGrey
 import com.anbui.recipely.presentation.ui.theme.GoogleRed
 import com.anbui.recipely.presentation.ui.theme.MediumGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
@@ -151,14 +154,14 @@ fun RecipelyLargeCard(
 @Composable
 fun RecipelyVerticallyCard(
     recipe: Recipe,
-    onLikeClick: () -> Unit = {}
+    onLikeClick: () -> Unit = {},
+    modifier: Modifier = Modifier
 ) {
 
     StandardCard(
-        modifier = Modifier.size(
-            width = 200.dp,
-            height = 240.dp
-        )
+        modifier = modifier
+            .height(240.dp)
+            .aspectRatio(200f / 240f)
     ) {
         Box(
             modifier = Modifier
@@ -493,6 +496,151 @@ fun RecipelyNotificationCard(
 
     }
 }
+
+@ExperimentalMaterial3Api
+@Composable
+fun RecipelyAccountCard(
+    account: Account,
+    modifier: Modifier = Modifier
+) {
+
+    StandardCard(
+        modifier = modifier.height(80.dp),
+        contentPadding = SpaceMedium
+    ) {
+
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            horizontalArrangement = Arrangement.spacedBy(SpaceMedium),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            AsyncImage(
+                model = account.avatarUrl,
+                contentDescription = stringResource(id = R.string.notification),
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .aspectRatio(1f)
+                    .clip(CircleShape),
+                contentScale = ContentScale.Crop
+
+            )
+
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = account.name,
+                    style = MaterialTheme.typography.bodyLarge,
+                    maxLines = 1,
+                    modifier = Modifier.weight(1f)
+                )
+                Text(
+                    text = account.description,
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.Normal,
+                        color = DarkGrey
+                    ),
+                    maxLines = 1,
+                    softWrap = true
+                )
+
+            }
+            FilledIconButton(
+                onClick = { /*TODO*/ },
+                colors = IconButtonDefaults.filledIconButtonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = TrueWhite
+                ),
+                modifier = Modifier
+                    .padding(end = SpaceTiny)
+                    .size(32.dp),
+                shape = MaterialTheme.shapes.medium
+
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_arrow_right),
+                    contentDescription = stringResource(
+                        R.string.arrow_right
+                    ),
+                )
+            }
+
+
+        }
+
+    }
+}
+
+@ExperimentalMaterial3Api
+@Composable
+fun RecipelyTinyVerticallyCard(
+    recipe: Recipe,
+    onLikeClick: () -> Unit = {},
+    modifier: Modifier = Modifier
+) {
+
+    StandardCard(
+        modifier = modifier.wrapContentHeight()
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(MaterialTheme.shapes.large)
+                .fillMaxWidth()
+                .height(128.dp)
+        ) {
+            AsyncImage(
+                model = recipe.imageUrl,
+                contentDescription = recipe.description,
+                contentScale = ContentScale.Crop
+            )
+            FilledIconButton(
+                onClick = onLikeClick,
+                shape = MaterialTheme.shapes.small,
+                modifier = Modifier
+                    .padding(SpaceSmall)
+                    .align(Alignment.TopEnd)
+                    .size(32.dp),
+                colors = IconButtonDefaults.filledIconButtonColors(
+                    containerColor = TrueWhite,
+                    contentColor = if (recipe.isLike) MaterialTheme.colorScheme.secondary
+                    else MaterialTheme.colorScheme.primary
+                ),
+            ) {
+                Icon(
+                    painter = painterResource(
+                        id = if (recipe.isLike) R.drawable.ic_heart_filled
+                        else R.drawable.ic_heart
+                    ),
+                    contentDescription = stringResource(R.string.heart),
+                    tint = Color.Unspecified
+                )
+            }
+        }
+        Text(text = recipe.title, maxLines = 2, style = MaterialTheme.typography.bodyMedium)
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(SpaceSmall),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            AsyncImage(
+                model = recipe.ownerAvatarUrl,
+                contentDescription = recipe.ownerName,
+                modifier = Modifier
+                    .size(16.dp)
+                    .clip(CircleShape),
+                contentScale = ContentScale.FillBounds
+            )
+            Text(
+                text = recipe.ownerName,
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontWeight = FontWeight.Normal,
+                    color = MediumGrey
+                ),
+            )
+        }
+    }
+}
+
 
 @Preview
 @Composable

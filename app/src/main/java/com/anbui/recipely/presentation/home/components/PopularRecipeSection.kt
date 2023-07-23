@@ -54,7 +54,7 @@ fun PopularRecipeSection(
             contentPadding = PaddingValues(horizontal = SpaceLarge, vertical = SpaceMedium),
             horizontalArrangement = Arrangement.spacedBy(SpaceMedium)
         ) {
-            items(popularRecipes, key = {it.id}) {
+            items(popularRecipes, key = { it.id }) {
                 RecipelyVerticallyCard(recipe = it, onLikeClick = { onRecipeLikeClick(it.id) })
             }
 

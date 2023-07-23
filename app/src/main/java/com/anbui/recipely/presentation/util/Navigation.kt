@@ -1,5 +1,6 @@
 package com.anbui.recipely.presentation.util
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
@@ -17,6 +18,7 @@ import com.anbui.recipely.presentation.search.SearchScreen
 import com.anbui.recipely.presentation.select_interest.SelectInterestScreen
 import com.anbui.recipely.presentation.splash.SplashScreen
 
+@ExperimentalFoundationApi
 @ExperimentalLayoutApi
 @ExperimentalMaterial3Api
 @Composable
@@ -25,7 +27,7 @@ fun Navigation(
     navController: NavHostController,
 ) {
 
-    NavHost(navController = navController, startDestination = Screen.NotificationScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.AccountScreen.route) {
         composable(Screen.SplashScreen.route) {
             SplashScreen(navController = navController)
         }
