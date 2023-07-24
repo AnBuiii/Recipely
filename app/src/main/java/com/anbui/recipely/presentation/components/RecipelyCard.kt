@@ -501,12 +501,14 @@ fun RecipelyNotificationCard(
 @Composable
 fun RecipelyAccountCard(
     account: Account,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
 
     StandardCard(
         modifier = modifier.height(80.dp),
-        contentPadding = SpaceMedium
+        contentPadding = SpaceMedium,
+        onClick = onClick
     ) {
 
         Row(
@@ -530,13 +532,13 @@ fun RecipelyAccountCard(
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = account.name,
+                    text = account.firstName + " " + account.lastName,
                     style = MaterialTheme.typography.bodyLarge,
                     maxLines = 1,
                     modifier = Modifier.weight(1f)
                 )
                 Text(
-                    text = account.description,
+                    text = account.bio,
                     style = MaterialTheme.typography.bodySmall.copy(
                         fontWeight = FontWeight.Normal,
                         color = DarkGrey
@@ -547,7 +549,7 @@ fun RecipelyAccountCard(
 
             }
             FilledIconButton(
-                onClick = { /*TODO*/ },
+                onClick = onClick,
                 colors = IconButtonDefaults.filledIconButtonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = TrueWhite

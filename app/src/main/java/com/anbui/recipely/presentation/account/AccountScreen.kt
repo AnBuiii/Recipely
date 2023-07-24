@@ -25,12 +25,10 @@ import com.anbui.recipely.domain.models.exampleAccounts
 import com.anbui.recipely.domain.models.exampleRecipes
 import com.anbui.recipely.presentation.components.RecipelyAccountCard
 import com.anbui.recipely.presentation.components.RecipelyTinyVerticallyCard
-import com.anbui.recipely.presentation.components.RecipelyVerticallyCard
 import com.anbui.recipely.presentation.components.StandardToolbar
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
-import com.anbui.recipely.presentation.ui.theme.SpaceTiny
+import com.anbui.recipely.presentation.util.Screen
 
 @ExperimentalMaterial3Api
 @Composable
@@ -57,7 +55,8 @@ fun AccountScreen(
         ) {
             item(span = { GridItemSpan(maxLineSpan) }) {
                 RecipelyAccountCard(
-                    account = exampleAccounts[0]
+                    account = exampleAccounts[0],
+                    onClick = { navController.navigate(Screen.EditProfileScreen.route) }
                 )
             }
 

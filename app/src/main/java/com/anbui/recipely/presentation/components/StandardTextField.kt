@@ -4,22 +4,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -32,8 +25,6 @@ import com.anbui.recipely.R
 import com.anbui.recipely.presentation.ui.theme.IconSizeMedium
 import com.anbui.recipely.presentation.ui.theme.MediumGrey
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StandardTextField(
     modifier: Modifier = Modifier,
@@ -43,16 +34,20 @@ fun StandardTextField(
     error: String = "",
     style: TextStyle = MaterialTheme.typography.bodyMedium.copy(
         fontWeight = FontWeight.Medium,
-        color = MaterialTheme.colorScheme.primary
+        color = MaterialTheme.colorScheme.primary,
     ),
     singleLine: Boolean = true,
     maxLines: Int = 1,
+    minLines: Int = 1,
     leadingIcon: Painter? = null,
     keyboardType: KeyboardType = KeyboardType.Text,
     isPasswordToggleDisplayed: Boolean = keyboardType == KeyboardType.Password,
     isPasswordVisible: Boolean = false,
     onPasswordToggleClick: (Boolean) -> Unit = {},
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    isEnabled: Boolean = true,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    leadingIconModifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
@@ -65,7 +60,9 @@ fun StandardTextField(
                     onValueChange(it)
                 }
             },
+            enabled = isEnabled,
             maxLines = maxLines,
+            minLines = minLines,
             textStyle = style,
             placeholder = {
                 Text(
@@ -86,19 +83,19 @@ fun StandardTextField(
                 VisualTransformation.None
             },
             singleLine = singleLine,
-            leadingIcon = if (leadingIcon != null) {
-                val icon: @Composable () -> Unit = {
+            leadingIcon = {
+                leadingIcon?.let {
                     Icon(
-                        painter = leadingIcon,
+                        painter = it,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onBackground,
-                        modifier = Modifier.size(IconSizeMedium)
+                        modifier = leadingIconModifier
+                            .size(IconSizeMedium)
                     )
                 }
-                icon
-            } else null,
-            trailingIcon = if (isPasswordToggleDisplayed) {
-                val icon: @Composable () -> Unit = {
+            },
+            trailingIcon = trailingIcon ?: {
+                if (isPasswordToggleDisplayed) {
                     IconButton(
                         onClick = {
                             onPasswordToggleClick(!isPasswordVisible)
@@ -120,9 +117,9 @@ fun StandardTextField(
                             }
                         )
                     }
+
                 }
-                icon
-            } else null,
+            },
             shape = MaterialTheme.shapes.large,
             modifier = Modifier
                 .fillMaxWidth(),

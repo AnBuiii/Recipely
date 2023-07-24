@@ -3,16 +3,14 @@ package com.anbui.recipely
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -22,7 +20,9 @@ import com.anbui.recipely.presentation.ui.theme.RecipelyTheme
 import com.anbui.recipely.presentation.util.Navigation
 import com.anbui.recipely.presentation.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
+@ExperimentalFoundationApi
 @ExperimentalLayoutApi
 @ExperimentalMaterial3Api
 @AndroidEntryPoint
@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(
-            window,false
+            window, false
         )
         setContent {
             RecipelyTheme {
@@ -53,6 +53,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
     private fun shouldShowBottomBar(backStackEntry: NavBackStackEntry?): Boolean {
         val doesRouteMatch = backStackEntry?.destination?.route in listOf(
             Screen.HomeScreen.route,
@@ -60,8 +61,9 @@ class MainActivity : ComponentActivity() {
             Screen.NotificationScreen.route,
             Screen.AccountScreen.route
         )
-        val isOwnProfile = backStackEntry?.destination?.route == "${Screen.ProfileScreen.route}?userId={userId}" &&
-                backStackEntry.arguments?.getString("userId") == null
+        val isOwnProfile =
+            backStackEntry?.destination?.route == "${Screen.AccountScreen.route}?userId={userId}" &&
+                    backStackEntry.arguments?.getString("userId") == null
         return doesRouteMatch || isOwnProfile
     }
 }
