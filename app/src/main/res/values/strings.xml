@@ -75,4 +75,9 @@
     <string name="more">More</string>
     <string name="gender">Gender</string>
     <string name="tick">Tick</string>
+    <string name="carbs">%1$sg carbs</string>
+    <string name="proteins">%1$sg proteins</string>
+    <string name="kcal">%1$s Kcal</string>
+    <string name="fats">%1$sg fats</string>
+    <string name="ingredients">Ingredients</string>
 </resources>

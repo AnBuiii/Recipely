@@ -33,4 +33,23 @@ class RecipeDetailViewModel @Inject constructor() : ViewModel() {
 
     val bottomSheetScaffoldState: State<BottomSheetScaffoldState> = _bottomSheetScaffoldState
 
+    private val _viewMode = mutableStateOf<ViewMode>(ViewMode.Ingredients)
+    val viewMode: State<ViewMode> = _viewMode
+
+    fun changeViewMode(newValue: ViewMode) {
+        _viewMode.value = newValue
+    }
+    
+    private val _isDescriptionExpanded = mutableStateOf(false)
+    val isDescriptionExpanded: State<Boolean> = _isDescriptionExpanded
+    
+    fun changeDescriptionExpandedState() {
+        _isDescriptionExpanded.value = !_isDescriptionExpanded.value
+    }
+
+}
+
+sealed class ViewMode {
+    object Ingredients : ViewMode()
+    object Instructions : ViewMode()
 }

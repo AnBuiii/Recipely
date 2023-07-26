@@ -2,50 +2,53 @@ package com.anbui.recipely.presentation.recipe_detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextLayoutResult
-import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.anbui.recipely.R
+import com.anbui.recipely.domain.models.exampleIngredientItems
 import com.anbui.recipely.domain.models.exampleRecipes
+import com.anbui.recipely.presentation.components.StandardExpandingText
+import com.anbui.recipely.presentation.recipe_detail.components.IngredientItem
+import com.anbui.recipely.presentation.recipe_detail.components.NutritionItem
 import com.anbui.recipely.presentation.ui.theme.MediumGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
+import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
+import com.anbui.recipely.presentation.ui.theme.SpaceTiny
+import com.anbui.recipely.presentation.ui.theme.ThinGrey
+import com.anbui.recipely.presentation.ui.theme.TrueWhite
+import kotlin.math.roundToInt
 
+@ExperimentalStdlibApi
 @ExperimentalMaterial3Api
 @Composable
 fun RecipeDetailScreen(
@@ -61,46 +64,191 @@ fun RecipeDetailScreen(
         sheetContainerColor = MaterialTheme.colorScheme.background,
         sheetShadowElevation = 16.dp,
         sheetContent = {
-            Column(
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = SpaceLarge),
+                verticalAlignment = Alignment.Top,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = recipe.title,
+                    softWrap = true,
+                    style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier.weight(1f)
+                )
+//                Spacer(modifier = Modifier.weight(1f))
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(SpaceSmall),
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.offset(y = (12).dp)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_time),
+                        contentDescription = recipe.id,
+                        tint = MediumGrey
+                    )
+                    Text(
+                        text = recipe.cookTime,
+                        maxLines = 1,
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontWeight = FontWeight.Normal,
+                            color = MediumGrey
+                        )
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.padding(top = SpaceSmall))
+            LazyColumn(
                 modifier = Modifier.padding(horizontal = SpaceLarge)
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.Top,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        text = recipe.title,
-                        softWrap = true,
-                        style = MaterialTheme.typography.headlineSmall,
-                        modifier = Modifier.weight(1f)
-                    )
-//                Spacer(modifier = Modifier.weight(1f))
+                item {
+                    Row {
+                        StandardExpandingText(
+                            longText = recipe.description,
+                            isExpanded = recipeDetailViewModel.isDescriptionExpanded.value,
+                            onHintClick = { recipeDetailViewModel.changeDescriptionExpandedState() })
+                    }
+                    Spacer(modifier = Modifier.height(SpaceMedium))
+
+                }
+
+                item {
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(SpaceSmall),
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.offset(y = (12).dp)
+                        modifier = Modifier.fillMaxWidth()
                     ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_time),
-                            contentDescription = recipe.id,
-                            tint = MediumGrey
+                        NutritionItem(
+                            icon = R.drawable.ic_carb,
+                            text = stringResource(R.string.carbs, recipe.totalCarb.roundToInt()),
+                            modifier = Modifier.weight(1f)
                         )
-                        Text(
-                            text = recipe.cookTime,
-                            maxLines = 1,
-                            style = MaterialTheme.typography.bodySmall.copy(
-                                fontWeight = FontWeight.Normal,
-                                color = MediumGrey
-                            )
+                        NutritionItem(
+                            icon = R.drawable.ic_protein,
+                            text = stringResource(
+                                R.string.proteins,
+                                recipe.totalProtein.roundToInt()
+                            ),
+                            modifier = Modifier.weight(1f)
                         )
                     }
+                    Spacer(modifier = Modifier.height(SpaceMedium))
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        NutritionItem(
+                            icon = R.drawable.ic_calories,
+                            text = stringResource(R.string.kcal, recipe.totalCalories.roundToInt()),
+                            modifier = Modifier.weight(1f)
+
+                        )
+                        NutritionItem(
+                            icon = R.drawable.ic_fat,
+                            text = stringResource(R.string.fats, recipe.totalFat.roundToInt()),
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(SpaceMedium))
                 }
-                Spacer(modifier = Modifier.padding(top = SpaceSmall))
+                item {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(54.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = ThinGrey,
+                        ),
+                        shape = MaterialTheme.shapes.large,
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(SpaceTiny)
+                                .clip(MaterialTheme.shapes.large),
+                            verticalAlignment = Alignment.CenterVertically
 
-                AppExpandingText(longText = recipe.description)
+                        ) {
 
+                            Card(
+                                modifier = Modifier
+                                    .weight(1f),
+                                colors = CardDefaults.cardColors(
+                                    containerColor = if (recipeDetailViewModel.viewMode.value == ViewMode.Ingredients) MaterialTheme.colorScheme.primary else ThinGrey
+                                ),
+                                shape = MaterialTheme.shapes.large,
+                                onClick = {
+                                    recipeDetailViewModel.changeViewMode(ViewMode.Ingredients)
+                                }
+                            ) {
+                                Box(
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = "Ingredients",
+                                        style = MaterialTheme.typography.bodyMedium.copy(
+                                            color = if (recipeDetailViewModel.viewMode.value == ViewMode.Ingredients) TrueWhite else MaterialTheme.colorScheme.primary
+                                        )
+                                    )
+                                }
+
+                            }
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxHeight()
+                                    .weight(1f),
+                                colors = CardDefaults.cardColors(
+                                    containerColor = if (recipeDetailViewModel.viewMode.value == ViewMode.Instructions) MaterialTheme.colorScheme.primary else ThinGrey
+                                ),
+                                shape = MaterialTheme.shapes.large,
+                                onClick = {
+                                    recipeDetailViewModel.changeViewMode(ViewMode.Instructions)
+                                }
+                            ) {
+                                Box(
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = "Instructions",
+                                        style = MaterialTheme.typography.bodyMedium.copy(
+                                            color = if (recipeDetailViewModel.viewMode.value == ViewMode.Instructions) TrueWhite else MaterialTheme.colorScheme.primary
+                                        )
+                                    )
+                                }
+
+                            }
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(SpaceMedium))
+                }
+                item {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    ) {
+                        Text(
+                            text = stringResource(R.string.ingredients),
+                            style = MaterialTheme.typography.titleLarge,
+                        )
+                       Row {
+                           Text(
+                               text = stringResource(R.string.ingredients),
+                               style = MaterialTheme.typography.titleLarge,
+                           )
+                       }
+                    }
+                }
+                items(exampleIngredientItems, key = { it.id }) {
+                    IngredientItem(
+                        imageUrl = it.imageUrl,
+                        name = it.name,
+                        amount = it.amount,
+                        unit = it.unit.toString(),
+                        modifier = Modifier.padding(vertical = SpaceMedium)
+                    )
+                }
             }
 
         }) { _ ->
@@ -119,105 +267,4 @@ fun RecipeDetailScreen(
     }
 }
 
-@Composable
-fun AppExpandingText(
-    modifier: Modifier = Modifier,
-    longText: String,
-    minimizedMaxLines: Int = 3,
-    textAlign: TextAlign = TextAlign.Start,
-    expandHint: String = "… Show More",
-    shrinkHint: String = "… Show Less",
-    clickColor: Color = Color.Unspecified
-) {
-    var isExpanded by remember { mutableStateOf(value = false) }
-    var textLayoutResultState by remember { mutableStateOf<TextLayoutResult?>(value = null) }
-    var adjustedText by remember { mutableStateOf(value = longText) }
-    val overflow = textLayoutResultState?.hasVisualOverflow ?: false
-    val showOverflow = remember { mutableStateOf(value = false) }
-    val showMore = " $expandHint"
-    val showLess = " $shrinkHint"
 
-    LaunchedEffect(textLayoutResultState) {
-        if (textLayoutResultState == null) return@LaunchedEffect
-        if (!isExpanded && overflow) {
-            showOverflow.value = true
-            val lastCharIndex =
-                textLayoutResultState!!.getLineEnd(lineIndex = minimizedMaxLines - 1)
-            adjustedText = longText
-                .substring(startIndex = 0, endIndex = lastCharIndex)
-                .dropLast(showMore.length)
-                .dropLastWhile { it == ' ' || it == '.' }
-        }
-    }
-    val annotatedText = buildAnnotatedString {
-        if (isExpanded) {
-            append(longText)
-            withStyle(
-                style = SpanStyle(
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 14.sp
-                )
-            ) {
-                pushStringAnnotation(tag = "showLess", annotation = "showLess")
-                append(showLess)
-                addStyle(
-                    style = SpanStyle(
-                        color = clickColor,
-                        fontSize = 14.sp
-                    ),
-                    start = longText.length,
-                    end = longText.length + showMore.length
-                )
-                pop()
-            }
-        } else {
-            append(adjustedText)
-            withStyle(
-                style = SpanStyle(
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 14.sp
-                )
-            ) {
-                if (showOverflow.value) {
-                    pushStringAnnotation(tag = "showMore", annotation = "showMore")
-                    append(showMore)
-                    addStyle(
-                        style = SpanStyle(
-                            color = clickColor,
-                            fontSize = 14.sp
-                        ),
-                        start = adjustedText.length,
-                        end = adjustedText.length + showMore.length
-                    )
-                    pop()
-                }
-            }
-        }
-
-    }
-    Box(modifier = modifier) {
-        ClickableText(
-            text = annotatedText,
-            style = (MaterialTheme.typography.bodyLarge.copy(textAlign = textAlign)),
-            maxLines = if (isExpanded) Int.MAX_VALUE else 3,
-            onTextLayout = { textLayoutResultState = it },
-            onClick = { offset ->
-                annotatedText.getStringAnnotations(
-                    tag = "showLess",
-                    start = offset,
-                    end = offset + showLess.length
-                ).firstOrNull()?.let {
-                    isExpanded = !isExpanded
-                }
-                annotatedText.getStringAnnotations(
-                    tag = "showMore",
-                    start = offset,
-                    end = offset + showMore.length
-                ).firstOrNull()?.let {
-                    isExpanded = !isExpanded
-                }
-//                isExpanded = !isExpanded
-            }
-        )
-    }
-}
