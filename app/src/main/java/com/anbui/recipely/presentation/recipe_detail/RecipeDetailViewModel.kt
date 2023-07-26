@@ -39,10 +39,17 @@ class RecipeDetailViewModel @Inject constructor() : ViewModel() {
     fun changeViewMode(newValue: ViewMode) {
         _viewMode.value = newValue
     }
-    
+
+    private val _servings = mutableStateOf(1)
+    val servings: State<Int> = _servings
+
+    fun changeServings(newValue: Int) {
+        _servings.value = newValue
+    }
+
     private val _isDescriptionExpanded = mutableStateOf(false)
     val isDescriptionExpanded: State<Boolean> = _isDescriptionExpanded
-    
+
     fun changeDescriptionExpandedState() {
         _isDescriptionExpanded.value = !_isDescriptionExpanded.value
     }

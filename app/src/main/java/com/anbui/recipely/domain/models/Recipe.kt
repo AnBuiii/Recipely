@@ -15,6 +15,7 @@ data class Recipe(
     val ownerId: String,
     val ownerName: String,
     val ownerAvatarUrl: String,
+    val ownerDescription: String
 )
 
 val exampleRecipes = listOf(
@@ -29,7 +30,8 @@ val exampleRecipes = listOf(
         totalFat = 29f,
         ownerId = "exampleUser1",
         ownerName = "An Bùi",
-        ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1"
+        ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
+        ownerDescription = "I'm the author and recipe developer"
     ),
     Recipe(
         id = "exampleRecipe2",
@@ -42,7 +44,8 @@ val exampleRecipes = listOf(
         totalFat = 29f,
         ownerId = "exampleUser2",
         ownerName = "Bùi An",
-        ownerAvatarUrl = "https://datepsychology.com/wp-content/uploads/2022/09/gigachad.jpg"
+        ownerAvatarUrl = "https://datepsychology.com/wp-content/uploads/2022/09/gigachad.jpg",
+        ownerDescription = "I'm the author and recipe developer"
     ),
     Recipe(
         id = "exampleRecipe3",
@@ -55,7 +58,8 @@ val exampleRecipes = listOf(
         totalFat = 29f,
         ownerId = "exampleUser1",
         ownerName = "An Bùi",
-        ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1"
+        ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
+        ownerDescription = "I'm the author and recipe developer"
     ),
     Recipe(
         id = "exampleRecipe4",
@@ -68,7 +72,8 @@ val exampleRecipes = listOf(
         totalFat = 29f,
         ownerId = "exampleUser1",
         ownerName = "An Bùi",
-        ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1"
+        ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
+        ownerDescription = "I'm the author and recipe developer"
     ),
     Recipe(
         id = "exampleRecipe5",
@@ -81,7 +86,8 @@ val exampleRecipes = listOf(
         totalFat = 29f,
         ownerId = "exampleUser1",
         ownerName = "An Bùi",
-        ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1"
+        ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
+        ownerDescription = "I'm the author and recipe developer"
     ),
     Recipe(
         id = "exampleRecipe6",
@@ -94,7 +100,8 @@ val exampleRecipes = listOf(
         totalFat = 29f,
         ownerId = "exampleUser1",
         ownerName = "An Bùi",
-        ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1"
+        ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
+        ownerDescription = "I'm the author and recipe developer"
     ),
     Recipe(
         id = "exampleRecipe7",
@@ -107,7 +114,8 @@ val exampleRecipes = listOf(
         totalFat = 29f,
         ownerId = "exampleUser1",
         ownerName = "An Bùi",
-        ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1"
+        ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
+        ownerDescription = "I'm the author and recipe developer"
     ),
     Recipe(
         id = "exampleRecipe8",
@@ -120,7 +128,8 @@ val exampleRecipes = listOf(
         totalFat = 29f,
         ownerId = "exampleUser1",
         ownerName = "An Bùi",
-        ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1"
+        ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
+        ownerDescription = "I'm the author and recipe developer"
     ),
     Recipe(
         id = "exampleRecipe9",
@@ -133,7 +142,8 @@ val exampleRecipes = listOf(
         totalFat = 29f,
         ownerId = "exampleUser1",
         ownerName = "An Bùi",
-        ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1"
+        ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
+        ownerDescription = "I'm the author and recipe developer"
     ),
 )
 

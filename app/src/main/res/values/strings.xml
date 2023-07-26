@@ -80,4 +80,8 @@
     <string name="kcal">%1$s Kcal</string>
     <string name="fats">%1$sg fats</string>
     <string name="ingredients">Ingredients</string>
+    <string name="servings">Servings</string>
+    <string name="items">%1$s items</string>
+    <string name="negative">Negative</string>
+    <string name="creator">Creator</string>
 </resources>
