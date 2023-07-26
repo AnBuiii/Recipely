@@ -3,6 +3,9 @@ package com.anbui.recipely.presentation.util
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SheetValue
+import androidx.compose.material3.rememberBottomSheetScaffoldState
+import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -23,12 +26,11 @@ import com.anbui.recipely.presentation.splash.SplashScreen
 @ExperimentalFoundationApi
 @ExperimentalLayoutApi
 @ExperimentalMaterial3Api
-@Composable
 
+@Composable
 fun Navigation(
     navController: NavHostController,
 ) {
-
     NavHost(navController = navController, startDestination = Screen.RecipeDetailScreen.route) {
         composable(Screen.SplashScreen.route) {
             SplashScreen(navController = navController)
@@ -61,10 +63,10 @@ fun Navigation(
         composable(Screen.SelectInterestScreen.route) {
             SelectInterestScreen(navController = navController)
         }
-        composable(Screen.EditProfileScreen.route){
+        composable(Screen.EditProfileScreen.route) {
             EditProfileScreen(navController = navController)
         }
-        composable(Screen.RecipeDetailScreen.route){
+        composable(Screen.RecipeDetailScreen.route) {
             RecipeDetailScreen(navController = navController)
         }
 //        composable(Screen.MainFeedScreen.route) {

@@ -22,7 +22,7 @@ val exampleRecipes = listOf(
         title = "Asian white noodle with extra seafood",
         cookTime = "20 Min",
         imageUrl = "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
-        description = "This Healthy Taco Salad is the universal delight of taco night",
+        description = "This Healthy Taco Salad is the universal delight of taco night. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam odio libero, iaculis eget lacinia sollicitudin, auctor vitae purus. Suspendisse at semper risus. Nunc id scelerisque purus. Aliquam fringilla ultricies orci eget faucibus.",
         isLike = false,
         totalCarb = 32, totalFat = 29, totalCalories = 120, totalProtein = 91,
         ownerId = "exampleUser1",
