@@ -15,7 +15,8 @@ data class Recipe(
     val ownerId: String,
     val ownerName: String,
     val ownerAvatarUrl: String,
-    val ownerDescription: String
+    val ownerDescription: String,
+    val instructions: List<String>
 )
 
 val exampleRecipes = listOf(
@@ -31,7 +32,14 @@ val exampleRecipes = listOf(
         ownerId = "exampleUser1",
         ownerName = "An Bùi",
         ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
-        ownerDescription = "I'm the author and recipe developer"
+        ownerDescription = "I'm the author and recipe developer",
+        instructions = listOf(
+            "Bake the tortilla strips: Coat a baking sheet with nonstick spray. Cut the tortillas into strips, drizzle with oil, and sprinkle with salt and pepper. Toss to coat, and bake at 425 degrees F until golden",
+            "In a medium skillet, heat the olive oil over medium heat. Add the mushrooms and cook, stirring only occasionally, until they begin to brown and soften, 3 to 4 minutes. ",
+            "Stir in the walnuts and lightly toast for 1 to 2 minutes. Stir in the tamari and the chili powder.",
+            "Add the balsamic vinegar and stir again. Remove from the heat and season with salt and pepper to taste.",
+            "Assemble the salad with romaine lettuce, cabbage, black beans, radishes, tomatoes, avocado, jalapenos. "
+        )
     ),
     Recipe(
         id = "exampleRecipe2",
@@ -45,7 +53,8 @@ val exampleRecipes = listOf(
         ownerId = "exampleUser2",
         ownerName = "Bùi An",
         ownerAvatarUrl = "https://datepsychology.com/wp-content/uploads/2022/09/gigachad.jpg",
-        ownerDescription = "I'm the author and recipe developer"
+        ownerDescription = "I'm the author and recipe developer",
+        instructions = emptyList()
     ),
     Recipe(
         id = "exampleRecipe3",
@@ -59,7 +68,8 @@ val exampleRecipes = listOf(
         ownerId = "exampleUser1",
         ownerName = "An Bùi",
         ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
-        ownerDescription = "I'm the author and recipe developer"
+        ownerDescription = "I'm the author and recipe developer",
+        instructions = emptyList()
     ),
     Recipe(
         id = "exampleRecipe4",
@@ -73,7 +83,8 @@ val exampleRecipes = listOf(
         ownerId = "exampleUser1",
         ownerName = "An Bùi",
         ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
-        ownerDescription = "I'm the author and recipe developer"
+        ownerDescription = "I'm the author and recipe developer",
+        instructions = emptyList()
     ),
     Recipe(
         id = "exampleRecipe5",
@@ -87,7 +98,8 @@ val exampleRecipes = listOf(
         ownerId = "exampleUser1",
         ownerName = "An Bùi",
         ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
-        ownerDescription = "I'm the author and recipe developer"
+        ownerDescription = "I'm the author and recipe developer",
+        instructions = emptyList()
     ),
     Recipe(
         id = "exampleRecipe6",
@@ -101,7 +113,8 @@ val exampleRecipes = listOf(
         ownerId = "exampleUser1",
         ownerName = "An Bùi",
         ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
-        ownerDescription = "I'm the author and recipe developer"
+        ownerDescription = "I'm the author and recipe developer",
+        instructions = emptyList()
     ),
     Recipe(
         id = "exampleRecipe7",
@@ -115,7 +128,8 @@ val exampleRecipes = listOf(
         ownerId = "exampleUser1",
         ownerName = "An Bùi",
         ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
-        ownerDescription = "I'm the author and recipe developer"
+        ownerDescription = "I'm the author and recipe developer",
+        instructions = emptyList()
     ),
     Recipe(
         id = "exampleRecipe8",
@@ -129,7 +143,8 @@ val exampleRecipes = listOf(
         ownerId = "exampleUser1",
         ownerName = "An Bùi",
         ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
-        ownerDescription = "I'm the author and recipe developer"
+        ownerDescription = "I'm the author and recipe developer",
+        instructions = emptyList()
     ),
     Recipe(
         id = "exampleRecipe9",
@@ -143,7 +158,8 @@ val exampleRecipes = listOf(
         ownerId = "exampleUser1",
         ownerName = "An Bùi",
         ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
-        ownerDescription = "I'm the author and recipe developer"
+        ownerDescription = "I'm the author and recipe developer",
+        instructions = emptyList()
     ),
 )
 

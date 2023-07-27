@@ -144,17 +144,11 @@ fun LazyListScope.ingredientsSection(
 
         ) {
             Text(
-                text = "Add To Cart",
+                text = stringResource(R.string.add_to_cart),
                 style = MaterialTheme.typography.bodyMedium.copy(TrueWhite),
                 modifier = Modifier.padding(vertical = SpaceSmall)
             )
         }
-
-        Spacer(modifier = Modifier.height(SpaceLarge))
-
-        Divider(color = MaterialTheme.colorScheme.secondary)
-
-        Spacer(modifier = Modifier.height(SpaceMedium))
 
     }
 }

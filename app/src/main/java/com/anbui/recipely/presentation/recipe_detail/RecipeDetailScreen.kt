@@ -1,5 +1,6 @@
 package com.anbui.recipely.presentation.recipe_detail
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,11 +26,14 @@ import com.anbui.recipely.presentation.recipe_detail.components.HeadingSection
 import com.anbui.recipely.presentation.recipe_detail.components.creatorSection
 import com.anbui.recipely.presentation.recipe_detail.components.descriptionSection
 import com.anbui.recipely.presentation.recipe_detail.components.ingredientsSection
+import com.anbui.recipely.presentation.recipe_detail.components.instructionsSection
 import com.anbui.recipely.presentation.recipe_detail.components.overviewSection
 import com.anbui.recipely.presentation.recipe_detail.components.relatedRecipesSection
 import com.anbui.recipely.presentation.recipe_detail.components.viewModeSection
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
+import com.anbui.recipely.presentation.util.Screen
 
+@ExperimentalFoundationApi
 @ExperimentalStdlibApi
 @ExperimentalMaterial3Api
 @Composable
@@ -74,6 +78,13 @@ fun RecipeDetailScreen(
                         recipe = recipe,
                         servings = recipeDetailViewModel.servings.value,
                         onChangeServing = recipeDetailViewModel::changeServings
+                    )
+                } else {
+                    instructionsSection(
+                        recipe = recipe,
+                        onStartCookingClick = {
+                            navController.navigate(Screen.CookingDetailScreen.route)
+                        }
                     )
                 }
 

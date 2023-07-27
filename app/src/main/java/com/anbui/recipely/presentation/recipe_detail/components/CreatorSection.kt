@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
@@ -26,6 +27,13 @@ import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 fun LazyListScope.creatorSection(
     recipe: Recipe
 ){
+    item {
+        Spacer(modifier = Modifier.height(SpaceLarge))
+
+        Divider(color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.25f))
+
+        Spacer(modifier = Modifier.height(SpaceMedium))
+    }
     item {
         Text(
             text = stringResource(R.string.creator),

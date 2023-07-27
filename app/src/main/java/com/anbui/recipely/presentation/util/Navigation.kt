@@ -11,6 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.anbui.recipely.presentation.account.AccountScreen
+import com.anbui.recipely.presentation.cooking_detail.CookingDetailScreen
 import com.anbui.recipely.presentation.create_account.CreateAccountScreen
 import com.anbui.recipely.presentation.edit_profile.EditProfileScreen
 import com.anbui.recipely.presentation.forgot_password.ForgotPasswordScreen
@@ -23,6 +24,7 @@ import com.anbui.recipely.presentation.search.SearchScreen
 import com.anbui.recipely.presentation.select_interest.SelectInterestScreen
 import com.anbui.recipely.presentation.splash.SplashScreen
 
+@ExperimentalStdlibApi
 @ExperimentalFoundationApi
 @ExperimentalLayoutApi
 @ExperimentalMaterial3Api
@@ -68,6 +70,9 @@ fun Navigation(
         }
         composable(Screen.RecipeDetailScreen.route) {
             RecipeDetailScreen(navController = navController)
+        }
+        composable(Screen.CookingDetailScreen.route) {
+            CookingDetailScreen(navController = navController)
         }
 //        composable(Screen.MainFeedScreen.route) {
 //            MainFeedScreen(navController = navController)
