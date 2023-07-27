@@ -96,7 +96,6 @@ fun StandardScaffold(
     ) {
         val a = it
         Box(
-
         ) {
             content()
         }

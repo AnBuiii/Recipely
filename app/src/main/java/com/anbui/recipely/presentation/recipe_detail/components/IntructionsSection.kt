@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -61,10 +61,10 @@ fun LazyListScope.instructionsSection(
         }
     }
 
-    itemsIndexed(recipe.instructions, key = { _, item ->
-        item
+    items(recipe.instructions.sortedBy { it.order }, key = {
+        "Step ${it.order}"
     }
-    ) { idx, item ->
+    ) {
         StandardCard(
             modifier = Modifier
                 .fillMaxWidth()
@@ -82,14 +82,14 @@ fun LazyListScope.instructionsSection(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "${idx + 1}",
+                            text = "${it.order}",
                             style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.secondary),
                             modifier = Modifier
                         )
                     }
                 }
                 Text(
-                    text = item,
+                    text = it.instruction,
                     style = MaterialTheme.typography.bodyMedium.copy(
                         fontWeight = FontWeight.Normal,
                         color = DarkGrey

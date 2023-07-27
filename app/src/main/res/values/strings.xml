@@ -88,4 +88,5 @@
     <string name="steps">%1$s Steps</string>
     <string name="start_cooking">Start Cooking</string>
     <string name="add_to_cart">Add To Cart</string>
+    <string name="list">list</string>
 </resources>

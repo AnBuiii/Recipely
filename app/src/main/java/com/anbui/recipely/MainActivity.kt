@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalStdlibApi::class)
-
 package com.anbui.recipely
 
 import android.os.Bundle
@@ -14,6 +12,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
+import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -24,6 +23,8 @@ import com.anbui.recipely.presentation.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
+@UnstableApi
+@ExperimentalStdlibApi
 @ExperimentalFoundationApi
 @ExperimentalLayoutApi
 @ExperimentalMaterial3Api

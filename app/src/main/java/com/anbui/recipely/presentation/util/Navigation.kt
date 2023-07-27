@@ -7,6 +7,7 @@ import androidx.compose.material3.SheetValue
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -24,16 +25,16 @@ import com.anbui.recipely.presentation.search.SearchScreen
 import com.anbui.recipely.presentation.select_interest.SelectInterestScreen
 import com.anbui.recipely.presentation.splash.SplashScreen
 
+@UnstableApi
 @ExperimentalStdlibApi
 @ExperimentalFoundationApi
 @ExperimentalLayoutApi
 @ExperimentalMaterial3Api
-
 @Composable
 fun Navigation(
     navController: NavHostController,
 ) {
-    NavHost(navController = navController, startDestination = Screen.RecipeDetailScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.CookingDetailScreen.route) {
         composable(Screen.SplashScreen.route) {
             SplashScreen(navController = navController)
         }
