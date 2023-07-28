@@ -10,7 +10,3 @@ enum class Status {
     INIT, RUNNING, PAUSED, FINISHED
 }
 
-
-sealed class TimerEvent {
-
-}

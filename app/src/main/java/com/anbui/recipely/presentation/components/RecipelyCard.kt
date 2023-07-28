@@ -155,13 +155,15 @@ fun RecipelyLargeCard(
 fun RecipelyVerticallyCard(
     recipe: Recipe,
     onLikeClick: () -> Unit = {},
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
 
     StandardCard(
         modifier = modifier
             .height(240.dp)
-            .aspectRatio(200f / 240f)
+            .aspectRatio(200f / 240f),
+        onClick = onClick
     ) {
         Box(
             modifier = Modifier
@@ -654,7 +656,7 @@ fun RecipelyLargeCardPreview() {
 @Preview
 @Composable
 fun RecipelyVerticallyCardPreview() {
-    RecipelyVerticallyCard(recipe = exampleRecipes.first())
+    RecipelyVerticallyCard(recipe = exampleRecipes.first(), onClick = {})
 }
 
 @ExperimentalMaterial3Api

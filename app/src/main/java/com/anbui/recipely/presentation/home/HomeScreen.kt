@@ -22,6 +22,7 @@ import com.anbui.recipely.presentation.home.components.HeadingSection
 import com.anbui.recipely.presentation.home.components.PopularRecipeSection
 import com.anbui.recipely.presentation.ui.theme.SpaceHuge
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
+import com.anbui.recipely.presentation.util.Screen
 
 @ExperimentalMaterial3Api
 @Composable
@@ -69,6 +70,11 @@ fun HomeScreen(
                 val idx = popularRecipes.indexOfFirst { it.id == id }
                 val recipe = popularRecipes[idx]
                 popularRecipes[idx] = recipe.copy(isLike = !recipe.isLike)
+            },
+            onRecipeClick = { id ->
+                navController.navigate(
+                    Screen.RecipeDetailScreen.route
+                )
             }
         )
     }

@@ -39,7 +39,7 @@ import com.anbui.recipely.domain.models.BottomNavItem
 import com.anbui.recipely.presentation.ui.theme.MediumGrey
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
-import com.anbui.recipely.presentation.util.toPx
+import com.anbui.recipely.util.toPx
 import kotlin.math.sqrt
 
 @Composable

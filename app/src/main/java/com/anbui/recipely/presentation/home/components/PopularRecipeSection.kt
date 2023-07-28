@@ -27,7 +27,8 @@ import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 fun PopularRecipeSection(
     modifier: Modifier = Modifier,
     popularRecipes: List<Recipe> = emptyList(),
-    onRecipeLikeClick: (String) -> Unit = {}
+    onRecipeLikeClick: (String) -> Unit = {},
+    onRecipeClick: (String) -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(0.dp)
@@ -55,7 +56,10 @@ fun PopularRecipeSection(
             horizontalArrangement = Arrangement.spacedBy(SpaceMedium)
         ) {
             items(popularRecipes, key = { it.id }) {
-                RecipelyVerticallyCard(recipe = it, onLikeClick = { onRecipeLikeClick(it.id) })
+                RecipelyVerticallyCard(
+                    recipe = it,
+                    onLikeClick = { onRecipeLikeClick(it.id) },
+                    onClick = { onRecipeClick(it.id) })
             }
 
         }

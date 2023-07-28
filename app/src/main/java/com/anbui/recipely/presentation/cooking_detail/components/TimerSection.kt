@@ -1,12 +1,12 @@
 package com.anbui.recipely.presentation.cooking_detail.components
 
-import android.os.CountDownTimer
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.with
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,7 +17,6 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,7 +37,9 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.R
 import com.anbui.recipely.presentation.cooking_detail.Status
+import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.ThinGreen
+import com.anbui.recipely.util.convertSecondsToHMmSs
 
 @ExperimentalAnimationApi
 @Composable
@@ -47,35 +48,28 @@ fun Timer(
     inactiveBarColor: Color = ThinGreen,
     activeBarColor: Color = MaterialTheme.colorScheme.secondary,
     modifier: Modifier = Modifier,
-    initialValue: Float = 1f,
     strokeWidth: Dp = 6.dp,
     currentTime: Long,
-    onButtonClick : () -> Unit,
+    onButtonClick: () -> Unit,
     buttonState: Status
 ) {
     var size by remember {
         mutableStateOf(IntSize.Zero)
     }
-    var value by remember {
-        mutableStateOf(initialValue)
-    }
-//    var currentTime by remember {
-//        mutableStateOf(totalTime)
-//    }
-    var isTimerRunning by remember {
-        mutableStateOf(false)
-    }
 
-
-    Column() {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(SpaceMedium)
+    ) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = modifier
+                .size(140.dp)
                 .onSizeChanged {
                     size = it
                 }
         ) {
-            Canvas(modifier = modifier) {
+            Canvas(modifier = modifier.size(140.dp)) {
                 drawArc(
                     color = inactiveBarColor,
                     startAngle = -90f,
@@ -87,7 +81,7 @@ fun Timer(
                 drawArc(
                     color = activeBarColor,
                     startAngle = -90f,
-                    sweepAngle = -360f * (currentTime / totalTime.toFloat()),
+                    sweepAngle = 360f * ((totalTime - currentTime) / totalTime.toFloat()),
                     useCenter = false,
                     size = Size(size.width.toFloat(), size.height.toFloat()),
                     style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round)
@@ -103,13 +97,24 @@ fun Timer(
                 modifier = Modifier.size(48.dp)
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_play),
+                    painter = when(buttonState){
+                        Status.INIT, Status.PAUSED -> {
+                            painterResource(id = R.drawable.ic_play)
+                        }
+                        Status.RUNNING -> {
+                            painterResource(id = R.drawable.ic_pause)
+                        }
+                        Status.FINISHED -> {
+                            painterResource(id = R.drawable.ic_restart)
+                        }
+                    },
+
                     contentDescription = "button",
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(20.dp)
                 )
             }
         }
-        AnimatedCounter(count = (currentTime / 1000L).toInt())
+        AnimatedCounter(count = (currentTime / 1000L).convertSecondsToHMmSs())
     }
 
 }
@@ -117,7 +122,7 @@ fun Timer(
 @ExperimentalAnimationApi
 @Composable
 fun AnimatedCounter(
-    count: Int,
+    count: String,
     modifier: Modifier = Modifier,
     style: TextStyle = MaterialTheme.typography.headlineLarge
 ) {
@@ -128,15 +133,14 @@ fun AnimatedCounter(
         oldCount = count
     }
     Row(modifier = modifier) {
-        val countString = count.toString()
-        val oldCountString = oldCount.toString()
-        for (i in countString.indices) {
+        val oldCountString = oldCount
+        for (i in count.indices) {
             val oldChar = oldCountString.getOrNull(i)
-            val newChar = countString[i]
+            val newChar = count[i]
             val char = if (oldChar == newChar) {
                 oldCountString[i]
             } else {
-                countString[i]
+                count[i]
             }
             AnimatedContent(
                 targetState = char,

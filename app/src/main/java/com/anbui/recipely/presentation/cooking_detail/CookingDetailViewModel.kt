@@ -12,29 +12,30 @@ class CookingDetailViewModel @Inject constructor() : ViewModel() {
     private val _viewState = mutableStateOf(CookingDetailState())
     val viewState: State<CookingDetailState> = _viewState
 
-    var countDown: CountDownTimer? = null
+    private var countDown: CountDownTimer? = null
 
     fun setTimer(millis: Long) {
         countDown?.cancel()
-        _viewState.value = _viewState.value.copy(
+        _viewState.value = CookingDetailState(
             timeDuration = millis,
-            status = Status.INIT
+            status = Status.INIT,
+            remainingTime = millis
         )
     }
-    fun startTimer(millis: Long) {
+
+    private fun startTimer(millis: Long) {
         _viewState.value = _viewState.value.copy(
             status = Status.RUNNING
         )
         countDown = object : CountDownTimer(millis, 10) {
             override fun onTick(millisUntilFinished: Long) {
-                _viewState.value =  _viewState.value.copy(
+                _viewState.value = _viewState.value.copy(
                     remainingTime = millisUntilFinished,
                 )
             }
 
             override fun onFinish() {
                 _viewState.value = _viewState.value.copy(
-//                    timeDuration = 0,
                     status = Status.FINISHED,
                 )
             }
@@ -43,7 +44,7 @@ class CookingDetailViewModel @Inject constructor() : ViewModel() {
         countDown?.start()
     }
 
-    fun pauseTimer() {
+    private fun pauseTimer() {
         countDown?.cancel()
         _viewState.value = _viewState.value.copy(
             status = Status.PAUSED,
@@ -53,17 +54,19 @@ class CookingDetailViewModel @Inject constructor() : ViewModel() {
 
     fun buttonSelection() {
         println(_viewState.value)
-       when(_viewState.value.status){
-           Status.INIT, Status.FINISHED -> {
-               startTimer(_viewState.value.timeDuration)
-           }
-           Status.RUNNING -> {
-               pauseTimer()
-           }
-           Status.PAUSED -> {
-               startTimer(_viewState.value.remainingTime)
-           }
-       }
+        when (_viewState.value.status) {
+            Status.INIT, Status.FINISHED -> {
+                startTimer(_viewState.value.timeDuration)
+            }
+
+            Status.RUNNING -> {
+                pauseTimer()
+            }
+
+            Status.PAUSED -> {
+                startTimer(_viewState.value.remainingTime)
+            }
+        }
 
     }
 }

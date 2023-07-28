@@ -1,4 +1,4 @@
-package com.anbui.recipely.presentation.util
+package com.anbui.recipely.util
 
 import android.content.res.Resources
 import android.util.TypedValue

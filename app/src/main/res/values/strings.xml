@@ -92,4 +92,7 @@
     <string name="pause">pause</string>
     <string name="play">play</string>
     <string name="animated_counter">animated counter</string>
+    <string name="step">Step</string>
+    <string name="next_step">Next Step</string>
+    <string name="completed">Completed</string>
 </resources>
