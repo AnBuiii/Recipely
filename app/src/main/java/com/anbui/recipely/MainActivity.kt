@@ -3,6 +3,7 @@ package com.anbui.recipely
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +24,7 @@ import com.anbui.recipely.presentation.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
+@ExperimentalAnimationApi
 @UnstableApi
 @ExperimentalStdlibApi
 @ExperimentalFoundationApi

@@ -1,4 +1,4 @@
-package com.anbui.recipely.presentation.ui.theme
+    package com.anbui.recipely.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

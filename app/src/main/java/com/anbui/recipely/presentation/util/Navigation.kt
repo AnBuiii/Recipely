@@ -1,5 +1,6 @@
 package com.anbui.recipely.presentation.util
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -25,6 +26,7 @@ import com.anbui.recipely.presentation.search.SearchScreen
 import com.anbui.recipely.presentation.select_interest.SelectInterestScreen
 import com.anbui.recipely.presentation.splash.SplashScreen
 
+@ExperimentalAnimationApi
 @UnstableApi
 @ExperimentalStdlibApi
 @ExperimentalFoundationApi

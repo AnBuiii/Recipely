@@ -5,7 +5,7 @@ data class Step(
     val instruction: String,
     val mediaUrl: String?,
     val type: MediaType,
-    val period: Int,
+    val period: Long,
 )
 
 sealed class MediaType(val type: String) {

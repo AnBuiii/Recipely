@@ -89,4 +89,7 @@
     <string name="start_cooking">Start Cooking</string>
     <string name="add_to_cart">Add To Cart</string>
     <string name="list">list</string>
+    <string name="pause">pause</string>
+    <string name="play">play</string>
+    <string name="animated_counter">animated counter</string>
 </resources>
