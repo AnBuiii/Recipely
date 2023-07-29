@@ -59,7 +59,14 @@ fun StandardScaffold(
     Scaffold(
         bottomBar = {
             if (showBottomBar) {
-                StandardBottomNavigation {
+                StandardBottomNavigation(
+                    onFabClick = {
+                        navController.navigate(Screen.CreateRecipeScreen.route) {
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                ) {
                     bottomNavItems.forEachIndexed { i, bottomNavItem ->
                         if (bottomNavItem.unselectedIcon != null) {
                             StandardBottomNavItem(

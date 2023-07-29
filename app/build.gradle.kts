@@ -134,4 +134,7 @@ dependencies {
     androidTestImplementation(libs.androidx.core.ktx)
     androidTestImplementation(libs.mockwebserver)
     androidTestImplementation(libs.mockk.android)
+
+    // Reorder Lazy List
+    implementation("org.burnoutcrew.composereorderable:reorderable:0.9.6")
 }

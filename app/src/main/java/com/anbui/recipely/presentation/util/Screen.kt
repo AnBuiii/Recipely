@@ -16,9 +16,9 @@ sealed class Screen(val route: String) {
     object EditProfileScreen : Screen("edit_profile_screen")
     object RecipeDetailScreen : Screen("recipe_detail_screen")
     object CookingDetailScreen : Screen("cooking_detail_screen")
+    object CreateRecipeScreen : Screen("create_recipe_screen")
 
 
-    object CreatePostScreen : Screen("create_post_screen")
     object PostDetailScreen : Screen("post_detail_screen")
     object ChatScreen : Screen("chat_screen")
     object MessagesScreen : Screen("messages_screen")

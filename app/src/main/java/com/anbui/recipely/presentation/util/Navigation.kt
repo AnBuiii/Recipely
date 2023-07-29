@@ -4,9 +4,6 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SheetValue
-import androidx.compose.material3.rememberBottomSheetScaffoldState
-import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavHostController
@@ -15,6 +12,7 @@ import androidx.navigation.compose.composable
 import com.anbui.recipely.presentation.account.AccountScreen
 import com.anbui.recipely.presentation.cooking_detail.CookingDetailScreen
 import com.anbui.recipely.presentation.create_account.CreateAccountScreen
+import com.anbui.recipely.presentation.create_recipe.CreateRecipeScreen
 import com.anbui.recipely.presentation.edit_profile.EditProfileScreen
 import com.anbui.recipely.presentation.forgot_password.ForgotPasswordScreen
 import com.anbui.recipely.presentation.home.HomeScreen
@@ -36,7 +34,7 @@ import com.anbui.recipely.presentation.splash.SplashScreen
 fun Navigation(
     navController: NavHostController,
 ) {
-    NavHost(navController = navController, startDestination = Screen.CookingDetailScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.CreateRecipeScreen.route) {
         composable(Screen.SplashScreen.route) {
             SplashScreen(navController = navController)
         }
@@ -77,6 +75,9 @@ fun Navigation(
         composable(Screen.CookingDetailScreen.route) {
             CookingDetailScreen(navController = navController)
         }
+        composable(Screen.CreateRecipeScreen.route) {
+            CreateRecipeScreen(navController = navController)
+        }
 //        composable(Screen.MainFeedScreen.route) {
 //            MainFeedScreen(navController = navController)
 //        }
@@ -98,9 +99,7 @@ fun Navigation(
 //        composable(Screen.EditProfileScreen.route){
 //            EditProfileScreen(navController = navController)
 //        }
-//        composable(Screen.CreatePostScreen.route){
-//            CreatePostScreen(navController = navController)
-//        }
+
 //        composable(Screen.PostDetailScreen.route) {
 //            PostDetailScreen(
 //                navController = navController,

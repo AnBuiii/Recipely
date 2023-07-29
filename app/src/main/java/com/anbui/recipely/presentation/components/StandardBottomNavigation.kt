@@ -45,6 +45,7 @@ import kotlin.math.sqrt
 @Composable
 fun StandardBottomNavigation(
     windowInsets: WindowInsets = NavigationBarDefaults.windowInsets,
+    onFabClick : () -> Unit,
     content: @Composable RowScope.() -> Unit
 ) {
     Box(
@@ -53,7 +54,7 @@ fun StandardBottomNavigation(
             .height(128.dp)
     ) {
         FilledIconButton(
-            onClick = { /*TODO*/ },
+            onClick = onFabClick,
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .shadow(
@@ -231,7 +232,11 @@ fun StandardBottomNavigationPreview() {
             contentDescription = stringResource(R.string.account)
         ),
     )
-    StandardBottomNavigation {
+    StandardBottomNavigation(
+        onFabClick = {
+
+        }
+    ) {
         bottomNavItems.forEachIndexed { i, bottomNavItem ->
             if (bottomNavItem.unselectedIcon != null) {
                 StandardBottomNavItem(
