@@ -57,6 +57,6 @@ class RecipeDetailViewModel @Inject constructor() : ViewModel() {
 }
 
 sealed class ViewMode {
-    object Ingredients : ViewMode()
-    object Instructions : ViewMode()
+    data object  Ingredients : ViewMode()
+    data object Instructions : ViewMode()
 }
