@@ -9,23 +9,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CookingDetailViewModel @Inject constructor() : ViewModel() {
-    private val _viewState = mutableStateOf(CookingDetailState())
-    val viewState: State<CookingDetailState> = _viewState
+    private val _viewState = mutableStateOf(CookingDetailTimerState())
+    val viewState: State<CookingDetailTimerState> = _viewState
 
     private var countDown: CountDownTimer? = null
 
     fun setTimer(millis: Long) {
         countDown?.cancel()
-        _viewState.value = CookingDetailState(
+        _viewState.value = CookingDetailTimerState(
             timeDuration = millis,
-            status = Status.INIT,
+            timerStatus = TimerStatus.INIT,
             remainingTime = millis
         )
     }
 
     private fun startTimer(millis: Long) {
         _viewState.value = _viewState.value.copy(
-            status = Status.RUNNING
+            timerStatus = TimerStatus.RUNNING
         )
         countDown = object : CountDownTimer(millis, 10) {
             override fun onTick(millisUntilFinished: Long) {
@@ -36,7 +36,7 @@ class CookingDetailViewModel @Inject constructor() : ViewModel() {
 
             override fun onFinish() {
                 _viewState.value = _viewState.value.copy(
-                    status = Status.FINISHED,
+                    timerStatus = TimerStatus.FINISHED,
                 )
             }
 
@@ -47,26 +47,33 @@ class CookingDetailViewModel @Inject constructor() : ViewModel() {
     private fun pauseTimer() {
         countDown?.cancel()
         _viewState.value = _viewState.value.copy(
-            status = Status.PAUSED,
+            timerStatus = TimerStatus.PAUSED,
         )
     }
 
 
     fun buttonSelection() {
         println(_viewState.value)
-        when (_viewState.value.status) {
-            Status.INIT, Status.FINISHED -> {
+        when (_viewState.value.timerStatus) {
+            TimerStatus.INIT, TimerStatus.FINISHED -> {
                 startTimer(_viewState.value.timeDuration)
             }
 
-            Status.RUNNING -> {
+            TimerStatus.RUNNING -> {
                 pauseTimer()
             }
 
-            Status.PAUSED -> {
+            TimerStatus.PAUSED -> {
                 startTimer(_viewState.value.remainingTime)
             }
         }
 
+    }
+
+    private val _viewMode = mutableStateOf<ViewMode>(ViewMode.Ingredients)
+    val viewMode: State<ViewMode> = _viewMode
+
+    fun changeViewMode(newValue: ViewMode) {
+        _viewMode.value = newValue
     }
 }

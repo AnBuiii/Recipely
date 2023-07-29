@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -15,7 +13,6 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedIconButton
@@ -28,16 +25,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.R
-import com.anbui.recipely.domain.models.IngredientItem
 import com.anbui.recipely.domain.models.Recipe
 import com.anbui.recipely.domain.models.exampleIngredientItems
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 
 fun LazyListScope.ingredientsSection(
-    ingredients: List<IngredientItem>,
     recipe: Recipe,
     servings: Int,
     onChangeServing: (Int) -> Unit
@@ -125,7 +119,7 @@ fun LazyListScope.ingredientsSection(
             }
         }
     }
-    items(ingredients, key = { it.id }) {
+    items(recipe.ingredients, key = { it.ingredientId }) {
         IngredientItem(
             imageUrl = it.imageUrl,
             name = it.name,

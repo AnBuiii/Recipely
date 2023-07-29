@@ -79,7 +79,14 @@ fun CookingDetailScreen(
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
     val corountineScope = rememberCoroutineScope()
 
-    DetailBottomSheet(isOpen = openBottomSheet, onChangeOpenState = { openBottomSheet = it })
+    DetailBottomSheet(
+        recipe = recipe,
+        serving = 4,
+        isOpen = openBottomSheet,
+        viewMode = cookingDetailViewModel.viewMode.value,
+        onChangeOpenState = { openBottomSheet = it },
+        onChangeViewMode = cookingDetailViewModel::changeViewMode
+    )
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -190,7 +197,7 @@ fun CookingDetailScreen(
         Timer(
             totalTime = state.timeDuration,
             currentTime = state.remainingTime,
-            buttonState = state.status,
+            buttonState = state.timerStatus,
             onButtonClick = {
                 cookingDetailViewModel.buttonSelection()
             }
@@ -223,9 +230,9 @@ fun CookingDetailScreen(
                         mediaPagerState.animateScrollToPage(mediaPagerState.currentPage + 1)
                     }
                 } else {
-                    navController.navigate(Screen.RecipeDetailScreen.route){
+                    navController.navigate(Screen.RecipeDetailScreen.route) {
                         launchSingleTop = true
-                        popUpTo(Screen.CookingDetailScreen.route){
+                        popUpTo(Screen.CookingDetailScreen.route) {
                             inclusive = true
                         }
                     }

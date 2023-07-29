@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.R
-import com.anbui.recipely.presentation.cooking_detail.Status
+import com.anbui.recipely.presentation.cooking_detail.TimerStatus
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.ThinGreen
 import com.anbui.recipely.util.convertSecondsToHMmSs
@@ -51,7 +51,7 @@ fun Timer(
     strokeWidth: Dp = 6.dp,
     currentTime: Long,
     onButtonClick: () -> Unit,
-    buttonState: Status
+    buttonState: TimerStatus
 ) {
     var size by remember {
         mutableStateOf(IntSize.Zero)
@@ -98,13 +98,13 @@ fun Timer(
             ) {
                 Icon(
                     painter = when(buttonState){
-                        Status.INIT, Status.PAUSED -> {
+                        TimerStatus.INIT, TimerStatus.PAUSED -> {
                             painterResource(id = R.drawable.ic_play)
                         }
-                        Status.RUNNING -> {
+                        TimerStatus.RUNNING -> {
                             painterResource(id = R.drawable.ic_pause)
                         }
-                        Status.FINISHED -> {
+                        TimerStatus.FINISHED -> {
                             painterResource(id = R.drawable.ic_restart)
                         }
                     },

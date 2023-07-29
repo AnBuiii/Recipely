@@ -74,7 +74,6 @@ fun RecipeDetailScreen(
 
                 if (recipeDetailViewModel.viewMode.value is ViewMode.Ingredients) {
                     ingredientsSection(
-                        ingredients = exampleIngredientItems,
                         recipe = recipe,
                         servings = recipeDetailViewModel.servings.value,
                         onChangeServing = recipeDetailViewModel::changeServings

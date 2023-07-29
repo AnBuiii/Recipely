@@ -16,7 +16,8 @@ data class Recipe(
     val ownerName: String,
     val ownerAvatarUrl: String,
     val ownerDescription: String,
-    val instructions: List<Step>
+    val instructions: List<Step>,
+    val ingredients: List<IngredientItem>
 )
 
 val exampleRecipes = listOf(
@@ -24,7 +25,7 @@ val exampleRecipes = listOf(
         id = "exampleRecipe1",
         title = "Asian white noodle with extra seafood",
         imageUrl = "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
-        description = "This Healthy Taco Salad is the universal delight of taco night. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam odio libero, iaculis eget lacinia sollicitudin, auctor vitae purus. Suspendisse at semper risus. Nunc id scelerisque purus. Aliquam fringilla ultricies orci eget faucibus.",
+        description = "This Healthy Taco Salad is the universal delight of taco night. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam odio libero, iaculis eget lacinia sollicitudin, auctor vitae purus. Suspendisse at semper risus. Nunc ingredientId scelerisque purus. Aliquam fringilla ultricies orci eget faucibus.",
         isLike = false,
         cookTime = "20 Min",
         servings = 4, totalCalories = 120f, totalCarb = 32f, totalProtein = 91f,
@@ -33,9 +34,8 @@ val exampleRecipes = listOf(
         ownerName = "An Bùi",
         ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
         ownerDescription = "I'm the author and recipe developer",
-        instructions = listOf(
-            *exampleSteps.toTypedArray()
-        )
+        instructions = listOf(*exampleSteps.toTypedArray()),
+        ingredients = listOf(*exampleIngredientItems.toTypedArray())
     ),
     Recipe(
         id = "exampleRecipe2",
@@ -50,7 +50,8 @@ val exampleRecipes = listOf(
         ownerName = "Bùi An",
         ownerAvatarUrl = "https://datepsychology.com/wp-content/uploads/2022/09/gigachad.jpg",
         ownerDescription = "I'm the author and recipe developer",
-        instructions = emptyList()
+        instructions = emptyList(),
+        ingredients = listOf(*exampleIngredientItems.toTypedArray())
     ),
     Recipe(
         id = "exampleRecipe3",
@@ -65,7 +66,8 @@ val exampleRecipes = listOf(
         ownerName = "An Bùi",
         ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
         ownerDescription = "I'm the author and recipe developer",
-        instructions = emptyList()
+        instructions = emptyList(),
+        ingredients = listOf(*exampleIngredientItems.toTypedArray())
     ),
     Recipe(
         id = "exampleRecipe4",
@@ -80,7 +82,8 @@ val exampleRecipes = listOf(
         ownerName = "An Bùi",
         ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
         ownerDescription = "I'm the author and recipe developer",
-        instructions = emptyList()
+        instructions = emptyList(),
+        ingredients = listOf(*exampleIngredientItems.toTypedArray())
     ),
     Recipe(
         id = "exampleRecipe5",
@@ -95,7 +98,8 @@ val exampleRecipes = listOf(
         ownerName = "An Bùi",
         ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
         ownerDescription = "I'm the author and recipe developer",
-        instructions = emptyList()
+        instructions = emptyList(),
+        ingredients = listOf(*exampleIngredientItems.toTypedArray())
     ),
     Recipe(
         id = "exampleRecipe6",
@@ -110,7 +114,8 @@ val exampleRecipes = listOf(
         ownerName = "An Bùi",
         ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
         ownerDescription = "I'm the author and recipe developer",
-        instructions = emptyList()
+        instructions = emptyList(),
+        ingredients = listOf(*exampleIngredientItems.toTypedArray())
     ),
     Recipe(
         id = "exampleRecipe7",
@@ -125,7 +130,8 @@ val exampleRecipes = listOf(
         ownerName = "An Bùi",
         ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
         ownerDescription = "I'm the author and recipe developer",
-        instructions = emptyList()
+        instructions = emptyList(),
+        ingredients = listOf(*exampleIngredientItems.toTypedArray())
     ),
     Recipe(
         id = "exampleRecipe8",
@@ -140,7 +146,8 @@ val exampleRecipes = listOf(
         ownerName = "An Bùi",
         ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
         ownerDescription = "I'm the author and recipe developer",
-        instructions = emptyList()
+        instructions = emptyList(),
+        ingredients = listOf(*exampleIngredientItems.toTypedArray())
     ),
     Recipe(
         id = "exampleRecipe9",
@@ -155,7 +162,8 @@ val exampleRecipes = listOf(
         ownerName = "An Bùi",
         ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
         ownerDescription = "I'm the author and recipe developer",
-        instructions = emptyList()
+        instructions = emptyList(),
+        ingredients = listOf(*exampleIngredientItems.toTypedArray())
     ),
 )
 
