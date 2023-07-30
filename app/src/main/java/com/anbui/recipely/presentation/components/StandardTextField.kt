@@ -30,6 +30,7 @@ fun StandardTextField(
     modifier: Modifier = Modifier,
     text: String,
     hint: String = "",
+    suffix: String = "",
     maxLength: Int = 40,
     error: String = "",
     style: TextStyle = MaterialTheme.typography.bodyMedium.copy(
@@ -49,6 +50,9 @@ fun StandardTextField(
     trailingIcon: @Composable (() -> Unit)? = null,
     leadingIconModifier: Modifier = Modifier,
 ) {
+
+
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -83,8 +87,8 @@ fun StandardTextField(
                 VisualTransformation.None
             },
             singleLine = singleLine,
-            leadingIcon = {
-                leadingIcon?.let {
+            leadingIcon = leadingIcon?.let {
+                @Composable{
                     Icon(
                         painter = it,
                         contentDescription = null,
@@ -125,7 +129,12 @@ fun StandardTextField(
                 .fillMaxWidth(),
             colors = OutlinedTextFieldDefaults.colors(
                 unfocusedBorderColor = MaterialTheme.colorScheme.surface
-            )
+            ),
+            suffix = {
+                Text(
+                    text = suffix
+                )
+            }
         )
         if (error.isNotEmpty()) {
             Text(

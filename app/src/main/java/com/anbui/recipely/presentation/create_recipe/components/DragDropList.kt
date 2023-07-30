@@ -1,4 +1,4 @@
-package com.anbui.recipely.presentation.create_recipe
+package com.anbui.recipely.presentation.create_recipe.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
@@ -28,8 +28,6 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.anbui.recipely.presentation.cooking_detail.TimerStatus
-import com.anbui.recipely.presentation.cooking_detail.ViewMode
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -44,7 +42,7 @@ fun DragDropList(
 ) {
     val scope = rememberCoroutineScope()
     var overScrollJob by remember { mutableStateOf<Job?>(null) }
-    val dragDropListState = rememberDragDropListState(onMove = onMove)
+    val dragDropListState = rememberDraggableListState(onMove = onMove)
 
 
     LazyColumn(
@@ -66,7 +64,7 @@ fun DragDropList(
                                 overScrollJob = scope.launch {
                                     dragDropListState.lazyListState.scrollBy(it)
                                 }
-                            } ?: kotlin.run { overScrollJob?.cancel() }
+                            } ?: run { overScrollJob?.cancel() }
                     },
                     onDragStart = { offset -> dragDropListState.onDragStart(offset) },
                     onDragEnd = { dragDropListState.onDragInterrupted() },
@@ -88,10 +86,6 @@ fun DragDropList(
                 if (isDragging) TrueWhite else MaterialTheme.colorScheme.primary,
                 label = "",
             )
-            val a = TimerStatus.entries
-            a.forEach {
-
-            }
             Column(
                 modifier = Modifier
                     .shadow(

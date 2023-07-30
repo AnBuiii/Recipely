@@ -54,7 +54,7 @@ import com.anbui.recipely.domain.models.exampleRecipes
 import com.anbui.recipely.presentation.components.StandardToolbar
 import com.anbui.recipely.presentation.components.StandardVideoPlayer
 import com.anbui.recipely.presentation.cooking_detail.components.DetailBottomSheet
-import com.anbui.recipely.presentation.cooking_detail.components.ProgressBarSection
+import com.anbui.recipely.presentation.components.StandardProgressIndicator
 import com.anbui.recipely.presentation.cooking_detail.components.Timer
 import com.anbui.recipely.presentation.ui.theme.SpaceHuge
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
@@ -221,7 +221,7 @@ fun CookingDetailScreen(
             )
         }
 
-        ProgressBarSection(indicatorProgress = (mediaPagerState.currentPage + 1).toFloat() / recipe.instructions.size)
+        StandardProgressIndicator(indicatorProgress = (mediaPagerState.currentPage + 1).toFloat() / recipe.instructions.size)
 
         Button(
             onClick = {

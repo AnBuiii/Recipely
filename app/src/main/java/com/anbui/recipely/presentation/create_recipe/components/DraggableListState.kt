@@ -1,21 +1,20 @@
-package com.anbui.recipely.presentation.create_recipe
+package com.anbui.recipely.presentation.create_recipe.components
 
 import androidx.compose.foundation.lazy.LazyListItemInfo
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.*
 import androidx.compose.ui.geometry.Offset
-import kotlinx.coroutines.Job
 
 @Composable
-fun rememberDragDropListState(
+fun rememberDraggableListState(
     lazyListState: LazyListState = rememberLazyListState(),
     onMove: (Int, Int) -> Unit
-): DragDropListState {
-    return remember { DragDropListState(lazyListState = lazyListState, onMove = onMove) }
+): DraggableListState {
+    return remember { DraggableListState(lazyListState = lazyListState, onMove = onMove) }
 }
 
-class DragDropListState(
+class DraggableListState(
     val lazyListState: LazyListState,
     private val onMove: (Int, Int) -> Unit,
 ) {
@@ -32,8 +31,6 @@ class DragDropListState(
             lazyListState.getVisibleItemInfoFor(absolute = it)
         }
 
-//    private var overScrollJob by mutableStateOf<Job?>(null)
-
     fun onDragStart(offset: Offset) {
         lazyListState.layoutInfo.visibleItemsInfo
             .firstOrNull { item ->
@@ -48,7 +45,6 @@ class DragDropListState(
         draggedDistance = 0f
         currentIndexOfDraggedItem = null
         initiallyDraggedElement = null
-//        overScrollJob?.cancel()
     }
 
     fun onDrag(offset: Offset) {
@@ -99,6 +95,19 @@ class DragDropListState(
 
 
 
+fun LazyListState.getVisibleItemInfoFor(absolute: Int): LazyListItemInfo? {
+    return this.layoutInfo.visibleItemsInfo.getOrNull(absolute - this.layoutInfo.visibleItemsInfo.first().index)
+}
+
+val LazyListItemInfo.offsetEnd: Int
+    get() = this.offset + this.size
+
+fun <T> MutableList<T>.swap(from: Int, to: Int) {
+    if (from == to)
+        return
+
+    this[from] = this[to].also { this[to] = this[from] }
+}
 
 
 

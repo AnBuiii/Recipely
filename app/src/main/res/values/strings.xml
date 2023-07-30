@@ -95,4 +95,13 @@
     <string name="step">Step</string>
     <string name="next_step">Next Step</string>
     <string name="completed">Completed</string>
+    <string name="recipely">Recipely</string>
+    <string name="edit">edit</string>
+    <string name="title_image_hint">Add recipe cover image</string>
+    <string name="title">Title</string>
+    <string name="enter_recipe_title">Enter recipe title</string>
+    <string name="description">Description</string>
+    <string name="create_recipe_description_hint">Tell us about the food</string>
+    <string name="serves">Serves</string>
+    <string name="finish">Finish</string>
 </resources>

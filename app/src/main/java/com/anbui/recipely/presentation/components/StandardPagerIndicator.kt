@@ -34,7 +34,7 @@ internal interface PagerStateBridge {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HorizontalPagerIndicator(
+fun StandardHorizontalPagerIndicator(
     pagerState: PagerState,
     pageCount: Int,
     modifier: Modifier = Modifier,
@@ -55,7 +55,7 @@ fun HorizontalPagerIndicator(
         }
     }
 
-    HorizontalPagerIndicator(
+    StandardHorizontalPagerIndicator(
         pagerState = stateBridge,
         pageCount = pageCount,
         modifier = modifier,
@@ -70,7 +70,7 @@ fun HorizontalPagerIndicator(
 }
 
 @Composable
-private fun HorizontalPagerIndicator(
+private fun StandardHorizontalPagerIndicator(
     pagerState: PagerStateBridge,
     pageCount: Int,
     modifier: Modifier = Modifier,

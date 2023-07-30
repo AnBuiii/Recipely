@@ -1,6 +1,5 @@
-package com.anbui.recipely.presentation.cooking_detail.components
+package com.anbui.recipely.presentation.components
 
-import android.widget.ProgressBar
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -10,11 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
@@ -23,7 +18,7 @@ import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.ThinGreen
 
 @Composable
-fun ProgressBarSection(
+fun StandardProgressIndicator(
     indicatorProgress: Float
 ) {
     val progressAnimation by animateFloatAsState(

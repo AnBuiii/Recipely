@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.OnBoardingItem
-import com.anbui.recipely.presentation.components.HorizontalPagerIndicator
+import com.anbui.recipely.presentation.components.StandardHorizontalPagerIndicator
 import com.anbui.recipely.presentation.ui.theme.MediumGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceHuge
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
@@ -116,7 +116,7 @@ fun OnBoardingScreen(
                 )
             }
         }
-        HorizontalPagerIndicator(
+        StandardHorizontalPagerIndicator(
             pagerState = pageState,
             pageCount = onBoardings.size,
             modifier = Modifier.padding(top = SpaceHuge * 3)
