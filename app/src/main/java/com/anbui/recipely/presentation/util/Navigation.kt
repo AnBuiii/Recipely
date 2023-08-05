@@ -5,14 +5,19 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navigation
 import com.anbui.recipely.presentation.account.AccountScreen
+import com.anbui.recipely.presentation.add_ingredient.AddIngredientScreen
 import com.anbui.recipely.presentation.cooking_detail.CookingDetailScreen
 import com.anbui.recipely.presentation.create_account.CreateAccountScreen
 import com.anbui.recipely.presentation.create_recipe.CreateRecipeScreen
+import com.anbui.recipely.presentation.create_recipe.CreateRecipeViewModel
 import com.anbui.recipely.presentation.edit_profile.EditProfileScreen
 import com.anbui.recipely.presentation.forgot_password.ForgotPasswordScreen
 import com.anbui.recipely.presentation.home.HomeScreen
@@ -34,7 +39,7 @@ import com.anbui.recipely.presentation.splash.SplashScreen
 fun Navigation(
     navController: NavHostController,
 ) {
-    NavHost(navController = navController, startDestination = Screen.CreateRecipeScreen.route) {
+    NavHost(navController = navController, startDestination = "Create Recipe") {
         composable(Screen.SplashScreen.route) {
             SplashScreen(navController = navController)
         }
@@ -75,9 +80,25 @@ fun Navigation(
         composable(Screen.CookingDetailScreen.route) {
             CookingDetailScreen(navController = navController)
         }
-        composable(Screen.CreateRecipeScreen.route) {
-            CreateRecipeScreen(navController = navController)
+
+        navigation(route = "Create Recipe", startDestination = Screen.AddIngredientScreen.route){
+            composable(Screen.CreateRecipeScreen.route) {backStackEntry->
+                val parentEntry = remember(backStackEntry) {
+                    navController.getBackStackEntry("Create Recipe")
+                }
+                val createRecipeViewModel = hiltViewModel<CreateRecipeViewModel>(parentEntry)
+                CreateRecipeScreen(navController = navController, createRecipeViewModel)
+            }
+            composable(Screen.AddIngredientScreen.route) {backStackEntry ->
+                val parentEntry = remember(backStackEntry) {
+                    navController.getBackStackEntry("Create Recipe")
+                }
+                val createRecipeViewModel = hiltViewModel<CreateRecipeViewModel>(parentEntry)
+                AddIngredientScreen(navController = navController, createRecipeViewModel)
+            }
         }
+
+
 //        composable(Screen.MainFeedScreen.route) {
 //            MainFeedScreen(navController = navController)
 //        }

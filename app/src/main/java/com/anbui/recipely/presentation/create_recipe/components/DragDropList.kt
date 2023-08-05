@@ -1,20 +1,15 @@
 package com.anbui.recipely.presentation.create_recipe.components
 
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
 import androidx.compose.foundation.gestures.scrollBy
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,10 +19,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.anbui.recipely.R
+import com.anbui.recipely.domain.models.IngredientItem
+import com.anbui.recipely.presentation.recipe_detail.components.IngredientItem
+import com.anbui.recipely.presentation.ui.theme.SpaceLarge
+import com.anbui.recipely.presentation.ui.theme.SpaceMedium
+import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -36,9 +36,10 @@ import kotlinx.coroutines.launch
 @ExperimentalFoundationApi
 @Composable
 fun DragDropList(
-    items: List<String>,
+    items: List<IngredientItem>,
     onMove: (Int, Int) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onAddIngredientClick: () -> Unit
 ) {
     val scope = rememberCoroutineScope()
     var overScrollJob by remember { mutableStateOf<Job?>(null) }
@@ -75,40 +76,45 @@ fun DragDropList(
             .padding(top = 10.dp, start = 10.dp, end = 10.dp),
         state = dragDropListState.lazyListState
     ) {
-        itemsIndexed(items, key = { _, item -> item }) { index, item ->
+        itemsIndexed(items, key = { _, item -> item.ingredientId }) { index, item ->
             val isDragging = index == dragDropListState.currentIndexOfDraggedItem
-            val elevation = animateDpAsState(if (isDragging) 16.dp else 0.dp, label = "elevation")
             val color = animateColorAsState(
-                if (isDragging) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary,
+                if (isDragging) MaterialTheme.colorScheme.primary else TrueWhite,
                 label = "",
             )
             val textColor = animateColorAsState(
                 if (isDragging) TrueWhite else MaterialTheme.colorScheme.primary,
                 label = "",
             )
-            Column(
-                modifier = Modifier
-                    .shadow(
-                        elevation.value,
-                        shape = RoundedCornerShape(8.dp)
-                    )
 
-                    .background(
-                        color = color.value,
-                        shape = RoundedCornerShape(8.dp)
-                    )
+            IngredientItem(
+                imageUrl = item.imageUrl,
+                name = item.name,
+                amount = item.amount,
+                unit = item.unit.toString(),
+                modifier = Modifier
+                    .padding(vertical = SpaceMedium, horizontal = SpaceLarge)
+                    .animateItemPlacement(),
+                containerColor = color.value,
+                textColor = textColor.value
+            )
+        }
+
+        item("add ingredient") {
+            Button(
+                onClick = onAddIngredientClick,
+                shape = MaterialTheme.shapes.large,
+                modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp)
-                    .animateItemPlacement()
+                    .padding(bottom = SpaceLarge, start = SpaceLarge, end = SpaceLarge)
+
             ) {
                 Text(
-                    text = item,
-                    fontSize = 16.sp,
-                    color = textColor.value
+                    text = stringResource(R.string.add_ingredient),
+                    style = MaterialTheme.typography.bodyMedium.copy(color = TrueWhite),
+                    modifier = Modifier.padding(vertical = SpaceSmall)
                 )
             }
-
-            Spacer(modifier = Modifier.height(10.dp))
         }
     }
 }

@@ -1,12 +1,11 @@
 package com.anbui.recipely.presentation.create_recipe
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,7 +24,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.presentation.components.StandardProgressIndicator
+import com.anbui.recipely.presentation.create_recipe.components.IngredientsSection
 import com.anbui.recipely.presentation.create_recipe.components.OverviewSection
+import com.anbui.recipely.presentation.util.Screen
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterial3Api
@@ -35,7 +36,7 @@ fun CreateRecipeScreen(
     navController: NavController,
     createRecipeViewModel: CreateRecipeViewModel = hiltViewModel()
 ) {
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(initialPage = 1)
 
     val steps = listOf("Overview", "Ingredients", "Instructions", "Review")
     val coroutineScope = rememberCoroutineScope()
@@ -58,7 +59,7 @@ fun CreateRecipeScreen(
                             coroutineScope.launch {
                                 pagerState.animateScrollToPage(pagerState.currentPage - 1)
                             }
-                        }else {
+                        } else {
                             navController.navigateUp()
                         }
 
@@ -104,23 +105,28 @@ fun CreateRecipeScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
         ) {
-
-
-
 
             HorizontalPager(
                 pageCount = 5,
                 state = pagerState,
                 userScrollEnabled = false
-            ) {
-                when (it) {
+            ) { page ->
+                when (page) {
                     0 -> OverviewSection(
                         selectedImages = createRecipeViewModel.images,
                         onEvent = createRecipeViewModel::onEvent,
                         title = createRecipeViewModel.title.value
                     )
+
+                    1 -> IngredientsSection(
+                        searchText = createRecipeViewModel.searchText.value,
+                        onEvent = createRecipeViewModel::onEvent,
+                        ingredients = createRecipeViewModel.ingredient,
+                        searchResult = createRecipeViewModel.searchResult,
+                        onAddIngredientClick = {navController.navigate(Screen.AddIngredientScreen.route)}
+                    )
+
                 }
             }
         }

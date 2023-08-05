@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.presentation.ui.theme.MediumGrey
@@ -25,6 +26,7 @@ fun StandardCard(
     modifier: Modifier = Modifier,
     contentPadding: Dp = SpaceMedium,
     onClick: () -> Unit = {},
+    containerColor: Color = TrueWhite,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Card(
@@ -36,7 +38,7 @@ fun StandardCard(
                 ambientColor = MaterialTheme.colorScheme.primary,
                 shape = MaterialTheme.shapes.large
             ),
-        colors = CardDefaults.cardColors(containerColor = TrueWhite),
+        colors = CardDefaults.cardColors(containerColor = containerColor),
         onClick = onClick
 
     ) {

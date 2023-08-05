@@ -1,5 +1,6 @@
 package com.anbui.recipely.presentation.recipe_detail.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -19,6 +21,7 @@ import coil.compose.AsyncImage
 import com.anbui.recipely.R
 import com.anbui.recipely.presentation.components.StandardCard
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
+import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.util.vulgarFraction
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,10 +31,13 @@ fun IngredientItem(
     name: String,
     amount: Float,
     unit: String,
+    containerColor: Color = TrueWhite,
+    textColor: Color = MaterialTheme.colorScheme.primary,
     modifier: Modifier = Modifier
 ) {
     StandardCard(
         modifier = modifier,
+        containerColor = containerColor
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -55,14 +61,14 @@ fun IngredientItem(
                 )
                 Text(
                     text = name,
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.bodyLarge.copy(color = textColor),
                     softWrap = true,
                 )
             }
 
             Text(
                 text = "${amount.vulgarFraction.first} $unit",
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium)
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium, color = textColor)
             )
         }
     }

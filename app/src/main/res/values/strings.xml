@@ -104,4 +104,11 @@
     <string name="create_recipe_description_hint">Tell us about the food</string>
     <string name="serves">Serves</string>
     <string name="finish">Finish</string>
+    <string name="add_ingredient">Add ingredient to recipe</string>
+    <string name="ingredient_name">Ingredient name</string>
+    <string name="ingredient_name_hint">Enter ingredient name</string>
+    <string name="unit">Unit</string>
+    <string name="amount">Amount</string>
+    <string name="enter_amount_hint">Ex: 1 1/2</string>
+    <string name="enter_unit_hint">Ex: can</string>
 </resources>

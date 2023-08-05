@@ -3,6 +3,7 @@ package com.anbui.recipely.presentation.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -49,6 +50,7 @@ fun StandardTextField(
     isEnabled: Boolean = true,
     trailingIcon: @Composable (() -> Unit)? = null,
     leadingIconModifier: Modifier = Modifier,
+    keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
 
 
@@ -74,13 +76,16 @@ fun StandardTextField(
                     style = MaterialTheme.typography.bodyMedium.copy(
                         fontWeight = FontWeight.Normal,
                         color = MediumGrey
-                    )
+                    ),
+                    maxLines = 1
+
                 )
             },
             isError = error != "",
             keyboardOptions = KeyboardOptions(
-                keyboardType = keyboardType
+                keyboardType = keyboardType,
             ),
+            keyboardActions = keyboardActions,
             visualTransformation = if (!isPasswordVisible && isPasswordToggleDisplayed) {
                 PasswordVisualTransformation()
             } else {
