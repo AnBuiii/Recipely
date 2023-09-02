@@ -3,7 +3,6 @@ package com.anbui.recipely.presentation.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -15,7 +14,6 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.anbui.recipely.presentation.ui.theme.MediumGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.ThinGrey
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
@@ -45,7 +43,8 @@ fun StandardCard(
         Column(
             modifier = Modifier
                 .padding(contentPadding)
-                .fillMaxSize(),
+//                .fillMaxSize()
+            ,
             verticalArrangement = Arrangement.SpaceBetween,
             content = content
         )

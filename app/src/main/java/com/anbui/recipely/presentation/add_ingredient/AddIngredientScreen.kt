@@ -13,16 +13,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,35 +24,32 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.presentation.components.StandardCard
 import com.anbui.recipely.presentation.components.StandardTextField
 import com.anbui.recipely.presentation.components.StandardToolbar
-import com.anbui.recipely.presentation.create_recipe.CreateRecipeEvent
-import com.anbui.recipely.presentation.create_recipe.CreateRecipeViewModel
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
+import com.anbui.recipely.presentation.ui.theme.TrueWhite
 
 @ExperimentalMaterial3Api
 @Composable
 fun AddIngredientScreen(
     navController: NavController,
-    createRecipeViewModel: CreateRecipeViewModel = hiltViewModel()
+    addIngredientViewModel: AddIngredientViewModel = hiltViewModel()
 ) {
-    var isTextFieldFocused by remember { mutableStateOf(false) }
+    var isNameFocused by remember { mutableStateOf(false) }
+    var isUnitFocused by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
-    val options = listOf("Option 1", "Option 2", "Option 3", "Option 4", "Option 5","Option 1", "Option 2", "Option 3", "Option 4", "Option 5","Option 1", "Option 2", "Option 3", "Option 4", "Option 5")
-    var expanded by remember { mutableStateOf(false) }
-    var selectedOptionText by remember { mutableStateOf(options[0]) }
+
     Column {
         StandardToolbar(
             navController = navController,
@@ -82,44 +73,28 @@ fun AddIngredientScreen(
             )
 
             Spacer(modifier = Modifier.height(SpaceMedium))
-            ExposedDropdownMenuBox(
-                expanded = expanded,
-                onExpandedChange = { expanded = !expanded },
-                modifier = Modifier.fillMaxWidth().padding(horizontal = SpaceLarge)
-            ){
-                StandardTextField(
-                    text = createRecipeViewModel.searchText.value, onValueChange = { createRecipeViewModel.onEvent(CreateRecipeEvent.EnterSearch(it)) },
-                    hint = stringResource(R.string.ingredient_name_hint),
-                    modifier = Modifier
-                        .menuAnchor()
-//                        .onFocusChanged {
-//                            isTextFieldFocused = it.isFocused
-//                        }
-                    ,
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            focusManager.clearFocus()
-                        }
-                    ),
-                )
-                ExposedDropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    options.forEach { selectionOption ->
-                        DropdownMenuItem(
-                            text = { Text(selectionOption) },
-                            onClick = {
-                                selectedOptionText = selectionOption
-                                expanded = false
-                            },
-                            contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
-                            modifier = Modifier.fillMaxWidth()
+
+            StandardTextField(
+                text = addIngredientViewModel.ingredientName.value,
+                onValueChange = {
+                    addIngredientViewModel.onEvent(
+                        AddIngredientEvent.EnterIngredientName(
+                            it
                         )
+                    )
+                },
+                hint = stringResource(R.string.ingredient_name_hint),
+                modifier = Modifier
+                    .onFocusChanged {
+                        isNameFocused = it.isFocused
                     }
-                }
-            }
+                    .padding(horizontal = SpaceLarge),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        focusManager.clearFocus()
+                    }
+                ),
+            )
 
             Spacer(modifier = Modifier.height(SpaceMedium))
 
@@ -141,7 +116,12 @@ fun AddIngredientScreen(
 
                             Spacer(modifier = Modifier.height(SpaceMedium))
                             StandardTextField(
-                                text = createRecipeViewModel.searchText.value, onValueChange = { createRecipeViewModel.onEvent(CreateRecipeEvent.EnterSearch(it)) },
+                                text = addIngredientViewModel.amount.value,
+                                onValueChange = {
+                                    addIngredientViewModel.onEvent(
+                                        AddIngredientEvent.EnterAmount(it)
+                                    )
+                                },
                                 hint = stringResource(R.string.enter_amount_hint),
                                 keyboardActions = KeyboardActions(
                                     onDone = {
@@ -161,55 +141,79 @@ fun AddIngredientScreen(
                             )
 
                             Spacer(modifier = Modifier.height(SpaceMedium))
-//                            ExposedDropdownMenuBox(
-//                                expanded = expanded,
-//                                onExpandedChange = { expanded = !expanded },
-//                            ){
-//                                StandardTextField(
-//                                    text = createRecipeViewModel.searchText.value, onValueChange = { createRecipeViewModel.onEvent(CreateRecipeEvent.EnterSearch(it)) },
-//                                    hint = stringResource(R.string.enter_unit_hint),
-//                                    keyboardActions = KeyboardActions(
-//                                        onDone = {
-//                                            focusManager.clearFocus()
-//                                        }
-//                                    ),
-//                                    trailingIcon = {
-////                                        IconButton(onClick = { expanded = !expanded }) {
-////                                            Icon(painter = painterResource(id = R.drawable.ic_arrow_down), contentDescription = "show unit hint" )
-////                                        }
-////                                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
-//                                    },
-//                                    modifier = Modifier.menuAnchor(),
-////                                    isEnabled = false
-//                                )
-//                                ExposedDropdownMenu(
-//                                    expanded = expanded,
-//                                    onDismissRequest = { expanded = false },
-//                                ) {
-//                                    options.forEach { selectionOption ->
-//                                        DropdownMenuItem(
-//                                            text = { Text(selectionOption) },
-//                                            onClick = {
-//                                                selectedOptionText = selectionOption
-//                                                expanded = false
-//                                            },
-//                                            contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
-//                                        )
-//                                    }
-//                                }
-//                            }
-
-
+                            StandardTextField(
+                                text = addIngredientViewModel.unit.value,
+                                onValueChange = {
+                                    addIngredientViewModel.onEvent(
+                                        AddIngredientEvent.EnterUnit(it)
+                                    )
+                                },
+                                hint = stringResource(R.string.enter_unit_hint),
+                                keyboardActions = KeyboardActions(
+                                    onDone = {
+                                        focusManager.clearFocus()
+                                    }
+                                ),
+                                modifier = Modifier.onFocusChanged {
+                                    isUnitFocused = it.isFocused
+                                }
+                            )
                         }
                     }
 
+                    androidx.compose.animation.AnimatedVisibility(
+                        visible = isUnitFocused,
+                        enter = fadeIn(),
+                        exit = fadeOut(),
+                        modifier = Modifier.align(Alignment.End)
+                    ) {
+                        StandardCard(
+                            modifier = Modifier
+                                .fillMaxWidth(0.5f)
+                                .padding(end = SpaceLarge)
+//                            .height(140.dp)
+                        ) {
+                            Column(
+                                modifier = Modifier.wrapContentHeight()
+                            ) {
+                                addIngredientViewModel.searchResult.take(4).forEach { item ->
+                                    Text(
+                                        text = item.name,
+                                        modifier = Modifier
+                                            .clickable {
+                                                addIngredientViewModel.onEvent(
+                                                    AddIngredientEvent.EnterUnit(item.name)
+                                                )
+                                            }
+                                    )
+                                }
+                            }
+                        }
 
+                    }
+                    Spacer(modifier = Modifier.weight(1f))
+                    Button(
+                        onClick = {
+
+                        },
+                        shape = MaterialTheme.shapes.large,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(SpaceLarge)
+
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.add_ingredient),
+                            style = MaterialTheme.typography.bodyMedium.copy(color = TrueWhite),
+                            modifier = Modifier.padding(vertical = SpaceSmall)
+                        )
+                    }
                 }
 
 
 
                 androidx.compose.animation.AnimatedVisibility(
-                    visible = isTextFieldFocused,
+                    visible = isNameFocused,
                     enter = fadeIn(),
                     exit = fadeOut()
                 ) {
@@ -217,19 +221,21 @@ fun AddIngredientScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = SpaceLarge)
-                            .height(140.dp)
+//                            .height(140.dp)
                     ) {
-                        LazyColumn(
-                            modifier = Modifier
+                        Column(
+                            modifier = Modifier.wrapContentHeight()
                         ) {
-                            items(createRecipeViewModel.searchResult) { item ->
+                            addIngredientViewModel.searchResult.take(4).forEach { item ->
                                 Text(
                                     text = item.name,
-                                    modifier = Modifier.clickable {
-                                        createRecipeViewModel.onEvent(
-                                            CreateRecipeEvent.SelectIngredient(item)
-                                        )
-                                    }
+                                    modifier = Modifier
+                                        .clickable {
+                                            addIngredientViewModel.onEvent(
+                                                AddIngredientEvent.EnterUnit(item.name)
+                                            )
+                                        }
+                                        .fillMaxWidth()
                                 )
                             }
                         }

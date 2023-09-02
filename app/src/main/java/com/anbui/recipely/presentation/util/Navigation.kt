@@ -94,7 +94,9 @@ fun Navigation(
                     navController.getBackStackEntry("Create Recipe")
                 }
                 val createRecipeViewModel = hiltViewModel<CreateRecipeViewModel>(parentEntry)
-                AddIngredientScreen(navController = navController, createRecipeViewModel)
+                AddIngredientScreen(navController = navController
+//                    , createRecipeViewModel
+                )
             }
         }
 
