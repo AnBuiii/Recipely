@@ -1,6 +1,6 @@
 [versions]
 accompanist-pager-indicators = "0.31.5-beta"
-agp = "8.1.0"
+agp = "8.1.1"
 androidx-core-testing = "2.2.0"
 coil-compose = "2.4.0"
 converter-gson = "2.9.0"

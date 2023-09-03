@@ -194,7 +194,11 @@ fun AddIngredientScreen(
                     Spacer(modifier = Modifier.weight(1f))
                     Button(
                         onClick = {
-
+                            navController.previousBackStackEntry?.savedStateHandle?.set(
+                                "ingredient_name",
+                                addIngredientViewModel.ingredientName.value
+                            )
+                            navController.popBackStack()
                         },
                         shape = MaterialTheme.shapes.large,
                         modifier = Modifier
@@ -209,8 +213,6 @@ fun AddIngredientScreen(
                         )
                     }
                 }
-
-
 
                 androidx.compose.animation.AnimatedVisibility(
                     visible = isNameFocused,
@@ -242,7 +244,6 @@ fun AddIngredientScreen(
                     }
 
                 }
-
             }
 
         }

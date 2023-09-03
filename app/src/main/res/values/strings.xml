@@ -111,4 +111,7 @@
     <string name="amount">Amount</string>
     <string name="enter_amount_hint">Ex: 1 1/2</string>
     <string name="enter_unit_hint">Ex: can</string>
+    <string name="my_cart">My Cart</string>
+    <string name="total_price">Total price</string>
+    <string name="location">Location</string>
 </resources>

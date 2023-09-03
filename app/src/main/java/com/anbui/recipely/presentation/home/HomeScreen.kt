@@ -42,7 +42,12 @@ fun HomeScreen(
             name = name,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = SpaceLarge)
+                .padding(horizontal = SpaceLarge),
+            onCartClick = {
+                navController.navigate(Screen.CartScreen.route){
+                    launchSingleTop = true
+                }
+            }
         )
 
         Spacer(modifier = Modifier.height(SpaceLarge))

@@ -1,4 +1,4 @@
-package com.anbui.recipely.presentation.recipe_detail.components
+    package com.anbui.recipely.presentation.recipe_detail.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement

@@ -100,7 +100,7 @@ fun DragDropList(
             )
         }
 
-        item("add ingredient") {
+        item("add ingredients") {
             Button(
                 onClick = onAddIngredientClick,
                 shape = MaterialTheme.shapes.large,

@@ -1,7 +1,6 @@
 package com.anbui.recipely.presentation.create_recipe
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.HorizontalPager
@@ -15,31 +14,53 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.anbui.recipely.R
+import com.anbui.recipely.domain.models.IngredientItem
+import com.anbui.recipely.domain.models.UnitType
 import com.anbui.recipely.presentation.components.StandardProgressIndicator
 import com.anbui.recipely.presentation.create_recipe.components.IngredientsSection
 import com.anbui.recipely.presentation.create_recipe.components.OverviewSection
 import com.anbui.recipely.presentation.util.Screen
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi
 @Composable
 fun CreateRecipeScreen(
     navController: NavController,
+    backStackEntry: NavBackStackEntry,
     createRecipeViewModel: CreateRecipeViewModel = hiltViewModel()
 ) {
     val pagerState = rememberPagerState(initialPage = 1)
-
     val steps = listOf("Overview", "Ingredients", "Instructions", "Review")
     val coroutineScope = rememberCoroutineScope()
+    val text = backStackEntry.savedStateHandle.get<String>("ingredient_name")
+
+    LaunchedEffect(text) {
+        if (text != null) {
+            createRecipeViewModel.onEvent(
+                CreateRecipeEvent.AddIngredient(
+                    IngredientItem(
+                        ingredientId = "${Random.nextInt(0, 1000)}",
+                        name = text,
+                        amount = 1.4f,
+                        unit = UnitType.Unit,
+                        imageUrl = null
+                    )
+                )
+            )
+        }
+    }
     Column(
     ) {
         TopAppBar(
@@ -122,9 +143,9 @@ fun CreateRecipeScreen(
                     1 -> IngredientsSection(
                         searchText = createRecipeViewModel.searchText.value,
                         onEvent = createRecipeViewModel::onEvent,
-                        ingredients = createRecipeViewModel.ingredient,
+                        ingredients = createRecipeViewModel.ingredients,
                         searchResult = createRecipeViewModel.searchResult,
-                        onAddIngredientClick = {navController.navigate(Screen.AddIngredientScreen.route)}
+                        onAddIngredientClick = { navController.navigate(Screen.AddIngredientScreen.route) }
                     )
 
                 }

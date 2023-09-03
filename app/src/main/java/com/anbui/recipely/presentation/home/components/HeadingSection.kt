@@ -21,7 +21,7 @@ import com.anbui.recipely.presentation.ui.theme.SpaceTiny
 @Composable
 fun HeadingSection(
      name: String,
-     onBuyClick : () -> Unit = {},
+     onCartClick : () -> Unit = {},
      modifier: Modifier = Modifier
 ) {
     Row(
@@ -53,7 +53,7 @@ fun HeadingSection(
             }
             Text(text = name, style = MaterialTheme.typography.headlineSmall)
         }
-        IconButton(onClick = { /*TODO*/ }) {
+        IconButton(onClick = onCartClick) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_buy),
                 contentDescription = stringResource(
