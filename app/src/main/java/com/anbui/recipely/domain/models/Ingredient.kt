@@ -9,6 +9,7 @@ data class Ingredient(
     val carb: Float,
     val protein: Float,
     val fat: Float,
+    val price: Float = 0.23f
 )
 
 val exampleIngredients = listOf(

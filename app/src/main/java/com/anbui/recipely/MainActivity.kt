@@ -1,6 +1,8 @@
 package com.anbui.recipely
 
+import android.app.LocaleManager
 import android.os.Bundle
+import android.os.LocaleList
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -23,6 +25,7 @@ import com.anbui.recipely.presentation.util.Navigation
 import com.anbui.recipely.presentation.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
+
 
 @ExperimentalAnimationApi
 @UnstableApi

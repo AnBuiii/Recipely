@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,12 +23,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.exampleAccounts
+import com.anbui.recipely.domain.models.exampleOrder
 import com.anbui.recipely.domain.models.exampleRecipes
+import com.anbui.recipely.presentation.account.components.OrderItem
 import com.anbui.recipely.presentation.components.RecipelyAccountCard
 import com.anbui.recipely.presentation.components.RecipelyTinyVerticallyCard
 import com.anbui.recipely.presentation.components.StandardToolbar
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
+import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.util.Screen
 
 @ExperimentalMaterial3Api
@@ -40,11 +44,23 @@ fun AccountScreen(
             navController = navController,
             title = stringResource(id = R.string.account),
             navActions = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_setting),
-                    contentDescription = stringResource(R.string.setting),
-                    modifier = Modifier.padding(horizontal = SpaceLarge)
-                )
+                IconButton(
+                    onClick = {
+                        navController.navigate(Screen.SettingScreen.route) {
+                            launchSingleTop = true
+                        }
+
+                    },
+                    modifier= Modifier.padding(end = SpaceSmall)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_setting),
+                        contentDescription = stringResource(
+                            id = R.string.settings
+                        )
+                    )
+                }
+
             }
         )
         LazyVerticalGrid(
@@ -57,6 +73,29 @@ fun AccountScreen(
                 RecipelyAccountCard(
                     account = exampleAccounts[0],
                     onClick = { navController.navigate(Screen.EditProfileScreen.route) }
+                )
+            }
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(R.string.incoming_order),
+                        style = MaterialTheme.typography.titleLarge,
+                    )
+                    Text(
+                        text = stringResource(R.string.see_all),
+                        style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.secondary),
+                        modifier = Modifier.padding(start = SpaceLarge)
+                    )
+                }
+            }
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                OrderItem(
+                    exampleOrder[0]
                 )
             }
 

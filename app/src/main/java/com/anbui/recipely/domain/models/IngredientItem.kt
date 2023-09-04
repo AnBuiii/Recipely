@@ -6,6 +6,7 @@ data class IngredientItem(
     val amount: Float,
     val unit: UnitType,
     val imageUrl: String?,
+    val price: Float = 0.23f
 )
 
 val exampleIngredientItems = listOf(

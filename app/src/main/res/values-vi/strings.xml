@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Recipely</string>
+    <string name="notifications">Thông báo</string>
+    <string name="search">TÌm kiếm</string>
+    <string name="account">Tài khoản</string>
+    <string name="make_recipe">Tạo công thức</string>
+    <string name="show_password">Hiện mật khẩu</string>
+    <string name="hide_password">Ẩn mật khẩu</string>
+    <string name="back">Trở về</string>
+    <string name="onboarding_title_1">Khám phá các công thức nấu ăn bạn cần</string>
+</resources>

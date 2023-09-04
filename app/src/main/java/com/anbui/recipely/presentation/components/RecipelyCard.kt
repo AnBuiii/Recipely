@@ -411,7 +411,7 @@ fun RecipelyNotificationCard(
             if (notification.imageUrl != null) {
                 AsyncImage(
                     model = notification.imageUrl,
-                    contentDescription = stringResource(id = R.string.notification),
+                    contentDescription = stringResource(id = R.string.notifications),
                     modifier = Modifier
                         .fillMaxHeight()
                         .aspectRatio(1f)
@@ -435,7 +435,7 @@ fun RecipelyNotificationCard(
                     if (icon != null) {
                         Icon(
                             painter = icon,
-                            contentDescription = stringResource(id = R.string.notification),
+                            contentDescription = stringResource(id = R.string.notifications),
                             tint = Color.Unspecified
 
                         )
@@ -520,7 +520,7 @@ fun RecipelyAccountCard(
         ) {
             AsyncImage(
                 model = account.avatarUrl,
-                contentDescription = stringResource(id = R.string.notification),
+                contentDescription = stringResource(id = R.string.notifications),
                 modifier = Modifier
                     .fillMaxHeight()
                     .aspectRatio(1f)

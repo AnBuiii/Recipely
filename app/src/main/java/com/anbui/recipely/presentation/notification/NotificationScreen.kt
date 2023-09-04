@@ -33,7 +33,7 @@ fun NotificationScreen(
     Column {
         StandardToolbar(
             navController = navController,
-            title = stringResource(id = R.string.notification)
+            title = stringResource(id = R.string.notifications)
         )
         LazyColumn(
             modifier = Modifier

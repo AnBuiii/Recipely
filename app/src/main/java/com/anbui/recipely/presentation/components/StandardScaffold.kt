@@ -44,7 +44,7 @@ fun StandardScaffold(
             route = Screen.NotificationScreen.route,
             selectedIcon = R.drawable.ic_notification_filled,
             unselectedIcon = R.drawable.ic_notification,
-            contentDescription = stringResource(R.string.notification)
+            contentDescription = stringResource(R.string.notifications)
         ),
         BottomNavItem(
             route = Screen.AccountScreen.route,
