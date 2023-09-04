@@ -20,6 +20,7 @@ sealed class Screen(val route: String) {
     object AddIngredientScreen : Screen("add_ingredient_screen")
 
     data object CartScreen : Screen("cart_screen")
+    data object AddressScreen : Screen("address_screen")
 
 
     object PostDetailScreen : Screen("post_detail_screen")

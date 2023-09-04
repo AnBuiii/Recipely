@@ -114,4 +114,11 @@
     <string name="my_cart">My Cart</string>
     <string name="total_price">Total price</string>
     <string name="location">Location</string>
+    <string name="street">Street</string>
+    <string name="street_hint">Enter street</string>
+    <string name="district">District</string>
+    <string name="district_hint">Enter district</string>
+    <string name="province_city">Province/City</string>
+    <string name="province_city_hint">Enter province or city</string>
+    <string name="save">Save</string>
 </resources>
