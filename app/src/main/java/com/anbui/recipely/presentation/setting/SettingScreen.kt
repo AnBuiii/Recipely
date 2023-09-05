@@ -2,13 +2,16 @@ package com.anbui.recipely.presentation.setting
 
 import android.app.LocaleManager
 import android.os.LocaleList
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
@@ -24,14 +27,18 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.presentation.components.StandardToolbar
+import com.anbui.recipely.presentation.setting.components.LanguagePickerBottomSheet
 import com.anbui.recipely.presentation.setting.components.SettingCard
 import com.anbui.recipely.presentation.ui.theme.MediumGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
+import com.anbui.recipely.presentation.ui.theme.SpaceTiny
+import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import java.util.Locale
 
 @ExperimentalMaterial3Api
@@ -42,6 +49,13 @@ fun SettingScreen(
 ) {
     var notification by remember { mutableStateOf(true) }
     val context = LocalContext.current
+    val language =
+        context.getSystemService(LocaleManager::class.java).applicationLocales.toLanguageTags()
+    var isBottomSheetOpen by remember {
+        mutableStateOf(false)
+    }
+
+    LanguagePickerBottomSheet(isBottomSheetOpen) { isBottomSheetOpen = it }
     Column {
         StandardToolbar(
             navController = navController,
@@ -77,15 +91,6 @@ fun SettingScreen(
                             checked = notification,
                             onCheckedChange = {
                                 notification = it
-
-                                context.getSystemService(
-                                    LocaleManager::class.java
-                                ).applicationLocales =
-                                    LocaleList(Locale.forLanguageTag(if (it) "vi-VN" else "en-US"))
-
-
-
-                                Log.d("Change", it.toString())
                             },
                             colors = SwitchDefaults.colors(
                                 uncheckedBorderColor = MaterialTheme.colorScheme.primary,
@@ -105,6 +110,44 @@ fun SettingScreen(
             SettingCard(
                 leadingIcon = painterResource(id = R.drawable.ic_language),
                 text = stringResource(R.string.language),
+                trailing = {
+
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(SpaceMedium),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = if (language == "en-US") stringResource(R.string.current_language) else "Tiếng Việt",
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                fontWeight = FontWeight.Normal,
+                                color = MediumGrey
+                            )
+                        )
+                        FilledIconButton(
+                            onClick = {},
+                            colors = IconButtonDefaults.filledIconButtonColors(
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                contentColor = TrueWhite
+                            ),
+                            modifier = Modifier
+                                .padding(end = SpaceTiny)
+                                .size(32.dp),
+                            shape = MaterialTheme.shapes.medium
+
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_arrow_right),
+                                contentDescription = stringResource(
+                                    R.string.arrow_right
+                                ),
+                            )
+                        }
+                    }
+
+                },
+                onClick = {
+                    isBottomSheetOpen = true
+                }
             )
             SettingCard(
                 leadingIcon = painterResource(id = R.drawable.ic_info),

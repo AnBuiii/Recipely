@@ -26,6 +26,7 @@ import com.anbui.recipely.presentation.home.HomeScreen
 import com.anbui.recipely.presentation.login.LoginScreen
 import com.anbui.recipely.presentation.notification.NotificationScreen
 import com.anbui.recipely.presentation.onboard.OnBoardingScreen
+import com.anbui.recipely.presentation.order_detail.OrderDetailScreen
 import com.anbui.recipely.presentation.recipe_detail.RecipeDetailScreen
 import com.anbui.recipely.presentation.search.SearchScreen
 import com.anbui.recipely.presentation.select_interest.SelectInterestScreen
@@ -97,6 +98,9 @@ fun Navigation(
         }
         composable(Screen.SettingScreen.route){
             SettingScreen(navController = navController)
+        }
+        composable(Screen.OrderDetailScreen.route){
+            OrderDetailScreen(navController = navController)
         }
 
 //        navigation(route = "Create Recipe", startDestination = Screen.AddIngredientScreen.route){

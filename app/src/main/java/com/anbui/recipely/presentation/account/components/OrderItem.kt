@@ -35,10 +35,12 @@ import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 @ExperimentalMaterial3Api
 @Composable
 fun OrderItem(
-    order: Order
+    order: Order,
+    onClick: ()-> Unit,
 ) {
     StandardCard(
-        modifier = Modifier.height(152.dp)
+        modifier = Modifier.height(152.dp),
+        onClick = onClick
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),

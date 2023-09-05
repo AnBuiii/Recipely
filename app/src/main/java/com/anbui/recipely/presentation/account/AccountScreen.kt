@@ -95,7 +95,8 @@ fun AccountScreen(
             }
             item(span = { GridItemSpan(maxLineSpan) }) {
                 OrderItem(
-                    exampleOrder[0]
+                    exampleOrder[0],
+                    onClick = {navController.navigate(Screen.OrderDetailScreen.route)}
                 )
             }
 

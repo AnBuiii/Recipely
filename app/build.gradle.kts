@@ -71,6 +71,7 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.ui.util)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.constraintlayout.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
