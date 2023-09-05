@@ -25,7 +25,7 @@ fun OrderDetailScreen(
             showBackArrow = true
         )
         val numberStep = 4
-        var currentStep by rememberSaveable { mutableStateOf(3) }
+        var currentStep by rememberSaveable { mutableStateOf(4) }
         val titleList= arrayListOf("Step 1","Step 2","Step 3","Step 4")
 
         Stepper(

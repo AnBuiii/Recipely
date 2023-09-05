@@ -5,15 +5,11 @@ import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Done
-import androidx.compose.material3.Divider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -23,12 +19,23 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.anbui.recipely.presentation.ui.theme.SpaceSmall
+import kotlin.math.roundToInt
 
 @Composable
 fun Stepper(modifier: Modifier = Modifier,
@@ -47,9 +54,9 @@ fun Stepper(modifier: Modifier = Modifier,
             descriptionList[index]=element
     }
 
-    Row(
+    Column(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        horizontalAlignment = Alignment.Start
     ) {
         for (step in 1..numberOfSteps) {
             Step(
@@ -116,35 +123,28 @@ private fun Step(modifier: Modifier = Modifier,
         Surface(
             shape = CircleShape,
             border = borderStroke,
-            color = innerCircleColor,
+            color = unSelectedColor,
             modifier = Modifier.size(30.dp).constrainAs(circle) {
                 top.linkTo(parent.top)
-                end.linkTo(parent.end)
-                bottom.linkTo(parent.bottom)
+                bottom.linkTo(line.top)
                 start.linkTo(parent.start)
             }
         ) {
 
             Box(contentAlignment = Alignment.Center) {
-                if (isCompete)
-                    Icon(
-                        imageVector = Icons.Default.Done,"done",
-                        modifier=modifier.padding(4.dp),
-                        tint = Color.White)
-                else
-                    Text(
-                        text = step.toString(),
-                        color = color,
-                        fontSize = 9.sp)
+                Text(
+                    text = step.toString(),
+                    color =  Color.Gray,
+                    fontSize = 9.sp)
             }
         }
 
         Text(
             modifier = Modifier.constrainAs(txt) {
-                top.linkTo(circle.bottom, margin = 3.dp)
-                start.linkTo(circle.start)
-                end.linkTo(circle.end)
-                bottom.linkTo(parent.bottom)
+                top.linkTo(circle.top)
+                start.linkTo(circle.end, margin = SpaceSmall)
+                end.linkTo(parent.end)
+                bottom.linkTo(circle.bottom)
             },
             fontSize = textSize,
             maxLines = 1,
@@ -154,27 +154,44 @@ private fun Step(modifier: Modifier = Modifier,
         )
 
         if (!isComplete) {
-            //Line
-            if (isRainbow){
-                Divider(
-                    modifier = Modifier.constrainAs(line){
-                        top.linkTo(circle.top)
-                        bottom.linkTo(circle.bottom)
-                        start.linkTo(circle.end)
-                    }.background(rainBowColor),
-                    thickness = 1.dp,
-                )
-            }else{
-                Divider(
-                    modifier = Modifier.constrainAs(line){
-                        top.linkTo(circle.top)
-                        bottom.linkTo(circle.bottom)
-                        start.linkTo(circle.end)
-                    },
-                    color = innerCircleColor,
-                    thickness = 1.dp,
-                )
-            }
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()  //fill the max height
+                    .width(1.dp).constrainAs(line){
+                    top.linkTo(circle.bottom)
+                    start.linkTo(circle.start)
+                    end.linkTo(circle.end)
+                    bottom.linkTo(parent.bottom)
+                }
+
+
+                    .background(Color.Black, shape = VerticalDottedShape(step = 10.dp)),
+//                color = innerCircleColor,
+//                thickness = 1.dp,
+            )
         }
     }
+}
+private data class VerticalDottedShape(
+    val step: Dp,
+) : Shape {
+    override fun createOutline(
+        size: Size,
+        layoutDirection: LayoutDirection,
+        density: Density
+    ) = Outline.Generic(Path().apply {
+        val stepPx = with(density) { step.toPx() }
+        val stepsCount = (size.height / stepPx).roundToInt()
+        val actualStep = size.height / stepsCount
+        val dotSize = Size(width = size.width,height = actualStep / 2 )
+        for (i in 0 until stepsCount) {
+            addRect(
+                Rect(
+                    offset = Offset( x = 0f,y = i * actualStep),
+                    size = dotSize
+                )
+            )
+        }
+        close()
+    })
 }
