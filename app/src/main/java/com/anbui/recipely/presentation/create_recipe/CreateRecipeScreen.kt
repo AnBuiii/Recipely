@@ -28,6 +28,7 @@ import com.anbui.recipely.domain.models.IngredientItem
 import com.anbui.recipely.domain.models.UnitType
 import com.anbui.recipely.presentation.components.StandardProgressIndicator
 import com.anbui.recipely.presentation.create_recipe.components.IngredientsSection
+import com.anbui.recipely.presentation.create_recipe.components.InstructionSection
 import com.anbui.recipely.presentation.create_recipe.components.OverviewSection
 import com.anbui.recipely.presentation.util.Screen
 import kotlinx.coroutines.launch
@@ -146,6 +147,11 @@ fun CreateRecipeScreen(
                         ingredients = createRecipeViewModel.ingredients,
                         searchResult = createRecipeViewModel.searchResult,
                         onAddIngredientClick = { navController.navigate(Screen.AddIngredientScreen.route) }
+                    )
+                    2 -> InstructionSection(
+                        steps = createRecipeViewModel.steps,
+                        onAddInstructionClick = {},
+                        onEvent = createRecipeViewModel::onEvent
                     )
 
                 }

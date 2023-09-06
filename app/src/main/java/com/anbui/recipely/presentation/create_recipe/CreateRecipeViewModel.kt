@@ -7,7 +7,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.anbui.recipely.domain.models.Ingredient
 import com.anbui.recipely.domain.models.IngredientItem
+import com.anbui.recipely.domain.models.Step
 import com.anbui.recipely.domain.models.exampleIngredients
+import com.anbui.recipely.domain.models.exampleSteps
 import com.anbui.recipely.presentation.create_recipe.components.swap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -28,6 +30,11 @@ class CreateRecipeViewModel @Inject constructor() : ViewModel() {
 
     private val _ingredients = mutableStateListOf<IngredientItem>()
     val ingredients: List<IngredientItem> = _ingredients
+
+    private val _steps = mutableStateListOf<Step>(*exampleSteps.toTypedArray())
+    val steps: List<Step> = _steps
+
+
 
 
 
@@ -76,6 +83,14 @@ class CreateRecipeViewModel @Inject constructor() : ViewModel() {
 
             is CreateRecipeEvent.AddIngredient -> {
                 _ingredients.add(event.value)
+            }
+
+            is CreateRecipeEvent.SwapInstruction -> {
+                try {
+                    _steps.swap(event.from, event.to)
+                } catch (_: Exception){
+
+                }
             }
         }
     }

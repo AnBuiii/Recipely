@@ -12,5 +12,6 @@ sealed class CreateRecipeEvent {
     data class EnterSearch(val value: String) : CreateRecipeEvent()
     data class SelectIngredient(val value: Ingredient) : CreateRecipeEvent()
     data class SwapIngredient(val from: Int, val to: Int) : CreateRecipeEvent()
+    data class SwapInstruction(val from: Int, val to: Int) : CreateRecipeEvent()
     data class AddIngredient(val value: IngredientItem) : CreateRecipeEvent()
 }

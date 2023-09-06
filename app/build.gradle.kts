@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.com.google.dagger.hilt.android)
-    kotlin("kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -45,7 +45,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.0"
     }
     packaging {
         resources {
@@ -54,9 +54,7 @@ android {
 
         }
     }
-    kapt {
-        correctErrorTypes = true
-    }
+
 }
 
 dependencies {
@@ -94,8 +92,8 @@ dependencies {
 
     //Dagger - Hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
-    kapt(libs.androidx.hilt.compiler)
+    ksp(libs.hilt.android.compiler)
+    ksp(libs.androidx.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
     // Retrofit
@@ -125,8 +123,7 @@ dependencies {
     testImplementation(libs.mockwebserver)
     testImplementation(libs.mockk)
     androidTestImplementation(libs.hilt.android.testing)
-    kaptAndroidTest(libs.hilt.android.compiler)
-
+    kspAndroidTest(libs.hilt.android.compiler)
     // Instrumented Unit Tests
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.kotlinx.coroutines.test)

@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 
 @ExperimentalFoundationApi
 @Composable
-fun DragDropList(
+fun IngredientDragDropList(
     items: List<IngredientItem>,
     onMove: (Int, Int) -> Unit,
     modifier: Modifier = Modifier,
