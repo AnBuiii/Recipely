@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.com.google.dagger.hilt.android)
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.com.google.devtools.ksp)
 }
 
 android {
@@ -92,8 +92,8 @@ dependencies {
 
     //Dagger - Hilt
     implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
     ksp(libs.androidx.hilt.compiler)
+    ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
     // Retrofit
@@ -124,6 +124,7 @@ dependencies {
     testImplementation(libs.mockk)
     androidTestImplementation(libs.hilt.android.testing)
     kspAndroidTest(libs.hilt.android.compiler)
+
     // Instrumented Unit Tests
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.kotlinx.coroutines.test)
