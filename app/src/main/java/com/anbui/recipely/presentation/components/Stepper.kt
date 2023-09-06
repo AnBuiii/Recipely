@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.anbui.recipely.R
 import com.anbui.recipely.presentation.ui.theme.DarkGrey
+import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import kotlin.math.roundToInt
@@ -144,7 +145,7 @@ private fun Step(
         Column(
             modifier = Modifier.constrainAs(txt) {
                 top.linkTo(circle.top)
-                start.linkTo(circle.end, margin = SpaceSmall)
+                start.linkTo(circle.end, margin = SpaceLarge)
                 end.linkTo(parent.end)
                 bottom.linkTo(circle.bottom)
             }

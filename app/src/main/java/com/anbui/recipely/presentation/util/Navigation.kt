@@ -43,7 +43,7 @@ import com.anbui.recipely.presentation.splash.SplashScreen
 fun Navigation(
     navController: NavHostController,
 ) {
-    NavHost(navController = navController, startDestination = Screen.OrderDetailScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
         composable(Screen.SplashScreen.route) {
             SplashScreen(navController = navController)
         }
