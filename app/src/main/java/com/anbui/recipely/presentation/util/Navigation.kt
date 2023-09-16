@@ -15,6 +15,7 @@ import androidx.navigation.navigation
 import com.anbui.recipely.presentation.account.AccountScreen
 import com.anbui.recipely.presentation.add_ingredient.AddIngredientScreen
 import com.anbui.recipely.presentation.address.AddressScreen
+import com.anbui.recipely.presentation.camera.CameraScreen
 import com.anbui.recipely.presentation.cart.CartScreen
 import com.anbui.recipely.presentation.cooking_detail.CookingDetailScreen
 import com.anbui.recipely.presentation.create_account.CreateAccountScreen
@@ -43,7 +44,7 @@ import com.anbui.recipely.presentation.splash.SplashScreen
 fun Navigation(
     navController: NavHostController,
 ) {
-    NavHost(navController = navController, startDestination = Screen.CreateRecipeScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
         composable(Screen.SplashScreen.route) {
             SplashScreen(navController = navController)
         }
@@ -101,6 +102,9 @@ fun Navigation(
         }
         composable(Screen.OrderDetailScreen.route){
             OrderDetailScreen(navController = navController)
+        }
+        composable(Screen.CameraScreen.route){
+            CameraScreen(navController = navController)
         }
 
 //        navigation(route = "Create Recipe", startDestination = Screen.AddIngredientScreen.route){

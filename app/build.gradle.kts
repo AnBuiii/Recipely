@@ -89,6 +89,8 @@ dependencies {
     // Coroutine Lifecycle Scopes
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.runtime.ktx)
+//    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    implementation (libs.lifecycle.runtime.compose)
 
     //Dagger - Hilt
     implementation(libs.hilt.android)
@@ -112,6 +114,12 @@ dependencies {
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui)
 
+    // CameraX
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
+    implementation(libs.androidx.camera.extensions)
+
     // Local Unit Tests
     implementation(libs.androidx.core)
     testImplementation(libs.junit)
@@ -134,4 +142,6 @@ dependencies {
     androidTestImplementation(libs.androidx.core.ktx)
     androidTestImplementation(libs.mockwebserver)
     androidTestImplementation(libs.mockk.android)
+
+
 }
