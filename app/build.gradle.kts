@@ -121,6 +121,11 @@ dependencies {
     implementation(libs.androidx.camera.extensions)
     implementation(libs.androidx.camera.video)
 
+    //Tensorflow
+    implementation("org.tensorflow:tensorflow-lite-task-vision:0.4.0")
+    implementation ("org.tensorflow:tensorflow-lite-gpu-delegate-plugin:0.4.0")
+    implementation ("org.tensorflow:tensorflow-lite-gpu:2.9.0")
+
     // Local Unit Tests
     implementation(libs.androidx.core)
     testImplementation(libs.junit)

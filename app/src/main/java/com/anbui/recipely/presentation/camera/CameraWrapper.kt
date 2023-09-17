@@ -3,7 +3,10 @@ package com.anbui.recipely.presentation.camera
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
+import androidx.camera.core.AspectRatio
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.video.*
@@ -46,7 +49,35 @@ suspend fun Context.createVideoCaptureUseCase(
         .setQualitySelector(qualitySelector)
         .build()
     val videoCapture = VideoCapture.withOutput(recorder)
-
+//    var bitmapBuffer: Bitmap? = null
+////    var imageClassifierHelper =
+////        ImageClassifierHelper(context = this, imageClassifierListener = this)
+//    val imageAnalyzer =
+//        ImageAnalysis.Builder()
+//            .setTargetAspectRatio(AspectRatio.RATIO_4_3)
+////            .setTargetRotation(fragmentCameraBinding.viewFinder.display.rotation)
+//            .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+//            .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
+//            .build()
+//            // The analyzer can then be assigned to the instance
+//            .also {
+//                it.setAnalyzer(mainExecutor) { image ->
+//                    if (bitmapBuffer == null) {
+//                        // The image rotation and RGB image buffer are initialized only once
+//                        // the analyzer has started running
+//                        bitmapBuffer = Bitmap.createBitmap(
+//                            image.width,
+//                            image.height,
+//                            Bitmap.Config.ARGB_8888
+//                        )
+//                    }
+//
+//                    image.use {     bitmapBuffer?.copyPixelsFromBuffer(image.planes[0].buffer) }
+//
+//                    // Pass Bitmap and rotation to the image classifier helper for processing and classification
+////                    imageClassifierHelper.classify(bitmapBuffer, getScreenOrientation())
+//                }
+//            }
 
 
     val cameraProvider = getCameraProvider()
@@ -55,7 +86,8 @@ suspend fun Context.createVideoCaptureUseCase(
         lifecycleOwner,
         cameraSelector,
         preview,
-        videoCapture
+        videoCapture,
+//        imageAnalyzer
     )
 
     return videoCapture
