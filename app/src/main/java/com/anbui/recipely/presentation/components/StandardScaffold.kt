@@ -60,8 +60,14 @@ fun StandardScaffold(
         bottomBar = {
             if (showBottomBar) {
                 StandardBottomNavigation(
-                    onFabClick = {
+                    onNewRecipeClick = {
                         navController.navigate(Screen.CreateRecipeScreen.route) {
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    },
+                    onScanClick = {
+                        navController.navigate(Screen.CameraScreen.route) {
                             launchSingleTop = true
                             restoreState = true
                         }

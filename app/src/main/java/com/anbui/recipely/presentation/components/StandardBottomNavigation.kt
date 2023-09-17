@@ -1,6 +1,9 @@
 package com.anbui.recipely.presentation.components
 
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -9,17 +12,15 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilledIconButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -28,48 +29,65 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.asComposeRenderEffect
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.anbui.recipely.R
-import com.anbui.recipely.domain.models.BottomNavItem
 import com.anbui.recipely.presentation.ui.theme.MediumGrey
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
-import com.anbui.recipely.presentation.util.Screen
 import com.anbui.recipely.util.toPx
 import kotlin.math.sqrt
 
 @Composable
 fun StandardBottomNavigation(
     windowInsets: WindowInsets = NavigationBarDefaults.windowInsets,
-    onFabClick : () -> Unit,
+    onNewRecipeClick: () -> Unit = {},
+    onScanClick: () -> Unit = {},
     content: @Composable RowScope.() -> Unit
 ) {
     Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(128.dp)
+            .fillMaxSize()
+//            .height(128.dp)
+        ,
+        contentAlignment = Alignment.BottomCenter
     ) {
-        FilledIconButton(
-            onClick = onFabClick,
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .shadow(
-                    elevation = 40.dp,
-                    spotColor = MaterialTheme.colorScheme.secondary,
-                    ambientColor = MaterialTheme.colorScheme.secondary,
-                )
-                .size(56.dp)
-        ) {
-            Icon(
-                painterResource(id = R.drawable.ic_recipely_foreground),
-                contentDescription = stringResource(R.string.make_recipe),
-//                modifier = Modifier.size(200.dp)
-            )
-        }
+//        FilledIconButton(
+//            onClick = onNewRecipeClick,
+//            modifier = Modifier
+//                .align(Alignment.TopCenter)
+//                .shadow(
+//                    elevation = 40.dp,
+//                    spotColor = MaterialTheme.colorScheme.secondary,
+//                    ambientColor = MaterialTheme.colorScheme.secondary,
+//                )
+//                .size(56.dp)
+//        ) {
+//            Icon(
+//                painterResource(id = R.drawable.ic_recipely_foreground),
+//                contentDescription = stringResource(R.string.make_recipe),
+////                modifier = Modifier.size(200.dp)
+//            )
+//        }
+        val isMenuExtended = remember { mutableStateOf(false) }
+        val renderEffect = getRenderEffect().asComposeRenderEffect()
+
+        val fabAnimationProgress by animateFloatAsState(
+            targetValue = if (isMenuExtended.value) 1f else 0f,
+            animationSpec = tween(
+                durationMillis = 800,
+                easing = LinearEasing
+            ), label = ""
+        )
+        val clickAnimationProgress by animateFloatAsState(
+            targetValue = if (isMenuExtended.value) 1f else 0f,
+            animationSpec = tween(
+                durationMillis = 400,
+                easing = LinearEasing
+            ), label = ""
+        )
+
+
         ElevatedCard(
             modifier = Modifier
                 .shadow(
@@ -89,6 +107,7 @@ fun StandardBottomNavigation(
 //            defaultElevation = 1.dp
 //        )
 
+
         ) {
             Row(
                 horizontalArrangement = Arrangement.SpaceAround,
@@ -101,6 +120,27 @@ fun StandardBottomNavigation(
 
 
         }
+
+        FabGroup(
+            renderEffect = renderEffect,
+            animationProgress = fabAnimationProgress,
+        )
+        FabGroup(
+            renderEffect = null,
+            animationProgress = fabAnimationProgress,
+            toggleAnimation = {
+                isMenuExtended.value = isMenuExtended.value.not()
+            },
+            onScanClick = onScanClick,
+            onNewRecipeClick = onNewRecipeClick
+        )
+
+
+
+//        Circle(
+//            color = Color.White,
+//            animationProgress = clickAnimationProgress
+//        )
     }
 
 }
@@ -195,63 +235,3 @@ class BottomNavigationShape(private val cornerRadius: Float) : Shape {
     }
 }
 
-@ExperimentalMaterial3Api
-@Preview
-@Composable
-fun StandardBottomNavigationPreview() {
-    val bottomNavItems: List<BottomNavItem> = listOf(
-        BottomNavItem(
-            route = Screen.HomeScreen.route,
-            unselectedIcon = R.drawable.ic_home,
-            selectedIcon = R.drawable.ic_home_filled,
-            contentDescription = stringResource(R.string.home)
-        ),
-
-        BottomNavItem(
-            route = Screen.SearchScreen.route,
-            unselectedIcon = R.drawable.ic_search,
-            selectedIcon = R.drawable.ic_search_filled,
-            contentDescription = stringResource(R.string.search)
-        ),
-        BottomNavItem(
-            route = Screen.SearchScreen.route,
-            unselectedIcon = null,
-            selectedIcon = R.drawable.ic_search_filled,
-            contentDescription = stringResource(R.string.search)
-        ),
-        BottomNavItem(
-            route = Screen.NotificationScreen.route,
-            selectedIcon = R.drawable.ic_notification_filled,
-            unselectedIcon = R.drawable.ic_notification,
-            contentDescription = stringResource(R.string.notifications)
-        ),
-        BottomNavItem(
-            route = Screen.AccountScreen.route,
-            selectedIcon = R.drawable.ic_profile_filled,
-            unselectedIcon = R.drawable.ic_profile,
-            contentDescription = stringResource(R.string.account)
-        ),
-    )
-    StandardBottomNavigation(
-        onFabClick = {
-
-        }
-    ) {
-        bottomNavItems.forEachIndexed { i, bottomNavItem ->
-            if (bottomNavItem.unselectedIcon != null) {
-                StandardBottomNavItem(
-                    contentDescription = bottomNavItem.contentDescription,
-                    unselectedPainter = painterResource(id = bottomNavItem.unselectedIcon),
-                    selectedPainter = painterResource(id = bottomNavItem.selectedIcon),
-                    selected = i == 0,
-                    alertCount = bottomNavItem.alertCount,
-                    enabled = true,
-                    onClick = {}
-                )
-            } else {
-                Box(modifier = Modifier.width(64.dp))
-            }
-
-        }
-    }
-}
