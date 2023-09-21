@@ -10,10 +10,14 @@ import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import org.tensorflow.lite.support.label.Category
 import org.tensorflow.lite.task.vision.classifier.Classifications
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -31,6 +35,24 @@ class CameraViewModel @Inject constructor(
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var bitmapBuffer: Bitmap
     private var screenOrientation: Int = 0
+
+
+    private var _resultList = mutableStateListOf<Category>()
+    val resultList: List<Category> = _resultList
+
+    private val _inferenceTime = mutableStateOf(0L)
+    val inferenceTime: State<Long> = _inferenceTime
+
+    fun onChangeInferenceTime(value: Long) {
+        _inferenceTime.value = value
+    }
+
+
+
+//    fun onChangeResult(: ) {
+//        _resultList.value =
+//    }
+
 
     fun setUpCamera(
         context: Context,
@@ -76,8 +98,6 @@ class CameraViewModel @Inject constructor(
                         .also {
                             it.setAnalyzer(cameraExecutor) { image ->
                                 if (!::bitmapBuffer.isInitialized) {
-                                    // The image rotation and RGB image buffer are initialized only once
-                                    // the analyzer has started running
                                     bitmapBuffer = Bitmap.createBitmap(
                                         image.width,
                                         image.height,
@@ -88,12 +108,9 @@ class CameraViewModel @Inject constructor(
                             }
                         }
 
-                // Must unbind the use-cases before rebinding them
                 cameraProvider.unbindAll()
 
                 try {
-                    // A variable number of use-cases can be passed here -
-                    // camera provides access to CameraControl & CameraInfo
                     cameraProvider.bindToLifecycle(
                         lifecycleOwner,
                         cameraSelector,
@@ -101,7 +118,6 @@ class CameraViewModel @Inject constructor(
                         imageAnalyzer
                     )
 
-                    // Attach the viewfinder's surface provider to preview use case
                     preview.setSurfaceProvider(previewView.surfaceProvider)
                 } catch (exc: Exception) {
                     Log.e("TAG", "Use case binding failed", exc)
@@ -115,7 +131,6 @@ class CameraViewModel @Inject constructor(
         // Copy out RGB bits to the shared bitmap buffer
         image.use { bitmapBuffer.copyPixelsFromBuffer(image.planes[0].buffer) }
 
-        // Pass Bitmap and rotation to the image classifier helper for processing and classification
         imageClassifierHelper.classify(bitmapBuffer, screenOrientation)
     }
 
@@ -123,9 +138,20 @@ class CameraViewModel @Inject constructor(
         // error
     }
 
-    override fun onResults(results: List<Classifications>?, inferenceTime: Long) {
-        Log.d("result", results.toString())
+
+    override fun onResults( results: List<Classifications>?, inferenceTime: Long) {
+
+        results?.let { it ->
+            val a = it[0].categories.sortedBy { it.index }
+            _resultList.clear()
+            _resultList.addAll(a)
+        }
+
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        imageClassifierHelper.clearImageClassifier()
+    }
 
 }

@@ -37,6 +37,7 @@ class ImageClassifierHelper(
             .setScoreThreshold(threshold)
             .setMaxResults(maxResults)
 
+
         val baseOptionsBuilder = BaseOptions.builder().setNumThreads(numThreads)
 
         when (currentDelegate) {
