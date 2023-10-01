@@ -5,13 +5,10 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
 import com.anbui.recipely.presentation.account.AccountScreen
 import com.anbui.recipely.presentation.add_ingredient.AddIngredientScreen
 import com.anbui.recipely.presentation.address.AddressScreen
@@ -20,7 +17,6 @@ import com.anbui.recipely.presentation.cart.CartScreen
 import com.anbui.recipely.presentation.cooking_detail.CookingDetailScreen
 import com.anbui.recipely.presentation.create_account.CreateAccountScreen
 import com.anbui.recipely.presentation.create_recipe.CreateRecipeScreen
-import com.anbui.recipely.presentation.create_recipe.CreateRecipeViewModel
 import com.anbui.recipely.presentation.edit_profile.EditProfileScreen
 import com.anbui.recipely.presentation.forgot_password.ForgotPasswordScreen
 import com.anbui.recipely.presentation.home.HomeScreen
@@ -44,7 +40,7 @@ import com.anbui.recipely.presentation.splash.SplashScreen
 fun Navigation(
     navController: NavHostController,
 ) {
-    NavHost(navController = navController, startDestination = Screen.CameraScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
         composable(Screen.SplashScreen.route) {
             SplashScreen(navController = navController)
         }
@@ -84,26 +80,26 @@ fun Navigation(
         composable(Screen.CookingDetailScreen.route) {
             CookingDetailScreen(navController = navController)
         }
-        composable(Screen.CartScreen.route){
+        composable(Screen.CartScreen.route) {
             CartScreen(navController = navController)
         }
 
-        composable(Screen.CreateRecipeScreen.route) {backStackEntry->
+        composable(Screen.CreateRecipeScreen.route) { backStackEntry ->
             CreateRecipeScreen(navController = navController, backStackEntry)
         }
-        composable(Screen.AddIngredientScreen.route) {backStackEntry ->
+        composable(Screen.AddIngredientScreen.route) { backStackEntry ->
             AddIngredientScreen(navController = navController)
         }
-        composable(Screen.AddressScreen.route){
+        composable(Screen.AddressScreen.route) {
             AddressScreen(navController = navController)
         }
-        composable(Screen.SettingScreen.route){
+        composable(Screen.SettingScreen.route) {
             SettingScreen(navController = navController)
         }
-        composable(Screen.OrderDetailScreen.route){
+        composable(Screen.OrderDetailScreen.route) {
             OrderDetailScreen(navController = navController)
         }
-        composable(Screen.CameraScreen.route){
+        composable(Screen.CameraScreen.route) {
             CameraScreen(navController = navController)
         }
 

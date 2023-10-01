@@ -11,12 +11,21 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import org.tensorflow.lite.support.label.Category
 import org.tensorflow.lite.task.vision.classifier.Classifications
 import java.util.concurrent.ExecutorService
@@ -36,10 +45,6 @@ class CameraViewModel @Inject constructor(
     private lateinit var bitmapBuffer: Bitmap
     private var screenOrientation: Int = 0
 
-
-    private var _resultList = mutableStateListOf<Category>()
-    val resultList: List<Category> = _resultList
-
     private val _inferenceTime = mutableStateOf(0L)
     val inferenceTime: State<Long> = _inferenceTime
 
@@ -47,6 +52,32 @@ class CameraViewModel @Inject constructor(
         _inferenceTime.value = value
     }
 
+    private var _resultList = MutableStateFlow<List<Classifications>?>(null)
+    val resultList = _resultList.asStateFlow()
+
+    private val _isSearching = MutableStateFlow(false)
+    val isSearching = _isSearching.asStateFlow()
+
+
+    private val _results = MutableStateFlow(listOf<Category>())
+
+    @OptIn(FlowPreview::class)
+    var result = resultList
+        .debounce(20)
+        .onEach {
+            _isSearching.update { true }
+        }
+        .combine(_results) { rslts, _ ->
+            rslts?.let { it ->
+                it[0].categories.sortedBy { it.index }
+            } ?: emptyList()
+        }
+        .onEach { _isSearching.update { false } }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            _results.value,
+        )
 
 
 //    fun onChangeResult(: ) {
@@ -139,13 +170,8 @@ class CameraViewModel @Inject constructor(
     }
 
 
-    override fun onResults( results: List<Classifications>?, inferenceTime: Long) {
-
-        results?.let { it ->
-            val a = it[0].categories.sortedBy { it.index }
-            _resultList.clear()
-            _resultList.addAll(a)
-        }
+    override fun onResults(results: List<Classifications>?, inferenceTime: Long) {
+        _resultList.value = results?.toMutableList()
 
     }
 

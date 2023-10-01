@@ -42,7 +42,7 @@ fun CreateRecipeScreen(
     backStackEntry: NavBackStackEntry,
     createRecipeViewModel: CreateRecipeViewModel = hiltViewModel()
 ) {
-    val pagerState = rememberPagerState(initialPage = 1)
+    val pagerState = rememberPagerState(pageCount = {5})
     val steps = listOf("Overview", "Ingredients", "Instructions", "Review")
     val coroutineScope = rememberCoroutineScope()
     val text = backStackEntry.savedStateHandle.get<String>("ingredient_name")
@@ -130,7 +130,6 @@ fun CreateRecipeScreen(
         ) {
 
             HorizontalPager(
-                pageCount = 5,
                 state = pagerState,
                 userScrollEnabled = false
             ) { page ->

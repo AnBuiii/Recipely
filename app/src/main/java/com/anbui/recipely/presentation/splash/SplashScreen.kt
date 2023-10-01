@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.presentation.util.Screen
@@ -19,7 +20,8 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
-    navController: NavController
+    navController: NavController,
+    splashViewModel: SplashViewModel = hiltViewModel()
 ) {
     LaunchedEffect(key1 = Unit) {
         delay(Constants.SPLASH_SCREEN_DURATION)

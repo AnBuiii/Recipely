@@ -47,8 +47,6 @@ import kotlinx.coroutines.launch
 fun OnBoardingScreen(
     navController: NavController
 ) {
-    val pageState = rememberPagerState()
-    val coroutineScope = rememberCoroutineScope()
     val onBoardings = listOf(
         OnBoardingItem(
             title = stringResource(R.string.onboarding_title_1),
@@ -66,6 +64,8 @@ fun OnBoardingScreen(
             img = R.drawable.img_illu_3
         )
     )
+    val pageState = rememberPagerState(){onBoardings.size}
+    val coroutineScope = rememberCoroutineScope()
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -80,7 +80,6 @@ fun OnBoardingScreen(
         )
 
         HorizontalPager(
-            pageCount = onBoardings.size,
             state = pageState,
         ) {
             Column(

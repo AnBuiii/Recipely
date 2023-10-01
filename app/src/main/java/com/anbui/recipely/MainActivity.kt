@@ -1,5 +1,6 @@
 package com.anbui.recipely
 
+import android.accounts.Account
 import android.app.LocaleManager
 import android.os.Bundle
 import android.os.LocaleList
@@ -19,12 +20,14 @@ import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.anbui.recipely.data.local.account.AccountDao
 import com.anbui.recipely.presentation.components.StandardScaffold
 import com.anbui.recipely.presentation.ui.theme.RecipelyTheme
 import com.anbui.recipely.presentation.util.Navigation
 import com.anbui.recipely.presentation.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
+import javax.inject.Inject
 
 
 @ExperimentalAnimationApi

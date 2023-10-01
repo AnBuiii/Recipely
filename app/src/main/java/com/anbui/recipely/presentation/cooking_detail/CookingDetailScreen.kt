@@ -115,11 +115,10 @@ fun CookingDetailScreen(
         Spacer(modifier = Modifier.height(SpaceLarge))
 
 
-        val mediaPagerState = rememberPagerState()
+        val mediaPagerState = rememberPagerState{recipe.instructions.size}
 
 
         HorizontalPager(
-            pageCount = recipe.instructions.size,
             state = mediaPagerState,
             contentPadding = PaddingValues(horizontal = SpaceHuge),
             pageSpacing = SpaceMedium,
@@ -181,7 +180,7 @@ fun CookingDetailScreen(
             }
         ) {
             Text(
-                recipe.instructions[mediaPagerState.currentPage].instruction,
+                recipe.instructions[it].instruction,
                 textAlign = TextAlign.Justify,
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(horizontal = SpaceLarge),

@@ -1,5 +1,6 @@
 package com.anbui.recipely.presentation.camera
 
+import android.util.Log
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +20,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,6 +58,7 @@ fun CameraScreen(
 //    )
 
     val previewView: PreviewView = remember { PreviewView(context) }
+    val result = viewModel.result.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.setUpCamera(context, previewView, lifecycleOwner, configuration.orientation)
@@ -133,7 +136,7 @@ fun CameraScreen(
         LazyColumn(
             modifier = Modifier.align(Alignment.BottomCenter)
         ){
-            items(viewModel.resultList){
+            items(result.value){
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()

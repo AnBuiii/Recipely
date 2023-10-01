@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.com.android.application)
@@ -10,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.anbui.recipely"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.anbui.recipely"
         minSdk = 33
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -70,6 +68,7 @@ dependencies {
     implementation(libs.ui.util)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.androidx.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -78,11 +77,11 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
 
-    //compose
+    // Compose
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
 
-    //coroutine
+    // Coroutine
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
@@ -90,9 +89,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.runtime.ktx)
 //    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-    implementation (libs.lifecycle.runtime.compose)
+    implementation(libs.lifecycle.runtime.compose)
 
-    //Dagger - Hilt
+    // Dagger - Hilt
     implementation(libs.hilt.android)
     ksp(libs.androidx.hilt.compiler)
     ksp(libs.hilt.android.compiler)
@@ -104,8 +103,11 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
 
-    // Timber
-    implementation(libs.timber)
+    // Room
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 
     // Coil
     implementation(libs.coil.compose)
@@ -122,20 +124,15 @@ dependencies {
     implementation(libs.androidx.camera.video)
 
     //Tensorflow
-    implementation("org.tensorflow:tensorflow-lite-task-vision:0.4.0")
-    implementation ("org.tensorflow:tensorflow-lite-gpu-delegate-plugin:0.4.0")
-    implementation ("org.tensorflow:tensorflow-lite-gpu:2.9.0")
+    implementation(libs.tensorflow.lite.task.vision)
+    implementation(libs.tensorflow.lite.gpu.delegate.plugin)
+    implementation(libs.tensorflow.lite.gpu)
 
     // Local Unit Tests
-    implementation(libs.androidx.core)
+
     testImplementation(libs.junit)
-    testImplementation(libs.hamcrest.all)
     testImplementation(libs.androidx.core.testing)
-    testImplementation(libs.robolectric)
     testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.truth)
-    testImplementation(libs.mockwebserver)
-    testImplementation(libs.mockk)
     androidTestImplementation(libs.hilt.android.testing)
     kspAndroidTest(libs.hilt.android.compiler)
 
@@ -143,11 +140,8 @@ dependencies {
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.core.testing)
-    androidTestImplementation(libs.truth)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.core.ktx)
-    androidTestImplementation(libs.mockwebserver)
-    androidTestImplementation(libs.mockk.android)
 
 
 }

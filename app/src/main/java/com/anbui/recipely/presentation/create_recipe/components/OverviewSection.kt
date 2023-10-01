@@ -49,7 +49,7 @@ fun OverviewSection(
     selectedImages: List<Uri?>,
     title: String
 ) {
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState { (selectedImages.size + 1).coerceAtMost(3) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -63,7 +63,6 @@ fun OverviewSection(
         ) {
             HorizontalPager(
                 state = pagerState,
-                pageCount = (selectedImages.size + 1).coerceAtMost(3),
                 pageSpacing = SpaceMedium,
             ) { page ->
                 Card(
