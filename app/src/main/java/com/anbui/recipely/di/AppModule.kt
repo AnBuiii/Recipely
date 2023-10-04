@@ -3,7 +3,12 @@ package com.anbui.recipely.di
 import android.content.Context
 import androidx.room.Room
 import com.anbui.recipely.data.local.RecipelyDatabase
-import com.anbui.recipely.data.local.account.AccountDao
+import com.anbui.recipely.data.local.dao.AccountDao
+import com.anbui.recipely.data.local.dao.RecipeDao
+import com.anbui.recipely.data.repository.AccountRepositoryImpl
+import com.anbui.recipely.data.repository.RecipeRepositoryImpl
+import com.anbui.recipely.domain.repository.AccountRepository
+import com.anbui.recipely.domain.repository.RecipeRepository
 import com.anbui.recipely.util.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
@@ -29,4 +34,21 @@ object AppModule {
     @Singleton
     @Provides
     fun provideAccountDao(db: RecipelyDatabase): AccountDao = db.accountDao
+
+    @Singleton
+    @Provides
+    fun provideRecipeDao(db: RecipelyDatabase): RecipeDao = db.recipeDao
+
+
+    @Singleton
+    @Provides
+    fun provideAccountRepository(accountDao: AccountDao): AccountRepository{
+        return AccountRepositoryImpl(accountDao)
+    }
+
+    @Singleton
+    @Provides
+    fun provideRecipeRepository(recipeDao: RecipeDao): RecipeRepository{
+        return RecipeRepositoryImpl(recipeDao)
+    }
 }

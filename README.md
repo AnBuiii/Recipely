@@ -38,8 +38,8 @@ On Android versions prior to Android 13.0, Recipely requires the following permi
 
 ## Contributing
 
-Recipely app is a free and open source project developed by [An Bùi](https://github.com/wallabag/android-app/issues). Any contributions are welcome. Here are a few ways you can help:
- * [Report bugs and make suggestions.](https://github.com/wallabag/android-app/issues)
+Recipely app is a free and open source project developed by [An Bùi](https://github.com/AnBuiii). Any contributions are welcome. Here are a few ways you can help:
+ * [Report bugs and make suggestions.](https://github.com/AnBuiii/Recipely/issues)
  * Write some code. Please follow the code style used in the project to make a review process faster.
 
 ## License

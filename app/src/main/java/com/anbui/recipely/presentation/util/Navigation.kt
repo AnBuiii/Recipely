@@ -9,26 +9,26 @@ import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.anbui.recipely.presentation.account.AccountScreen
-import com.anbui.recipely.presentation.add_ingredient.AddIngredientScreen
-import com.anbui.recipely.presentation.address.AddressScreen
-import com.anbui.recipely.presentation.camera.CameraScreen
-import com.anbui.recipely.presentation.cart.CartScreen
-import com.anbui.recipely.presentation.cooking_detail.CookingDetailScreen
-import com.anbui.recipely.presentation.create_account.CreateAccountScreen
-import com.anbui.recipely.presentation.create_recipe.CreateRecipeScreen
-import com.anbui.recipely.presentation.edit_profile.EditProfileScreen
-import com.anbui.recipely.presentation.forgot_password.ForgotPasswordScreen
-import com.anbui.recipely.presentation.home.HomeScreen
-import com.anbui.recipely.presentation.login.LoginScreen
-import com.anbui.recipely.presentation.notification.NotificationScreen
-import com.anbui.recipely.presentation.onboard.OnBoardingScreen
-import com.anbui.recipely.presentation.order_detail.OrderDetailScreen
-import com.anbui.recipely.presentation.recipe_detail.RecipeDetailScreen
-import com.anbui.recipely.presentation.search.SearchScreen
-import com.anbui.recipely.presentation.select_interest.SelectInterestScreen
-import com.anbui.recipely.presentation.setting.SettingScreen
-import com.anbui.recipely.presentation.splash.SplashScreen
+import com.anbui.recipely.presentation.main_screen.account.AccountScreen
+import com.anbui.recipely.presentation.recipe.add_ingredient.AddIngredientScreen
+import com.anbui.recipely.presentation.cart_order.address.AddressScreen
+import com.anbui.recipely.presentation.other_feature.camera.CameraScreen
+import com.anbui.recipely.presentation.cart_order.cart.CartScreen
+import com.anbui.recipely.presentation.recipe.cooking_detail.CookingDetailScreen
+import com.anbui.recipely.presentation.auth.create_account.CreateAccountScreen
+import com.anbui.recipely.presentation.recipe.create_recipe.CreateRecipeScreen
+import com.anbui.recipely.presentation.other_feature.edit_profile.EditProfileScreen
+import com.anbui.recipely.presentation.auth.forgot_password.ForgotPasswordScreen
+import com.anbui.recipely.presentation.main_screen.home.HomeScreen
+import com.anbui.recipely.presentation.auth.login.LoginScreen
+import com.anbui.recipely.presentation.main_screen.notification.NotificationScreen
+import com.anbui.recipely.presentation.auth.onboard.OnBoardingScreen
+import com.anbui.recipely.presentation.cart_order.order_detail.OrderDetailScreen
+import com.anbui.recipely.presentation.recipe.recipe_detail.RecipeDetailScreen
+import com.anbui.recipely.presentation.main_screen.search.SearchScreen
+import com.anbui.recipely.presentation.auth.select_interest.SelectInterestScreen
+import com.anbui.recipely.presentation.other_feature.setting.SettingScreen
+import com.anbui.recipely.presentation.auth.splash.SplashScreen
 
 @ExperimentalAnimationApi
 @UnstableApi
