@@ -2,8 +2,8 @@
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
-    alias(libs.plugins.com.google.dagger.hilt.android)
     alias(libs.plugins.com.google.devtools.ksp)
+    alias(libs.plugins.com.google.dagger.hilt.android)
 }
 
 android {
@@ -49,11 +49,11 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
 //            excludes +="/META-INF/*"
-
         }
     }
-
 }
+
+
 
 dependencies {
 
@@ -123,7 +123,7 @@ dependencies {
     implementation(libs.androidx.camera.extensions)
     implementation(libs.androidx.camera.video)
 
-    //Tensorflow
+    // Tensorflow
     implementation(libs.tensorflow.lite.task.vision)
     implementation(libs.tensorflow.lite.gpu.delegate.plugin)
     implementation(libs.tensorflow.lite.gpu)
@@ -142,6 +142,4 @@ dependencies {
     androidTestImplementation(libs.androidx.core.testing)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.core.ktx)
-
-
 }

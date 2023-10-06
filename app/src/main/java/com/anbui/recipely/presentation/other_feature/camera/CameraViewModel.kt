@@ -17,6 +17,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import javax.inject.Inject
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -28,14 +31,9 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import org.tensorflow.lite.support.label.Category
 import org.tensorflow.lite.task.vision.classifier.Classifications
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-import javax.inject.Inject
 
 @HiltViewModel
-class CameraViewModel @Inject constructor(
-) : ViewModel(), ImageClassifierHelper.ClassifierListener {
-
+class CameraViewModel @Inject constructor() : ViewModel(), ImageClassifierHelper.ClassifierListener {
 
     private lateinit var imageClassifierHelper: ImageClassifierHelper
     private lateinit var cameraProvider: ProcessCameraProvider
@@ -58,7 +56,6 @@ class CameraViewModel @Inject constructor(
     private val _isSearching = MutableStateFlow(false)
     val isSearching = _isSearching.asStateFlow()
 
-
     private val _results = MutableStateFlow(listOf<Category>())
 
     @OptIn(FlowPreview::class)
@@ -76,14 +73,12 @@ class CameraViewModel @Inject constructor(
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000),
-            _results.value,
+            _results.value
         )
-
 
 //    fun onChangeResult(: ) {
 //        _resultList.value =
 //    }
-
 
     fun setUpCamera(
         context: Context,
@@ -102,7 +97,7 @@ class CameraViewModel @Inject constructor(
 
                 // CameraExecuter
                 cameraExecutor = Executors.newSingleThreadExecutor()
-                ///
+                // /
                 // Build and bind the camera use cases
 
                 // CameraSelector - makes assumption that we're only using the back camera
@@ -169,15 +164,12 @@ class CameraViewModel @Inject constructor(
         // error
     }
 
-
     override fun onResults(results: List<Classifications>?, inferenceTime: Long) {
         _resultList.value = results?.toMutableList()
-
     }
 
     override fun onCleared() {
         super.onCleared()
         imageClassifierHelper.clearImageClassifier()
     }
-
 }

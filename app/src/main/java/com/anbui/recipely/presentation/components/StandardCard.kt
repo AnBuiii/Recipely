@@ -25,7 +25,7 @@ fun StandardCard(
     contentPadding: Dp = SpaceMedium,
     onClick: () -> Unit = {},
     containerColor: Color = TrueWhite,
-    content: @Composable ColumnScope.() -> Unit,
+    content: @Composable ColumnScope.() -> Unit
 ) {
     Card(
         shape = MaterialTheme.shapes.large,
@@ -42,12 +42,10 @@ fun StandardCard(
     ) {
         Column(
             modifier = Modifier
-                .padding(contentPadding)
+                .padding(contentPadding),
 //                .fillMaxSize()
-            ,
             verticalArrangement = Arrangement.SpaceBetween,
             content = content
         )
     }
-
 }

@@ -18,9 +18,8 @@ import com.anbui.recipely.presentation.ui.theme.TrueWhite
 fun StandardChip(
     title: String,
     selected: Boolean = false,
-    onClick: () -> Unit = {},
+    onClick: () -> Unit = {}
 ) {
-
     FilterChip(
         onClick = onClick,
         label = {
@@ -36,12 +35,12 @@ fun StandardChip(
         },
         colors = FilterChipDefaults.filterChipColors(
             containerColor = TinyGreen,
-            selectedContainerColor = MaterialTheme.colorScheme.secondary,
-            ),
+            selectedContainerColor = MaterialTheme.colorScheme.secondary
+        ),
         border = FilterChipDefaults.filterChipBorder(
             borderColor = TrueWhite
         ),
         selected = selected,
-        shape = MaterialTheme.shapes.large,
+        shape = MaterialTheme.shapes.large
     )
 }

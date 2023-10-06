@@ -31,8 +31,8 @@ import com.anbui.recipely.presentation.recipe.create_recipe.components.Ingredien
 import com.anbui.recipely.presentation.recipe.create_recipe.components.InstructionSection
 import com.anbui.recipely.presentation.recipe.create_recipe.components.OverviewSection
 import com.anbui.recipely.presentation.util.Screen
-import kotlinx.coroutines.launch
 import kotlin.random.Random
+import kotlinx.coroutines.launch
 
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi
@@ -42,7 +42,7 @@ fun CreateRecipeScreen(
     backStackEntry: NavBackStackEntry,
     createRecipeViewModel: CreateRecipeViewModel = hiltViewModel()
 ) {
-    val pagerState = rememberPagerState(pageCount = {5})
+    val pagerState = rememberPagerState(pageCount = { 5 })
     val steps = listOf("Overview", "Ingredients", "Instructions", "Review")
     val coroutineScope = rememberCoroutineScope()
     val text = backStackEntry.savedStateHandle.get<String>("ingredient_name")
@@ -62,8 +62,7 @@ fun CreateRecipeScreen(
             )
         }
     }
-    Column(
-    ) {
+    Column() {
         TopAppBar(
             title = {
                 Text(
@@ -84,7 +83,6 @@ fun CreateRecipeScreen(
                         } else {
                             navController.navigateUp()
                         }
-
                     }
                 ) {
                     Icon(
@@ -93,7 +91,6 @@ fun CreateRecipeScreen(
                         tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
-
             },
             colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = MaterialTheme.colorScheme.background
@@ -106,29 +103,33 @@ fun CreateRecipeScreen(
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)
                             }
                         } else {
-
                         }
                     }
                 ) {
                     Text(
                         text =
-                        if (pagerState.currentPage + 1 != steps.size)
+                        if (pagerState.currentPage + 1 != steps.size) {
                             stringResource(id = R.string.next)
-                        else stringResource(
-                            R.string.finish
-                        ),
-                        style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.secondary)
+                        } else {
+                            stringResource(
+                                R.string.finish
+                            )
+                        },
+                        style = MaterialTheme.typography.bodyLarge.copy(
+                            color = MaterialTheme.colorScheme.secondary
+                        )
                     )
                 }
             }
         )
-        StandardProgressIndicator(indicatorProgress = (pagerState.currentPage + 1).toFloat() / steps.size)
+        StandardProgressIndicator(
+            indicatorProgress = (pagerState.currentPage + 1).toFloat() / steps.size
+        )
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-
             HorizontalPager(
                 state = pagerState,
                 userScrollEnabled = false
@@ -145,19 +146,19 @@ fun CreateRecipeScreen(
                         onEvent = createRecipeViewModel::onEvent,
                         ingredients = createRecipeViewModel.ingredients,
                         searchResult = createRecipeViewModel.searchResult,
-                        onAddIngredientClick = { navController.navigate(Screen.AddIngredientScreen.route) }
+                        onAddIngredientClick = {
+                            navController.navigate(
+                                Screen.AddIngredientScreen.route
+                            )
+                        }
                     )
                     2 -> InstructionSection(
                         steps = createRecipeViewModel.steps,
                         onAddInstructionClick = {},
                         onEvent = createRecipeViewModel::onEvent
                     )
-
                 }
             }
         }
-
     }
-
 }
-

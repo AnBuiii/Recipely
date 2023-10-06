@@ -26,7 +26,7 @@ import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 
 fun LazyListScope.creatorSection(
     recipe: Recipe
-){
+) {
     item {
         Spacer(modifier = Modifier.height(SpaceLarge))
 

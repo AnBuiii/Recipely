@@ -38,8 +38,6 @@ fun IngredientsSection(
         Text(text = "asd")
     }
 
-    
-
 //    Column(
 //        modifier = Modifier
 //            .fillMaxSize()
@@ -102,7 +100,6 @@ fun IngredientsSection(
 //            }
 //
 //        }
-
 
 //    }
 }

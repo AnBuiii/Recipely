@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
@@ -18,12 +16,10 @@ import com.anbui.recipely.domain.models.Recipe
 import com.anbui.recipely.domain.models.exampleIngredientItems
 import com.anbui.recipely.presentation.recipe.recipe_detail.components.IngredientItem
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
-import com.anbui.recipely.presentation.ui.theme.TrueWhite
 
 fun LazyListScope.ingredientsSection(
     recipe: Recipe,
-    servings: Int,
+    servings: Int
 ) {
     item {
         Column(
@@ -31,14 +27,14 @@ fun LazyListScope.ingredientsSection(
         ) {
             Text(
                 text = stringResource(R.string.ingredients),
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.titleLarge
             )
             Text(
                 text = stringResource(
                     R.string.items,
                     exampleIngredientItems.size
                 ),
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal),
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal)
             )
         }
     }

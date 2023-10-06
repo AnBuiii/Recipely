@@ -39,7 +39,6 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.anbui.recipely.R
 import com.anbui.recipely.presentation.ui.theme.DarkGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import kotlin.math.roundToInt
 
@@ -53,12 +52,12 @@ fun Stepper(
     selectedColor: Color? = null,
     isRainbow: Boolean = false
 ) {
-
     val descriptionList = MutableList(numberOfSteps) { "" }
 
     stepDescriptionList.forEachIndexed { index, element ->
-        if (index < numberOfSteps)
+        if (index < numberOfSteps) {
             descriptionList[index] = element
+        }
     }
 
     Column(
@@ -76,7 +75,7 @@ fun Stepper(
                 isRainbow = isRainbow,
                 stepDescription = descriptionList[step - 1],
                 unSelectedColor = unSelectedColor,
-                selectedColor = selectedColor,
+                selectedColor = selectedColor
             )
         }
     }
@@ -92,9 +91,8 @@ private fun Step(
     isRainbow: Boolean,
     stepDescription: String,
     unSelectedColor: Color,
-    selectedColor: Color?,
+    selectedColor: Color?
 ) {
-
     val rainBowColor = Brush.linearGradient(
         listOf(
             Color.Magenta,
@@ -102,7 +100,7 @@ private fun Step(
             Color.Cyan,
             Color.Green,
             Color.Yellow,
-            Color.Red,
+            Color.Red
         )
     )
 
@@ -111,11 +109,13 @@ private fun Step(
     val innerCircleColor by transition.animateColor(label = "innerCircleColor") {
         if (it) selectedColor ?: MaterialTheme.colorScheme.primary else unSelectedColor
     }
-    val txtColor by transition.animateColor(label = "txtColor")
-    { if (it || isCurrent) selectedColor ?: MaterialTheme.colorScheme.primary else unSelectedColor }
+    val txtColor by transition.animateColor(label = "txtColor") {
+        if (it || isCurrent) selectedColor ?: MaterialTheme.colorScheme.primary else unSelectedColor
+    }
 
-    val color by transition.animateColor(label = "color")
-    { if (it || isCurrent) selectedColor ?: MaterialTheme.colorScheme.primary else Color.Gray }
+    val color by transition.animateColor(label = "color") {
+        if (it || isCurrent) selectedColor ?: MaterialTheme.colorScheme.primary else Color.Gray
+    }
 
     val borderStroke: BorderStroke = if (isRainbow) {
         BorderStroke(2.dp, rainBowColor)
@@ -126,7 +126,6 @@ private fun Step(
     val textSize by remember { mutableStateOf(12.sp) }
 
     ConstraintLayout(modifier = modifier) {
-
         val (circle, txt, line) = createRefs()
 
         Icon(
@@ -167,8 +166,6 @@ private fun Step(
             )
         }
 
-
-
         if (!isComplete) {
             Box(
                 modifier = Modifier
@@ -181,12 +178,10 @@ private fun Step(
                         end.linkTo(circle.end)
                         bottom.linkTo(parent.bottom)
                     }
-
-
                     .background(
                         MaterialTheme.colorScheme.secondary,
                         shape = VerticalDottedShape(step = 10.dp)
-                    ),
+                    )
 //                color = innerCircleColor,
 //                thickness = 1.dp,
             )
@@ -195,25 +190,27 @@ private fun Step(
 }
 
 private data class VerticalDottedShape(
-    val step: Dp,
+    val step: Dp
 ) : Shape {
     override fun createOutline(
         size: Size,
         layoutDirection: LayoutDirection,
         density: Density
-    ) = Outline.Generic(Path().apply {
-        val stepPx = with(density) { step.toPx() }
-        val stepsCount = (size.height / stepPx).roundToInt()
-        val actualStep = size.height / stepsCount
-        val dotSize = Size(width = size.width, height = actualStep / 2)
-        for (i in 0 until stepsCount) {
-            addRect(
-                Rect(
-                    offset = Offset(x = 0f, y = i * actualStep),
-                    size = dotSize
+    ) = Outline.Generic(
+        Path().apply {
+            val stepPx = with(density) { step.toPx() }
+            val stepsCount = (size.height / stepPx).roundToInt()
+            val actualStep = size.height / stepsCount
+            val dotSize = Size(width = size.width, height = actualStep / 2)
+            for (i in 0 until stepsCount) {
+                addRect(
+                    Rect(
+                        offset = Offset(x = 0f, y = i * actualStep),
+                        size = dotSize
+                    )
                 )
-            )
+            }
+            close()
         }
-        close()
-    })
+    )
 }

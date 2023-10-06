@@ -42,7 +42,6 @@ import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi
 @Composable
@@ -56,7 +55,6 @@ fun InstructionDragDropList(
     var overScrollJob by remember { mutableStateOf<Job?>(null) }
     val dragDropListState = rememberDraggableListState(onMove = onMove)
 
-
     LazyColumn(
         modifier = modifier
             .pointerInput(Unit) {
@@ -66,8 +64,9 @@ fun InstructionDragDropList(
                         change.consume()
                         dragDropListState.onDrag(offset = offset)
 
-                        if (overScrollJob?.isActive == true)
+                        if (overScrollJob?.isActive == true) {
                             return@detectDragGesturesAfterLongPress
+                        }
 
                         dragDropListState
                             .checkForOverScroll()
@@ -91,11 +90,11 @@ fun InstructionDragDropList(
             val isDragging = index == dragDropListState.currentIndexOfDraggedItem
             val color = animateColorAsState(
                 if (isDragging) MaterialTheme.colorScheme.primary else TrueWhite,
-                label = "",
+                label = ""
             )
             val textColor = animateColorAsState(
                 if (isDragging) TrueWhite else MaterialTheme.colorScheme.primary,
-                label = "",
+                label = ""
             )
 
             StandardCard(
@@ -108,7 +107,9 @@ fun InstructionDragDropList(
                     horizontalArrangement = Arrangement.spacedBy(SpaceSmall)
                 ) {
                     Card(
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface
+                        ),
                         modifier = Modifier.size(28.dp)
                     ) {
                         Box(
@@ -117,7 +118,9 @@ fun InstructionDragDropList(
                         ) {
                             Text(
                                 text = "${item.order}",
-                                style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.secondary),
+                                style = MaterialTheme.typography.bodyMedium.copy(
+                                    color = MaterialTheme.colorScheme.secondary
+                                ),
                                 modifier = Modifier
                             )
                         }
@@ -129,12 +132,11 @@ fun InstructionDragDropList(
                             color = DarkGrey
                         )
                     )
-
                 }
             }
         }
 
-        item("add ingredients") {
+        item("add ingredient") {
             Button(
                 onClick = onAddInstructionClick,
                 shape = MaterialTheme.shapes.large,
@@ -152,23 +154,3 @@ fun InstructionDragDropList(
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

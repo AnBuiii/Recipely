@@ -42,11 +42,13 @@ fun PopularRecipeSection(
         ) {
             Text(
                 text = stringResource(R.string.popular_recipe),
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.titleLarge
             )
             Text(
                 text = stringResource(R.string.see_all),
-                style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.secondary),
+                style = MaterialTheme.typography.bodySmall.copy(
+                    color = MaterialTheme.colorScheme.secondary
+                ),
                 modifier = Modifier.padding(start = SpaceLarge)
             )
         }
@@ -59,10 +61,9 @@ fun PopularRecipeSection(
                 RecipelyVerticallyCard(
                     recipe = it,
                     onLikeClick = { onRecipeLikeClick(it.id) },
-                    onClick = { onRecipeClick(it.id) })
+                    onClick = { onRecipeClick(it.id) }
+                )
             }
-
         }
-
     }
 }

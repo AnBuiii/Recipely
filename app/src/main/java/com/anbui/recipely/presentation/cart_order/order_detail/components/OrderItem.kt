@@ -70,7 +70,7 @@ fun OrderItem(
                         softWrap = true,
 //                        modifier = Modifier.weight(1f),
                         overflow = TextOverflow.Ellipsis,
-                        maxLines = 1,
+                        maxLines = 1
                     )
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -79,7 +79,9 @@ fun OrderItem(
                     ) {
                         Text(
                             text = "x$amount",
-                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Normal)
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                fontWeight = FontWeight.Normal
+                            )
                         )
                         Text(
                             text = "${(price * 100.0).roundToInt() / 100.0} $",
@@ -87,12 +89,10 @@ fun OrderItem(
                                 color = MaterialTheme.colorScheme.onSurface,
                                 fontWeight = FontWeight.Bold
                             ),
-                            softWrap = true,
+                            softWrap = true
                         )
                     }
-
                 }
-
             }
         }
     }

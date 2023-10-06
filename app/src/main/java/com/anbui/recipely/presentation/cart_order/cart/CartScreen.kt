@@ -51,8 +51,8 @@ import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.ThinGrey
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
-import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.delay
 
 @ExperimentalMaterial3Api
 @Composable
@@ -80,14 +80,13 @@ fun CartScreen(
                 openAlertDialog = false
                 timeOut = -1
             }) {
-                StandardCard(
-                ) {
+                StandardCard() {
                     Text(
                         text = "This is a minimal dialog",
                         modifier = Modifier
 //                            .fillMaxSize()
                             .wrapContentSize(Alignment.Center),
-                        textAlign = TextAlign.Center,
+                        textAlign = TextAlign.Center
                     )
                 }
             }
@@ -101,7 +100,7 @@ fun CartScreen(
         StandardToolbar(
             navController = navController,
             title = stringResource(id = R.string.my_cart),
-            showBackArrow = true,
+            showBackArrow = true
         )
         Box(
             modifier = Modifier.fillMaxSize()
@@ -131,7 +130,7 @@ fun CartScreen(
                         ambientColor = MaterialTheme.colorScheme.primary,
                         shape = MaterialTheme.shapes.large
                     )
-                    .background(TrueWhite, shape = MaterialTheme.shapes.large),
+                    .background(TrueWhite, shape = MaterialTheme.shapes.large)
             ) {
                 Row(
                     modifier = Modifier
@@ -173,7 +172,9 @@ fun CartScreen(
                     Column {
                         Text(
                             text = stringResource(R.string.total_price),
-                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                fontWeight = FontWeight.Bold
+                            )
                         )
                         Text(
                             text = "\$67.29",
@@ -198,10 +199,7 @@ fun CartScreen(
                     }
                 }
                 Spacer(modifier = Modifier.padding(vertical = SpaceSmall))
-
             }
         }
-
-
     }
 }

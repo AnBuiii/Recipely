@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material3.ElevatedFilterChip
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
@@ -41,7 +40,7 @@ fun StandardElevatedFilterChip(
             containerColor = MaterialTheme.colorScheme.background,
             selectedLeadingIconColor = MaterialTheme.colorScheme.primary,
             selectedContainerColor = MaterialTheme.colorScheme.surface,
-            selectedLabelColor = MaterialTheme.colorScheme.primary,
+            selectedLabelColor = MaterialTheme.colorScheme.primary
 
         ),
         border = FilterChipDefaults.filterChipBorder(

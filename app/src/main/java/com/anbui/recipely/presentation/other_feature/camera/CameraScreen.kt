@@ -37,7 +37,6 @@ import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 
-
 @ExperimentalMaterial3Api
 @Composable
 fun CameraScreen(
@@ -85,7 +84,8 @@ fun CameraScreen(
             }
             Text(text = "Scannings...", style = MaterialTheme.typography.headlineSmall)
             FilledIconButton(
-                onClick = { /*TODO*/ }, shape = MaterialTheme.shapes.small,
+                onClick = { /*TODO*/ },
+                shape = MaterialTheme.shapes.small,
                 colors = IconButtonDefaults.filledIconButtonColors(
                     containerColor = TrueWhite,
                     contentColor = Dark
@@ -110,7 +110,8 @@ fun CameraScreen(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             FilledIconButton(
-                onClick = { /*TODO*/ }, shape = MaterialTheme.shapes.medium,
+                onClick = { /*TODO*/ },
+                shape = MaterialTheme.shapes.medium,
                 colors = IconButtonDefaults.filledIconButtonColors(
                     containerColor = TrueWhite
                 )
@@ -119,7 +120,8 @@ fun CameraScreen(
             }
             Text(text = "Scanning", style = MaterialTheme.typography.headlineSmall)
             FilledIconButton(
-                onClick = { /*TODO*/ }, shape = MaterialTheme.shapes.medium,
+                onClick = { /*TODO*/ },
+                shape = MaterialTheme.shapes.medium,
                 colors = IconButtonDefaults.filledIconButtonColors(
                     containerColor = TrueWhite
                 )
@@ -133,8 +135,8 @@ fun CameraScreen(
 
         LazyColumn(
             modifier = Modifier.align(Alignment.BottomCenter)
-        ){
-            items(result.value){
+        ) {
+            items(result.value) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -149,14 +151,11 @@ fun CameraScreen(
 //        Column(
 //            modifier = Modifier
 //                .align(Alignment.BottomCenter)
-////                .height(300.dp)
+// //                .height(300.dp)
 //        ) {
 //            viewModel.resultList.forEach {
 //
 //            }
 //        }
-
-
     }
 }
-

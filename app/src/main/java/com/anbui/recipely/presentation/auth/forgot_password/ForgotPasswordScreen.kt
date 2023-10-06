@@ -35,7 +35,7 @@ import com.anbui.recipely.presentation.util.Screen
 fun ForgotPasswordScreen(navController: NavController) {
     var email by remember { mutableStateOf("") }
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
     ) {
         StandardToolbar(
             navController = navController,
@@ -47,7 +47,6 @@ fun ForgotPasswordScreen(navController: NavController) {
                 .fillMaxSize()
                 .padding(SpaceLarge)
         ) {
-
             Text(
                 text = stringResource(R.string.forgot_password_description),
                 style = MaterialTheme.typography.bodyMedium.copy(
@@ -71,8 +70,6 @@ fun ForgotPasswordScreen(navController: NavController) {
                 leadingIcon = painterResource(id = R.drawable.ic_message)
             )
 
-
-
             Spacer(modifier = Modifier.height(SpaceLarge + SpaceSmall))
 
             Button(
@@ -89,9 +86,6 @@ fun ForgotPasswordScreen(navController: NavController) {
                     modifier = Modifier.padding(vertical = SpaceSmall)
                 )
             }
-
         }
-
-
     }
 }

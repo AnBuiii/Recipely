@@ -47,7 +47,7 @@ fun SettingCard(
                 painter = painterResource(id = R.drawable.ic_arrow_right),
                 contentDescription = stringResource(
                     R.string.arrow_right
-                ),
+                )
             )
         }
     },

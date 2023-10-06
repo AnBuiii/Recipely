@@ -6,7 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "Contain")
 data class RecipeIngredientCrossRef(
-    @PrimaryKey(autoGenerate = false) @ColumnInfo(name = "_id") val id: String,
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "_id")
+    val id: String,
     @ColumnInfo(name = "recipe_id") val recipeId: String,
     @ColumnInfo(name = "ingredient_id") val ingredientId: String,
     val amount: Double

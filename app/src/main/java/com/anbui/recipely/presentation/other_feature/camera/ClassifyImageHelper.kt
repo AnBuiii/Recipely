@@ -37,7 +37,6 @@ class ImageClassifierHelper(
             .setScoreThreshold(threshold)
             .setMaxResults(maxResults)
 
-
         val baseOptionsBuilder = BaseOptions.builder().setNumThreads(numThreads)
 
         when (currentDelegate) {
@@ -107,12 +106,11 @@ class ImageClassifierHelper(
             results,
             inferenceTime
         )
-
     }
 
     // Receive the device rotation (Surface.x values range from 0->3) and return EXIF orientation
     // http://jpegclub.org/exif_orientation.html
-    private fun getOrientationFromRotation(rotation: Int) : ImageProcessingOptions.Orientation {
+    private fun getOrientationFromRotation(rotation: Int): ImageProcessingOptions.Orientation {
         when (rotation) {
             Surface.ROTATION_270 ->
                 return ImageProcessingOptions.Orientation.BOTTOM_RIGHT

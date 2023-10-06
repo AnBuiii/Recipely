@@ -23,7 +23,6 @@ import com.anbui.recipely.presentation.util.Navigation
 import com.anbui.recipely.presentation.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @ExperimentalAnimationApi
 @UnstableApi
 @ExperimentalStdlibApi
@@ -35,7 +34,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(
-            window, false
+            window,
+            false
         )
         setContent {
             RecipelyTheme {
@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                     StandardScaffold(
                         navController = navController,
                         showBottomBar = shouldShowBottomBar(navBackStackEntry),
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier.fillMaxSize()
                     ) {
                         Navigation(navController)
                     }
@@ -72,4 +72,3 @@ class MainActivity : ComponentActivity() {
         return doesRouteMatch || isOwnProfile
     }
 }
-

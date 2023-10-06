@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.anbui.recipely.domain.models.exampleIngredientItems
 import com.anbui.recipely.domain.models.exampleRecipes
 import com.anbui.recipely.presentation.recipe.recipe_detail.components.HeadingSection
 import com.anbui.recipely.presentation.recipe.recipe_detail.components.creatorSection
@@ -55,7 +54,6 @@ fun RecipeDetailScreen(
             LazyColumn(
                 modifier = Modifier.padding(horizontal = SpaceLarge)
             ) {
-
                 descriptionSection(
                     description = recipe.description,
                     isExpanded = recipeDetailViewModel.isDescriptionExpanded.value,
@@ -88,13 +86,11 @@ fun RecipeDetailScreen(
                 }
 
                 creatorSection(recipe = recipe)
-
                 // related recipe section
-
                 relatedRecipesSection(recipes = exampleRecipes)
             }
-
-        }) { _ ->
+        }
+    ) { _ ->
         Box(
             Modifier
                 .fillMaxWidth()
@@ -113,6 +109,3 @@ fun RecipeDetailScreen(
         recipeDetailViewModel.changeServings(recipe.servings)
     }
 }
-
-
-

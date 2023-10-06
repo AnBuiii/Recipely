@@ -20,7 +20,7 @@ import androidx.media3.ui.PlayerView
 
 @UnstableApi
 @Composable
-fun StandardVideoPlayer(uri: Uri, stop : Boolean) {
+fun StandardVideoPlayer(uri: Uri, stop: Boolean) {
     val context = LocalContext.current
     val exoPlayer = remember {
         ExoPlayer.Builder(context).build().apply {
@@ -52,13 +52,12 @@ fun StandardVideoPlayer(uri: Uri, stop : Boolean) {
             exoPlayer.release()
         }
     }
-    LaunchedEffect(stop){
-        if(stop && exoPlayer.isPlaying){
+    LaunchedEffect(stop) {
+        if (stop && exoPlayer.isPlaying) {
             exoPlayer.pause()
         }
-        if(!stop && !exoPlayer.isPlaying){
+        if (!stop && !exoPlayer.isPlaying) {
             exoPlayer.play()
         }
     }
 }
-

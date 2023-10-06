@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.Recipe
-import com.anbui.recipely.domain.models.exampleRecipes
 import com.anbui.recipely.presentation.components.RecipelyTinyCard
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
@@ -24,7 +23,7 @@ import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 @ExperimentalMaterial3Api
 fun LazyListScope.relatedRecipesSection(
     recipes: List<Recipe>
-){
+) {
     item {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -33,11 +32,13 @@ fun LazyListScope.relatedRecipesSection(
         ) {
             Text(
                 text = "Related Recipes",
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.titleLarge
             )
             Text(
                 text = stringResource(R.string.see_all),
-                style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.secondary),
+                style = MaterialTheme.typography.bodySmall.copy(
+                    color = MaterialTheme.colorScheme.secondary
+                ),
                 modifier = Modifier.padding(start = SpaceLarge)
             )
         }
@@ -53,7 +54,6 @@ fun LazyListScope.relatedRecipesSection(
             items(recipes, key = { it.id }) {
                 RecipelyTinyCard(recipe = it)
             }
-
         }
     }
 }

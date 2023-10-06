@@ -1,6 +1,5 @@
 package com.anbui.recipely.presentation.recipe.recipe_detail.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -62,13 +61,16 @@ fun IngredientItem(
                 Text(
                     text = name,
                     style = MaterialTheme.typography.bodyLarge.copy(color = textColor),
-                    softWrap = true,
+                    softWrap = true
                 )
             }
 
             Text(
                 text = "${amount.vulgarFraction.first} $unit",
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium, color = textColor)
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.Medium,
+                    color = textColor
+                )
             )
         }
     }

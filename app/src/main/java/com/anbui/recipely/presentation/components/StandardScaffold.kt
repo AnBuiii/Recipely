@@ -51,7 +51,7 @@ fun StandardScaffold(
             selectedIcon = R.drawable.ic_profile_filled,
             unselectedIcon = R.drawable.ic_profile,
             contentDescription = stringResource(R.string.account)
-        ),
+        )
     ),
     onFabClick: () -> Unit = {},
     content: @Composable () -> Unit
@@ -77,13 +77,15 @@ fun StandardScaffold(
                         if (bottomNavItem.unselectedIcon != null) {
                             StandardBottomNavItem(
                                 contentDescription = bottomNavItem.contentDescription,
-                                unselectedPainter = painterResource(id = bottomNavItem.unselectedIcon),
+                                unselectedPainter = painterResource(
+                                    id = bottomNavItem.unselectedIcon
+                                ),
                                 selectedPainter = painterResource(id = bottomNavItem.selectedIcon),
                                 selected = navController.currentDestination?.route?.startsWith(
                                     bottomNavItem.route
                                 ) == true,
                                 alertCount = bottomNavItem.alertCount,
-                                enabled = true,
+                                enabled = true
                             ) {
                                 if (navController.currentDestination?.route != bottomNavItem.route) {
                                     navController.navigate(bottomNavItem.route) {
@@ -92,26 +94,21 @@ fun StandardScaffold(
                                         popUpTo(Screen.HomeScreen.route) {
                                             saveState = true
                                         }
-
                                     }
                                 }
                             }
                         } else {
                             Box(modifier = Modifier.width(64.dp))
                         }
-
                     }
                 }
             }
-
         },
         modifier = modifier
     ) {
         val a = it
-        Box(
-        ) {
+        Box() {
             content()
         }
-
     }
 }

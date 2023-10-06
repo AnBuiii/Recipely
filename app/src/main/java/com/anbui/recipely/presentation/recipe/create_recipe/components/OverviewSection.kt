@@ -63,7 +63,7 @@ fun OverviewSection(
         ) {
             HorizontalPager(
                 state = pagerState,
-                pageSpacing = SpaceMedium,
+                pageSpacing = SpaceMedium
             ) { page ->
                 Card(
                     modifier = Modifier
@@ -80,7 +80,6 @@ fun OverviewSection(
                                 } else {
                                     onEvent(CreateRecipeEvent.EditImage(uri, page))
                                 }
-
                             }
                         }
                     )
@@ -91,14 +90,16 @@ fun OverviewSection(
                                 .fillMaxSize()
                                 .clickable {
                                     photoPickerLauncher.launch(
-                                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                                        PickVisualMediaRequest(
+                                            ActivityResultContracts.PickVisualMedia.ImageOnly
+                                        )
                                     )
                                 },
                             contentAlignment = Alignment.Center
                         ) {
                             Column(
                                 horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.spacedBy(SpaceMedium),
+                                verticalArrangement = Arrangement.spacedBy(SpaceMedium)
                             ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_recipely),
@@ -123,7 +124,9 @@ fun OverviewSection(
                             FilledIconButton(
                                 onClick = {
                                     photoPickerLauncher.launch(
-                                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                                        PickVisualMediaRequest(
+                                            ActivityResultContracts.PickVisualMedia.ImageOnly
+                                        )
                                     )
                                 },
                                 modifier = Modifier
@@ -154,10 +157,8 @@ fun OverviewSection(
                                 )
                             }
                         }
-
                     }
                 }
-
             }
             StandardHorizontalPagerIndicator(
                 pagerState = pagerState,
@@ -180,7 +181,7 @@ fun OverviewSection(
         StandardTextField(
             text = title,
             onValueChange = { onEvent(CreateRecipeEvent.EnterTitle(it)) },
-            hint = stringResource(R.string.enter_recipe_title),
+            hint = stringResource(R.string.enter_recipe_title)
         )
 
         Spacer(modifier = Modifier.height(SpaceMedium))
@@ -220,7 +221,5 @@ fun OverviewSection(
         )
 
         Spacer(modifier = Modifier.height(SpaceMedium))
-
-
     }
 }

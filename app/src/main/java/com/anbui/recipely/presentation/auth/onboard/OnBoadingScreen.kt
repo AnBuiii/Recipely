@@ -64,7 +64,7 @@ fun OnBoardingScreen(
             img = R.drawable.img_illu_3
         )
     )
-    val pageState = rememberPagerState(){onBoardings.size}
+    val pageState = rememberPagerState() { onBoardings.size }
     val coroutineScope = rememberCoroutineScope()
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -80,7 +80,7 @@ fun OnBoardingScreen(
         )
 
         HorizontalPager(
-            state = pageState,
+            state = pageState
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -90,7 +90,8 @@ fun OnBoardingScreen(
                 Image(
                     painter = painterResource(id = onBoardings[it].img),
                     contentDescription = stringResource(
-                        R.string.onboarding_image, it
+                        R.string.onboarding_image,
+                        it
                     ),
                     modifier = Modifier.size(280.dp)
                 )
@@ -137,11 +138,11 @@ fun OnBoardingScreen(
                             onBoardings.size - 1
                         )
                     }
-                },
+                }
             ) {
                 Text(
                     text = stringResource(R.string.skip),
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.titleLarge
                 )
             }
         }
@@ -155,7 +156,7 @@ fun OnBoardingScreen(
             AnimatedVisibility(
                 visible = pageState.currentPage == onBoardings.size - 1,
                 enter = fadeIn(),
-                exit = fadeOut(),
+                exit = fadeOut()
             ) {
                 TextButton(
                     onClick = {
@@ -164,11 +165,11 @@ fun OnBoardingScreen(
                                 inclusive = true
                             }
                         }
-                    },
+                    }
                 ) {
                     Text(
                         text = stringResource(R.string.create_new_account),
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 }
             }
@@ -188,14 +189,19 @@ fun OnBoardingScreen(
 
             ) {
                 Text(
-                    text = if (pageState.currentPage != onBoardings.size - 1) stringResource(R.string.next) else stringResource(
-                        R.string.login
-                    ),
+                    text = if (pageState.currentPage != onBoardings.size - 1) {
+                        stringResource(
+                            R.string.next
+                        )
+                    } else {
+                        stringResource(
+                            R.string.login
+                        )
+                    },
                     style = MaterialTheme.typography.bodyMedium.copy(TrueWhite),
                     modifier = Modifier.padding(vertical = SpaceSmall)
                 )
             }
         }
-
     }
 }

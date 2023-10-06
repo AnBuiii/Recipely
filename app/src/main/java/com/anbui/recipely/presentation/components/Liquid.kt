@@ -1,6 +1,5 @@
 package com.anbui.recipely.presentation.components
 
-
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.RenderEffect
@@ -72,7 +71,6 @@ fun FabGroup(
             .padding(bottom = 64.dp),
         contentAlignment = Alignment.BottomCenter
     ) {
-
         // left
         AnimatedFab(
             icon = Icons.Default.Person,
@@ -85,15 +83,16 @@ fun FabGroup(
                 ),
             opacity = LinearEasing.transform(0.2f, 0.7f, animationProgress),
             shape = RoundedCornerShape(
-                (-34 * FastOutSlowInEasing.transform(
-                    0f,
-                    1f,
-                    animationProgress
-                ) + 50).dp
+                (
+                    -34 * FastOutSlowInEasing.transform(
+                        0f,
+                        1f,
+                        animationProgress
+                    ) + 50
+                    ).dp
             ),
             onClick = onScanClick
         )
-
 
         // right
         AnimatedFab(
@@ -107,14 +106,15 @@ fun FabGroup(
                 ),
             opacity = LinearEasing.transform(0.4f, 0.9f, animationProgress),
             shape = RoundedCornerShape(
-                (-34 * FastOutSlowInEasing.transform(
-                    0f,
-                    1f,
-                    animationProgress
-                ) + 50).dp
+                (
+                    -34 * FastOutSlowInEasing.transform(
+                        0f,
+                        1f,
+                        animationProgress
+                    ) + 50
+                    ).dp
             ),
             onClick = onNewRecipeClick
-
 
         )
 
@@ -123,7 +123,6 @@ fun FabGroup(
 //                .scale(1f - LinearEasing.transform(0.5f, 0.85f, animationProgress)),
 //        )
 
-
         AnimatedFab(
             icon = Icons.Default.Add,
             modifier = Modifier
@@ -131,13 +130,12 @@ fun FabGroup(
                     225 * FastOutSlowInEasing
                         .transform(0.35f, 0.65f, animationProgress)
                 ),
-            onClick = toggleAnimation,
+            onClick = toggleAnimation
 //            shape = CircleShape
 //            backgroundColor = Color.Transparent
         )
     }
 }
-
 
 @Composable
 fun AnimatedFab(
@@ -178,7 +176,7 @@ fun AnimatedFab(
 //        Icon(
 //            painterResource(id = R.drawable.ic_recipely_foreground),
 //            contentDescription = stringResource(R.string.make_recipe),
-////                modifier = Modifier.size(200.dp)
+// //                modifier = Modifier.size(200.dp)
 //        )
 //    }
 }

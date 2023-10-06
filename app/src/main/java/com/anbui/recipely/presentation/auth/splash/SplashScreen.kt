@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -15,7 +14,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.presentation.util.Screen
@@ -37,7 +35,7 @@ fun SplashScreen(
         }
     }
 
-    LaunchedEffect(a){
+    LaunchedEffect(a) {
         Log.d("result", a.toString())
     }
 
@@ -45,7 +43,6 @@ fun SplashScreen(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-
         Image(
             painter = painterResource(id = R.drawable.splash_screen),
             contentDescription = stringResource(R.string.splash),

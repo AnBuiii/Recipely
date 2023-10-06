@@ -21,7 +21,6 @@ import com.anbui.recipely.presentation.main_screen.search.components.recentSearc
 import com.anbui.recipely.presentation.main_screen.search.components.searchBarSection
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 
-
 @ExperimentalMaterial3Api
 @Composable
 fun SearchScreen(
@@ -57,8 +56,5 @@ fun SearchScreen(
         recentSearchSection(recentSearches = recentSearch)
 
         popularRecipeSection(popularRecipes = recentSearch)
-
     }
-
 }
-

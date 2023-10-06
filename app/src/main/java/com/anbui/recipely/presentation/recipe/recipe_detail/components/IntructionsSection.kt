@@ -61,9 +61,11 @@ fun LazyListScope.instructionsSection(
         }
     }
 
-    items(recipe.instructions.sortedBy { it.order }, key = {
-        "Step ${it.order}"
-    }
+    items(
+        recipe.instructions.sortedBy { it.order },
+        key = {
+            "Step ${it.order}"
+        }
     ) {
         StandardCard(
             modifier = Modifier
@@ -74,7 +76,9 @@ fun LazyListScope.instructionsSection(
                 horizontalArrangement = Arrangement.spacedBy(SpaceSmall)
             ) {
                 Card(
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface
+                    ),
                     modifier = Modifier.size(28.dp)
                 ) {
                     Box(
@@ -83,7 +87,9 @@ fun LazyListScope.instructionsSection(
                     ) {
                         Text(
                             text = "${it.order}",
-                            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.secondary),
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                color = MaterialTheme.colorScheme.secondary
+                            ),
                             modifier = Modifier
                         )
                     }
@@ -95,7 +101,6 @@ fun LazyListScope.instructionsSection(
                         color = DarkGrey
                     )
                 )
-
             }
         }
     }
@@ -104,7 +109,9 @@ fun LazyListScope.instructionsSection(
             onClick = onStartCookingClick,
             shape = MaterialTheme.shapes.large,
             modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary
+            )
 
         ) {
             Text(
@@ -113,7 +120,5 @@ fun LazyListScope.instructionsSection(
                 modifier = Modifier.padding(vertical = SpaceSmall)
             )
         }
-
     }
-
 }

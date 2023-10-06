@@ -34,12 +34,7 @@ class CreateRecipeViewModel @Inject constructor() : ViewModel() {
     private val _steps = mutableStateListOf<Step>(*exampleSteps.toTypedArray())
     val steps: List<Step> = _steps
 
-
-
-
-
 //    private val sm = SharedV
-
 
     fun onEvent(event: CreateRecipeEvent) {
         when (event) {
@@ -53,7 +48,6 @@ class CreateRecipeViewModel @Inject constructor() : ViewModel() {
 
             is CreateRecipeEvent.EditImage -> {
                 _coverImages[event.index] = event.value
-
             }
 
             is CreateRecipeEvent.RemoveImage -> {
@@ -63,7 +57,6 @@ class CreateRecipeViewModel @Inject constructor() : ViewModel() {
             is CreateRecipeEvent.EnterSearch -> {
                 _searchText.value = event.value
             }
-
 
             is CreateRecipeEvent.SelectIngredient -> {
 //                if(_ingredients.any { it.ingredientId == event.value.id }){
@@ -75,10 +68,8 @@ class CreateRecipeViewModel @Inject constructor() : ViewModel() {
             is CreateRecipeEvent.SwapIngredient -> {
                 try {
                     _ingredients.swap(event.from, event.to)
-                } catch (_: Exception){
-
+                } catch (_: Exception) {
                 }
-
             }
 
             is CreateRecipeEvent.AddIngredient -> {
@@ -88,12 +79,9 @@ class CreateRecipeViewModel @Inject constructor() : ViewModel() {
             is CreateRecipeEvent.SwapInstruction -> {
                 try {
                     _steps.swap(event.from, event.to)
-                } catch (_: Exception){
-
+                } catch (_: Exception) {
                 }
             }
         }
     }
-
-
 }

@@ -44,7 +44,7 @@ fun StandardHorizontalPagerIndicator(
     indicatorWidth: Dp = 8.dp,
     indicatorHeight: Dp = indicatorWidth,
     spacing: Dp = indicatorWidth,
-    indicatorShape: Shape = CircleShape,
+    indicatorShape: Shape = CircleShape
 ) {
     val stateBridge = remember(pagerState) {
         object : PagerStateBridge {
@@ -80,9 +80,8 @@ private fun StandardHorizontalPagerIndicator(
     indicatorWidth: Dp = 8.dp,
     indicatorHeight: Dp = indicatorWidth,
     spacing: Dp = indicatorWidth,
-    indicatorShape: Shape = CircleShape,
+    indicatorShape: Shape = CircleShape
 ) {
-
     val indicatorWidthPx = LocalDensity.current.run { indicatorWidth.roundToPx() }
     val spacingPx = LocalDensity.current.run { spacing.roundToPx() }
 
@@ -92,7 +91,7 @@ private fun StandardHorizontalPagerIndicator(
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(spacing),
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             val indicatorModifier = Modifier
                 .size(width = indicatorWidth, height = indicatorHeight)
@@ -124,25 +123,26 @@ private fun StandardHorizontalPagerIndicator(
                 }
                 .size(width = indicatorWidth, height = indicatorHeight)
                 .then(
-                    if (pageCount > 0) Modifier.background(
-                        color = activeColor,
-                        shape = indicatorShape,
-                    )
-                    else Modifier
+                    if (pageCount > 0) {
+                        Modifier.background(
+                            color = activeColor,
+                            shape = indicatorShape
+                        )
+                    } else {
+                        Modifier
+                    }
                 )
                 .drawBehind {
                     drawCircle(
                         activeColor,
-                        radius = (indicatorHeight).toPx()/ 2 + 2.dp.toPx(),
+                        radius = (indicatorHeight).toPx() / 2 + 2.dp.toPx(),
                         center = Offset(
                             x = size.width - indicatorWidth.toPx() / 2,
                             y = size.height - indicatorWidth.toPx() / 2
                         ),
                         style = Stroke(width = 1.dp.toPx())
                     )
-
                 }
         )
     }
 }
-

@@ -24,11 +24,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.times
 import androidx.navigation.NavController
 import com.anbui.recipely.domain.models.exampleIngredientItems
+import com.anbui.recipely.presentation.cart_order.order_detail.components.InformationItem
+import com.anbui.recipely.presentation.cart_order.order_detail.components.OrderItem
 import com.anbui.recipely.presentation.components.StandardCard
 import com.anbui.recipely.presentation.components.StandardToolbar
 import com.anbui.recipely.presentation.components.Stepper
-import com.anbui.recipely.presentation.cart_order.order_detail.components.InformationItem
-import com.anbui.recipely.presentation.cart_order.order_detail.components.OrderItem
 import com.anbui.recipely.presentation.ui.theme.DarkGrey
 import com.anbui.recipely.presentation.ui.theme.LightGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceExtraLarge
@@ -53,7 +53,6 @@ fun OrderDetailScreen(
         val titleList = arrayListOf("Step 1", "Step 2", "Step 3", "Step 4")
         Box {
             LazyColumn {
-
                 // information section
                 item {
                     Text(
@@ -64,13 +63,12 @@ fun OrderDetailScreen(
                     StandardCard(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = SpaceLarge),
+                            .padding(horizontal = SpaceLarge)
                     ) {
                         InformationItem(headline = "ID", information = "91283")
                         InformationItem(headline = "Date", information = "20:63, yesterday")
                         InformationItem(headline = "Status", information = "Delivered success")
                         InformationItem(headline = "Total", information = "$321")
-
                     }
                     Divider(
                         modifier = Modifier.padding(
@@ -89,11 +87,13 @@ fun OrderDetailScreen(
                     StandardCard(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = SpaceLarge),
+                            .padding(horizontal = SpaceLarge)
                     ) {
                         Text(
                             text = "Bùi Lê Hoài An",
-                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                fontWeight = FontWeight.Bold
+                            )
                         )
                         Text(
                             text = "134 Lê Chân, Sơn Trà, Đà Nẵng",
@@ -120,13 +120,13 @@ fun OrderDetailScreen(
                     StandardCard(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = SpaceLarge),
+                            .padding(horizontal = SpaceLarge)
                     ) {
                         Spacer(modifier = Modifier.height(SpaceLarge))
                         Stepper(
                             numberOfSteps = numberStep,
                             currentStep = currentStep,
-                            stepDescriptionList = titleList,
+                            stepDescriptionList = titleList
                         )
                     }
                     Divider(
@@ -164,7 +164,6 @@ fun OrderDetailScreen(
                 },
                 shape = MaterialTheme.shapes.large,
                 modifier = Modifier
-
                     .align(Alignment.BottomCenter)
                     .fillMaxWidth()
                     .padding(SpaceLarge)
@@ -176,7 +175,6 @@ fun OrderDetailScreen(
                     modifier = Modifier.padding(vertical = SpaceSmall)
                 )
             }
-
         }
     }
 }

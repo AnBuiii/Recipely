@@ -65,7 +65,6 @@ fun AddIngredientScreen(
                     onClick = focusManager::clearFocus
                 )
         ) {
-
             Text(
                 text = stringResource(R.string.ingredient_name),
                 style = MaterialTheme.typography.bodyMedium,
@@ -93,7 +92,7 @@ fun AddIngredientScreen(
                     onDone = {
                         focusManager.clearFocus()
                     }
-                ),
+                )
             )
 
             Spacer(modifier = Modifier.height(SpaceMedium))
@@ -130,7 +129,6 @@ fun AddIngredientScreen(
                                 ),
                                 maxLines = 1
                             )
-
                         }
                         Column(
                             modifier = Modifier.weight(1f)
@@ -189,7 +187,6 @@ fun AddIngredientScreen(
                                 }
                             }
                         }
-
                     }
                     Spacer(modifier = Modifier.weight(1f))
                     Button(
@@ -242,10 +239,8 @@ fun AddIngredientScreen(
                             }
                         }
                     }
-
                 }
             }
-
         }
     }
 }

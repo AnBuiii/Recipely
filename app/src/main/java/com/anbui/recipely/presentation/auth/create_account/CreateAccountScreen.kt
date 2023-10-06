@@ -51,7 +51,7 @@ fun CreateAccountScreen(
         mutableStateOf(true)
     }
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
     ) {
         StandardToolbar(
             navController = navController,
@@ -63,7 +63,6 @@ fun CreateAccountScreen(
                 .fillMaxSize()
                 .padding(SpaceLarge)
         ) {
-
             Text(
                 text = stringResource(R.string.username),
                 style = MaterialTheme.typography.bodyMedium
@@ -118,11 +117,9 @@ fun CreateAccountScreen(
                         leadingIcon = painterResource(id = R.drawable.ic_message)
                     )
                 }
-
             }
 
             Spacer(modifier = Modifier.height(SpaceMedium))
-
 
             Text(
                 text = stringResource(R.string.email_address),
@@ -213,6 +210,5 @@ fun CreateAccountScreen(
                     .padding(horizontal = SpaceLarge + SpaceMedium)
             )
         }
-
     }
 }

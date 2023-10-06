@@ -6,6 +6,7 @@ import androidx.compose.material3.SheetState
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,6 +23,7 @@ class RecipeDetailViewModel @Inject constructor() : ViewModel() {
             initialValue = SheetValue.PartiallyExpanded
         )
     )
+
     val bottomSheetState: State<SheetState> = _bottomSheetState
 
     private val _bottomSheetScaffoldState = mutableStateOf(
@@ -40,7 +42,7 @@ class RecipeDetailViewModel @Inject constructor() : ViewModel() {
         _viewMode.value = newValue
     }
 
-    private val _servings = mutableStateOf(1)
+    private val _servings = mutableIntStateOf(1)
     val servings: State<Int> = _servings
 
     fun changeServings(newValue: Int) {
@@ -53,10 +55,9 @@ class RecipeDetailViewModel @Inject constructor() : ViewModel() {
     fun changeDescriptionExpandedState() {
         _isDescriptionExpanded.value = !_isDescriptionExpanded.value
     }
-
 }
 
 sealed class ViewMode {
-    data object  Ingredients : ViewMode()
+    data object Ingredients : ViewMode()
     data object Instructions : ViewMode()
 }

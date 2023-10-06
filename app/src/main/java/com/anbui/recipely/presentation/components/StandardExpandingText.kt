@@ -38,7 +38,7 @@ fun StandardExpandingText(
         color = MediumGrey,
         fontWeight = FontWeight.Normal
     ),
-    isExpanded : Boolean,
+    isExpanded: Boolean,
     onHintClick: () -> Unit
 ) {
 //    var isExpanded by remember { mutableStateOf(value = false) }
@@ -105,7 +105,6 @@ fun StandardExpandingText(
                 }
             }
         }
-
     }
     Box(modifier = modifier) {
         ClickableText(
@@ -132,8 +131,8 @@ fun StandardExpandingText(
             modifier = Modifier.animateContentSize(
                 animationSpec = spring(
                     dampingRatio = Spring.DampingRatioLowBouncy,
-                    stiffness = Spring.StiffnessLow,
-                ),
+                    stiffness = Spring.StiffnessLow
+                )
             )
         )
     }

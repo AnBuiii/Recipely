@@ -1,6 +1,5 @@
 package com.anbui.recipely.presentation.ui.theme
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -9,11 +8,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.anbui.recipely.R
 
-
 val sofia_pro = FontFamily(
     Font(R.font.sofia_pro_bold, FontWeight.Bold),
     Font(R.font.sofia_pro_medium, FontWeight.Medium),
-    Font(R.font.sofia_pro_regular, FontWeight.Normal),
+    Font(R.font.sofia_pro_regular, FontWeight.Normal)
 )
 
 // Set of Material typography styles to start with
@@ -53,7 +51,7 @@ val Typography = Typography(
         fontFamily = sofia_pro,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp,
-        lineHeight = 20.sp,
+        lineHeight = 20.sp
     ),
     bodyMedium = TextStyle(
         fontFamily = sofia_pro,
@@ -76,6 +74,6 @@ val Typography = Typography(
         fontSize = 12.sp,
         lineHeight = 16.sp,
         color = ExtraDarkGrey
-    ),
+    )
 
 )

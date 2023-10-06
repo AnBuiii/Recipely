@@ -13,14 +13,17 @@ import androidx.compose.ui.text.font.FontWeight
 @Composable
 fun InformationItem(
     headline: String,
-    information: String,
+    information: String
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = headline, style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal))
+        Text(
+            text = headline,
+            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal)
+        )
         Text(
             text = information,
             style = MaterialTheme.typography.bodyMedium

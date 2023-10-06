@@ -37,11 +37,13 @@ fun LazyListScope.recentSearchSection(
         ) {
             Text(
                 text = stringResource(R.string.recent_search),
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.titleLarge
             )
             Text(
                 text = stringResource(R.string.see_all),
-                style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.secondary),
+                style = MaterialTheme.typography.bodySmall.copy(
+                    color = MaterialTheme.colorScheme.secondary
+                ),
                 modifier = Modifier.padding(start = SpaceLarge)
             )
         }
@@ -55,7 +57,6 @@ fun LazyListScope.recentSearchSection(
             items(recentSearches, key = { it.id }) {
                 RecipelyTinyCard(recipe = it)
             }
-
         }
     }
 }

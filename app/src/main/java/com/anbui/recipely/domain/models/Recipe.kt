@@ -164,8 +164,5 @@ val exampleRecipes = listOf(
         ownerDescription = "I'm the author and recipe developer",
         instructions = emptyList(),
         ingredients = listOf(*exampleIngredientItems.toTypedArray())
-    ),
+    )
 )
-
-
-

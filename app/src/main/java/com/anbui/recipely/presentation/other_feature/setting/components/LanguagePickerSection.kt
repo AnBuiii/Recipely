@@ -30,9 +30,9 @@ import java.util.Locale
 @Composable
 fun LanguagePickerBottomSheet(
     isOpen: Boolean,
-    onChangeOpenState: (Boolean) -> Unit,
+    onChangeOpenState: (Boolean) -> Unit
 
-    ) {
+) {
     val bottomSheetState = rememberModalBottomSheetState()
     val context = LocalContext.current
     val language =
@@ -78,7 +78,6 @@ fun LanguagePickerBottomSheet(
                         }
                     }
             }
-
         }
     }
 }

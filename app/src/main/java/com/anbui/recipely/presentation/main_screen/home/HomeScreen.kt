@@ -1,6 +1,5 @@
 package com.anbui.recipely.presentation.main_screen.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,15 +8,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.anbui.recipely.domain.models.exampleRecipes
 import com.anbui.recipely.presentation.main_screen.home.components.CategorySection
 import com.anbui.recipely.presentation.main_screen.home.components.FeaturedSection
 import com.anbui.recipely.presentation.main_screen.home.components.HeadingSection
@@ -29,24 +26,24 @@ import com.anbui.recipely.presentation.util.Screen
 @ExperimentalMaterial3Api
 @Composable
 fun HomeScreen(
-    navController: NavController
+    navController: NavController,
+    homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
 ) {
     val name = "An Bùi"
     val selectedCategories = remember { mutableStateListOf<String>() }
-    val popularRecipes = remember { exampleRecipes.toMutableStateList() }
+    val popularRecipes by homeScreenViewModel.popularRecipe.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(top = SpaceHuge)
     ) {
-
         HeadingSection(
             name = name,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = SpaceLarge),
             onCartClick = {
-                navController.navigate(Screen.CartScreen.route){
+                navController.navigate(Screen.CartScreen.route) {
                     launchSingleTop = true
                 }
             }
@@ -74,9 +71,6 @@ fun HomeScreen(
         PopularRecipeSection(
             popularRecipes = popularRecipes,
             onRecipeLikeClick = { id ->
-                val idx = popularRecipes.indexOfFirst { it.id == id }
-                val recipe = popularRecipes[idx]
-                popularRecipes[idx] = recipe.copy(isLike = !recipe.isLike)
             },
             onRecipeClick = { id ->
                 navController.navigate(
@@ -85,12 +79,4 @@ fun HomeScreen(
             }
         )
     }
-
-}
-
-@ExperimentalMaterial3Api
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen(navController = rememberNavController())
 }

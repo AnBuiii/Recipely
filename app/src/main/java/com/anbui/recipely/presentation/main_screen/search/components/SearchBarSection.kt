@@ -1,7 +1,6 @@
 package com.anbui.recipely.presentation.main_screen.search.components
 
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -15,12 +14,13 @@ fun LazyListScope.searchBarSection(
 ) {
     item {
         StandardTextField(
-            text = searchText, onValueChange = onSearchTextChange, leadingIcon = painterResource(
+            text = searchText,
+            onValueChange = onSearchTextChange,
+            leadingIcon = painterResource(
                 id = R.drawable.ic_search
             ),
             hint = stringResource(id = R.string.search),
             modifier = modifier
         )
     }
-
 }

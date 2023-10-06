@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,7 +26,6 @@ import com.anbui.recipely.presentation.components.StandardCard
 import com.anbui.recipely.presentation.ui.theme.DarkGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
-import com.anbui.recipely.presentation.ui.theme.TrueWhite
 
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi
@@ -60,9 +57,11 @@ fun LazyListScope.instructionsSection(
         }
     }
 
-    items(recipe.instructions.sortedBy { it.order }, key = {
-        "Step ${it.order}"
-    }
+    items(
+        recipe.instructions.sortedBy { it.order },
+        key = {
+            "Step ${it.order}"
+        }
     ) {
         StandardCard(
             modifier = Modifier
@@ -73,7 +72,9 @@ fun LazyListScope.instructionsSection(
                 horizontalArrangement = Arrangement.spacedBy(SpaceSmall)
             ) {
                 Card(
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface
+                    ),
                     modifier = Modifier.size(28.dp)
                 ) {
                     Box(
@@ -82,7 +83,9 @@ fun LazyListScope.instructionsSection(
                     ) {
                         Text(
                             text = "${it.order}",
-                            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.secondary),
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                color = MaterialTheme.colorScheme.secondary
+                            ),
                             modifier = Modifier
                         )
                     }
@@ -94,7 +97,6 @@ fun LazyListScope.instructionsSection(
                         color = DarkGrey
                     )
                 )
-
             }
         }
     }

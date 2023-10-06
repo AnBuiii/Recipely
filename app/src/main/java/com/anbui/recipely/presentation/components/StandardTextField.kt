@@ -36,7 +36,7 @@ fun StandardTextField(
     error: String = "",
     style: TextStyle = MaterialTheme.typography.bodyMedium.copy(
         fontWeight = FontWeight.Medium,
-        color = MaterialTheme.colorScheme.primary,
+        color = MaterialTheme.colorScheme.primary
     ),
     singleLine: Boolean = true,
     maxLines: Int = 1,
@@ -52,9 +52,6 @@ fun StandardTextField(
     leadingIconModifier: Modifier = Modifier,
     keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
-
-
-
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -83,7 +80,7 @@ fun StandardTextField(
             },
             isError = error != "",
             keyboardOptions = KeyboardOptions(
-                keyboardType = keyboardType,
+                keyboardType = keyboardType
             ),
             keyboardActions = keyboardActions,
             visualTransformation = if (!isPasswordVisible && isPasswordToggleDisplayed) {
@@ -93,7 +90,7 @@ fun StandardTextField(
             },
             singleLine = singleLine,
             leadingIcon = leadingIcon?.let {
-                @Composable{
+                @Composable {
                     Icon(
                         painter = it,
                         contentDescription = null,
@@ -116,7 +113,6 @@ fun StandardTextField(
                                 painterResource(id = R.drawable.ic_hide)
                             } else {
                                 painterResource(id = R.drawable.ic_show)
-
                             },
                             tint = MediumGrey,
                             contentDescription = if (isPasswordVisible) {
@@ -126,7 +122,6 @@ fun StandardTextField(
                             }
                         )
                     }
-
                 }
             },
             shape = MaterialTheme.shapes.large,

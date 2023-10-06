@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -51,7 +50,8 @@ fun NutritionItem(
                     contentDescription = stringResource(
                         R.string.carbs
                     ),
-                    modifier = Modifier.size(24.dp),)
+                    modifier = Modifier.size(24.dp)
+                )
             }
         }
         Text(

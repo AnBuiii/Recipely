@@ -1,6 +1,5 @@
 package com.anbui.recipely.presentation.components
 
-
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -47,9 +46,8 @@ fun StandardBottomNavigation(
 ) {
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
 //            .height(128.dp)
-        ,
         contentAlignment = Alignment.BottomCenter
     ) {
 //        FilledIconButton(
@@ -66,7 +64,7 @@ fun StandardBottomNavigation(
 //            Icon(
 //                painterResource(id = R.drawable.ic_recipely_foreground),
 //                contentDescription = stringResource(R.string.make_recipe),
-////                modifier = Modifier.size(200.dp)
+// //                modifier = Modifier.size(200.dp)
 //            )
 //        }
         val isMenuExtended = remember { mutableStateOf(false) }
@@ -77,16 +75,17 @@ fun StandardBottomNavigation(
             animationSpec = tween(
                 durationMillis = 800,
                 easing = LinearEasing
-            ), label = ""
+            ),
+            label = ""
         )
         val clickAnimationProgress by animateFloatAsState(
             targetValue = if (isMenuExtended.value) 1f else 0f,
             animationSpec = tween(
                 durationMillis = 400,
                 easing = LinearEasing
-            ), label = ""
+            ),
+            label = ""
         )
-
 
         ElevatedCard(
             modifier = Modifier
@@ -102,11 +101,10 @@ fun StandardBottomNavigation(
             shape = BottomNavigationShape(16.dp.toPx()),
             colors = CardDefaults.elevatedCardColors(
                 containerColor = TrueWhite
-            ),
+            )
 //        elevation = CardDefaults.elevatedCardElevation(
 //            defaultElevation = 1.dp
 //        )
-
 
         ) {
             Row(
@@ -117,13 +115,11 @@ fun StandardBottomNavigation(
                     .windowInsetsPadding(windowInsets),
                 content = content
             )
-
-
         }
 
         FabGroup(
             renderEffect = renderEffect,
-            animationProgress = fabAnimationProgress,
+            animationProgress = fabAnimationProgress
         )
         FabGroup(
             renderEffect = null,
@@ -135,16 +131,12 @@ fun StandardBottomNavigation(
             onNewRecipeClick = onNewRecipeClick
         )
 
-
-
 //        Circle(
 //            color = Color.White,
 //            animationProgress = clickAnimationProgress
 //        )
     }
-
 }
-
 
 class BottomNavigationShape(private val cornerRadius: Float) : Shape {
     override fun createOutline(
@@ -185,7 +177,7 @@ class BottomNavigationShape(private val cornerRadius: Float) : Shape {
                 forceMoveTo = false
             )
 
-            //Middle arc
+            // Middle arc
             arcTo(
                 rect = Rect(
                     left = size.width / 2 - circleRadius,
@@ -225,7 +217,6 @@ class BottomNavigationShape(private val cornerRadius: Float) : Shape {
                 forceMoveTo = false
             )
 
-
             lineTo(x = size.width, y = size.height)
             lineTo(x = 0f, y = size.height)
             lineTo(x = 0f, y = cornerRadius)
@@ -234,4 +225,3 @@ class BottomNavigationShape(private val cornerRadius: Float) : Shape {
         return Outline.Generic(path)
     }
 }
-

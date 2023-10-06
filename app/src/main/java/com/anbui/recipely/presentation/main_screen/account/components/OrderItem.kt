@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -18,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,7 +34,7 @@ import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 @Composable
 fun OrderItem(
     order: Order,
-    onClick: ()-> Unit,
+    onClick: () -> Unit,
 ) {
     StandardCard(
         modifier = Modifier.height(152.dp),
@@ -76,7 +74,7 @@ fun OrderItem(
                 contentScale = ContentScale.Crop
             )
             Column(
-                modifier =Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
@@ -88,8 +86,6 @@ fun OrderItem(
                 )
                 Text(text = "$9.13")
             }
-
         }
-
     }
 }

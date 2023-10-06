@@ -77,9 +77,13 @@ fun SettingScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = if (notification) stringResource(R.string.on) else stringResource(
-                                R.string.off
-                            ),
+                            text = if (notification) {
+                                stringResource(R.string.on)
+                            } else {
+                                stringResource(
+                                    R.string.off
+                                )
+                            },
                             style = MaterialTheme.typography.bodySmall.copy(
                                 fontWeight = FontWeight.Normal,
                                 color = MediumGrey
@@ -97,25 +101,29 @@ fun SettingScreen(
                             )
                         )
                     }
-
                 },
                 onClick = { notification = !notification }
             )
             SettingCard(
                 leadingIcon = painterResource(id = R.drawable.ic_time_square),
-                text = stringResource(R.string.your_orders),
+                text = stringResource(R.string.your_orders)
             )
             SettingCard(
                 leadingIcon = painterResource(id = R.drawable.ic_language),
                 text = stringResource(R.string.language),
                 trailing = {
-
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(SpaceMedium),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = if (language == "en-US") stringResource(R.string.current_language) else "Tiếng Việt",
+                            text = if (language == "en-US") {
+                                stringResource(
+                                    R.string.current_language
+                                )
+                            } else {
+                                "Tiếng Việt"
+                            },
                             style = MaterialTheme.typography.bodySmall.copy(
                                 fontWeight = FontWeight.Normal,
                                 color = MediumGrey
@@ -137,11 +145,10 @@ fun SettingScreen(
                                 painter = painterResource(id = R.drawable.ic_arrow_right),
                                 contentDescription = stringResource(
                                     R.string.arrow_right
-                                ),
+                                )
                             )
                         }
                     }
-
                 },
                 onClick = {
                     isBottomSheetOpen = true
@@ -151,7 +158,6 @@ fun SettingScreen(
                 leadingIcon = painterResource(id = R.drawable.ic_info),
                 text = stringResource(R.string.about_app)
             )
-
         }
     }
 }

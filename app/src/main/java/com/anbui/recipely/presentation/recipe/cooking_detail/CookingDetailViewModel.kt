@@ -30,16 +30,15 @@ class CookingDetailViewModel @Inject constructor() : ViewModel() {
         countDown = object : CountDownTimer(millis, 10) {
             override fun onTick(millisUntilFinished: Long) {
                 _viewState.value = _viewState.value.copy(
-                    remainingTime = millisUntilFinished,
+                    remainingTime = millisUntilFinished
                 )
             }
 
             override fun onFinish() {
                 _viewState.value = _viewState.value.copy(
-                    timerStatus = TimerStatus.FINISHED,
+                    timerStatus = TimerStatus.FINISHED
                 )
             }
-
         }
         countDown?.start()
     }
@@ -47,10 +46,9 @@ class CookingDetailViewModel @Inject constructor() : ViewModel() {
     private fun pauseTimer() {
         countDown?.cancel()
         _viewState.value = _viewState.value.copy(
-            timerStatus = TimerStatus.PAUSED,
+            timerStatus = TimerStatus.PAUSED
         )
     }
-
 
     fun buttonSelection() {
         println(_viewState.value)
@@ -67,7 +65,6 @@ class CookingDetailViewModel @Inject constructor() : ViewModel() {
                 startTimer(_viewState.value.remainingTime)
             }
         }
-
     }
 
     private val _viewMode = mutableStateOf<ViewMode>(ViewMode.Ingredients)

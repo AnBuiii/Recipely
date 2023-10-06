@@ -122,7 +122,6 @@ val exampleIngredients = listOf(
         fat = 5f,
         unit = UnitType.Unit,
         imageUrl = "https://www.cookingwithamc.info/sites/default/files/styles/large/public/migrate/recipe/1675167788-amc-rid194-image18951.jpeg.jpg?itok=cdUxilNZ"
-    ),
-
+    )
 
 )

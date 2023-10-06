@@ -20,7 +20,6 @@ import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.SpaceTiny
 
 @ExperimentalMaterial3Api
-
 fun LazyListScope.popularRecipeSection(
     popularRecipes: List<Recipe>
 ) {
@@ -36,11 +35,13 @@ fun LazyListScope.popularRecipeSection(
         ) {
             Text(
                 text = stringResource(R.string.popular_recipes),
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.titleLarge
             )
             Text(
                 text = stringResource(R.string.see_all),
-                style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.secondary),
+                style = MaterialTheme.typography.bodySmall.copy(
+                    color = MaterialTheme.colorScheme.secondary
+                ),
                 modifier = Modifier.padding(start = SpaceLarge)
             )
         }

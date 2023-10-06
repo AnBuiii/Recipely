@@ -142,11 +142,9 @@ fun RecipelyLargeCard(
                             )
                         )
                     }
-
                 }
             }
         }
-
     }
 }
 
@@ -158,7 +156,6 @@ fun RecipelyVerticallyCard(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-
     StandardCard(
         modifier = modifier
             .height(240.dp)
@@ -185,14 +182,20 @@ fun RecipelyVerticallyCard(
                     .size(32.dp),
                 colors = IconButtonDefaults.filledIconButtonColors(
                     containerColor = TrueWhite,
-                    contentColor = if (recipe.isLike) MaterialTheme.colorScheme.secondary
-                    else MaterialTheme.colorScheme.primary
-                ),
+                    contentColor = if (recipe.isLike) {
+                        MaterialTheme.colorScheme.secondary
+                    } else {
+                        MaterialTheme.colorScheme.primary
+                    }
+                )
             ) {
                 Icon(
                     painter = painterResource(
-                        id = if (recipe.isLike) R.drawable.ic_heart_filled
-                        else R.drawable.ic_heart
+                        id = if (recipe.isLike) {
+                            R.drawable.ic_heart_filled
+                        } else {
+                            R.drawable.ic_heart
+                        }
                     ),
                     contentDescription = stringResource(R.string.heart),
                     tint = Color.Unspecified
@@ -231,7 +234,8 @@ fun RecipelyVerticallyCard(
                 tint = MediumGrey
             )
             Text(
-                text = recipe.cookTime, style = MaterialTheme.typography.bodySmall.copy(
+                text = recipe.cookTime,
+                style = MaterialTheme.typography.bodySmall.copy(
                     fontWeight = FontWeight.Normal,
                     color = MediumGrey
                 )
@@ -267,7 +271,7 @@ fun RecipelyHorizontallyCard(
             )
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.SpaceBetween,
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
                     text = recipe.title,
@@ -292,7 +296,7 @@ fun RecipelyHorizontallyCard(
                         style = MaterialTheme.typography.bodySmall.copy(
                             fontWeight = FontWeight.Normal,
                             color = MediumGrey
-                        ),
+                        )
                     )
                 }
             }
@@ -312,12 +316,10 @@ fun RecipelyHorizontallyCard(
                     painter = painterResource(id = R.drawable.ic_arrow_right),
                     contentDescription = stringResource(
                         R.string.arrow_right
-                    ),
+                    )
                 )
             }
-
         }
-
     }
 }
 
@@ -397,12 +399,10 @@ fun RecipelyNotificationCard(
         }
     }
 
-
     StandardCard(
         modifier = modifier.height(80.dp),
         contentPadding = SpaceMedium
     ) {
-
         Row(
             modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.spacedBy(SpaceMedium),
@@ -443,7 +443,6 @@ fun RecipelyNotificationCard(
                 }
             }
 
-
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.SpaceBetween
@@ -464,11 +463,12 @@ fun RecipelyNotificationCard(
                     )
                     Text(
                         text = notification.formattedTime,
-                        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Normal),
+                        style = MaterialTheme.typography.labelLarge.copy(
+                            fontWeight = FontWeight.Normal
+                        ),
                         maxLines = 1,
                         softWrap = true
                     )
-
                 }
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(SpaceLarge),
@@ -489,13 +489,8 @@ fun RecipelyNotificationCard(
                             .background(GoogleRed)
                     )
                 }
-
-
             }
-
-
         }
-
     }
 }
 
@@ -506,13 +501,11 @@ fun RecipelyAccountCard(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-
     StandardCard(
         modifier = modifier.height(80.dp),
         contentPadding = SpaceMedium,
         onClick = onClick
     ) {
-
         Row(
             modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.spacedBy(SpaceMedium),
@@ -548,7 +541,6 @@ fun RecipelyAccountCard(
                     maxLines = 1,
                     softWrap = true
                 )
-
             }
             FilledIconButton(
                 onClick = onClick,
@@ -566,13 +558,10 @@ fun RecipelyAccountCard(
                     painter = painterResource(id = R.drawable.ic_arrow_right),
                     contentDescription = stringResource(
                         R.string.arrow_right
-                    ),
+                    )
                 )
             }
-
-
         }
-
     }
 }
 
@@ -583,7 +572,6 @@ fun RecipelyTinyVerticallyCard(
     onLikeClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-
     StandardCard(
         modifier = modifier.wrapContentHeight()
     ) {
@@ -607,14 +595,20 @@ fun RecipelyTinyVerticallyCard(
                     .size(32.dp),
                 colors = IconButtonDefaults.filledIconButtonColors(
                     containerColor = TrueWhite,
-                    contentColor = if (recipe.isLike) MaterialTheme.colorScheme.secondary
-                    else MaterialTheme.colorScheme.primary
-                ),
+                    contentColor = if (recipe.isLike) {
+                        MaterialTheme.colorScheme.secondary
+                    } else {
+                        MaterialTheme.colorScheme.primary
+                    }
+                )
             ) {
                 Icon(
                     painter = painterResource(
-                        id = if (recipe.isLike) R.drawable.ic_heart_filled
-                        else R.drawable.ic_heart
+                        id = if (recipe.isLike) {
+                            R.drawable.ic_heart_filled
+                        } else {
+                            R.drawable.ic_heart
+                        }
                     ),
                     contentDescription = stringResource(R.string.heart),
                     tint = Color.Unspecified
@@ -639,12 +633,11 @@ fun RecipelyTinyVerticallyCard(
                 style = MaterialTheme.typography.bodySmall.copy(
                     fontWeight = FontWeight.Normal,
                     color = MediumGrey
-                ),
+                )
             )
         }
     }
 }
-
 
 @Preview
 @Composable

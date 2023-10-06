@@ -87,7 +87,6 @@ fun EditProfileScreen(
 
     val focusManager = LocalFocusManager.current
 
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -96,7 +95,7 @@ fun EditProfileScreen(
                 detectTapGestures(onTap = {
                     focusManager.clearFocus()
                 })
-            },
+            }
     ) {
         StandardToolbar(
             navController = navController,
@@ -108,7 +107,6 @@ fun EditProfileScreen(
                 .fillMaxSize()
                 .padding(horizontal = SpaceLarge)
         ) {
-
             AsyncImage(
                 model = account.avatarUrl,
                 contentDescription = account.id,
@@ -159,11 +157,9 @@ fun EditProfileScreen(
                         leadingIcon = painterResource(id = R.drawable.ic_message)
                     )
                 }
-
             }
 
             Spacer(modifier = Modifier.height(SpaceMedium))
-
 
             Text(
                 text = stringResource(R.string.email_address),
@@ -197,7 +193,7 @@ fun EditProfileScreen(
                         Icon(
                             painter = painterResource(id = R.drawable.ic_arrow_down),
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onBackground,
+                            tint = MaterialTheme.colorScheme.onBackground
                         )
                     }
                 },
@@ -255,15 +251,16 @@ fun EditProfileScreen(
                         color = MaterialTheme.colorScheme.primary
                     ),
                     onClick = {
-                        if (gender != GenderType.Male)
+                        if (gender != GenderType.Male) {
                             gender = GenderType.Male
+                        }
                     }
 
                 ) {
                     Box(
                         modifier = Modifier
                             .padding(SpaceMedium)
-                            .fillMaxSize(),
+                            .fillMaxSize()
                     ) {
                         Text(
                             text = "Male",
@@ -303,7 +300,7 @@ fun EditProfileScreen(
                     Box(
                         modifier = Modifier
                             .padding(SpaceMedium)
-                            .fillMaxSize(),
+                            .fillMaxSize()
                     ) {
                         Text(
                             text = "Male",
@@ -329,7 +326,9 @@ fun EditProfileScreen(
                 },
                 shape = MaterialTheme.shapes.large,
                 modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.secondary
+                )
 
             ) {
                 Text(
@@ -340,9 +339,6 @@ fun EditProfileScreen(
             }
 
             Spacer(modifier = Modifier.height(SpaceLarge))
-
-
         }
-
     }
 }

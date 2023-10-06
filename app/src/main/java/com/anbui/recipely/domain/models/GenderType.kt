@@ -6,17 +6,14 @@ sealed class GenderType(val type: String) {
 
     companion object {
         fun fromType(type: String): GenderType {
-            return when(type) {
+            return when (type) {
                 "male" -> Male
                 else -> Female
             }
         }
-        fun GenderType.getType(): String{
-            return when(this){
-                Male -> Male.type
-                Female -> Female.type
-            }
+
+        fun GenderType.getType(): String {
+            return this.type
         }
     }
-
 }

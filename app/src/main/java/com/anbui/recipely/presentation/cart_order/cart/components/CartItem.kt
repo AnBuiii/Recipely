@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -81,18 +80,17 @@ fun CartItem(
                         softWrap = true,
 //                        modifier = Modifier.weight(1f),
                         overflow = TextOverflow.Ellipsis,
-                        maxLines =  1,
+                        maxLines = 1
                     )
                     Text(
                         text = "${(price * 100.0).roundToInt() / 100.0} $",
                         style = MaterialTheme.typography.bodyLarge.copy(
-                            color = MaterialTheme.colorScheme.onSurface,
+                            color = MaterialTheme.colorScheme.onSurface
 //                            fontWeight = FontWeight.Normal
                         ),
-                        softWrap = true,
+                        softWrap = true
                     )
                 }
-
             }
             Row(
                 modifier = Modifier.padding(start = SpaceSmall),
@@ -124,7 +122,10 @@ fun CartItem(
                         color = MaterialTheme.colorScheme.onSurface,
                         textAlign = TextAlign.Center
                     ),
-                    modifier = Modifier.sizeIn(maxWidth = SpaceExtraLarge, minWidth = SpaceExtraLarge)
+                    modifier = Modifier.sizeIn(
+                        maxWidth = SpaceExtraLarge,
+                        minWidth = SpaceExtraLarge
+                    )
                 )
                 OutlinedIconButton(
                     onClick = {
@@ -139,14 +140,12 @@ fun CartItem(
                     Icon(
                         painter = painterResource(id = R.drawable.ic_plus),
                         contentDescription = stringResource(
-                            R.string.negative,
+                            R.string.negative
                         ),
-                        tint = Color.Unspecified,
+                        tint = Color.Unspecified
                     )
                 }
             }
-
-
         }
     }
 }

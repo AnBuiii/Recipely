@@ -65,5 +65,5 @@ val exampleIngredientItems = listOf(
         amount = 2.4f,
         unit = UnitType.Unit,
         imageUrl = "https://img.taste.com.au/qh8g3dSr/taste/2017/02/avo-120355-1.jpg"
-    ),
+    )
 )

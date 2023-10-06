@@ -60,10 +60,6 @@ fun NotificationScreen(
                     )
                 }
             }
-
-
         }
     }
-
-
 }

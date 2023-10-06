@@ -30,7 +30,6 @@ object AppModule {
             .fallbackToDestructiveMigration()
             .build()
 
-
     @Singleton
     @Provides
     fun provideAccountDao(db: RecipelyDatabase): AccountDao = db.accountDao
@@ -39,16 +38,15 @@ object AppModule {
     @Provides
     fun provideRecipeDao(db: RecipelyDatabase): RecipeDao = db.recipeDao
 
-
     @Singleton
     @Provides
-    fun provideAccountRepository(accountDao: AccountDao): AccountRepository{
+    fun provideAccountRepository(accountDao: AccountDao): AccountRepository {
         return AccountRepositoryImpl(accountDao)
     }
 
     @Singleton
     @Provides
-    fun provideRecipeRepository(recipeDao: RecipeDao): RecipeRepository{
+    fun provideRecipeRepository(recipeDao: RecipeDao): RecipeRepository {
         return RecipeRepositoryImpl(recipeDao)
     }
 }

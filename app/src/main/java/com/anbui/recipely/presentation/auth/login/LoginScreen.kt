@@ -51,7 +51,7 @@ fun LoginScreen(
         mutableStateOf(true)
     }
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
     ) {
         StandardToolbar(
             navController = navController,
@@ -131,7 +131,7 @@ fun LoginScreen(
             ) {
                 Text(
                     text = stringResource(R.string.forgot_password) + "?",
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
@@ -157,7 +157,7 @@ fun LoginScreen(
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(SpaceSmall),
+                    horizontalArrangement = Arrangement.spacedBy(SpaceSmall)
                 ) {
                     Icon(
                         painterResource(id = R.drawable.ic_google),
@@ -171,13 +171,9 @@ fun LoginScreen(
                         modifier = Modifier.padding(vertical = SpaceSmall)
                     )
                 }
-
             }
             Spacer(modifier = Modifier.height(SpaceLarge))
-
         }
-
-
     }
 }
 

@@ -8,9 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class AddIngredientViewModel @Inject constructor(
-
-) : ViewModel() {
+class AddIngredientViewModel @Inject constructor() : ViewModel() {
     private val _ingredientName = mutableStateOf<String>("")
     val ingredientName: State<String> = _ingredientName
 
@@ -49,6 +47,4 @@ class AddIngredientViewModel @Inject constructor(
     }
 
     val searchResult = exampleIngredients
-
 }
-

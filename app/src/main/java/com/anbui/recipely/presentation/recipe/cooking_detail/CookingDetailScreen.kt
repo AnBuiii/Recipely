@@ -51,10 +51,10 @@ import coil.compose.AsyncImage
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.MediaType
 import com.anbui.recipely.domain.models.exampleRecipes
+import com.anbui.recipely.presentation.components.StandardProgressIndicator
 import com.anbui.recipely.presentation.components.StandardToolbar
 import com.anbui.recipely.presentation.components.StandardVideoPlayer
 import com.anbui.recipely.presentation.recipe.cooking_detail.components.DetailBottomSheet
-import com.anbui.recipely.presentation.components.StandardProgressIndicator
 import com.anbui.recipely.presentation.recipe.cooking_detail.components.Timer
 import com.anbui.recipely.presentation.ui.theme.SpaceHuge
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
@@ -62,8 +62,8 @@ import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
-import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
+import kotlinx.coroutines.launch
 
 @ExperimentalAnimationApi
 @UnstableApi
@@ -107,28 +107,25 @@ fun CookingDetailScreen(
                         contentDescription = stringResource(R.string.list)
                     )
                 }
-
             }
 
         )
 
         Spacer(modifier = Modifier.height(SpaceLarge))
 
-
-        val mediaPagerState = rememberPagerState{recipe.instructions.size}
-
+        val mediaPagerState = rememberPagerState { recipe.instructions.size }
 
         HorizontalPager(
             state = mediaPagerState,
             contentPadding = PaddingValues(horizontal = SpaceHuge),
-            pageSpacing = SpaceMedium,
+            pageSpacing = SpaceMedium
 //            flingBehavior = fling
 
         ) { page ->
             val pageOffset = (
-                    (mediaPagerState.currentPage - page) + mediaPagerState
-                        .currentPageOffsetFraction
-                    ).absoluteValue
+                (mediaPagerState.currentPage - page) + mediaPagerState
+                    .currentPageOffsetFraction
+                ).absoluteValue
 
             Card(
                 Modifier
@@ -163,7 +160,6 @@ fun CookingDetailScreen(
                         stop = page != mediaPagerState.currentPage
                     )
                 }
-
             }
         }
 
@@ -190,7 +186,6 @@ fun CookingDetailScreen(
             )
         }
 
-
         Spacer(modifier = Modifier.weight(1f))
 
         Timer(
@@ -212,15 +207,21 @@ fun CookingDetailScreen(
         ) {
             Text(
                 text = stringResource(R.string.step),
-                style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.secondary)
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    color = MaterialTheme.colorScheme.secondary
+                )
             )
             Text(
                 text = "${mediaPagerState.currentPage + 1} of ${recipe.instructions.size}",
-                style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.secondary)
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    color = MaterialTheme.colorScheme.secondary
+                )
             )
         }
 
-        StandardProgressIndicator(indicatorProgress = (mediaPagerState.currentPage + 1).toFloat() / recipe.instructions.size)
+        StandardProgressIndicator(
+            indicatorProgress = (mediaPagerState.currentPage + 1).toFloat() / recipe.instructions.size
+        )
 
         Button(
             onClick = {
@@ -246,22 +247,24 @@ fun CookingDetailScreen(
                     end = SpaceLarge,
                     top = SpaceSmall
                 ),
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary
+            )
 
         ) {
             Text(
-                text = if ((mediaPagerState.currentPage + 1) != recipe.instructions.size) stringResource(
-                    R.string.next_step
-                ) else stringResource(
-                    R.string.completed
-                ),
+                text = if ((mediaPagerState.currentPage + 1) != recipe.instructions.size) {
+                    stringResource(
+                        R.string.next_step
+                    )
+                } else {
+                    stringResource(
+                        R.string.completed
+                    )
+                },
                 style = MaterialTheme.typography.bodyMedium.copy(TrueWhite),
                 modifier = Modifier.padding(vertical = SpaceSmall)
             )
         }
-
     }
-
-
 }
-

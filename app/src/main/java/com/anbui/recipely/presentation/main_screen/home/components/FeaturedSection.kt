@@ -54,8 +54,6 @@ fun FeaturedSection(
             items(exampleRecipes) {
                 RecipelyLargeCard(recipe = it, modifier = Modifier.padding(horizontal = SpaceLarge))
             }
-
         }
-
     }
 }

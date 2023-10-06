@@ -20,8 +20,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.Interest
-import com.anbui.recipely.presentation.components.StandardToolbar
 import com.anbui.recipely.presentation.auth.select_interest.components.InterestCard
+import com.anbui.recipely.presentation.components.StandardToolbar
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
@@ -41,12 +41,12 @@ fun SelectInterestScreen(
         Interest.Gluten,
         Interest.NutFree,
         Interest.EasyCooking,
-        Interest.GoodFats,
+        Interest.GoodFats
     )
 
     val selectedItem = remember { mutableStateListOf<String>() }
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
     ) {
         StandardToolbar(
             navController = navController,
@@ -55,7 +55,6 @@ fun SelectInterestScreen(
         )
 
         Spacer(modifier = Modifier.weight(1f))
-
 
         FlowRow(
             horizontalArrangement = Arrangement.Center,
@@ -97,5 +96,4 @@ fun SelectInterestScreen(
             )
         }
     }
-
 }

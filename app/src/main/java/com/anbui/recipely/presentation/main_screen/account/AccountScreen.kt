@@ -25,10 +25,10 @@ import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.exampleAccounts
 import com.anbui.recipely.domain.models.exampleOrder
 import com.anbui.recipely.domain.models.exampleRecipes
-import com.anbui.recipely.presentation.main_screen.account.components.OrderItem
 import com.anbui.recipely.presentation.components.RecipelyAccountCard
 import com.anbui.recipely.presentation.components.RecipelyTinyVerticallyCard
 import com.anbui.recipely.presentation.components.StandardToolbar
+import com.anbui.recipely.presentation.main_screen.account.components.OrderItem
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
@@ -49,9 +49,8 @@ fun AccountScreen(
                         navController.navigate(Screen.SettingScreen.route) {
                             launchSingleTop = true
                         }
-
                     },
-                    modifier= Modifier.padding(end = SpaceSmall)
+                    modifier = Modifier.padding(end = SpaceSmall)
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_setting),
@@ -60,7 +59,6 @@ fun AccountScreen(
                         )
                     )
                 }
-
             }
         )
         LazyVerticalGrid(
@@ -69,7 +67,9 @@ fun AccountScreen(
             horizontalArrangement = Arrangement.spacedBy(SpaceMedium),
             contentPadding = PaddingValues(SpaceLarge)
         ) {
-            item(span = { GridItemSpan(maxLineSpan) }) {
+            item(
+                span = { GridItemSpan(maxLineSpan) }
+            ) {
                 RecipelyAccountCard(
                     account = exampleAccounts[0],
                     onClick = { navController.navigate(Screen.EditProfileScreen.route) }
@@ -79,53 +79,51 @@ fun AccountScreen(
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
                         text = stringResource(R.string.incoming_order),
-                        style = MaterialTheme.typography.titleLarge,
+                        style = MaterialTheme.typography.titleLarge
                     )
                     Text(
                         text = stringResource(R.string.see_all),
-                        style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.secondary),
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            color = MaterialTheme.colorScheme.secondary
+                        ),
                         modifier = Modifier.padding(start = SpaceLarge)
                     )
                 }
             }
             item(span = { GridItemSpan(maxLineSpan) }) {
-                OrderItem(
-                    exampleOrder[0],
-                    onClick = {navController.navigate(Screen.OrderDetailScreen.route)}
-                )
+                OrderItem(exampleOrder[0], onClick = {
+                    navController.navigate(Screen.OrderDetailScreen.route)
+                })
             }
 
             item(span = { GridItemSpan(maxLineSpan) }) {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
                         text = stringResource(R.string.my_favourite),
-                        style = MaterialTheme.typography.titleLarge,
+                        style = MaterialTheme.typography.titleLarge
                     )
                     Text(
                         text = stringResource(R.string.see_all),
-                        style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.secondary),
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            color = MaterialTheme.colorScheme.secondary
+                        ),
                         modifier = Modifier.padding(start = SpaceLarge)
                     )
                 }
             }
-
             items(exampleRecipes, key = { "popular ${it.id}" }) {
                 RecipelyTinyVerticallyCard(
-                    recipe = it,
+                    recipe = it
                 )
             }
         }
-
     }
-
 }

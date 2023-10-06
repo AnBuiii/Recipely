@@ -61,9 +61,9 @@ fun DetailBottomSheet(
                     .padding(horizontal = SpaceLarge)
                     .height(54.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = ThinGrey,
+                    containerColor = ThinGrey
                 ),
-                shape = MaterialTheme.shapes.large,
+                shape = MaterialTheme.shapes.large
             ) {
                 Row(
                     modifier = Modifier
@@ -73,7 +73,6 @@ fun DetailBottomSheet(
                     verticalAlignment = Alignment.CenterVertically
 
                 ) {
-
                     Card(
                         modifier = Modifier
                             .weight(1f),
@@ -96,7 +95,6 @@ fun DetailBottomSheet(
                                 )
                             )
                         }
-
                     }
                     Card(
                         modifier = Modifier
@@ -121,7 +119,6 @@ fun DetailBottomSheet(
                                 )
                             )
                         }
-
                     }
                 }
             }
@@ -129,8 +126,8 @@ fun DetailBottomSheet(
 
             LazyColumn(
                 modifier = Modifier.padding(horizontal = SpaceLarge)
-            ){
-                if (viewMode is ViewMode.Ingredients){
+            ) {
+                if (viewMode is ViewMode.Ingredients) {
                     ingredientsSection(recipe = recipe, servings = serving)
                 } else {
                     instructionsSection(recipe = recipe)

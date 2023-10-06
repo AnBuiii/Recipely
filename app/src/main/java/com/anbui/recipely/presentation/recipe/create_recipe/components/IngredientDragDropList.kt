@@ -32,7 +32,6 @@ import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-
 @ExperimentalFoundationApi
 @Composable
 fun IngredientDragDropList(
@@ -45,7 +44,6 @@ fun IngredientDragDropList(
     var overScrollJob by remember { mutableStateOf<Job?>(null) }
     val dragDropListState = rememberDraggableListState(onMove = onMove)
 
-
     LazyColumn(
         modifier = modifier
             .pointerInput(Unit) {
@@ -55,8 +53,9 @@ fun IngredientDragDropList(
                         change.consume()
                         dragDropListState.onDrag(offset = offset)
 
-                        if (overScrollJob?.isActive == true)
+                        if (overScrollJob?.isActive == true) {
                             return@detectDragGesturesAfterLongPress
+                        }
 
                         dragDropListState
                             .checkForOverScroll()
@@ -80,11 +79,11 @@ fun IngredientDragDropList(
             val isDragging = index == dragDropListState.currentIndexOfDraggedItem
             val color = animateColorAsState(
                 if (isDragging) MaterialTheme.colorScheme.primary else TrueWhite,
-                label = "",
+                label = ""
             )
             val textColor = animateColorAsState(
                 if (isDragging) TrueWhite else MaterialTheme.colorScheme.primary,
-                label = "",
+                label = ""
             )
 
             IngredientItem(
@@ -100,7 +99,7 @@ fun IngredientDragDropList(
             )
         }
 
-        item("add ingredients") {
+        item("add ingredient") {
             Button(
                 onClick = onAddIngredientClick,
                 shape = MaterialTheme.shapes.large,
@@ -118,23 +117,3 @@ fun IngredientDragDropList(
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

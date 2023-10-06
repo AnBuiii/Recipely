@@ -86,7 +86,6 @@ fun Timer(
                     size = Size(size.width.toFloat(), size.height.toFloat()),
                     style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round)
                 )
-
             }
 
             FilledIconButton(
@@ -97,7 +96,7 @@ fun Timer(
                 modifier = Modifier.size(48.dp)
             ) {
                 Icon(
-                    painter = when(buttonState){
+                    painter = when (buttonState) {
                         TimerStatus.INIT, TimerStatus.PAUSED -> {
                             painterResource(id = R.drawable.ic_play)
                         }
@@ -116,7 +115,6 @@ fun Timer(
         }
         AnimatedCounter(count = (currentTime / 1000L).convertSecondsToHMmSs())
     }
-
 }
 
 @ExperimentalAnimationApi
@@ -146,7 +144,8 @@ fun AnimatedCounter(
                 targetState = char,
                 transitionSpec = {
                     slideInVertically { it } with slideOutVertically { -it }
-                }, label = stringResource(R.string.animated_counter)
+                },
+                label = stringResource(R.string.animated_counter)
             ) { char ->
                 Text(
                     text = char.toString(),

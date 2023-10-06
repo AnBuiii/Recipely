@@ -40,10 +40,15 @@ fun InterestCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 1.dp
         ),
-        border = if (isSelected) BorderStroke(
-            2.dp, MaterialTheme.colorScheme.secondary
-        ) else BorderStroke(2.dp, Color.Transparent),
-        shape = MaterialTheme.shapes.large,
+        border = if (isSelected) {
+            BorderStroke(
+                2.dp,
+                MaterialTheme.colorScheme.secondary
+            )
+        } else {
+            BorderStroke(2.dp, Color.Transparent)
+        },
+        shape = MaterialTheme.shapes.large
 
     ) {
         Row(
@@ -57,7 +62,6 @@ fun InterestCard(
                 modifier = Modifier.size(42.dp)
             )
             Text(text = interest.title, style = MaterialTheme.typography.bodyMedium)
-
         }
     }
 }

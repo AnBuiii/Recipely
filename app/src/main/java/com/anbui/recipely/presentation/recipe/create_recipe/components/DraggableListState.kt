@@ -16,7 +16,7 @@ fun rememberDraggableListState(
 
 class DraggableListState(
     val lazyListState: LazyListState,
-    private val onMove: (Int, Int) -> Unit,
+    private val onMove: (Int, Int) -> Unit
 ) {
     private var draggedDistance by mutableStateOf(0f)
     private var initiallyDraggedElement by mutableStateOf<LazyListItemInfo?>(null)
@@ -93,36 +93,19 @@ class DraggableListState(
     }
 }
 
-
-
 fun LazyListState.getVisibleItemInfoFor(absolute: Int): LazyListItemInfo? {
-    return this.layoutInfo.visibleItemsInfo.getOrNull(absolute - this.layoutInfo.visibleItemsInfo.first().index)
+    return this.layoutInfo.visibleItemsInfo.getOrNull(
+        absolute - this.layoutInfo.visibleItemsInfo.first().index
+    )
 }
 
 val LazyListItemInfo.offsetEnd: Int
     get() = this.offset + this.size
 
 fun <T> MutableList<T>.swap(from: Int, to: Int) {
-    if (from == to)
+    if (from == to) {
         return
+    }
 
     this[from] = this[to].also { this[to] = this[from] }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

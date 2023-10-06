@@ -28,7 +28,6 @@ import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.util.NoRippleInteractionSource
 
-
 @OptIn(ExperimentalAnimationApi::class)
 @ExperimentalMaterial3Api
 @Composable
@@ -52,7 +51,8 @@ fun RowScope.StandardBottomNavItem(
         targetValue = if (selected) 1f else 0f,
         animationSpec = tween(
             durationMillis = 300
-        ), label = "animate_line_length"
+        ),
+        label = "animate_line_length"
     )
 
     NavigationBarItem(
@@ -63,7 +63,7 @@ fun RowScope.StandardBottomNavItem(
         colors = NavigationBarItemDefaults.colors(
             indicatorColor = TrueWhite,
             selectedIconColor = selectedColor,
-            unselectedIconColor = unselectedColor,
+            unselectedIconColor = unselectedColor
 //            indicatorColor = MaterialTheme.colorScheme.surface
         ),
         interactionSource = NoRippleInteractionSource(),
@@ -75,8 +75,11 @@ fun RowScope.StandardBottomNavItem(
                     .drawBehind {
                         if (lineLength.value > 0f) {
                             drawLine(
-                                color = if (selected) selectedColor
-                                else unselectedColor,
+                                color = if (selected) {
+                                    selectedColor
+                                } else {
+                                    unselectedColor
+                                },
                                 start = Offset(
                                     size.width / 2f - lineLength.value * 15.dp.toPx(),
                                     size.height
@@ -124,8 +127,6 @@ fun RowScope.StandardBottomNavItem(
                             )
                         }
                     }
-
-
                 }
             }
         }

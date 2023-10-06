@@ -1,4 +1,5 @@
-    package com.anbui.recipely.presentation.recipe.recipe_detail.components
+ 
+package com.anbui.recipely.presentation.recipe.recipe_detail.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -45,14 +46,14 @@ fun LazyListScope.ingredientsSection(
             Column {
                 Text(
                     text = stringResource(R.string.ingredients),
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.titleLarge
                 )
                 Text(
                     text = stringResource(
                         R.string.items,
                         exampleIngredientItems.size
                     ),
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal),
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal)
                 )
             }
             Column(
@@ -61,7 +62,7 @@ fun LazyListScope.ingredientsSection(
             ) {
                 Text(
                     text = stringResource(R.string.servings),
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.titleLarge
                 )
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -91,7 +92,9 @@ fun LazyListScope.ingredientsSection(
                     }
                     Text(
                         text = "$servings",
-                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal),
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            fontWeight = FontWeight.Normal
+                        )
                     )
                     OutlinedIconButton(
                         onClick = {
@@ -109,13 +112,12 @@ fun LazyListScope.ingredientsSection(
                         Icon(
                             painter = painterResource(id = R.drawable.ic_plus),
                             contentDescription = stringResource(
-                                R.string.negative,
+                                R.string.negative
                             ),
-                            tint = Color.Unspecified,
+                            tint = Color.Unspecified
                         )
                     }
                 }
-
             }
         }
     }
@@ -134,7 +136,9 @@ fun LazyListScope.ingredientsSection(
             },
             shape = MaterialTheme.shapes.large,
             modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary
+            )
 
         ) {
             Text(
@@ -143,6 +147,5 @@ fun LazyListScope.ingredientsSection(
                 modifier = Modifier.padding(vertical = SpaceSmall)
             )
         }
-
     }
 }

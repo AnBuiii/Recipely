@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -29,16 +28,16 @@ import com.anbui.recipely.presentation.ui.theme.TrueWhite
 fun LazyListScope.viewModeSection(
     viewMode: ViewMode,
     onChangeViewMode: (ViewMode) -> Unit
-){
-    item{
+) {
+    item {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(54.dp),
             colors = CardDefaults.cardColors(
-                containerColor = ThinGrey,
+                containerColor = ThinGrey
             ),
-            shape = MaterialTheme.shapes.large,
+            shape = MaterialTheme.shapes.large
         ) {
             Row(
                 modifier = Modifier
@@ -48,7 +47,6 @@ fun LazyListScope.viewModeSection(
                 verticalAlignment = Alignment.CenterVertically
 
             ) {
-
                 Card(
                     modifier = Modifier
                         .weight(1f),
@@ -71,7 +69,6 @@ fun LazyListScope.viewModeSection(
                             )
                         )
                     }
-
                 }
                 Card(
                     modifier = Modifier
@@ -96,7 +93,6 @@ fun LazyListScope.viewModeSection(
                             )
                         )
                     }
-
                 }
             }
         }
