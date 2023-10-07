@@ -30,8 +30,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.anbui.recipely.R
-import com.anbui.recipely.presentation.components.StandardTextField
-import com.anbui.recipely.presentation.components.StandardToolbar
+import com.anbui.recipely.presentation.ui.components.StandardTextField
+import com.anbui.recipely.presentation.ui.components.StandardToolbar
 import com.anbui.recipely.presentation.ui.theme.GoogleRed
 import com.anbui.recipely.presentation.ui.theme.MediumGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge

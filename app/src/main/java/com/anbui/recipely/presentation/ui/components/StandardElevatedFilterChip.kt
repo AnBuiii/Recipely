@@ -1,4 +1,4 @@
-package com.anbui.recipely.presentation.components
+package com.anbui.recipely.presentation.ui.components
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape

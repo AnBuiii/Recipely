@@ -21,7 +21,7 @@ import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.Interest
 import com.anbui.recipely.presentation.auth.select_interest.components.InterestCard
-import com.anbui.recipely.presentation.components.StandardToolbar
+import com.anbui.recipely.presentation.ui.components.StandardToolbar
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
@@ -54,7 +54,9 @@ fun SelectInterestScreen(
             showBackArrow = true
         )
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(
+            modifier = Modifier.weight(1f)
+        )
 
         FlowRow(
             horizontalArrangement = Arrangement.Center,
@@ -78,7 +80,6 @@ fun SelectInterestScreen(
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-
         Button(
             onClick = {
                 navController.navigate(Screen.HomeScreen.route)

@@ -1,11 +1,12 @@
-package com.anbui.recipely.presentation.components
+package com.anbui.recipely.presentation.ui.components
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,7 +29,6 @@ import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.util.NoRippleInteractionSource
 
-@OptIn(ExperimentalAnimationApi::class)
 @ExperimentalMaterial3Api
 @Composable
 @Throws(IllegalArgumentException::class)
@@ -44,9 +44,12 @@ fun RowScope.StandardBottomNavItem(
     enabled: Boolean = true,
     onClick: () -> Unit
 ) {
-    if (alertCount != null && alertCount < 0) {
-        throw IllegalArgumentException("Alert count can't be negative")
+    if (alertCount != null) {
+        require(alertCount < 0) {
+            throw IllegalArgumentException("Alert count can't be negative")
+        }
     }
+
     val lineLength = animateFloatAsState(
         targetValue = if (selected) 1f else 0f,
         animationSpec = tween(

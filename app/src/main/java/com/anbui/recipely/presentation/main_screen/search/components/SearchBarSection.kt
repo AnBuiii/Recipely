@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.anbui.recipely.R
-import com.anbui.recipely.presentation.components.StandardTextField
+import com.anbui.recipely.presentation.ui.components.StandardTextField
 
 fun LazyListScope.searchBarSection(
     searchText: String,

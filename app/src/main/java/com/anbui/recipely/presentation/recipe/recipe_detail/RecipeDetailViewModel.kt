@@ -8,13 +8,33 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.anbui.recipely.domain.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @ExperimentalMaterial3Api
 @HiltViewModel
-class RecipeDetailViewModel @Inject constructor() : ViewModel() {
+class RecipeDetailViewModel @Inject constructor(
+    private val recipeRepository: RecipeRepository,
+    savedStateHandle: SavedStateHandle
+) : ViewModel() {
+    private val recipeId: String = checkNotNull(savedStateHandle["recipeId"])
+    val recipe = recipeRepository.getRecipesById(recipeId)
+        .onEach {
+            changeServings(it.servings)
+        }.stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            recipeRepository.getDummyRecipe()
+        )
 
     private val _bottomSheetState = mutableStateOf(
         SheetState(
@@ -54,6 +74,12 @@ class RecipeDetailViewModel @Inject constructor() : ViewModel() {
 
     fun changeDescriptionExpandedState() {
         _isDescriptionExpanded.value = !_isDescriptionExpanded.value
+    }
+
+    fun likeRecipe() {
+        viewModelScope.launch {
+            recipeRepository.likeRecipe(recipeId, !recipe.first().isLike)
+        }
     }
 }
 

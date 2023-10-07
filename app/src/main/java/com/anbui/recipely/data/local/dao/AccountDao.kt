@@ -11,6 +11,10 @@ interface AccountDao {
     @Insert
     suspend fun insertAccount(account: AccountEntity)
 
+    @Query("select * from Account where email = :email and password = :password")
+    suspend fun getAccount(email: String, password: String): AccountEntity?
+
     @Query("select * from Account")
     fun getAccounts(): Flow<List<AccountEntity>>
+
 }

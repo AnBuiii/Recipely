@@ -51,9 +51,9 @@ import coil.compose.AsyncImage
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.MediaType
 import com.anbui.recipely.domain.models.exampleRecipes
-import com.anbui.recipely.presentation.components.StandardProgressIndicator
-import com.anbui.recipely.presentation.components.StandardToolbar
-import com.anbui.recipely.presentation.components.StandardVideoPlayer
+import com.anbui.recipely.presentation.ui.components.StandardProgressIndicator
+import com.anbui.recipely.presentation.ui.components.StandardToolbar
+import com.anbui.recipely.presentation.ui.components.StandardVideoPlayer
 import com.anbui.recipely.presentation.recipe.cooking_detail.components.DetailBottomSheet
 import com.anbui.recipely.presentation.recipe.cooking_detail.components.Timer
 import com.anbui.recipely.presentation.ui.theme.SpaceHuge

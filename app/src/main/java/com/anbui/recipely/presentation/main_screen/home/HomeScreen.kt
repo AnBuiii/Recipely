@@ -70,13 +70,13 @@ fun HomeScreen(
 
         PopularRecipeSection(
             popularRecipes = popularRecipes,
-            onRecipeLikeClick = { id ->
-            },
-            onRecipeClick = { id ->
-                navController.navigate(
-                    Screen.RecipeDetailScreen.route
-                )
+            onRecipeLikeClick = { id, like ->
+                homeScreenViewModel.likeRecipe(id, like)
             }
-        )
+        ) { id ->
+            navController.navigate(
+                Screen.RecipeDetailScreen.route + "/$id"
+            )
+        }
     }
 }

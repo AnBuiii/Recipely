@@ -1,4 +1,4 @@
-package com.anbui.recipely.presentation.components
+package com.anbui.recipely.presentation.ui.components
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.updateTransition

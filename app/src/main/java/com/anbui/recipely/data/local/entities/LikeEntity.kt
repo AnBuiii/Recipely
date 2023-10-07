@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "Like")
 data class LikeEntity(
-    @PrimaryKey
+    @PrimaryKey()
     @ColumnInfo("_id")
     val id: String,
     @ColumnInfo("recipe_id") val recipeId: String,

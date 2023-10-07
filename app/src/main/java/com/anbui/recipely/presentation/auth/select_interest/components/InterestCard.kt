@@ -49,7 +49,6 @@ fun InterestCard(
             BorderStroke(2.dp, Color.Transparent)
         },
         shape = MaterialTheme.shapes.large
-
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(SpaceTiny),

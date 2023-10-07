@@ -7,4 +7,6 @@ interface AccountRepository {
     fun getAllAccount(): Flow<List<Account>>
 
     suspend fun addAccount(account: Account)
+
+    suspend fun login(email: String, password: String): Boolean
 }

@@ -1,4 +1,4 @@
-package com.anbui.recipely.presentation.components
+package com.anbui.recipely.presentation.ui.components
 
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog

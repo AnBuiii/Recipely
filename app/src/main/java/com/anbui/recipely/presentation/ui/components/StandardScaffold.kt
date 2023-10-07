@@ -1,6 +1,7 @@
-package com.anbui.recipely.presentation.components
+package com.anbui.recipely.presentation.ui.components
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -106,7 +107,7 @@ fun StandardScaffold(
         },
         modifier = modifier
     ) {
-        val a = it
+        val  a = it
         Box() {
             content()
         }

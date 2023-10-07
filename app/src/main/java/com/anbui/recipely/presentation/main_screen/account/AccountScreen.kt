@@ -25,9 +25,9 @@ import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.exampleAccounts
 import com.anbui.recipely.domain.models.exampleOrder
 import com.anbui.recipely.domain.models.exampleRecipes
-import com.anbui.recipely.presentation.components.RecipelyAccountCard
-import com.anbui.recipely.presentation.components.RecipelyTinyVerticallyCard
-import com.anbui.recipely.presentation.components.StandardToolbar
+import com.anbui.recipely.presentation.ui.components.RecipelyAccountCard
+import com.anbui.recipely.presentation.ui.components.RecipelyTinyVerticallyCard
+import com.anbui.recipely.presentation.ui.components.StandardToolbar
 import com.anbui.recipely.presentation.main_screen.account.components.OrderItem
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium

@@ -26,7 +26,7 @@ import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.IngredientItem
 import com.anbui.recipely.domain.models.UnitType
-import com.anbui.recipely.presentation.components.StandardProgressIndicator
+import com.anbui.recipely.presentation.ui.components.StandardProgressIndicator
 import com.anbui.recipely.presentation.recipe.create_recipe.components.IngredientsSection
 import com.anbui.recipely.presentation.recipe.create_recipe.components.InstructionSection
 import com.anbui.recipely.presentation.recipe.create_recipe.components.OverviewSection

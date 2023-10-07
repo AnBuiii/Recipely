@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.ui.Modifier
-import com.anbui.recipely.presentation.components.StandardExpandingText
+import com.anbui.recipely.presentation.ui.components.StandardExpandingText
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 
 fun LazyListScope.descriptionSection(

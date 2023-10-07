@@ -11,5 +11,5 @@ data class RecipeIngredientCrossRef(
     val id: String,
     @ColumnInfo(name = "recipe_id") val recipeId: String,
     @ColumnInfo(name = "ingredient_id") val ingredientId: String,
-    val amount: Double
+    val amount: Float
 )

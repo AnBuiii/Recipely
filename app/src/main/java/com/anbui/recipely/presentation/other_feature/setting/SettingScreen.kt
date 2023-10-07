@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.anbui.recipely.R
-import com.anbui.recipely.presentation.components.StandardToolbar
+import com.anbui.recipely.presentation.ui.components.StandardToolbar
 import com.anbui.recipely.presentation.other_feature.setting.components.LanguagePickerBottomSheet
 import com.anbui.recipely.presentation.other_feature.setting.components.SettingCard
 import com.anbui.recipely.presentation.ui.theme.MediumGrey

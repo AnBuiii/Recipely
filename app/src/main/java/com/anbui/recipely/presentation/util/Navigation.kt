@@ -7,8 +7,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.anbui.recipely.presentation.auth.create_account.CreateAccountScreen
 import com.anbui.recipely.presentation.auth.forgot_password.ForgotPasswordScreen
 import com.anbui.recipely.presentation.auth.login.LoginScreen
@@ -40,7 +42,7 @@ import com.anbui.recipely.presentation.recipe.recipe_detail.RecipeDetailScreen
 fun Navigation(
     navController: NavHostController
 ) {
-    NavHost(navController = navController, startDestination = Screen.HomeScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
         composable(Screen.SplashScreen.route) {
             SplashScreen(navController = navController)
         }
@@ -74,7 +76,13 @@ fun Navigation(
         composable(Screen.EditProfileScreen.route) {
             EditProfileScreen(navController = navController)
         }
-        composable(Screen.RecipeDetailScreen.route) {
+        composable("${Screen.RecipeDetailScreen.route}/{recipeId}",
+            arguments = listOf(
+                navArgument("recipeId") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
             RecipeDetailScreen(navController = navController)
         }
         composable(Screen.CookingDetailScreen.route) {

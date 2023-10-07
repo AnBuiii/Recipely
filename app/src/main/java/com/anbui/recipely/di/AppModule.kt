@@ -40,13 +40,19 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideAccountRepository(accountDao: AccountDao): AccountRepository {
-        return AccountRepositoryImpl(accountDao)
+    fun provideAccountRepository(
+        accountDao: AccountDao,
+        @ApplicationContext appContext: Context
+    ): AccountRepository {
+        return AccountRepositoryImpl(accountDao, appContext)
     }
 
     @Singleton
     @Provides
-    fun provideRecipeRepository(recipeDao: RecipeDao): RecipeRepository {
-        return RecipeRepositoryImpl(recipeDao)
+    fun provideRecipeRepository(
+        recipeDao: RecipeDao,
+        @ApplicationContext appContext: Context
+    ): RecipeRepository {
+        return RecipeRepositoryImpl(recipeDao, appContext)
     }
 }

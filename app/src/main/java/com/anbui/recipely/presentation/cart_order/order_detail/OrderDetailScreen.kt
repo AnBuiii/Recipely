@@ -15,7 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -26,9 +26,9 @@ import androidx.navigation.NavController
 import com.anbui.recipely.domain.models.exampleIngredientItems
 import com.anbui.recipely.presentation.cart_order.order_detail.components.InformationItem
 import com.anbui.recipely.presentation.cart_order.order_detail.components.OrderItem
-import com.anbui.recipely.presentation.components.StandardCard
-import com.anbui.recipely.presentation.components.StandardToolbar
-import com.anbui.recipely.presentation.components.Stepper
+import com.anbui.recipely.presentation.ui.components.StandardCard
+import com.anbui.recipely.presentation.ui.components.StandardToolbar
+import com.anbui.recipely.presentation.ui.components.Stepper
 import com.anbui.recipely.presentation.ui.theme.DarkGrey
 import com.anbui.recipely.presentation.ui.theme.LightGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceExtraLarge
@@ -49,7 +49,7 @@ fun OrderDetailScreen(
             showBackArrow = true
         )
         val numberStep = 4
-        var currentStep by rememberSaveable { mutableStateOf(1) }
+        var currentStep by rememberSaveable { mutableIntStateOf(1) }
         val titleList = arrayListOf("Step 1", "Step 2", "Step 3", "Step 4")
         Box {
             LazyColumn {
@@ -159,6 +159,7 @@ fun OrderDetailScreen(
                     Spacer(modifier = Modifier.height(2.5 * SpaceExtraLarge))
                 }
             }
+            Text(text = "")
             Button(
                 onClick = {
                 },

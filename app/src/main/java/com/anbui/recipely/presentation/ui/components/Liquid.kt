@@ -1,4 +1,4 @@
-package com.anbui.recipely.presentation.components
+package com.anbui.recipely.presentation.ui.components
 
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter

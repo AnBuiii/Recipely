@@ -46,9 +46,9 @@ import coil.compose.AsyncImage
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.GenderType
 import com.anbui.recipely.domain.models.exampleAccounts
-import com.anbui.recipely.presentation.components.StandardDatePickerDialog
-import com.anbui.recipely.presentation.components.StandardTextField
-import com.anbui.recipely.presentation.components.StandardToolbar
+import com.anbui.recipely.presentation.ui.components.StandardDatePickerDialog
+import com.anbui.recipely.presentation.ui.components.StandardTextField
+import com.anbui.recipely.presentation.ui.components.StandardToolbar
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall

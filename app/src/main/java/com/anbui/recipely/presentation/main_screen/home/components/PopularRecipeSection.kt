@@ -18,16 +18,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.Recipe
-import com.anbui.recipely.presentation.components.RecipelyVerticallyCard
+import com.anbui.recipely.presentation.ui.components.RecipelyVerticallyCard
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 
 @ExperimentalMaterial3Api
 @Composable
 fun PopularRecipeSection(
-    modifier: Modifier = Modifier,
     popularRecipes: List<Recipe> = emptyList(),
-    onRecipeLikeClick: (String) -> Unit = {},
+    onRecipeLikeClick: (String, Boolean) -> Unit,
     onRecipeClick: (String) -> Unit
 ) {
     Column(
@@ -60,7 +59,7 @@ fun PopularRecipeSection(
             items(popularRecipes, key = { it.id }) {
                 RecipelyVerticallyCard(
                     recipe = it,
-                    onLikeClick = { onRecipeLikeClick(it.id) },
+                    onLikeClick = { onRecipeLikeClick(it.id, !it.isLike) },
                     onClick = { onRecipeClick(it.id) }
                 )
             }

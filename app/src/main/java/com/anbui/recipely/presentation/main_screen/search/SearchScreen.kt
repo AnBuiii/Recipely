@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.exampleRecipes
-import com.anbui.recipely.presentation.components.StandardToolbar
+import com.anbui.recipely.presentation.ui.components.StandardToolbar
 import com.anbui.recipely.presentation.main_screen.search.components.popularRecipeSection
 import com.anbui.recipely.presentation.main_screen.search.components.recentSearchSection
 import com.anbui.recipely.presentation.main_screen.search.components.searchBarSection

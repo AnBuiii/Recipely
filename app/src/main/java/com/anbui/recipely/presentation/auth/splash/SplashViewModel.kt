@@ -5,9 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.anbui.recipely.domain.repository.AccountRepository
 import com.anbui.recipely.domain.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
@@ -21,12 +22,10 @@ class SplashViewModel @Inject constructor(
         listOf()
     )
 
-//    init {
-//        viewModelScope.launch {
-//            val a = recipeRepository.findIngredientWithRecipeId("kalka").first()
-//            Log.d("yesss",a.toString())
-//        }
-//
-//
-//    }
+    init {
+        viewModelScope.launch {
+            accountRepository.login("builehoaian2002@gmail.com", "builehoaian")
+        }
+
+    }
 }
