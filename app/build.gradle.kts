@@ -21,6 +21,13 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas".toString())
+        }
+
+
+
+
     }
 
     buildTypes {
@@ -51,7 +58,24 @@ android {
 //            excludes +="/META-INF/*"
         }
     }
+
 }
+
+
+//class RoomSchemaArgProvider(
+//    @get:InputDirectory
+//    @get:PathSensitive(PathSensitivity.RELATIVE)
+//    val schemaDir: File
+//) : CommandLineArgumentProvider {
+//
+//    override fun asArguments(): Iterable<String> {
+//        return listOf("room.schemaLocation=${schemaDir.path}")
+//    }
+//}
+
+
+
+
 
 
 

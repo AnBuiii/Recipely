@@ -21,7 +21,7 @@ import com.anbui.recipely.data.local.entities.relations.RecipeIngredientCrossRef
         StepEntity::class,
         LikeEntity::class
     ],
-    exportSchema = false
+    exportSchema = true
 )
 abstract class RecipelyDatabase : RoomDatabase() {
     abstract val accountDao: AccountDao
