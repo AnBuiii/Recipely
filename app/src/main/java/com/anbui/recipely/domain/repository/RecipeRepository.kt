@@ -15,6 +15,6 @@ interface RecipeRepository {
 
     fun getDummyRecipe(): Recipe
 
-    suspend fun likeRecipe(recipeId: String, like: Boolean): Unit
+    suspend fun likeRecipe(recipeId: String, like: Boolean)
 }
 

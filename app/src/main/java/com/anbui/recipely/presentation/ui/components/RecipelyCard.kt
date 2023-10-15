@@ -539,7 +539,8 @@ fun RecipelyAccountCard(
                         color = DarkGrey
                     ),
                     maxLines = 1,
-                    softWrap = true
+                    softWrap = true,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
             FilledIconButton(

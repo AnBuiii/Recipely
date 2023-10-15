@@ -14,6 +14,7 @@ import com.anbui.recipely.domain.models.Step
 import com.anbui.recipely.domain.models.UnitType.Companion.toUnitType
 import com.anbui.recipely.domain.repository.RecipeRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import java.util.UUID
@@ -100,13 +101,13 @@ class RecipeRepositoryImpl(
             preferences[logged] ?: ""
         }
 
-        return recipeDao.getRecipe(recipeId = recipeId).map { recipe ->
+        return combine(recipeDao.getRecipe(recipeId = recipeId), loggedId) { recipe, id  ->
             Recipe(
                 id = recipe.recipe.id.toString(),
                 title = recipe.recipe.title,
                 imageUrl = recipe.recipe.imageUrl,
                 description = recipe.recipe.description,
-                isLike = recipe.likes.any { like -> like.accountId == loggedId.first() },
+                isLike = recipe.likes.any { like -> like.accountId == id },
                 cookTime = "${
                     recipe.steps.sumOf { step -> step.period.toDouble() }.toInt()
                 } Min",

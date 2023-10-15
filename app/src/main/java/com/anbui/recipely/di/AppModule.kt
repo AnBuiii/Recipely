@@ -9,12 +9,12 @@ import com.anbui.recipely.data.repository.AccountRepositoryImpl
 import com.anbui.recipely.data.repository.RecipeRepositoryImpl
 import com.anbui.recipely.domain.repository.AccountRepository
 import com.anbui.recipely.domain.repository.RecipeRepository
-import com.anbui.recipely.util.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import java.io.File
 import javax.inject.Singleton
 
 @Module
@@ -25,8 +25,10 @@ object AppModule {
     @Provides
     fun provideAppDatabase(@ApplicationContext appContext: Context) =
         Room
-            .databaseBuilder(appContext, RecipelyDatabase::class.java, DATABASE_NAME)
+//            .databaseBuilder(appContext, RecipelyDatabase::class.java, DATABASE_NAME)
+            .databaseBuilder(appContext, RecipelyDatabase::class.java, "Recipely.sqlite")
             .createFromAsset("recipely.sqlite")
+//            .createFromFile(File("/data/user/0/com.anbui.recipely/databases/Recipely.sqlite"))
             .fallbackToDestructiveMigration()
             .build()
 

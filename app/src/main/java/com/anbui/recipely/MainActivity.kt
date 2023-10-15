@@ -42,6 +42,7 @@ class MainActivity : ComponentActivity() {
             window,
             false
         )
+        println(getDatabasePath("Recipely.sqlite").absolutePath)
         setContent {
             RecipelyTheme {
                 // A surface container using the 'background' color from the theme
@@ -50,7 +51,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    val navBackStackEntry by navController.currentBackStackEntryAsState()
+                        val navBackStackEntry by navController.currentBackStackEntryAsState()
 
                     StandardScaffold(
                         navController = navController,

@@ -16,19 +16,22 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.exampleAccounts
 import com.anbui.recipely.domain.models.exampleOrder
 import com.anbui.recipely.domain.models.exampleRecipes
+import com.anbui.recipely.presentation.main_screen.account.components.OrderItem
 import com.anbui.recipely.presentation.ui.components.RecipelyAccountCard
 import com.anbui.recipely.presentation.ui.components.RecipelyTinyVerticallyCard
 import com.anbui.recipely.presentation.ui.components.StandardToolbar
-import com.anbui.recipely.presentation.main_screen.account.components.OrderItem
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
@@ -37,8 +40,10 @@ import com.anbui.recipely.presentation.util.Screen
 @ExperimentalMaterial3Api
 @Composable
 fun AccountScreen(
-    navController: NavController
+    navController: NavController,
+    accountViewModel: AccountViewModel = hiltViewModel()
 ) {
+    val currentAccount by accountViewModel.currentAccount.collectAsStateWithLifecycle()
     Column {
         StandardToolbar(
             navController = navController,
@@ -71,7 +76,7 @@ fun AccountScreen(
                 span = { GridItemSpan(maxLineSpan) }
             ) {
                 RecipelyAccountCard(
-                    account = exampleAccounts[0],
+                    account = currentAccount,
                     onClick = { navController.navigate(Screen.EditProfileScreen.route) }
                 )
             }

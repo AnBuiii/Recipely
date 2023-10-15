@@ -32,13 +32,14 @@ fun HomeScreen(
     val name = "An Bùi"
     val selectedCategories = remember { mutableStateListOf<String>() }
     val popularRecipes by homeScreenViewModel.popularRecipe.collectAsState()
+    val currentAccount by homeScreenViewModel.currentAccount.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(top = SpaceHuge)
     ) {
         HeadingSection(
-            name = name,
+            name = currentAccount.firstName + " " + currentAccount.lastName,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = SpaceLarge),
