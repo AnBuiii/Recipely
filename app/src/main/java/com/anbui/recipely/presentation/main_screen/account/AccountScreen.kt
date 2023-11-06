@@ -25,7 +25,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
-import com.anbui.recipely.domain.models.exampleAccounts
 import com.anbui.recipely.domain.models.exampleOrder
 import com.anbui.recipely.domain.models.exampleRecipes
 import com.anbui.recipely.presentation.main_screen.account.components.OrderItem
@@ -44,6 +43,7 @@ fun AccountScreen(
     accountViewModel: AccountViewModel = hiltViewModel()
 ) {
     val currentAccount by accountViewModel.currentAccount.collectAsStateWithLifecycle()
+    val favouriteRecipes by accountViewModel.favouriteRecipes.collectAsStateWithLifecycle()
     Column {
         StandardToolbar(
             navController = navController,
@@ -124,7 +124,7 @@ fun AccountScreen(
                     )
                 }
             }
-            items(exampleRecipes, key = { "popular ${it.id}" }) {
+            items(favouriteRecipes, key = { "popular ${it.id}" }) {
                 RecipelyTinyVerticallyCard(
                     recipe = it
                 )

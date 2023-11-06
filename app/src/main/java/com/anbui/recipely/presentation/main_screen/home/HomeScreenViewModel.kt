@@ -35,4 +35,5 @@ class HomeScreenViewModel @Inject constructor(
             recipeRepository.likeRecipe(recipeId, like )
         }
     }
+
 }

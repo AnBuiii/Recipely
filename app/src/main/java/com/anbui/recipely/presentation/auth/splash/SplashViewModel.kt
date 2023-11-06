@@ -24,13 +24,6 @@ class SplashViewModel @Inject constructor(
     )
     @Inject lateinit var db: RecipelyDatabase
 
-    init {
-        viewModelScope.launch {
-            accountRepository.login("builehoaian2002@gmail.com", "builehoaian")
-        }
-
-
-    }
 
 
 }

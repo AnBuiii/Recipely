@@ -129,4 +129,5 @@
     <string name="on">On</string>
     <string name="off">Off</string>
     <string name="current_language">English</string>
+    <string name="log_out">Log out</string>
 </resources>

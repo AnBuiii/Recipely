@@ -1,5 +1,6 @@
 package com.anbui.recipely.presentation.auth.login
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,9 +17,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,6 +30,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.anbui.recipely.R
@@ -39,16 +44,35 @@ import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @ExperimentalMaterial3Api
 @Composable
 fun LoginScreen(
-    navController: NavController
+    navController: NavController,
+    loginViewModel: LoginViewModel = hiltViewModel()
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var isPasswordVisible by remember {
-        mutableStateOf(true)
+    val uiState by loginViewModel.state.collectAsStateWithLifecycle()
+    val coroutineScope  = rememberCoroutineScope()
+    LaunchedEffect(uiState.error){
+        uiState.error?.let {
+            coroutineScope.launch {
+                Log.d("LoginScreen", it)
+                delay(1000)
+                loginViewModel.changeError(null)
+            }
+        }
+    }
+
+    LaunchedEffect(uiState.success){
+        if(uiState.success){
+            navController.navigate(Screen.HomeScreen.route) {
+                popUpTo(0) {
+                    inclusive = true
+                }
+            }
+        }
     }
     Column(
         modifier = Modifier.fillMaxSize()
@@ -71,8 +95,8 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(SpaceMedium))
 
             StandardTextField(
-                text = email,
-                onValueChange = { email = it },
+                text = uiState.email,
+                onValueChange = loginViewModel::changeEmail,
                 hint = stringResource(R.string.email_hint),
                 leadingIcon = painterResource(id = R.drawable.ic_message)
             )
@@ -87,29 +111,21 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(SpaceMedium))
 
             StandardTextField(
-                text = password,
-                onValueChange = { password = it },
+                text = uiState.password,
+                onValueChange = loginViewModel::changePassword,
                 hint = stringResource(
                     R.string.password_hint
                 ),
                 leadingIcon = painterResource(id = R.drawable.ic_lock),
                 keyboardType = KeyboardType.Password,
-                isPasswordVisible = isPasswordVisible,
-                onPasswordToggleClick = {
-                    isPasswordVisible = it
-                }
+                isPasswordVisible = uiState.passwordVisible,
+                onPasswordToggleClick = loginViewModel::changePasswordVisibility
             )
 
             Spacer(modifier = Modifier.height(SpaceLarge + SpaceSmall))
 
             Button(
-                onClick = {
-                    navController.navigate(Screen.HomeScreen.route) {
-                        popUpTo(0) {
-                            inclusive = true
-                        }
-                    }
-                },
+                onClick = loginViewModel::login,
                 shape = MaterialTheme.shapes.large,
                 modifier = Modifier.fillMaxWidth()
 

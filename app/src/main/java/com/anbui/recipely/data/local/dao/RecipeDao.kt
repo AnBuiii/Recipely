@@ -1,20 +1,13 @@
 package com.anbui.recipely.data.local.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Embedded
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Relation
 import androidx.room.Transaction
 import androidx.room.Upsert
-import com.anbui.recipely.data.local.entities.AccountEntity
-import com.anbui.recipely.data.local.entities.IngredientEntity
 import com.anbui.recipely.data.local.entities.LikeEntity
 import com.anbui.recipely.data.local.entities.RecipeEntity
-import com.anbui.recipely.data.local.entities.StepEntity
 import com.anbui.recipely.data.local.entities.relations.RecipeAndOwner
-import com.anbui.recipely.data.local.entities.relations.RecipeIngredientCrossRef
 import com.anbui.recipely.data.local.entities.relations.RecipeWithIngredient
 import kotlinx.coroutines.flow.Flow
 
@@ -45,5 +38,8 @@ interface RecipeDao {
     @Query("DELETE FROM `Like` WHERE recipe_id = :recipeId and account_id = :accountId")
     suspend fun deleteLike(recipeId: String, accountId: String)
 
+    @Transaction
+    @Query("SELECT * FROM RECIPE INNER JOIN `LIKE` as  L ON RECIPE._id == L.recipe_id WHERE L.account_id = :accountId")
+    fun getFavouriteRecipes(accountId: String): Flow<List<RecipeAndOwner>>
 }
 

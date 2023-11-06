@@ -13,6 +13,7 @@ interface AccountRepository {
     suspend fun addAccount(account: Account)
 
     suspend fun login(email: String, password: String): Boolean
+    suspend fun logout()
 
 
 }

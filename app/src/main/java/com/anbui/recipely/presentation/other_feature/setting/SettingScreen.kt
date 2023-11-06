@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,14 +31,16 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.anbui.recipely.R
-import com.anbui.recipely.presentation.ui.components.StandardToolbar
 import com.anbui.recipely.presentation.other_feature.setting.components.LanguagePickerBottomSheet
 import com.anbui.recipely.presentation.other_feature.setting.components.SettingCard
+import com.anbui.recipely.presentation.ui.components.StandardToolbar
 import com.anbui.recipely.presentation.ui.theme.MediumGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceTiny
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
+import com.anbui.recipely.presentation.util.Screen
+import kotlinx.coroutines.launch
 
 @ExperimentalMaterial3Api
 @Composable
@@ -52,6 +55,7 @@ fun SettingScreen(
     var isBottomSheetOpen by remember {
         mutableStateOf(false)
     }
+    val coroutineScope = rememberCoroutineScope()
 
     LanguagePickerBottomSheet(isBottomSheetOpen) { isBottomSheetOpen = it }
     Column {
@@ -157,6 +161,20 @@ fun SettingScreen(
             SettingCard(
                 leadingIcon = painterResource(id = R.drawable.ic_info),
                 text = stringResource(R.string.about_app)
+            )
+            SettingCard(
+                leadingIcon = painterResource(id = R.drawable.ic_info),
+                text = stringResource(R.string.log_out),
+                onClick = {
+                    coroutineScope.launch {
+                        settingViewModel.logout()
+                        navController.navigate(Screen.SplashScreen.route){
+                            popUpTo(0){
+                                inclusive = true
+                            }
+                        }
+                    }
+                }
             )
         }
     }

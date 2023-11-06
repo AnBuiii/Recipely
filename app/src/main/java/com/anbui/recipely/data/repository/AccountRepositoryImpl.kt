@@ -1,6 +1,7 @@
 package com.anbui.recipely.data.repository
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.anbui.recipely.data.local.dao.AccountDao
@@ -9,15 +10,20 @@ import com.anbui.recipely.dataStore
 import com.anbui.recipely.domain.models.Account
 import com.anbui.recipely.domain.models.GenderType
 import com.anbui.recipely.domain.repository.AccountRepository
+import com.anbui.recipely.domain.repository.CurrentPreferences
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.transform
+import javax.inject.Inject
 
-class AccountRepositoryImpl(
+
+class AccountRepositoryImpl @Inject constructor(
     private val accountDao: AccountDao,
-    private val context: Context
+    private val currentPreferences: CurrentPreferences,
 ) : AccountRepository {
     override fun getAllAccount(): Flow<List<Account>> {
         return accountDao.getAccounts().map { accountEntities ->
@@ -29,12 +35,12 @@ class AccountRepositoryImpl(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun getCurrentAccount(): Flow<Account> {
-        val logged = stringPreferencesKey("logged_id")
-        val loggedId = context.dataStore.data.map { preferences ->
-            preferences[logged] ?: ""
-        }
+        val loggedId = currentPreferences.getLoggedId()
+        return loggedId.filterNotNull().flatMapLatest { id -> getAccountById(id) }
+    }
 
-        return loggedId.flatMapLatest { id -> getAccountById(id) }
+    override suspend fun logout() {
+        currentPreferences.setLoggedId(null)
     }
 
     override fun getAccountById(accountId: String): Flow<Account> {
@@ -60,10 +66,8 @@ class AccountRepositoryImpl(
     override suspend fun login(email: String, password: String): Boolean {
         val account = accountDao.getAccount(email, password)
         account?.let {
-            context.dataStore.edit { settings ->
-                val logged = stringPreferencesKey("logged_id")
-                settings[logged] = it.id
-            }
+            Log.d("???", it.toString())
+            currentPreferences.setLoggedId(it.id)
             return true
         }
         return false

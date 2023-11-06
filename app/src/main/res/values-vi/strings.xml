@@ -9,4 +9,5 @@
     <string name="hide_password">Ẩn mật khẩu</string>
     <string name="back">Trở về</string>
     <string name="onboarding_title_1">Khám phá các công thức nấu ăn bạn cần</string>
+    <string name="log_out">Log out</string>
 </resources>
