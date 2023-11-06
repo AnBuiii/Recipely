@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,9 +31,7 @@ class AccountViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            recipeRepository.getFavouriteOfAccountId(
-                accountRepository.getCurrentAccount().first().id
-            ).collectLatest {
+            recipeRepository.getFavouriteOfCurrentAccount().collectLatest {
                 _favouriteRecipes.emit(it)
             }
         }

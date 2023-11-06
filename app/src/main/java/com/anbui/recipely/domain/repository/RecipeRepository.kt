@@ -17,8 +17,14 @@ interface RecipeRepository {
 
     fun getDummyRecipe(): Recipe
 
-    fun getFavouriteOfAccountId(accountId: String): Flow<List<Recipe>>
+    fun getFavouriteOfCurrentAccount(): Flow<List<Recipe>>
+
+    fun getAllRecentOfCurrentAccount(): Flow<List<Recipe>>
+
+    suspend fun searchRecipes(searchText: String): List<Recipe>
 
     suspend fun likeRecipe(recipeId: String, like: Boolean)
+
+    suspend fun addRecentRecipe(recipeId: String)
 }
 

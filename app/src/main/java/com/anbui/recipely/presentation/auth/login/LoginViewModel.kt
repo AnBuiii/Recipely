@@ -30,11 +30,11 @@ class LoginViewModel @Inject constructor(
         _state.update { it.copy(passwordVisible = value) }
     }
 
-    fun changeError(value: String?){
+    fun changeError(value: String?) {
         _state.update { it.copy(error = value) }
     }
 
-    fun changeSuccess(value: Boolean){
+    fun changeSuccess(value: Boolean) {
         _state.update { it.copy(success = value) }
     }
 
@@ -42,11 +42,14 @@ class LoginViewModel @Inject constructor(
     fun login() {
         viewModelScope.launch {
             _state.value.let {
+//                accountRepository.login("builehoaian2002@gmail.com", "builehoaian")
+//                changeSuccess(true)
                 if (accountRepository.login(it.email, it.password)) {
                    changeSuccess(true)
                 } else {
                     changeError("Login fail")
                 }
+
             }
         }
     }

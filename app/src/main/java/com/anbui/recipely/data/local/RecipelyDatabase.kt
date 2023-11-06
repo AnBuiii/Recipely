@@ -7,6 +7,7 @@ import com.anbui.recipely.data.local.dao.RecipeDao
 import com.anbui.recipely.data.local.entities.AccountEntity
 import com.anbui.recipely.data.local.entities.IngredientEntity
 import com.anbui.recipely.data.local.entities.LikeEntity
+import com.anbui.recipely.data.local.entities.RecentEntity
 import com.anbui.recipely.data.local.entities.RecipeEntity
 import com.anbui.recipely.data.local.entities.StepEntity
 import com.anbui.recipely.data.local.entities.relations.RecipeIngredientCrossRef
@@ -19,7 +20,8 @@ import com.anbui.recipely.data.local.entities.relations.RecipeIngredientCrossRef
         RecipeIngredientCrossRef::class,
         IngredientEntity::class,
         StepEntity::class,
-        LikeEntity::class
+        LikeEntity::class,
+        RecentEntity::class
     ],
     exportSchema = true
 )

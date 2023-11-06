@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "8d24da6141187bed308294c9fea789eb",
+    "identityHash": "85f0fbb3a256cc33f49af4d31c550420",
     "entities": [
       {
         "tableName": "Recipe",
@@ -325,12 +325,44 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Recent",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` TEXT NOT NULL, `recipe_id` TEXT NOT NULL, `account_id` TEXT NOT NULL, PRIMARY KEY(`_id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recipeId",
+            "columnName": "recipe_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountId",
+            "columnName": "account_id",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8d24da6141187bed308294c9fea789eb')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '85f0fbb3a256cc33f49af4d31c550420')"
     ]
   }
 }

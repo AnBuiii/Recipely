@@ -248,11 +248,13 @@ fun RecipelyVerticallyCard(
 @Composable
 fun RecipelyHorizontallyCard(
     recipe: Recipe,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
     StandardCard(
         modifier = modifier.height(100.dp),
-        contentPadding = SpaceSmall
+        contentPadding = SpaceSmall,
+        onClick = onClick
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),

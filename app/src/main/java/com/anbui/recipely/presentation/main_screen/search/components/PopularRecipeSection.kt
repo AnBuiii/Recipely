@@ -21,7 +21,8 @@ import com.anbui.recipely.presentation.ui.theme.SpaceTiny
 
 @ExperimentalMaterial3Api
 fun LazyListScope.popularRecipeSection(
-    popularRecipes: List<Recipe>
+    popularRecipes: List<Recipe>,
+    onRecipeClick: (String) -> Unit,
 ) {
     item(
         key = "popular recipes bar"
@@ -49,7 +50,8 @@ fun LazyListScope.popularRecipeSection(
     items(popularRecipes, key = { "popular ${it.id}" }) {
         RecipelyHorizontallyCard(
             recipe = it,
-            modifier = Modifier.padding(horizontal = SpaceLarge, vertical = SpaceSmall + SpaceTiny)
+            modifier = Modifier.padding(horizontal = SpaceLarge, vertical = SpaceSmall + SpaceTiny),
+            onClick = {onRecipeClick(it.id)}
         )
     }
 }

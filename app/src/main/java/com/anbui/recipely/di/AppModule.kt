@@ -24,7 +24,7 @@ object AppModule {
             .databaseBuilder(appContext, RecipelyDatabase::class.java, "Recipely.sqlite")
             .createFromAsset("recipely.sqlite")
 //            .createFromFile(File("/data/user/0/com.anbui.recipely/databases/Recipely.sqlite"))
-//            .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration()
             .build()
 
     @Singleton

@@ -1,25 +1,20 @@
 package com.anbui.recipely.data.repository
 
-import android.content.Context
-import androidx.datastore.preferences.core.stringPreferencesKey
+import android.util.Log
 import com.anbui.recipely.data.local.dao.RecipeDao
 import com.anbui.recipely.data.local.entities.LikeEntity
+import com.anbui.recipely.data.local.entities.RecentEntity
 import com.anbui.recipely.data.local.entities.relations.RecipeAndOwner
 import com.anbui.recipely.data.local.entities.relations.RecipeWithIngredient
-import com.anbui.recipely.dataStore
-import com.anbui.recipely.domain.models.IngredientItem
-import com.anbui.recipely.domain.models.MediaType.Companion.toMediaType
+import com.anbui.recipely.data.local.entities.relations.toRecipe
 import com.anbui.recipely.domain.models.Recipe
-import com.anbui.recipely.domain.models.Step
-import com.anbui.recipely.domain.models.UnitType.Companion.toUnitType
 import com.anbui.recipely.domain.repository.CurrentPreferences
 import com.anbui.recipely.domain.repository.RecipeRepository
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import java.util.UUID
 import javax.inject.Inject
@@ -30,64 +25,19 @@ class RecipeRepositoryImpl @Inject constructor(
     private val currentPreferences: CurrentPreferences,
 ) : RecipeRepository {
 
-    override fun getFavouriteOfAccountId(accountId: String): Flow<List<Recipe>> {
-        val loggedId = currentPreferences.getLoggedId()
-        return recipeDao.getFavouriteRecipes(accountId).map {map ->
-            map.map { recipe ->
-                Recipe(
-                    id = recipe.recipe.id.toString(),
-                    title = recipe.recipe.title,
-                    imageUrl = recipe.recipe.imageUrl,
-                    description = recipe.recipe.description,
-                    isLike = recipe.likes.any { like -> like.accountId == loggedId.first() },
-                    cookTime = "${
-                        recipe.steps.sumOf { step -> step.period.toDouble() }.toInt()
-                    } Min",
-                    servings = recipe.recipe.servings,
-                    totalCalories = recipe.ingredients.sumOf { ingredient ->
-                        ingredient.crossRef.amount.toDouble() * ingredient.ingredient.kcal
+    override fun getFavouriteOfCurrentAccount(): Flow<List<Recipe>> {
+        return flow {
+            val id = currentPreferences.getLoggedId().first()
+            recipeDao.getFavouriteRecipeIds(id?:"").map {
+                recipeDao.getRecipes(it).map { map ->
+                    map.map {recipe ->
+                        recipe.toRecipe(id)
                     }
-                        .toFloat(),
-                    totalCarb = recipe.ingredients.sumOf { ingredient ->
-                        ingredient.crossRef.amount.toDouble() * ingredient.ingredient.carb
-                    }
-                        .toFloat(),
-                    totalProtein = recipe.ingredients.sumOf { ingredient ->
-                        ingredient.crossRef.amount.toDouble() * ingredient.ingredient.protein
-                    }
-                        .toFloat(),
-                    totalFat = recipe.ingredients.sumOf { ingredient ->
-                        ingredient.crossRef.amount.toDouble() * ingredient.ingredient.fat
-                    }
-                        .toFloat(),
-                    ownerId = recipe.owner.id.toString(),
-                    ownerName = recipe.owner.firstName + " " + recipe.owner.lastName,
-                    ownerAvatarUrl = recipe.owner.avatarUrl,
-                    ownerDescription = recipe.owner.bio,
-                    instructions = recipe.steps.map {
-                        Step(
-                            order = it.order,
-                            instruction = it.instruction,
-                            mediaUrl = it.mediaUrl,
-                            type = it.mediaType.toMediaType(),
-                            period = (it.period * 1000).toLong()
-                        )
-                    },
-
-                    ingredients = recipe.ingredients.map { ingredient ->
-                        IngredientItem(
-                            imageUrl = ingredient.ingredient.imageUrl,
-                            name = ingredient.ingredient.name,
-                            ingredientId = ingredient.ingredient.id,
-                            amount = ingredient.crossRef.amount.toFloat(),
-                            unit = ingredient.ingredient.unit.toUnitType(),
-                            price = ingredient.ingredient.price
-                        )
-                    }
-                )
+                }.first()
+            }.collect{
+                emit(it)
             }
         }
-
     }
 
     override suspend fun getRecipeWithIngredient(recipeId: String): List<RecipeWithIngredient> {
@@ -100,118 +50,17 @@ class RecipeRepositoryImpl @Inject constructor(
 
     override fun getAllRecipes(): Flow<List<Recipe>> {
         val loggedId = currentPreferences.getLoggedId()
-        return recipeDao.getAllRecipes().map { map ->
-            map.map { recipe ->
-                Recipe(
-                    id = recipe.recipe.id.toString(),
-                    title = recipe.recipe.title,
-                    imageUrl = recipe.recipe.imageUrl,
-                    description = recipe.recipe.description,
-                    isLike = recipe.likes.any { like -> like.accountId == loggedId.first() },
-                    cookTime = "${
-                        recipe.steps.sumOf { step -> step.period.toDouble() }.toInt()
-                    } Min",
-                    servings = recipe.recipe.servings,
-                    totalCalories = recipe.ingredients.sumOf { ingredient ->
-                        ingredient.crossRef.amount.toDouble() * ingredient.ingredient.kcal
-                    }
-                        .toFloat(),
-                    totalCarb = recipe.ingredients.sumOf { ingredient ->
-                        ingredient.crossRef.amount.toDouble() * ingredient.ingredient.carb
-                    }
-                        .toFloat(),
-                    totalProtein = recipe.ingredients.sumOf { ingredient ->
-                        ingredient.crossRef.amount.toDouble() * ingredient.ingredient.protein
-                    }
-                        .toFloat(),
-                    totalFat = recipe.ingredients.sumOf { ingredient ->
-                        ingredient.crossRef.amount.toDouble() * ingredient.ingredient.fat
-                    }
-                        .toFloat(),
-                    ownerId = recipe.owner.id.toString(),
-                    ownerName = recipe.owner.firstName + " " + recipe.owner.lastName,
-                    ownerAvatarUrl = recipe.owner.avatarUrl,
-                    ownerDescription = recipe.owner.bio,
-                    instructions = recipe.steps.map {
-                        Step(
-                            order = it.order,
-                            instruction = it.instruction,
-                            mediaUrl = it.mediaUrl,
-                            type = it.mediaType.toMediaType(),
-                            period = (it.period * 1000).toLong()
-                        )
-                    },
-
-                    ingredients = recipe.ingredients.map { ingredient ->
-                        IngredientItem(
-                            imageUrl = ingredient.ingredient.imageUrl,
-                            name = ingredient.ingredient.name,
-                            ingredientId = ingredient.ingredient.id,
-                            amount = ingredient.crossRef.amount.toFloat(),
-                            unit = ingredient.ingredient.unit.toUnitType(),
-                            price = ingredient.ingredient.price
-                        )
-                    }
-                )
+        return combine(recipeDao.getAllRecipes(), loggedId) { recipes, id ->
+            recipes.map {
+                it.toRecipe(id)
             }
         }
     }
 
     override fun getRecipesById(recipeId: String): Flow<Recipe> {
         val loggedId = currentPreferences.getLoggedId()
-
-        return combine(recipeDao.getRecipe(recipeId = recipeId), loggedId) { recipe, id  ->
-            Recipe(
-                id = recipe.recipe.id.toString(),
-                title = recipe.recipe.title,
-                imageUrl = recipe.recipe.imageUrl,
-                description = recipe.recipe.description,
-                isLike = recipe.likes.any { like -> like.accountId == id },
-                cookTime = "${
-                    recipe.steps.sumOf { step -> step.period.toDouble() }.toInt()
-                } Min",
-                servings = recipe.recipe.servings,
-                totalCalories = recipe.ingredients.sumOf { ingredient ->
-                    ingredient.crossRef.amount.toDouble() * ingredient.ingredient.kcal
-                }
-                    .toFloat(),
-                totalCarb = recipe.ingredients.sumOf { ingredient ->
-                    ingredient.crossRef.amount.toDouble() * ingredient.ingredient.carb
-                }
-                    .toFloat(),
-                totalProtein = recipe.ingredients.sumOf { ingredient ->
-                    ingredient.crossRef.amount.toDouble() * ingredient.ingredient.protein
-                }
-                    .toFloat(),
-                totalFat = recipe.ingredients.sumOf { ingredient ->
-                    ingredient.crossRef.amount.toDouble() * ingredient.ingredient.fat
-                }
-                    .toFloat(),
-                ownerId = recipe.owner.id,
-                ownerName = recipe.owner.firstName + " " + recipe.owner.lastName,
-                ownerAvatarUrl = recipe.owner.avatarUrl,
-                ownerDescription = recipe.owner.bio,
-                instructions = recipe.steps.map {
-                    Step(
-                        order = it.order,
-                        instruction = it.instruction,
-                        mediaUrl = it.mediaUrl,
-                        type = it.mediaType.toMediaType(),
-                        period = (it.period * 1000).toLong()
-                    )
-                },
-
-                ingredients = recipe.ingredients.map { ingredient ->
-                    IngredientItem(
-                        imageUrl = ingredient.ingredient.imageUrl,
-                        name = ingredient.ingredient.name,
-                        ingredientId = ingredient.ingredient.id,
-                        amount = ingredient.crossRef.amount.toFloat(),
-                        unit = ingredient.ingredient.unit.toUnitType(),
-                        price = ingredient.ingredient.price
-                    )
-                }
-            )
+        return combine(recipeDao.getRecipe(recipeId = recipeId), loggedId) { recipe, id ->
+            recipe.toRecipe(id)
         }
     }
 
@@ -254,4 +103,38 @@ class RecipeRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun searchRecipes(searchText: String): List<Recipe> {
+        val loggedId = currentPreferences.getLoggedId()
+        return recipeDao.searchRecipe(searchText).map {
+            it.toRecipe(loggedId.first())
+        }
+    }
+
+    override suspend fun addRecentRecipe(recipeId: String) {
+        val loggedId = currentPreferences.getLoggedId()
+        if (recipeDao.getRecentByAccountAndRecipe(accountId = loggedId.first() ?: "", recipeId)
+                .isNotEmpty()
+        ) return
+        val uuid = UUID.randomUUID()
+        recipeDao.addRecent(
+            RecentEntity(
+                id = uuid.toString(),
+                recipeId = recipeId,
+                accountId = loggedId.filterNotNull().first()
+            )
+        )
+    }
+
+    override fun getAllRecentOfCurrentAccount(): Flow<List<Recipe>> {
+        return flow {
+            val id = currentPreferences.getLoggedId().first()
+            recipeDao.getAllRecent(id ?: "").map { map ->
+                map.map {recipe ->
+                    recipe.toRecipe(id)
+                }
+            }.collect {
+                emit(it)
+            }
+        }
+    }
 }
