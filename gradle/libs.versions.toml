@@ -89,6 +89,7 @@ ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 ui-util = { group = "androidx.compose.ui", name = "ui-util" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
+#foundation = {group = "androidx.compose.foundation", name = "foundation"}
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version = "1.6.1" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version = "2.1.4" }
 

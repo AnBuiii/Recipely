@@ -85,7 +85,18 @@ fun Navigation(
         ) {
             RecipeDetailScreen(navController = navController)
         }
-        composable(Screen.CookingDetailScreen.route) {
+        composable(
+            "${Screen.CookingDetailScreen.route}/{recipeId}/{servings}",
+            arguments = listOf(
+                navArgument("recipeId") {
+                    type = NavType.StringType
+                },
+                navArgument("servings"){
+                    type = NavType.IntType
+                }
+
+            )
+        ) {
             CookingDetailScreen(navController = navController)
         }
         composable(Screen.CartScreen.route) {

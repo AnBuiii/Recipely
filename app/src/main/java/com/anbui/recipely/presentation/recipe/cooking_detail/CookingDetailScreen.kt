@@ -45,25 +45,25 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.MediaType
-import com.anbui.recipely.domain.models.exampleRecipes
+import com.anbui.recipely.presentation.recipe.cooking_detail.components.DetailBottomSheet
+import com.anbui.recipely.presentation.recipe.cooking_detail.components.Timer
 import com.anbui.recipely.presentation.ui.components.StandardProgressIndicator
 import com.anbui.recipely.presentation.ui.components.StandardToolbar
 import com.anbui.recipely.presentation.ui.components.StandardVideoPlayer
-import com.anbui.recipely.presentation.recipe.cooking_detail.components.DetailBottomSheet
-import com.anbui.recipely.presentation.recipe.cooking_detail.components.Timer
 import com.anbui.recipely.presentation.ui.theme.SpaceHuge
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
-import kotlin.math.absoluteValue
 import kotlinx.coroutines.launch
+import kotlin.math.absoluteValue
 
 @ExperimentalAnimationApi
 @UnstableApi
@@ -74,16 +74,17 @@ fun CookingDetailScreen(
     navController: NavController,
     cookingDetailViewModel: CookingDetailViewModel = hiltViewModel()
 ) {
-    val state = cookingDetailViewModel.viewState.value
-    val recipe = exampleRecipes[0]
+    val state by cookingDetailViewModel.viewState.collectAsStateWithLifecycle()
+    val viewMode by cookingDetailViewModel.viewMode.collectAsStateWithLifecycle()
+    val recipe by cookingDetailViewModel.recipe.collectAsStateWithLifecycle()
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
-    val corountineScope = rememberCoroutineScope()
+    val coroutineScope = rememberCoroutineScope()
 
     DetailBottomSheet(
         recipe = recipe,
         serving = 4,
         isOpen = openBottomSheet,
-        viewMode = cookingDetailViewModel.viewMode.value,
+        viewMode = viewMode,
         onChangeOpenState = { openBottomSheet = it },
         onChangeViewMode = cookingDetailViewModel::changeViewMode
     )
@@ -123,9 +124,9 @@ fun CookingDetailScreen(
 
         ) { page ->
             val pageOffset = (
-                (mediaPagerState.currentPage - page) + mediaPagerState
-                    .currentPageOffsetFraction
-                ).absoluteValue
+                    (mediaPagerState.currentPage - page) + mediaPagerState
+                        .currentPageOffsetFraction
+                    ).absoluteValue
 
             Card(
                 Modifier
@@ -147,77 +148,83 @@ fun CookingDetailScreen(
                     .clickable {
                     }
             ) {
-                if (recipe.instructions[page].type is MediaType.Image) {
-                    AsyncImage(
-                        model = recipe.instructions[page].mediaUrl,
-                        contentDescription = recipe.instructions[page].instruction,
-                        modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.FillBounds
-                    )
-                } else {
-                    StandardVideoPlayer(
-                        uri = Uri.parse(recipe.instructions[page].mediaUrl),
-                        stop = page != mediaPagerState.currentPage
-                    )
+                if (page < recipe.instructions.size) {
+                    if (recipe.instructions[page].type is MediaType.Image) {
+                        AsyncImage(
+                            model = recipe.instructions[page].mediaUrl,
+                            contentDescription = recipe.instructions[page].instruction,
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.FillBounds
+                        )
+                    } else {
+                        StandardVideoPlayer(
+                            uri = Uri.parse(recipe.instructions[page].mediaUrl),
+                            stop = page != mediaPagerState.currentPage
+                        )
+                    }
                 }
             }
         }
 
-        LaunchedEffect(mediaPagerState.currentPage) {
-            cookingDetailViewModel.setTimer(recipe.instructions[mediaPagerState.currentPage].period)
-        }
-        Spacer(modifier = Modifier.height(SpaceLarge))
-
-        AnimatedContent(
-            targetState = mediaPagerState.currentPage,
-            label = "instruction",
-            transitionSpec = { ->
-                slideInHorizontally { if (it > 0) it else -it } with slideOutHorizontally { -it }
+        if(mediaPagerState.currentPage < recipe.instructions.size){
+            LaunchedEffect(mediaPagerState.currentPage) {
+                cookingDetailViewModel.setTimer(recipe.instructions[mediaPagerState.currentPage].period)
             }
-        ) {
-            Text(
-                recipe.instructions[it].instruction,
-                textAlign = TextAlign.Justify,
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(horizontal = SpaceLarge),
-                maxLines = 6,
-                minLines = 6,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
+            Spacer(modifier = Modifier.height(SpaceLarge))
 
-        Spacer(modifier = Modifier.weight(1f))
-
-        Timer(
-            totalTime = state.timeDuration,
-            currentTime = state.remainingTime,
-            buttonState = state.timerStatus,
-            onButtonClick = {
-                cookingDetailViewModel.buttonSelection()
+            AnimatedContent(
+                targetState = mediaPagerState.currentPage,
+                label = "instruction",
+                transitionSpec = { ->
+                    slideInHorizontally { if (it > 0) it else -it } with slideOutHorizontally { -it }
+                }
+            ) {
+                Text(
+                    recipe.instructions[it].instruction,
+                    textAlign = TextAlign.Justify,
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(horizontal = SpaceLarge),
+                    maxLines = 6,
+                    minLines = 6,
+                    overflow = TextOverflow.Ellipsis
+                )
             }
-        )
-        Spacer(modifier = Modifier.weight(1f))
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = SpaceLarge),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = stringResource(R.string.step),
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    color = MaterialTheme.colorScheme.secondary
-                )
+            Spacer(modifier = Modifier.weight(1f))
+
+            Timer(
+                totalTime = state.timeDuration,
+                currentTime = state.remainingTime,
+                buttonState = state.timerStatus,
+                onButtonClick = {
+                    cookingDetailViewModel.buttonSelection()
+                }
             )
-            Text(
-                text = "${mediaPagerState.currentPage + 1} of ${recipe.instructions.size}",
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    color = MaterialTheme.colorScheme.secondary
+            Spacer(modifier = Modifier.weight(1f))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = SpaceLarge),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(R.string.step),
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = MaterialTheme.colorScheme.secondary
+                    )
                 )
-            )
+                Text(
+                    text = "${mediaPagerState.currentPage + 1} of ${recipe.instructions.size}",
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = MaterialTheme.colorScheme.secondary
+                    )
+                )
+            }
         }
+
+
 
         StandardProgressIndicator(
             indicatorProgress = (mediaPagerState.currentPage + 1).toFloat() / recipe.instructions.size
@@ -226,16 +233,11 @@ fun CookingDetailScreen(
         Button(
             onClick = {
                 if ((mediaPagerState.currentPage + 1) != recipe.instructions.size) {
-                    corountineScope.launch {
+                    coroutineScope.launch {
                         mediaPagerState.animateScrollToPage(mediaPagerState.currentPage + 1)
                     }
                 } else {
-                    navController.navigate(Screen.RecipeDetailScreen.route) {
-                        launchSingleTop = true
-                        popUpTo(Screen.CookingDetailScreen.route) {
-                            inclusive = true
-                        }
-                    }
+                    navController.popBackStack(route = Screen.RecipeDetailScreen.route + "/${recipe.id}", false)
                 }
             },
             shape = MaterialTheme.shapes.large,

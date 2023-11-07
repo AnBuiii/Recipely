@@ -42,13 +42,13 @@ class LoginViewModel @Inject constructor(
     fun login() {
         viewModelScope.launch {
             _state.value.let {
-//                accountRepository.login("builehoaian2002@gmail.com", "builehoaian")
-//                changeSuccess(true)
-                if (accountRepository.login(it.email, it.password)) {
-                   changeSuccess(true)
-                } else {
-                    changeError("Login fail")
-                }
+                accountRepository.login("builehoaian2002@gmail.com", "builehoaian")
+                changeSuccess(true)
+//                if (accountRepository.login(it.email, it.password)) {
+//                   changeSuccess(true)
+//                } else {
+//                    changeError("Login fail")
+//                }
 
             }
         }

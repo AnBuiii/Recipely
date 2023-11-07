@@ -18,7 +18,6 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -96,7 +95,7 @@ fun RecipeDetailScreen(
                     instructionsSection(
                         recipe = recipe,
                         onStartCookingClick = {
-                            navController.navigate(Screen.CookingDetailScreen.route)
+                            navController.navigate(Screen.CookingDetailScreen.route + "/${recipe.id}" + "/${recipeDetailViewModel.servings.value}")
                         }
                     )
                 }
