@@ -89,7 +89,8 @@ fun RecipeDetailScreen(
                     ingredientsSection(
                         recipe = recipe,
                         servings = recipeDetailViewModel.servings.value,
-                        onChangeServing = recipeDetailViewModel::changeServings
+                        onChangeServing = recipeDetailViewModel::changeServings,
+                        onAddToCart = recipeDetailViewModel::addAllIngredientToCart
                     )
                 } else {
                     instructionsSection(

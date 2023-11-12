@@ -81,6 +81,12 @@ class RecipeDetailViewModel @Inject constructor(
             recipeRepository.likeRecipe(recipeId, !recipe.first().isLike)
         }
     }
+
+    fun addAllIngredientToCart(){
+        viewModelScope.launch {
+
+        }
+    }
 }
 
 sealed class ViewMode {

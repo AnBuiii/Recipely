@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.anbui.recipely.data.local.RecipelyDatabase
 import com.anbui.recipely.data.local.dao.AccountDao
+import com.anbui.recipely.data.local.dao.OrderDao
 import com.anbui.recipely.data.local.dao.RecipeDao
 import dagger.Module
 import dagger.Provides
@@ -34,5 +35,9 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRecipeDao(db: RecipelyDatabase): RecipeDao = db.recipeDao
+
+    @Singleton
+    @Provides
+    fun provideOrderDao(db: RecipelyDatabase): OrderDao = db.orderDao
 
 }

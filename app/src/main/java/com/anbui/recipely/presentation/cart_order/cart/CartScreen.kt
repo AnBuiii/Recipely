@@ -24,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -38,6 +39,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.exampleIngredientItems
@@ -51,8 +53,8 @@ import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.ThinGrey
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.seconds
 
 @ExperimentalMaterial3Api
 @Composable
@@ -61,7 +63,12 @@ fun CartScreen(
     cartViewModel: CartViewModel = hiltViewModel()
 ) {
     var openAlertDialog by remember { mutableStateOf(false) }
-    var timeOut by remember { mutableStateOf(-1) }
+    var timeOut by remember { mutableIntStateOf(-1) }
+    val ingredient by cartViewModel.ingredients.collectAsStateWithLifecycle()
+
+    LaunchedEffect(ingredient) {
+        Log.d("Cart Screen", ingredient.toString())
+    }
     LaunchedEffect(timeOut) {
         if (timeOut != -1) {
             delay(1.seconds)

@@ -1,4 +1,3 @@
- 
 package com.anbui.recipely.presentation.recipe.recipe_detail.components
 
 import androidx.compose.foundation.BorderStroke
@@ -35,7 +34,8 @@ import com.anbui.recipely.presentation.ui.theme.TrueWhite
 fun LazyListScope.ingredientsSection(
     recipe: Recipe,
     servings: Int,
-    onChangeServing: (Int) -> Unit
+    onChangeServing: (Int) -> Unit,
+    onAddToCart: () -> Unit
 ) {
     item {
         Row(
@@ -132,8 +132,7 @@ fun LazyListScope.ingredientsSection(
     }
     item {
         Button(
-            onClick = {
-            },
+            onClick = onAddToCart,
             shape = MaterialTheme.shapes.large,
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(

@@ -50,8 +50,6 @@ interface RecipeDao {
     @Query("SELECT recipe_id FROM `Like` WHERE account_id = :accountId")
     fun getFavouriteRecipeIds(accountId: String): Flow<List<String>>
 
-
-
     @Transaction
     @Query("SELECT * from recipe r  WHERE _id IN (:recipeIds)")
     fun getRecipes(recipeIds: List<String>): Flow<List<RecipeAndOwner>>
