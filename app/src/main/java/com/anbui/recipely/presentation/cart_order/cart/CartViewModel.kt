@@ -6,15 +6,22 @@ import com.anbui.recipely.domain.repository.CartRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CartViewModel @Inject constructor(
     private val cartRepository: CartRepository
-) : ViewModel(){
+) : ViewModel() {
     val ingredients = cartRepository.getAllInCartOfCurrentAccount().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
         emptyList()
     )
+
+    fun onChangeAmount(ingredientId: String, amount: Int) {
+        viewModelScope.launch {
+            cartRepository.updateAmountInCartOfCurrentAccount(ingredientId, amount)
+        }
+    }
 }

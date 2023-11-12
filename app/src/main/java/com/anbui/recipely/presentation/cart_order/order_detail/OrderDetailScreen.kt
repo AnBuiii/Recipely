@@ -22,8 +22,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.times
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.anbui.recipely.domain.models.exampleIngredientItems
 import com.anbui.recipely.presentation.cart_order.order_detail.components.InformationItem
 import com.anbui.recipely.presentation.cart_order.order_detail.components.OrderItem
 import com.anbui.recipely.presentation.ui.components.StandardCard
@@ -36,12 +37,15 @@ import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
+import com.anbui.recipely.util.toStringAsFixed
 
 @ExperimentalMaterial3Api
 @Composable
 fun OrderDetailScreen(
-    navController: NavController
+    navController: NavController,
+    orderDetailViewModel: OrderDetailViewModel = hiltViewModel()
 ) {
+    val order by orderDetailViewModel.order.collectAsStateWithLifecycle()
     Column {
         StandardToolbar(
             navController = navController,
@@ -65,10 +69,13 @@ fun OrderDetailScreen(
                             .fillMaxWidth()
                             .padding(horizontal = SpaceLarge)
                     ) {
-                        InformationItem(headline = "ID", information = "91283")
-                        InformationItem(headline = "Date", information = "20:63, yesterday")
-                        InformationItem(headline = "Status", information = "Delivered success")
-                        InformationItem(headline = "Total", information = "$321")
+                        InformationItem(headline = "ID", information = order.id)
+                        InformationItem(headline = "Date", information = order.formattedTime)
+                        InformationItem(headline = "Status", information = order.currentStatus)
+                        InformationItem(
+                            headline = "Total",
+                            information = "\$${order.total.toDouble().toStringAsFixed(2)}"
+                        )
                     }
                     Divider(
                         modifier = Modifier.padding(
@@ -90,13 +97,13 @@ fun OrderDetailScreen(
                             .padding(horizontal = SpaceLarge)
                     ) {
                         Text(
-                            text = "Bùi Lê Hoài An",
+                            text = order.customerName,
                             style = MaterialTheme.typography.bodyMedium.copy(
                                 fontWeight = FontWeight.Bold
                             )
                         )
                         Text(
-                            text = "134 Lê Chân, Sơn Trà, Đà Nẵng",
+                            text = order.deliveryInfo,
                             style = MaterialTheme.typography.bodyMedium.copy(
                                 fontWeight = FontWeight.Medium,
                                 color = DarkGrey
@@ -124,9 +131,9 @@ fun OrderDetailScreen(
                     ) {
                         Spacer(modifier = Modifier.height(SpaceLarge))
                         Stepper(
-                            numberOfSteps = numberStep,
+                            numberOfSteps = order.orderStatuses.size,
                             currentStep = currentStep,
-                            stepDescriptionList = titleList
+                            stepDescriptionList = order.orderStatuses.map { it.title }
                         )
                     }
                     Divider(
@@ -144,7 +151,7 @@ fun OrderDetailScreen(
                         style = MaterialTheme.typography.bodyLarge.copy()
                     )
                 }
-                items(exampleIngredientItems, key = { it.ingredientId }) {
+                items(order.ingredients, key = { it.ingredientId }) {
                     OrderItem(
                         imageUrl = it.imageUrl,
                         name = it.name,

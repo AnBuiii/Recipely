@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.anbui.recipely.domain.repository.CartRepository
 import com.anbui.recipely.domain.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,11 +20,13 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 @ExperimentalMaterial3Api
 @HiltViewModel
 class RecipeDetailViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
+    private val cartRepository: CartRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val recipeId: String = checkNotNull(savedStateHandle["recipeId"])
@@ -82,8 +85,16 @@ class RecipeDetailViewModel @Inject constructor(
         }
     }
 
-    fun addAllIngredientToCart(){
+    fun addAllIngredientToCart() {
         viewModelScope.launch {
+            recipe.value.let { recipe ->
+                recipe.ingredients.forEach {
+                    cartRepository.addIngredientToCart(
+                        it.ingredientId,
+                        (it.amount * _servings.intValue / recipe.servings).roundToInt()
+                    )
+                }
+            }
 
         }
     }

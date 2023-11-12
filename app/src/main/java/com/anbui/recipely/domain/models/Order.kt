@@ -4,14 +4,10 @@ data class Order(
     val id: String,
     val formattedTime: String,
     val ingredients: List<IngredientItem>,
-    val orderStatuses: List<OrderStatus>
+    val orderStatuses: List<OrderStatus>,
+    val currentStatus: String,
+    val total: Float,
+    val customerName: String,
+    val deliveryInfo: String,
 )
 
-val exampleOrder = listOf(
-    Order(
-        id = "321123",
-        "12:32 Yesterday",
-        exampleIngredientItems,
-        exampleOrderStatus
-    )
-)

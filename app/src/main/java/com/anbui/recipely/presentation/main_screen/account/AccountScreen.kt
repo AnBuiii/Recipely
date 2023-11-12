@@ -25,8 +25,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
-import com.anbui.recipely.domain.models.exampleOrder
-import com.anbui.recipely.domain.models.exampleRecipes
 import com.anbui.recipely.presentation.main_screen.account.components.OrderItem
 import com.anbui.recipely.presentation.ui.components.RecipelyAccountCard
 import com.anbui.recipely.presentation.ui.components.RecipelyTinyVerticallyCard
@@ -44,6 +42,7 @@ fun AccountScreen(
 ) {
     val currentAccount by accountViewModel.currentAccount.collectAsStateWithLifecycle()
     val favouriteRecipes by accountViewModel.favouriteRecipes.collectAsStateWithLifecycle()
+    val comingOrder by accountViewModel.comingOrder.collectAsStateWithLifecycle()
     Column {
         StandardToolbar(
             navController = navController,
@@ -99,10 +98,12 @@ fun AccountScreen(
                     )
                 }
             }
-            item(span = { GridItemSpan(maxLineSpan) }) {
-                OrderItem(exampleOrder[0], onClick = {
-                    navController.navigate(Screen.OrderDetailScreen.route)
-                })
+            if (comingOrder.isNotEmpty()) {
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    OrderItem(comingOrder[0], onClick = {
+                        navController.navigate("${Screen.OrderDetailScreen.route}/${comingOrder[0].id}")
+                    })
+                }
             }
 
             item(span = { GridItemSpan(maxLineSpan) }) {

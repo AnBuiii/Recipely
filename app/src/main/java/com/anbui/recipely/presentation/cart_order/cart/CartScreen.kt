@@ -23,6 +23,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -42,7 +43,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
-import com.anbui.recipely.domain.models.exampleIngredientItems
+import com.anbui.recipely.domain.models.getTotalPrice
 import com.anbui.recipely.presentation.cart_order.cart.components.CartItem
 import com.anbui.recipely.presentation.ui.components.StandardCard
 import com.anbui.recipely.presentation.ui.components.StandardToolbar
@@ -53,6 +54,7 @@ import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.ThinGrey
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
+import com.anbui.recipely.util.toStringAsFixed
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 
@@ -65,6 +67,11 @@ fun CartScreen(
     var openAlertDialog by remember { mutableStateOf(false) }
     var timeOut by remember { mutableIntStateOf(-1) }
     val ingredient by cartViewModel.ingredients.collectAsStateWithLifecycle()
+    val price by remember {
+        derivedStateOf {
+            ingredient.getTotalPrice()
+        }
+    }
 
     LaunchedEffect(ingredient) {
         Log.d("Cart Screen", ingredient.toString())
@@ -113,14 +120,17 @@ fun CartScreen(
             modifier = Modifier.fillMaxSize()
         ) {
             LazyColumn {
-                items(exampleIngredientItems, key = { it.ingredientId }) {
+                items(ingredient, key = { it.ingredientId }) {
                     CartItem(
                         imageUrl = it.imageUrl,
                         name = it.name,
-                        amount = it.amount,
+                        amount = it.amount.toInt(),
                         unit = it.unit.toString(),
-                        price = 0.39f,
-                        modifier = Modifier.padding(vertical = SpaceMedium, horizontal = SpaceLarge)
+                        price = it.price,
+                        modifier = Modifier.padding(vertical = SpaceMedium, horizontal = SpaceLarge),
+                        onChangeAmount = {amount ->
+                            cartViewModel.onChangeAmount(it.ingredientId, amount)
+                        }
                     )
                 }
                 item {
@@ -184,7 +194,7 @@ fun CartScreen(
                             )
                         )
                         Text(
-                            text = "\$67.29",
+                            text = "\$${price.toDouble().toStringAsFixed(2)}",
                             style = MaterialTheme.typography.headlineSmall
                         )
                     }

@@ -32,7 +32,6 @@ import com.anbui.recipely.presentation.ui.theme.SpaceExtraLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
-import com.anbui.recipely.util.vulgarFraction
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,11 +39,12 @@ import kotlin.math.roundToInt
 fun CartItem(
     imageUrl: String?,
     name: String,
-    amount: Float,
+    amount: Int,
     unit: String,
     price: Float,
     containerColor: Color = TrueWhite,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onChangeAmount: (Int) -> Unit
 ) {
     StandardCard(
         modifier = modifier,
@@ -99,6 +99,7 @@ fun CartItem(
             ) {
                 OutlinedIconButton(
                     onClick = {
+                        onChangeAmount(amount - 1)
                     },
                     shape = MaterialTheme.shapes.small,
                     modifier = Modifier.size(16.dp),
@@ -116,7 +117,7 @@ fun CartItem(
                     )
                 }
                 Text(
-                    text = amount.vulgarFraction.first,
+                    text = amount.toString(),
                     style = MaterialTheme.typography.bodyMedium.copy(
                         fontWeight = FontWeight.Medium,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -129,6 +130,7 @@ fun CartItem(
                 )
                 OutlinedIconButton(
                     onClick = {
+                        onChangeAmount(amount + 1)
                     },
                     shape = MaterialTheme.shapes.small,
                     modifier = Modifier.size(16.dp),

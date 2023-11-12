@@ -91,7 +91,7 @@ fun Navigation(
                 navArgument("recipeId") {
                     type = NavType.StringType
                 },
-                navArgument("servings"){
+                navArgument("servings") {
                     type = NavType.IntType
                 }
 
@@ -115,7 +115,13 @@ fun Navigation(
         composable(Screen.SettingScreen.route) {
             SettingScreen(navController = navController)
         }
-        composable(Screen.OrderDetailScreen.route) {
+        composable(
+            "${Screen.OrderDetailScreen.route}/{orderId}", arguments = listOf(
+                navArgument("orderId") {
+                    type = NavType.StringType
+                },
+            )
+        ) {
             OrderDetailScreen(navController = navController)
         }
         composable(Screen.CameraScreen.route) {
