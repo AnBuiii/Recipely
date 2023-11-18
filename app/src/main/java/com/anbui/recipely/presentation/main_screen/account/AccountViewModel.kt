@@ -1,5 +1,6 @@
 package com.anbui.recipely.presentation.main_screen.account
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anbui.recipely.domain.models.exampleAccounts
@@ -9,6 +10,7 @@ import com.anbui.recipely.domain.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.transform
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,7 +33,10 @@ class AccountViewModel @Inject constructor(
             emptyList()
         )
 
-    val comingOrder = cartRepository.getAllOrderOfCurrentAccount()
+    val comingOrder = cartRepository.getAllOrderOfCurrentAccount().transform {
+        Log.d("WUTT", it.toString())
+        emit(it.sortedByDescending { hm -> hm.time })
+    }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000),

@@ -15,7 +15,8 @@ interface CartRepository {
 
     suspend fun updateAmountInCartOfCurrentAccount(ingredientId: String, amount: Int)
 
-    suspend fun  addIngredientToCart(ingredientId: String, amount: Int)
+    suspend fun addIngredientToCart(ingredientId: String, amount: Int)
 
+    suspend fun createOrder()
 
 }

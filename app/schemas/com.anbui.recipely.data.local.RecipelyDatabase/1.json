@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a43bb037b2454bbf24edc4ac2727a0a1",
+    "identityHash": "13ee3e9dae0539d97d90cd3374dd77f7",
     "entities": [
       {
         "tableName": "Recipe",
@@ -56,7 +56,7 @@
       },
       {
         "tableName": "Account",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` TEXT NOT NULL, `first_name` TEXT NOT NULL, `last_name` TEXT NOT NULL, `email` TEXT NOT NULL, `password` TEXT NOT NULL, `bio` TEXT NOT NULL, `day_of_birth` TEXT NOT NULL, `avatarUrl` TEXT NOT NULL, `gender` TEXT NOT NULL, PRIMARY KEY(`_id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` TEXT NOT NULL, `first_name` TEXT NOT NULL, `last_name` TEXT NOT NULL, `email` TEXT NOT NULL, `password` TEXT NOT NULL, `bio` TEXT NOT NULL, `day_of_birth` TEXT NOT NULL, `avatarUrl` TEXT NOT NULL, `gender` TEXT NOT NULL, `street` TEXT NOT NULL, `district` TEXT NOT NULL, `province` TEXT NOT NULL, PRIMARY KEY(`_id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -109,6 +109,24 @@
           {
             "fieldPath": "gender",
             "columnName": "gender",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "street",
+            "columnName": "street",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "district",
+            "columnName": "district",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "province",
+            "columnName": "province",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -514,7 +532,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a43bb037b2454bbf24edc4ac2727a0a1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '13ee3e9dae0539d97d90cd3374dd77f7')"
     ]
   }
 }

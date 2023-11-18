@@ -29,6 +29,7 @@ import com.anbui.recipely.presentation.ui.components.StandardCard
 import com.anbui.recipely.presentation.ui.theme.DarkGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
+import com.anbui.recipely.util.toStringAsFixed
 
 @ExperimentalMaterial3Api
 @Composable
@@ -46,7 +47,7 @@ fun OrderItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = order.orderStatuses.last().title,
+                text = order.orderStatuses.lastOrNull()?.title ?: "",
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontWeight = FontWeight.Normal,
                     color = DarkGrey
@@ -63,7 +64,7 @@ fun OrderItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
-                model = order.ingredients.first().imageUrl,
+                model = order.ingredients.firstOrNull()?.imageUrl,
                 contentDescription = stringResource(
                     R.string.order_image
                 ),
@@ -78,13 +79,13 @@ fun OrderItem(
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = order.ingredients.map { it.name }.joinToString(separator = " - "),
+                    text = order.ingredients.joinToString(separator = " - ") { it.name },
                     maxLines = 2,
                     softWrap = true,
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.bodyMedium
                 )
-                Text(text = "$9.13")
+                Text(text = "$${order.total.toDouble().toStringAsFixed(2)}")
             }
         }
     }

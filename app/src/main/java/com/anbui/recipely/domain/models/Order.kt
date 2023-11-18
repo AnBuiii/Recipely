@@ -1,8 +1,10 @@
 package com.anbui.recipely.domain.models
 
+import java.time.LocalDateTime
+
 data class Order(
     val id: String,
-    val formattedTime: String,
+    val time: LocalDateTime,
     val ingredients: List<IngredientItem>,
     val orderStatuses: List<OrderStatus>,
     val currentStatus: String,

@@ -10,10 +10,14 @@ interface AccountRepository {
 
     fun getAccountById(accountId: String): Flow<Account>
 
+    suspend fun updateCurrentAccount(account: Account)
+
     suspend fun addAccount(account: Account)
 
     suspend fun login(email: String, password: String): Boolean
     suspend fun logout()
+
+
 
 
 }

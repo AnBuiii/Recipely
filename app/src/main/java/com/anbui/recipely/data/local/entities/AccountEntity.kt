@@ -21,7 +21,10 @@ data class AccountEntity(
     val bio: String,
     @ColumnInfo(name = "day_of_birth") val dob: String,
     val avatarUrl: String,
-    val gender: String
+    val gender: String,
+    val street: String,
+    val district: String,
+    val province: String,
 ) {
     fun toAccount(): Account {
         return Account(
@@ -33,8 +36,14 @@ data class AccountEntity(
             bio = bio,
             dob = 0L,
             avatarUrl = avatarUrl,
-            gender = GenderType.fromType(gender)
+            gender = GenderType.fromType(gender),
+            street = street,
+            district = district,
+            province = province,
         )
+    }
+    fun getAddress(): String{
+        return "$street, $district, $province"
     }
 }
 
@@ -48,6 +57,9 @@ fun Account.toAccountEntity(): AccountEntity {
         bio = bio,
         dob = "123",
         avatarUrl = avatarUrl,
-        gender = gender.getType()
+        gender = gender.getType(),
+        street = street,
+        district = district,
+        province = province,
     )
 }

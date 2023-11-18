@@ -73,6 +73,17 @@ fun CartScreen(
         }
     }
 
+    val account by cartViewModel.currentAccount.collectAsStateWithLifecycle()
+
+    val success by cartViewModel.success.collectAsStateWithLifecycle()
+
+    LaunchedEffect(success) {
+        if (success) {
+            openAlertDialog = true
+            timeOut = 1
+        }
+    }
+
     LaunchedEffect(ingredient) {
         Log.d("Cart Screen", ingredient.toString())
     }
@@ -96,7 +107,7 @@ fun CartScreen(
             }) {
                 StandardCard() {
                     Text(
-                        text = "This is a minimal dialog",
+                        text = "Succes",
                         modifier = Modifier
 //                            .fillMaxSize()
                             .wrapContentSize(Alignment.Center),
@@ -127,8 +138,11 @@ fun CartScreen(
                         amount = it.amount.toInt(),
                         unit = it.unit.toString(),
                         price = it.price,
-                        modifier = Modifier.padding(vertical = SpaceMedium, horizontal = SpaceLarge),
-                        onChangeAmount = {amount ->
+                        modifier = Modifier.padding(
+                            vertical = SpaceMedium,
+                            horizontal = SpaceLarge
+                        ),
+                        onChangeAmount = { amount ->
                             cartViewModel.onChangeAmount(it.ingredientId, amount)
                         }
                     )
@@ -168,7 +182,7 @@ fun CartScreen(
                         )
                     )
                     Text(
-                        text = "134 Lê Chân, Sơn Trà District, Đà Nẵng",
+                        text = account.getAddress(),
                         maxLines = 1,
                         softWrap = true,
                         overflow = TextOverflow.Ellipsis,
@@ -200,8 +214,7 @@ fun CartScreen(
                     }
                     Button(
                         onClick = {
-                            openAlertDialog = true
-                            timeOut = 5
+                            cartViewModel.checkOut()
                         },
                         shape = MaterialTheme.shapes.large,
                         modifier = Modifier

@@ -1,23 +1,17 @@
 package com.anbui.recipely.data.repository
 
-import android.content.Context
 import android.util.Log
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
 import com.anbui.recipely.data.local.dao.AccountDao
 import com.anbui.recipely.data.local.entities.toAccountEntity
-import com.anbui.recipely.dataStore
 import com.anbui.recipely.domain.models.Account
 import com.anbui.recipely.domain.models.GenderType
 import com.anbui.recipely.domain.repository.AccountRepository
 import com.anbui.recipely.domain.repository.CurrentPreferences
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.transform
 import javax.inject.Inject
 
 
@@ -54,9 +48,16 @@ class AccountRepositoryImpl @Inject constructor(
                 bio = account.bio,
                 avatarUrl = account.avatarUrl,
                 dob = 0,
-                gender = GenderType.fromType(account.gender)
+                gender = GenderType.fromType(account.gender),
+                street = account.street,
+                district = account.district,
+                province = account.province,
             )
         }
+    }
+
+    override suspend fun updateCurrentAccount(account: Account) {
+        accountDao.updateAccount(account.toAccountEntity())
     }
 
     override suspend fun addAccount(account: Account) {

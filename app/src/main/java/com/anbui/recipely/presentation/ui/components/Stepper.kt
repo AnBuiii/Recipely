@@ -46,7 +46,7 @@ import kotlin.math.roundToInt
 fun Stepper(
     modifier: Modifier = Modifier,
     numberOfSteps: Int,
-    currentStep: Int,
+    currentStep: Int = 1,
     stepDescriptionList: List<String> = List(numberOfSteps) { "" },
     unSelectedColor: Color = Color.LightGray,
     selectedColor: Color? = null,

@@ -3,6 +3,7 @@ package com.anbui.recipely.data.local.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.anbui.recipely.data.local.entities.AccountEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -19,5 +20,8 @@ interface AccountDao {
 
     @Query("select * from Account")
     fun getAccounts(): Flow<List<AccountEntity>>
+
+    @Update
+    suspend fun updateAccount(accountEntity: AccountEntity)
 
 }

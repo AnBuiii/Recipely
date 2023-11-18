@@ -52,9 +52,6 @@ fun OrderDetailScreen(
             title = "Order",
             showBackArrow = true
         )
-        val numberStep = 4
-        var currentStep by rememberSaveable { mutableIntStateOf(1) }
-        val titleList = arrayListOf("Step 1", "Step 2", "Step 3", "Step 4")
         Box {
             LazyColumn {
                 // information section
@@ -70,7 +67,7 @@ fun OrderDetailScreen(
                             .padding(horizontal = SpaceLarge)
                     ) {
                         InformationItem(headline = "ID", information = order.id)
-                        InformationItem(headline = "Date", information = order.formattedTime)
+                        InformationItem(headline = "Date", information = order.time.toString())
                         InformationItem(headline = "Status", information = order.currentStatus)
                         InformationItem(
                             headline = "Total",
@@ -132,7 +129,6 @@ fun OrderDetailScreen(
                         Spacer(modifier = Modifier.height(SpaceLarge))
                         Stepper(
                             numberOfSteps = order.orderStatuses.size,
-                            currentStep = currentStep,
                             stepDescriptionList = order.orderStatuses.map { it.title }
                         )
                     }

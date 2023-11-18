@@ -31,7 +31,7 @@ data class OrderWithDetail(
     fun toOrder(): Order {
         return Order(
             id = this.order.id,
-            formattedTime = this.order.time.toString(),
+            time = this.order.time,
             ingredients = this.ingredients.map { it.toIngredientItem() },
             orderStatuses = this.status.map { it.toOrderStatus() },
             currentStatus = this.status.minByOrNull { it.time }?.step ?: "error",

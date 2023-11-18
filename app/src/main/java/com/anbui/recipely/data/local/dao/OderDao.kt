@@ -1,7 +1,10 @@
 package com.anbui.recipely.data.local.dao
 
+import androidx.core.view.WindowInsetsCompat.Type.InsetsType
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Embedded
+import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Relation
 import androidx.room.Transaction
@@ -21,6 +24,9 @@ interface OrderDao {
     @Transaction
     @Query("SELECT * FROM CART WHERE account_id = :accountId")
     fun getIngredientInCart(accountId: String): Flow<List<AccountWithIngredient>>
+
+    @Query("SELECT * FROM CART WHERE account_id = :accountId")
+    fun getInCart(accountId: String): Flow<List<IngredientAccountCrossRef>>
 
     @Query("UPDATE CART SET AMOUNT = :amount WHERE ingredient_id = :ingredientId AND account_id = :accountId")
     suspend fun updateAmountInCart(ingredientId: String, accountId: String, amount: Int)
@@ -44,5 +50,15 @@ interface OrderDao {
     @Transaction
     @Query("SELECT * FROM `Order` WHERE _id = :orderId")
     fun getOrderById(orderId: String): Flow<OrderWithDetail>
+
+    @Insert
+    suspend fun insertOrder(orderEntity: OrderEntity)
+
+    @Insert
+    suspend fun insertOrderDetails(orderIngredientCrossRefs: List<OrderIngredientCrossRef>)
+
+    @Insert
+    suspend fun insertOrderStatus(orderStatusEntity: OrderStatusEntity)
+
 }
 
