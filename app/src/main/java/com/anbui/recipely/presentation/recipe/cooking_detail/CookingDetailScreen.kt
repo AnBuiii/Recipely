@@ -5,7 +5,7 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.with
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -176,7 +176,7 @@ fun CookingDetailScreen(
                 targetState = mediaPagerState.currentPage,
                 label = "instruction",
                 transitionSpec = { ->
-                    slideInHorizontally { if (it > 0) it else -it } with slideOutHorizontally { -it }
+                    slideInHorizontally { if (it > 0) it else -it } togetherWith slideOutHorizontally { -it }
                 }
             ) {
                 Text(

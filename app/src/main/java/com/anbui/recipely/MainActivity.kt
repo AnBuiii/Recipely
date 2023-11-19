@@ -1,6 +1,9 @@
 package com.anbui.recipely
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
+import android.view.animation.AccelerateInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -12,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavBackStackEntry
@@ -34,11 +38,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(
-            window,
-            false
-        )
-        println(getDatabasePath("Recipely.sqlite").absolutePath)
+        installSplashScreen()
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             RecipelyTheme {
                 // A surface container using the 'background' color from the theme

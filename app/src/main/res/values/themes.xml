@@ -2,16 +2,13 @@
 <resources>
 
     <style name="Theme.Recipely" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:windowIsTranslucent">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-<!--        <item name="android:windowBackground">@drawable/splash_screen</item>-->
-<!--        <item name="android:windowSplashScreenAnimatedIcon">@android:color/transparent</item>-->
+        <item name="android:windowSplashScreenBackground">@color/ic_recipely_background</item>
     </style>
 
-    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <item name="android:windowSplashScreenBackground">@color/background</item>
-        <item name="android:windowSplashScreenAnimatedIcon">@mipmap/ic_splash_launcher</item>
+    <style name="Theme.Recipe.Splash" parent="Theme.SplashScreen">
+        <item name="android:windowSplashScreenBackground">@color/ic_recipely_background</item>
         <item name="postSplashScreenTheme">@style/Theme.Recipely</item>
     </style>
 </resources>
