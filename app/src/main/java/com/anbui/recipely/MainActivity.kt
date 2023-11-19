@@ -1,6 +1,5 @@
 package com.anbui.recipely
 
-import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,8 +13,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
-import androidx.datastore.dataStore
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -26,7 +23,6 @@ import com.anbui.recipely.presentation.util.Navigation
 import com.anbui.recipely.presentation.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
 
-val Context.dataStore  by preferencesDataStore(name = "settings")
 
 @ExperimentalAnimationApi
 @UnstableApi
@@ -51,7 +47,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                        val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val navBackStackEntry by navController.currentBackStackEntryAsState()
 
                     StandardScaffold(
                         navController = navController,
@@ -74,7 +70,7 @@ class MainActivity : ComponentActivity() {
         )
         val isOwnProfile =
             backStackEntry?.destination?.route == "${Screen.AccountScreen.route}?userId={userId}" &&
-                backStackEntry.arguments?.getString("userId") == null
+                    backStackEntry.arguments?.getString("userId") == null
         return doesRouteMatch || isOwnProfile
     }
 }

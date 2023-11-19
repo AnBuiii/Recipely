@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.anbui.recipely.domain.models.Ingredient
+import com.anbui.recipely.domain.models.UnitType
 import com.anbui.recipely.domain.models.UnitType.Companion.toUnitType
 
 @Entity(tableName = "Ingredient")
@@ -13,7 +14,7 @@ data class IngredientEntity(
     val id: String,
     val name: String,
     @ColumnInfo(name = "image_url") val imageUrl: String,
-    val unit: String,
+    val unit: UnitType,
     val kcal: Float,
     val carb: Float,
     val protein: Float,
@@ -25,7 +26,7 @@ data class IngredientEntity(
             id = id,
             name = name,
             imageUrl = imageUrl,
-            unit = unit.toUnitType(),
+            unit = unit,
             calories = kcal,
             carb = carb,
             protein = protein,

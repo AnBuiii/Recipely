@@ -3,8 +3,8 @@ package com.anbui.recipely.data.repository
 import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.anbui.recipely.dataStore
 import com.anbui.recipely.domain.repository.CurrentPreferences
+import com.anbui.recipely.util.dataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

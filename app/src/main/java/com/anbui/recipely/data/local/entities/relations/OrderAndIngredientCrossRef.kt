@@ -20,7 +20,7 @@ data class OrderAndIngredientCrossRef(
             ingredientId = this.ingredient.id,
             name = this.ingredient.name,
             amount = this.crossRef.amount,
-            unit = this.ingredient.unit.toUnitType(),
+            unit = this.ingredient.unit,
             imageUrl = this.ingredient.imageUrl,
             price = this.ingredient.price
         )

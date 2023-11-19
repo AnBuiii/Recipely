@@ -15,6 +15,7 @@ import com.anbui.recipely.data.local.entities.RecentEntity
 import com.anbui.recipely.data.local.entities.RecipeEntity
 import com.anbui.recipely.data.local.entities.StepEntity
 import com.anbui.recipely.data.local.entities.converter.LocalDateTimeConverter
+import com.anbui.recipely.data.local.entities.converter.UnitTypeConverter
 import com.anbui.recipely.data.local.entities.relations.IngredientAccountCrossRef
 import com.anbui.recipely.data.local.entities.relations.OrderIngredientCrossRef
 import com.anbui.recipely.data.local.entities.relations.RecipeIngredientCrossRef
@@ -24,19 +25,19 @@ import com.anbui.recipely.data.local.entities.relations.RecipeIngredientCrossRef
     entities = [
         RecipeEntity::class,
         AccountEntity::class,
-        RecipeIngredientCrossRef::class,
         IngredientEntity::class,
         StepEntity::class,
         LikeEntity::class,
         RecentEntity::class,
-        IngredientAccountCrossRef::class,
         OrderEntity::class,
         OrderStatusEntity::class,
+        RecipeIngredientCrossRef::class,
+        IngredientAccountCrossRef::class,
         OrderIngredientCrossRef::class
     ],
-    exportSchema = true
+    exportSchema = false
 )
-@TypeConverters(LocalDateTimeConverter::class)
+@TypeConverters(LocalDateTimeConverter::class, UnitTypeConverter::class)
 abstract class RecipelyDatabase : RoomDatabase() {
     abstract val accountDao: AccountDao
     abstract val recipeDao: RecipeDao

@@ -29,13 +29,11 @@ class RecipeRepositoryImpl @Inject constructor(
     override fun getFavouriteOfCurrentAccount(): Flow<List<Recipe>> {
         return flow {
             val id = currentPreferences.getLoggedId().first()
-            recipeDao.getFavouriteRecipeIds(id?:"").map {
-                recipeDao.getRecipes(it).map { map ->
-                    map.map {recipe ->
-                        recipe.toRecipe(id)
-                    }
-                }.first()
-            }.collect{
+            recipeDao.getFavouriteRecipes(id ?: "").map { map ->
+                map.map {recipe ->
+                    recipe.toRecipe()
+                }
+            }.collect {
                 emit(it)
             }
         }
@@ -137,7 +135,7 @@ class RecipeRepositoryImpl @Inject constructor(
             val id = currentPreferences.getLoggedId().first()
             recipeDao.getAllRecent(id ?: "").map { map ->
                 map.map {recipe ->
-                    recipe.toRecipe(id)
+                    recipe.toRecipe()
                 }
             }.collect {
                 emit(it)

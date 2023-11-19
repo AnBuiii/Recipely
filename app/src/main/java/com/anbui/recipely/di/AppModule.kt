@@ -21,11 +21,9 @@ object AppModule {
     @Provides
     fun provideAppDatabase(@ApplicationContext appContext: Context) =
         Room
-//            .databaseBuilder(appContext, RecipelyDatabase::class.java, DATABASE_NAME)
             .databaseBuilder(appContext, RecipelyDatabase::class.java, "Recipely.sqlite")
             .createFromAsset("recipely.sqlite")
-//            .createFromFile(File("/data/user/0/com.anbui.recipely/databases/Recipely.sqlite"))
-            .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration() // todo remove
             .build()
 
     @Singleton
@@ -39,5 +37,4 @@ object AppModule {
     @Singleton
     @Provides
     fun provideOrderDao(db: RecipelyDatabase): OrderDao = db.orderDao
-
 }

@@ -34,6 +34,7 @@ interface OrderDao {
     @Upsert
     suspend fun insertToCart(ingredientCrossRef: IngredientAccountCrossRef)
 
+    @Transaction
     @Query("SELECT * FROM CART WHERE account_id = :accountId AND ingredient_id = :ingredientId")
     suspend fun getIngredientInCartByIdAndAccountId(
         ingredientId: String,

@@ -3,16 +3,16 @@ package com.anbui.recipely.data.local.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.RawQuery
 import androidx.room.Transaction
 import androidx.room.Upsert
 import com.anbui.recipely.data.local.entities.IngredientEntity
 import com.anbui.recipely.data.local.entities.LikeEntity
 import com.anbui.recipely.data.local.entities.RecentEntity
 import com.anbui.recipely.data.local.entities.RecipeEntity
+import com.anbui.recipely.data.local.entities.relations.LikeAndRecipe
+import com.anbui.recipely.data.local.entities.relations.RecentAndRecipe
 import com.anbui.recipely.data.local.entities.relations.RecipeAndOwner
 import com.anbui.recipely.data.local.entities.relations.RecipeWithIngredient
-import com.anbui.recipely.domain.models.Recipe
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -56,13 +56,12 @@ interface RecipeDao {
     fun getRecipes(recipeIds: List<String>): Flow<List<RecipeAndOwner>>
 
     @Transaction
-    @Query("SELECT * FROM RECIPE INNER JOIN `LIKE` as  L ON RECIPE._id == L.recipe_id WHERE L.account_id = :accountId")
-    fun getFavouriteRecipes(accountId: String): Flow<List<RecipeAndOwner>>
+    @Query("SELECT * FROM `LIKE` WHERE account_id = :accountId")
+    fun getFavouriteRecipes(accountId: String): Flow<List<LikeAndRecipe>>
 
     @Transaction
-    @Query("SELECT * FROM RECIPE INNER JOIN Recent as  R ON RECIPE._id == R.recipe_id WHERE R.account_id = :accountId")
-    fun getAllRecent(accountId: String): Flow<List<RecipeAndOwner>>
-
+    @Query("SELECT * FROM Recent  WHERE account_id = :accountId")
+    fun getAllRecent(accountId: String): Flow<List<RecentAndRecipe>>
 
     @Transaction
     @Query("SELECT * from recipe r  WHERE title LIKE  '%' || :searchText || '%'")

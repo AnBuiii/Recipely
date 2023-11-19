@@ -16,7 +16,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
-
     @Binds
     abstract fun bindCurrentPreferences(
         currentPreferencesImpl: CurrentPreferencesImpl
@@ -36,7 +35,4 @@ abstract class RepositoryModule {
     abstract fun bindCartRepository(
         cartRepositoryImpl: CartRepositoryImpl
     ): CartRepository
-
-
-
 }

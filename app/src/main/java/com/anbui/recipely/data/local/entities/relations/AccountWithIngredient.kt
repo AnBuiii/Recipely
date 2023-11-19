@@ -4,7 +4,6 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import com.anbui.recipely.data.local.entities.IngredientEntity
 import com.anbui.recipely.domain.models.IngredientItem
-import com.anbui.recipely.domain.models.UnitType.Companion.toUnitType
 
 data class AccountWithIngredient(
     @Embedded
@@ -14,13 +13,13 @@ data class AccountWithIngredient(
         entityColumn = "_id"
     )
     val ingredient: IngredientEntity
-){
+) {
     fun toIngredientItem(): IngredientItem {
         return IngredientItem(
             ingredientId = this.ingredient.id,
             name = this.ingredient.name,
             amount = this.cart.amount,
-            unit = this.ingredient.unit.toUnitType(),
+            unit = this.ingredient.unit,
             imageUrl = this.ingredient.imageUrl,
             price = this.ingredient.price
         )

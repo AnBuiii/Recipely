@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.anbui.recipely.data.local.entities.AccountEntity
-import com.anbui.recipely.data.local.entities.IngredientEntity
 import com.anbui.recipely.data.local.entities.LikeEntity
 import com.anbui.recipely.data.local.entities.RecipeEntity
 import com.anbui.recipely.data.local.entities.StepEntity
@@ -12,7 +11,6 @@ import com.anbui.recipely.domain.models.IngredientItem
 import com.anbui.recipely.domain.models.MediaType.Companion.toMediaType
 import com.anbui.recipely.domain.models.Recipe
 import com.anbui.recipely.domain.models.Step
-import com.anbui.recipely.domain.models.UnitType.Companion.toUnitType
 
 data class RecipeAndOwner(
     @Embedded
@@ -42,8 +40,6 @@ data class RecipeAndOwner(
 )
 
 fun RecipeAndOwner.toRecipe(accountId: String?): Recipe{
-    Log.d("WUT", recipe.id)
-    Log.d("WUT", likes.toString())
     return  Recipe(
         id = recipe.id,
         title = recipe.title,
@@ -90,7 +86,7 @@ fun RecipeAndOwner.toRecipe(accountId: String?): Recipe{
                 name = ingredient.ingredient.name,
                 ingredientId = ingredient.ingredient.id,
                 amount = ingredient.crossRef.amount,
-                unit = ingredient.ingredient.unit.toUnitType(),
+                unit = ingredient.ingredient.unit,
                 price = ingredient.ingredient.price
             )
         }

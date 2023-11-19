@@ -8,6 +8,8 @@ import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
+import androidx.camera.core.resolutionselector.AspectRatioStrategy
+import androidx.camera.core.resolutionselector.ResolutionSelector
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.runtime.State
@@ -17,9 +19,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-import javax.inject.Inject
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -31,9 +30,13 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import org.tensorflow.lite.support.label.Category
 import org.tensorflow.lite.task.vision.classifier.Classifications
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import javax.inject.Inject
 
 @HiltViewModel
-class CameraViewModel @Inject constructor() : ViewModel(), ImageClassifierHelper.ClassifierListener {
+class CameraViewModel @Inject constructor() : ViewModel(),
+    ImageClassifierHelper.ClassifierListener {
 
     private lateinit var imageClassifierHelper: ImageClassifierHelper
     private lateinit var cameraProvider: ProcessCameraProvider
@@ -115,7 +118,11 @@ class CameraViewModel @Inject constructor() : ViewModel(), ImageClassifierHelper
                 // ImageAnalysis. Using RGBA 8888 to match how our models work
                 imageAnalyzer =
                     ImageAnalysis.Builder()
-                        .setTargetAspectRatio(AspectRatio.RATIO_4_3)
+                        .setResolutionSelector(
+                            ResolutionSelector.Builder()
+                                .setAspectRatioStrategy(AspectRatioStrategy.RATIO_4_3_FALLBACK_AUTO_STRATEGY)
+                                .build()
+                        )
                         .setTargetRotation(previewView.display.rotation)
                         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                         .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
@@ -145,8 +152,8 @@ class CameraViewModel @Inject constructor() : ViewModel(), ImageClassifierHelper
                     )
 
                     preview.setSurfaceProvider(previewView.surfaceProvider)
-                } catch (exc: Exception) {
-                    Log.e("TAG", "Use case binding failed", exc)
+                } catch (e: Exception) {
+                    Log.e("TAG", "Use case binding failed", e)
                 }
             },
             ContextCompat.getMainExecutor(context)
