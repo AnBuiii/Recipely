@@ -133,19 +133,18 @@ fun CartScreen(
             LazyColumn {
                 items(ingredient, key = { it.ingredientId }) {
                     CartItem(
-                        imageUrl = it.imageUrl,
-                        name = it.name,
-                        amount = it.amount.toInt(),
-                        unit = it.unit.toString(),
-                        price = it.price,
                         modifier = Modifier.padding(
                             vertical = SpaceMedium,
                             horizontal = SpaceLarge
                         ),
-                        onChangeAmount = { amount ->
-                            cartViewModel.onChangeAmount(it.ingredientId, amount)
-                        }
-                    )
+                        imageUrl = it.imageUrl,
+                        name = it.name,
+                        amount = it.amount.toInt(),
+                        unit = it.unit.toString(),
+                        price = it.price
+                    ) { amount ->
+                        cartViewModel.onChangeAmount(it.ingredientId, amount)
+                    }
                 }
                 item {
                     Spacer(modifier = Modifier.height(120.dp))

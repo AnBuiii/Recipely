@@ -1,33 +1,72 @@
 package com.anbui.recipely.presentation.recipe.add_ingredient
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.anbui.recipely.domain.models.exampleIngredients
+import androidx.lifecycle.viewModelScope
+import com.anbui.recipely.domain.models.UnitType
+import com.anbui.recipely.domain.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.transform
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
+@OptIn(FlowPreview::class)
 @HiltViewModel
-class AddIngredientViewModel @Inject constructor() : ViewModel() {
-    private val _ingredientName = mutableStateOf<String>("")
-    val ingredientName: State<String> = _ingredientName
+class AddIngredientViewModel @Inject constructor(
+    recipeRepository: RecipeRepository
+) : ViewModel() {
+
+    private val _state = MutableStateFlow(AddIngredientState())
+    val state = _state.asStateFlow()
+
+    private val _unit = MutableStateFlow("")
+    val unit = _unit.asStateFlow()
+
+    val units = _unit
+        .debounce(300)
+        .onEach { _state.update { it.copy(isSearching = true) } }
+        .transform {
+            emit(UnitType.indices().filter { unit -> unit.toString().contains(it) }.take(4))
+        }
+        .onEach { _state.update { it.copy(isSearching = false) } }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            emptyList(),
+        )
+
+    private val _ingredientName = MutableStateFlow("")
+    val ingredientName = _ingredientName.asStateFlow()
+
+    val ingredients = _ingredientName
+        .debounce(300)
+        .onEach { _state.update { it.copy(isSearching = true) } }
+        .transform {
+            emit(recipeRepository.searchIngredients(it))
+        }
+        .onEach { _state.update { it.copy(isSearching = false) } }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            emptyList(),
+        )
 
     private fun onChangeIngredientName(newValue: String) {
-        _ingredientName.value = newValue
+        _ingredientName.update { newValue }
     }
-
-    private val _amount = mutableStateOf<String>("")
-    val amount: State<String> = _amount
 
     private fun onChangeAmount(newValue: String) {
-        _amount.value = newValue
+        _state.update { it.copy(amount = newValue) }
     }
 
-    private val _unit = mutableStateOf<String>("")
-    val unit: State<String> = _unit
-
     private fun onChangeUnit(newValue: String) {
-        _unit.value = newValue
+        _unit.update { newValue }
     }
 
     fun onEvent(event: AddIngredientEvent) {
@@ -43,8 +82,16 @@ class AddIngredientViewModel @Inject constructor() : ViewModel() {
             is AddIngredientEvent.EnterUnit -> {
                 onChangeUnit(event.value)
             }
+
+            is AddIngredientEvent.AddIngredient -> {
+
+            }
+            is AddIngredientEvent.ChooseIngredient -> {
+                onChangeIngredientName(event.ingredient.name)
+            }
+            is AddIngredientEvent.ChooseUnit -> {
+                onChangeUnit(event.unit.unitString)
+            }
         }
     }
-
-    val searchResult = exampleIngredients
 }

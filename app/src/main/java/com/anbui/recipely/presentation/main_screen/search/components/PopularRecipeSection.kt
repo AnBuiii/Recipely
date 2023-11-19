@@ -25,7 +25,7 @@ fun LazyListScope.popularRecipeSection(
     onRecipeClick: (String) -> Unit,
 ) {
     item(
-        key = "popular recipes bar"
+        key = "popular ingredients bar"
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,

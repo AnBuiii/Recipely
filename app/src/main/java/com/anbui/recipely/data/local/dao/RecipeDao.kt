@@ -6,6 +6,7 @@ import androidx.room.Query
 import androidx.room.RawQuery
 import androidx.room.Transaction
 import androidx.room.Upsert
+import com.anbui.recipely.data.local.entities.IngredientEntity
 import com.anbui.recipely.data.local.entities.LikeEntity
 import com.anbui.recipely.data.local.entities.RecentEntity
 import com.anbui.recipely.data.local.entities.RecipeEntity
@@ -66,6 +67,10 @@ interface RecipeDao {
     @Transaction
     @Query("SELECT * from recipe r  WHERE title LIKE  '%' || :searchText || '%'")
     suspend fun searchRecipe(searchText: String): List<RecipeAndOwner>
+
+    @Transaction
+    @Query("SELECT * from Ingredient r  WHERE name LIKE  '%' || :searchText || '%' LIMIT 4")
+    suspend fun searchIngredient(searchText: String): List<IngredientEntity>
 
 }
 

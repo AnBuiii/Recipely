@@ -42,8 +42,8 @@ fun CreateRecipeScreen(
     backStackEntry: NavBackStackEntry,
     createRecipeViewModel: CreateRecipeViewModel = hiltViewModel()
 ) {
-    val pagerState = rememberPagerState(pageCount = { 5 })
     val steps = listOf("Overview", "Ingredients", "Instructions", "Review")
+    val pagerState = rememberPagerState(pageCount = { steps.size })
     val coroutineScope = rememberCoroutineScope()
     val text = backStackEntry.savedStateHandle.get<String>("ingredient_name")
 
@@ -123,7 +123,7 @@ fun CreateRecipeScreen(
             }
         )
         StandardProgressIndicator(
-            indicatorProgress = (pagerState.currentPage + 1).toFloat() / steps.size
+            indicatorProgress = (pagerState.currentPage).toFloat() / steps.size
         )
 
         Column(

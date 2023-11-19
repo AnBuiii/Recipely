@@ -3,6 +3,7 @@ package com.anbui.recipely.domain.repository
 
 import com.anbui.recipely.data.local.entities.relations.RecipeAndOwner
 import com.anbui.recipely.data.local.entities.relations.RecipeWithIngredient
+import com.anbui.recipely.domain.models.Ingredient
 import com.anbui.recipely.domain.models.Recipe
 import kotlinx.coroutines.flow.Flow
 
@@ -26,5 +27,7 @@ interface RecipeRepository {
     suspend fun likeRecipe(recipeId: String, like: Boolean)
 
     suspend fun addRecentRecipe(recipeId: String)
+
+    suspend fun searchIngredients(ingredientName: String): List<Ingredient>
 }
 

@@ -7,6 +7,7 @@ import com.anbui.recipely.data.local.entities.RecentEntity
 import com.anbui.recipely.data.local.entities.relations.RecipeAndOwner
 import com.anbui.recipely.data.local.entities.relations.RecipeWithIngredient
 import com.anbui.recipely.data.local.entities.relations.toRecipe
+import com.anbui.recipely.domain.models.Ingredient
 import com.anbui.recipely.domain.models.Recipe
 import com.anbui.recipely.domain.repository.CurrentPreferences
 import com.anbui.recipely.domain.repository.RecipeRepository
@@ -100,6 +101,12 @@ class RecipeRepositoryImpl @Inject constructor(
             )
         } else {
             recipeDao.deleteLike(recipeId = recipeId, accountId = loggedId.filterNotNull().first())
+        }
+    }
+
+    override suspend fun searchIngredients(ingredientName: String): List<Ingredient> {
+        return recipeDao.searchIngredient(ingredientName).map {
+            it.toIngredient()
         }
     }
 

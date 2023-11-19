@@ -21,6 +21,11 @@ sealed class UnitType(val unitString: String) {
     }
 
     companion object {
+
+        fun indices(): List<UnitType> {
+            return listOf(Unit, Can, Pgk, Bag, Btl, Box, Block, Jar, Oz, Lb, Cup, Pt, Qt, Gal)
+        }
+
         fun String.toUnitType(): UnitType {
             return when (this) {
                 Unit.unitString -> Unit

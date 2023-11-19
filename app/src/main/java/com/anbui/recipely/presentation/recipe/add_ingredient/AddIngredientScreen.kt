@@ -30,8 +30,10 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
+import com.anbui.recipely.domain.models.UnitType
 import com.anbui.recipely.presentation.ui.components.StandardCard
 import com.anbui.recipely.presentation.ui.components.StandardTextField
 import com.anbui.recipely.presentation.ui.components.StandardToolbar
@@ -49,6 +51,12 @@ fun AddIngredientScreen(
     var isNameFocused by remember { mutableStateOf(false) }
     var isUnitFocused by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
+
+    val ingredientName by addIngredientViewModel.ingredientName.collectAsStateWithLifecycle()
+    val uiState by addIngredientViewModel.state.collectAsStateWithLifecycle()
+    val ingredients by addIngredientViewModel.ingredients.collectAsStateWithLifecycle()
+    val unit by addIngredientViewModel.unit.collectAsStateWithLifecycle()
+    val units by addIngredientViewModel.units.collectAsStateWithLifecycle()
 
     Column {
         StandardToolbar(
@@ -74,7 +82,7 @@ fun AddIngredientScreen(
             Spacer(modifier = Modifier.height(SpaceMedium))
 
             StandardTextField(
-                text = addIngredientViewModel.ingredientName.value,
+                text = ingredientName,
                 onValueChange = {
                     addIngredientViewModel.onEvent(
                         AddIngredientEvent.EnterIngredientName(
@@ -115,7 +123,7 @@ fun AddIngredientScreen(
 
                             Spacer(modifier = Modifier.height(SpaceMedium))
                             StandardTextField(
-                                text = addIngredientViewModel.amount.value,
+                                text = uiState.amount,
                                 onValueChange = {
                                     addIngredientViewModel.onEvent(
                                         AddIngredientEvent.EnterAmount(it)
@@ -140,7 +148,7 @@ fun AddIngredientScreen(
 
                             Spacer(modifier = Modifier.height(SpaceMedium))
                             StandardTextField(
-                                text = addIngredientViewModel.unit.value,
+                                text = unit,
                                 onValueChange = {
                                     addIngredientViewModel.onEvent(
                                         AddIngredientEvent.EnterUnit(it)
@@ -174,13 +182,13 @@ fun AddIngredientScreen(
                             Column(
                                 modifier = Modifier.wrapContentHeight()
                             ) {
-                                addIngredientViewModel.searchResult.take(4).forEach { item ->
+                                units.forEach { item ->
                                     Text(
-                                        text = item.name,
+                                        text = item.toString(),
                                         modifier = Modifier
                                             .clickable {
                                                 addIngredientViewModel.onEvent(
-                                                    AddIngredientEvent.EnterUnit(item.name)
+                                                    AddIngredientEvent.ChooseUnit(item)
                                                 )
                                             }
                                     )
@@ -191,11 +199,15 @@ fun AddIngredientScreen(
                     Spacer(modifier = Modifier.weight(1f))
                     Button(
                         onClick = {
-                            navController.previousBackStackEntry?.savedStateHandle?.set(
-                                "ingredient_name",
-                                addIngredientViewModel.ingredientName.value
+//                            navController.previousBackStackEntry?.savedStateHandle?.set(
+//                                "ingredient_name",
+//                                addIngredientViewModel.ingredientName.value
+//                            )
+//                            navController.popBackStack()
+
+                            addIngredientViewModel.onEvent(
+                                AddIngredientEvent.AddIngredient
                             )
-                            navController.popBackStack()
                         },
                         shape = MaterialTheme.shapes.large,
                         modifier = Modifier
@@ -225,13 +237,13 @@ fun AddIngredientScreen(
                         Column(
                             modifier = Modifier.wrapContentHeight()
                         ) {
-                            addIngredientViewModel.searchResult.take(4).forEach { item ->
+                            ingredients.forEach { item ->
                                 Text(
                                     text = item.name,
                                     modifier = Modifier
                                         .clickable {
                                             addIngredientViewModel.onEvent(
-                                                AddIngredientEvent.EnterUnit(item.name)
+                                                AddIngredientEvent.ChooseIngredient(item)
                                             )
                                         }
                                         .fillMaxWidth()

@@ -1,4 +1,3 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
@@ -22,12 +21,8 @@ android {
             useSupportLibrary = true
         }
         ksp {
-            arg("room.schemaLocation", "$projectDir/schemas".toString())
+            arg("room.schemaLocation", "$projectDir/schemas")
         }
-
-
-
-
     }
 
     buildTypes {
@@ -50,7 +45,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.0"
+        kotlinCompilerExtensionVersion = "1.5.4"
     }
     packaging {
         resources {
@@ -61,26 +56,7 @@ android {
 
 }
 
-
-//class RoomSchemaArgProvider(
-//    @get:InputDirectory
-//    @get:PathSensitive(PathSensitivity.RELATIVE)
-//    val schemaDir: File
-//) : CommandLineArgumentProvider {
-//
-//    override fun asArguments(): Iterable<String> {
-//        return listOf("room.schemaLocation=${schemaDir.path}")
-//    }
-//}
-
-
-
-
-
-
-
 dependencies {
-
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
@@ -90,7 +66,6 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.ui.util)
-//    implementation(libs.foundation)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.androidx.core)
@@ -126,7 +101,6 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
 
     // DataStore
     implementation(libs.androidx.datastore.preferences)
@@ -157,7 +131,6 @@ dependencies {
     implementation(libs.tensorflow.lite.gpu)
 
     // Local Unit Tests
-
     testImplementation(libs.junit)
     testImplementation(libs.androidx.core.testing)
     testImplementation(libs.kotlinx.coroutines.test)

@@ -37,13 +37,13 @@ import kotlin.math.roundToInt
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CartItem(
+    modifier: Modifier = Modifier,
     imageUrl: String?,
     name: String,
     amount: Int,
     unit: String,
     price: Float,
     containerColor: Color = TrueWhite,
-    modifier: Modifier = Modifier,
     onChangeAmount: (Int) -> Unit
 ) {
     StandardCard(
