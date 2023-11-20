@@ -62,7 +62,7 @@ fun StandardScaffold(
             if (showBottomBar) {
                 StandardBottomNavigation(
                     onNewRecipeClick = {
-                        navController.navigate(Screen.CreateRecipeScreen.route) {
+                        navController.navigate("create_recipe") {
                             launchSingleTop = true
                             restoreState = true
                         }

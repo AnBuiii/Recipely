@@ -67,9 +67,11 @@ interface RecipeDao {
     @Query("SELECT * from recipe r  WHERE title LIKE  '%' || :searchText || '%'")
     suspend fun searchRecipe(searchText: String): List<RecipeAndOwner>
 
-    @Transaction
     @Query("SELECT * from Ingredient r  WHERE name LIKE  '%' || :searchText || '%' LIMIT 4")
     suspend fun searchIngredient(searchText: String): List<IngredientEntity>
+
+    @Query("SELECT * from Ingredient r  WHERE _id = :ingredientId")
+    suspend fun getIngredientById(ingredientId: String): IngredientEntity
 
 }
 

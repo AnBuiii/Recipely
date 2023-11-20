@@ -15,23 +15,20 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavBackStackEntry
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
-import com.anbui.recipely.domain.models.IngredientItem
-import com.anbui.recipely.domain.models.UnitType
-import com.anbui.recipely.presentation.ui.components.StandardProgressIndicator
 import com.anbui.recipely.presentation.recipe.create_recipe.components.IngredientsSection
 import com.anbui.recipely.presentation.recipe.create_recipe.components.InstructionSection
 import com.anbui.recipely.presentation.recipe.create_recipe.components.OverviewSection
+import com.anbui.recipely.presentation.ui.components.StandardProgressIndicator
 import com.anbui.recipely.presentation.util.Screen
-import kotlin.random.Random
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterial3Api
@@ -39,27 +36,19 @@ import kotlinx.coroutines.launch
 @Composable
 fun CreateRecipeScreen(
     navController: NavController,
-    backStackEntry: NavBackStackEntry,
-    createRecipeViewModel: CreateRecipeViewModel = hiltViewModel()
+    createRecipeViewModel: CreateRecipeViewModel
 ) {
     val steps = listOf("Overview", "Ingredients", "Instructions", "Review")
     val pagerState = rememberPagerState(pageCount = { steps.size })
     val coroutineScope = rememberCoroutineScope()
-    val text = backStackEntry.savedStateHandle.get<String>("ingredient_name")
+    val ingredientId =
+        navController.currentBackStackEntry?.savedStateHandle?.get<String?>("ingredientId")
+    val amount = navController.currentBackStackEntry?.savedStateHandle?.get<Double?>("amount")
+    val uiState by createRecipeViewModel.state.collectAsStateWithLifecycle()
 
-    LaunchedEffect(text) {
-        if (text != null) {
-            createRecipeViewModel.onEvent(
-                CreateRecipeEvent.AddIngredient(
-                    IngredientItem(
-                        ingredientId = "${Random.nextInt(0, 1000)}",
-                        name = text,
-                        amount = 1.4f,
-                        unit = UnitType.Unit,
-                        imageUrl = null
-                    )
-                )
-            )
+    LaunchedEffect(ingredientId, amount) {
+        if (ingredientId != null && amount != null) {
+            createRecipeViewModel.onEvent(CreateRecipeEvent.AddIngredient(ingredientId, amount))
         }
     }
     Column() {
@@ -136,24 +125,31 @@ fun CreateRecipeScreen(
             ) { page ->
                 when (page) {
                     0 -> OverviewSection(
-                        selectedImages = createRecipeViewModel.images,
+                        selectedImages = uiState.coverImages,
                         onEvent = createRecipeViewModel::onEvent,
-                        title = createRecipeViewModel.title.value
+                        title = uiState.title
                     )
 
                     1 -> IngredientsSection(
-                        searchText = createRecipeViewModel.searchText.value,
                         onEvent = createRecipeViewModel::onEvent,
-                        ingredients = createRecipeViewModel.ingredients,
-                        searchResult = createRecipeViewModel.searchResult,
+                        ingredients = uiState.ingredientItems,
                         onAddIngredientClick = {
+                            navController.previousBackStackEntry?.savedStateHandle?.set(
+                                "ingredientId",
+                                null
+                            )
+                            navController.previousBackStackEntry?.savedStateHandle?.set(
+                                "amount",
+                                null
+                            )
                             navController.navigate(
                                 Screen.AddIngredientScreen.route
                             )
                         }
                     )
+
                     2 -> InstructionSection(
-                        steps = createRecipeViewModel.steps,
+                        steps = uiState.steps,
                         onAddInstructionClick = {},
                         onEvent = createRecipeViewModel::onEvent
                     )

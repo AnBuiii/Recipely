@@ -29,5 +29,7 @@ interface RecipeRepository {
     suspend fun addRecentRecipe(recipeId: String)
 
     suspend fun searchIngredients(ingredientName: String): List<Ingredient>
+
+    suspend fun getIngredientById(ingredientId: String): Ingredient
 }
 

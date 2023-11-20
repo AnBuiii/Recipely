@@ -1,8 +1,9 @@
 package com.anbui.recipely.presentation.recipe.add_ingredient
 
+import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anbui.recipely.domain.models.UnitType
 import com.anbui.recipely.domain.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
@@ -14,12 +15,14 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @OptIn(FlowPreview::class)
 @HiltViewModel
 class AddIngredientViewModel @Inject constructor(
-    recipeRepository: RecipeRepository
+    recipeRepository: RecipeRepository,
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(AddIngredientState())
@@ -27,19 +30,6 @@ class AddIngredientViewModel @Inject constructor(
 
     private val _unit = MutableStateFlow("")
     val unit = _unit.asStateFlow()
-
-    val units = _unit
-        .debounce(300)
-        .onEach { _state.update { it.copy(isSearching = true) } }
-        .transform {
-            emit(UnitType.indices().filter { unit -> unit.toString().contains(it) }.take(4))
-        }
-        .onEach { _state.update { it.copy(isSearching = false) } }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(5000),
-            emptyList(),
-        )
 
     private val _ingredientName = MutableStateFlow("")
     val ingredientName = _ingredientName.asStateFlow()
@@ -84,11 +74,28 @@ class AddIngredientViewModel @Inject constructor(
             }
 
             is AddIngredientEvent.AddIngredient -> {
-
+                with(_state.value) {
+                    if (selectedIngredientId.isNotEmpty()) {
+                         try {
+                             amount.toDouble()
+                            _state.update { it.copy(success = true) }
+                        } catch (_: Exception) {
+                            _state.update { it.copy(error = "Wrong amount") }
+                            _state.update { it.copy(error = null) }
+                            return
+                        }
+                    } else {
+                        Log.d("asd", "")
+                    }
+                }
             }
+
             is AddIngredientEvent.ChooseIngredient -> {
                 onChangeIngredientName(event.ingredient.name)
+                _state.update { it.copy(selectedIngredientId = event.ingredient.id) }
+                onChangeUnit(event.ingredient.unit.toString())
             }
+
             is AddIngredientEvent.ChooseUnit -> {
                 onChangeUnit(event.unit.unitString)
             }

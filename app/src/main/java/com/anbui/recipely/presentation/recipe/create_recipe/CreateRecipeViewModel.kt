@@ -1,62 +1,48 @@
 package com.anbui.recipely.presentation.recipe.create_recipe
 
-import android.net.Uri
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.anbui.recipely.domain.models.Ingredient
+import androidx.lifecycle.viewModelScope
 import com.anbui.recipely.domain.models.IngredientItem
-import com.anbui.recipely.domain.models.Step
-import com.anbui.recipely.domain.models.exampleIngredients
-import com.anbui.recipely.domain.models.exampleSteps
+import com.anbui.recipely.domain.repository.RecipeRepository
 import com.anbui.recipely.presentation.recipe.create_recipe.components.swap
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateRecipeViewModel @Inject constructor() : ViewModel() {
-    private val _coverImages = mutableStateListOf<Uri?>()
-    val images: List<Uri?> = _coverImages
+class CreateRecipeViewModel @Inject constructor(
+    private val recipeRepository: RecipeRepository
+) : ViewModel() {
 
-    private val _title = mutableStateOf("")
-    val title: State<String> = _title
-
-    private val _searchText = mutableStateOf("")
-    val searchText: State<String> = _searchText
-
-    private val _searchResult = mutableStateListOf(*exampleIngredients.toTypedArray())
-    val searchResult: List<Ingredient> = _searchResult
-
-    private val _ingredients = mutableStateListOf<IngredientItem>()
-    val ingredients: List<IngredientItem> = _ingredients
-
-    private val _steps = mutableStateListOf<Step>(*exampleSteps.toTypedArray())
-    val steps: List<Step> = _steps
-
-//    private val sm = SharedV
+    private val _state = MutableStateFlow(CreateRecipeState())
+    val state = _state.asStateFlow()
 
     fun onEvent(event: CreateRecipeEvent) {
         when (event) {
             is CreateRecipeEvent.EnterTitle -> {
-                _title.value = event.value
+                _state.update { it.copy(title = event.value) }
             }
 
             is CreateRecipeEvent.AddImage -> {
-                _coverImages.add(event.value)
+                _state.update { it.copy(coverImages = it.coverImages + event.value) }
             }
 
             is CreateRecipeEvent.EditImage -> {
-                _coverImages[event.index] = event.value
+                val newList = _state.value.coverImages.toMutableList()
+                newList[event.index] = event.value
+
+                _state.update { it.copy(coverImages = newList) }
             }
 
             is CreateRecipeEvent.RemoveImage -> {
-                _coverImages.removeAt(event.index)
+                val newList = _state.value.coverImages.toMutableList()
+                newList.removeAt(event.index)
+                _state.update { it.copy(coverImages = newList) }
             }
 
-            is CreateRecipeEvent.EnterSearch -> {
-                _searchText.value = event.value
-            }
 
             is CreateRecipeEvent.SelectIngredient -> {
 //                if(_ingredients.any { it.ingredientId == event.value.id }){
@@ -67,18 +53,33 @@ class CreateRecipeViewModel @Inject constructor() : ViewModel() {
 
             is CreateRecipeEvent.SwapIngredient -> {
                 try {
-                    _ingredients.swap(event.from, event.to)
+                    val newList = _state.value.ingredientItems.toMutableList()
+                    newList.swap(event.from, event.to)
+                    _state.update { it.copy(ingredientItems = newList) }
                 } catch (_: Exception) {
                 }
             }
 
             is CreateRecipeEvent.AddIngredient -> {
-                _ingredients.add(event.value)
+                viewModelScope.launch {
+                    val ingredient = recipeRepository.getIngredientById(event.ingredientId)
+                    val ingredientItem = IngredientItem(
+                        ingredientId = ingredient.id,
+                        name = ingredient.name,
+                        amount = event.amount.toFloat(),
+                        unit = ingredient.unit,
+                        imageUrl = ingredient.imageUrl,
+                        price = ingredient.price
+                    )
+                    _state.update { it.copy(ingredientItems = it.ingredientItems + ingredientItem) }
+                }
             }
 
             is CreateRecipeEvent.SwapInstruction -> {
                 try {
-                    _steps.swap(event.from, event.to)
+                    val newList = _state.value.steps.toMutableList()
+                    newList.swap(event.from, event.to)
+                    _state.update { it.copy(steps = newList) }
                 } catch (_: Exception) {
                 }
             }

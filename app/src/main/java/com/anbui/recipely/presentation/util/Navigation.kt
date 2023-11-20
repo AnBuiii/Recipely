@@ -5,12 +5,16 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
+import androidx.navigation.navigation
 import com.anbui.recipely.presentation.auth.create_account.CreateAccountScreen
 import com.anbui.recipely.presentation.auth.forgot_password.ForgotPasswordScreen
 import com.anbui.recipely.presentation.auth.login.LoginScreen
@@ -28,8 +32,10 @@ import com.anbui.recipely.presentation.other_feature.camera.CameraScreen
 import com.anbui.recipely.presentation.other_feature.edit_profile.EditProfileScreen
 import com.anbui.recipely.presentation.other_feature.setting.SettingScreen
 import com.anbui.recipely.presentation.recipe.add_ingredient.AddIngredientScreen
+import com.anbui.recipely.presentation.recipe.add_ingredient.AddIngredientViewModel
 import com.anbui.recipely.presentation.recipe.cooking_detail.CookingDetailScreen
 import com.anbui.recipely.presentation.recipe.create_recipe.CreateRecipeScreen
+import com.anbui.recipely.presentation.recipe.create_recipe.CreateRecipeViewModel
 import com.anbui.recipely.presentation.recipe.recipe_detail.RecipeDetailScreen
 
 @ExperimentalAnimationApi
@@ -102,11 +108,21 @@ fun Navigation(
         composable(Screen.CartScreen.route) {
             CartScreen(navController = navController)
         }
-
-        composable(Screen.CreateRecipeScreen.route) { backStackEntry ->
-            CreateRecipeScreen(navController = navController, backStackEntry)
+        navigation(
+            route = "create_recipe",
+            startDestination = Screen.CreateRecipeScreen.route,
+        ) {
+            composable(
+                Screen.CreateRecipeScreen.route,
+            ) { backStackEntry ->
+                val parentEntry = remember(backStackEntry) {
+                    navController.getBackStackEntry("create_recipe?ingredientId={ingredientId}")
+                }
+                val createRecipeViewModel = hiltViewModel<CreateRecipeViewModel>(parentEntry)
+                CreateRecipeScreen(navController = navController, createRecipeViewModel)
+            }
         }
-        composable(Screen.AddIngredientScreen.route) { backStackEntry ->
+        composable(Screen.AddIngredientScreen.route) {
             AddIngredientScreen(navController = navController)
         }
         composable(Screen.AddressScreen.route) {

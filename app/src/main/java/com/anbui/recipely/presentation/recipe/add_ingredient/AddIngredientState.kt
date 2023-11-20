@@ -5,6 +5,7 @@ import com.anbui.recipely.domain.models.UnitType
 data class AddIngredientState(
     val selectedIngredientId: String = "",
     val amount: String  = "",
-    val selectedUnit: UnitType = UnitType.Unit,
-    val isSearching: Boolean = false
+    val isSearching: Boolean = false,
+    val success: Boolean = false,
+    val error: String? = null
 )

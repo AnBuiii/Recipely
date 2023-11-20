@@ -17,10 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
@@ -33,9 +29,12 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.anbui.recipely.R
 import kotlin.math.PI
 import kotlin.math.sin
 
@@ -73,7 +72,7 @@ fun FabGroup(
     ) {
         // left
         AnimatedFab(
-            icon = Icons.Default.Person,
+            painter = painterResource(id = R.drawable.ic_scan),
             modifier = Modifier
                 .padding(
                     PaddingValues(
@@ -84,19 +83,19 @@ fun FabGroup(
             opacity = LinearEasing.transform(0.2f, 0.7f, animationProgress),
             shape = RoundedCornerShape(
                 (
-                    -34 * FastOutSlowInEasing.transform(
-                        0f,
-                        1f,
-                        animationProgress
-                    ) + 50
-                    ).dp
+                        -34 * FastOutSlowInEasing.transform(
+                            0f,
+                            1f,
+                            animationProgress
+                        ) + 50
+                        ).dp
             ),
             onClick = onScanClick
         )
 
         // right
         AnimatedFab(
-            icon = Icons.Default.ShoppingCart,
+            painter = painterResource(id = R.drawable.ic_cook),
             modifier = Modifier
                 .padding(
                     PaddingValues(
@@ -107,12 +106,12 @@ fun FabGroup(
             opacity = LinearEasing.transform(0.4f, 0.9f, animationProgress),
             shape = RoundedCornerShape(
                 (
-                    -34 * FastOutSlowInEasing.transform(
-                        0f,
-                        1f,
-                        animationProgress
-                    ) + 50
-                    ).dp
+                        -34 * FastOutSlowInEasing.transform(
+                            0f,
+                            1f,
+                            animationProgress
+                        ) + 50
+                        ).dp
             ),
             onClick = onNewRecipeClick
 
@@ -124,10 +123,10 @@ fun FabGroup(
 //        )
 
         AnimatedFab(
-            icon = Icons.Default.Add,
+            painter = painterResource(id = R.drawable.ic_recipely),
             modifier = Modifier
                 .rotate(
-                    225 * FastOutSlowInEasing
+                    360 * FastOutSlowInEasing
                         .transform(0.35f, 0.65f, animationProgress)
                 ),
             onClick = toggleAnimation
@@ -162,23 +161,33 @@ fun AnimatedFab(
             )
         }
     }
+}
 
-//    FilledIconButton(
-//        onClick = { },
-//        modifier = Modifier
-//            .shadow(
-//                elevation = 40.dp,
-//                spotColor = MaterialTheme.colorScheme.secondary,
-//                ambientColor = MaterialTheme.colorScheme.secondary,
-//            )
-//            .size(56.dp)
-//    ) {
-//        Icon(
-//            painterResource(id = R.drawable.ic_recipely_foreground),
-//            contentDescription = stringResource(R.string.make_recipe),
-// //                modifier = Modifier.size(200.dp)
-//        )
-//    }
+@Composable
+fun AnimatedFab(
+    modifier: Modifier,
+    painter: Painter? = null,
+    opacity: Float = 1f,
+    backgroundColor: Color = MaterialTheme.colorScheme.primary,
+    shape: Shape = CircleShape,
+    onClick: () -> Unit = {}
+) {
+    FloatingActionButton(
+        onClick = onClick,
+        elevation = FloatingActionButtonDefaults.elevation(2.dp),
+        containerColor = backgroundColor,
+        modifier = modifier,
+        shape = shape
+//            .scale(1.25f)
+    ) {
+        painter?.let {
+            Icon(
+                painter = it,
+                contentDescription = null,
+                tint = Color.White.copy(alpha = opacity)
+            )
+        }
+    }
 }
 
 fun getRenderEffect(): RenderEffect {

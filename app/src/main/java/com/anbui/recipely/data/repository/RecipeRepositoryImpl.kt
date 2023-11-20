@@ -108,6 +108,10 @@ class RecipeRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getIngredientById(ingredientId: String): Ingredient {
+        return recipeDao.getIngredientById(ingredientId).toIngredient()
+    }
+
     override suspend fun searchRecipes(searchText: String): List<Recipe> {
         val loggedId = currentPreferences.getLoggedId()
         return recipeDao.searchRecipe(searchText).map {

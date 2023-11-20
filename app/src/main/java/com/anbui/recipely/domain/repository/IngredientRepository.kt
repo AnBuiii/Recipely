@@ -7,4 +7,6 @@ interface IngredientRepository {
     suspend fun insertIngredient(ingredient: Ingredient)
 
     fun getIngredients(): Flow<List<Ingredient>>
+
+//    suspend fun getIngredientById(id: String): Ingredient
 }
