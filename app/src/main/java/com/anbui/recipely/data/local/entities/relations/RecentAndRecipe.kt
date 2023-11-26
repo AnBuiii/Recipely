@@ -5,9 +5,7 @@ import androidx.room.Relation
 import com.anbui.recipely.data.local.entities.RecentEntity
 import com.anbui.recipely.data.local.entities.RecipeEntity
 import com.anbui.recipely.domain.models.IngredientItem
-import com.anbui.recipely.domain.models.MediaType.Companion.toMediaType
 import com.anbui.recipely.domain.models.Recipe
-import com.anbui.recipely.domain.models.Step
 
 data class RecentAndRecipe(
     @Embedded
@@ -53,13 +51,7 @@ data class RecentAndRecipe(
                 ownerAvatarUrl = owner.avatarUrl,
                 ownerDescription = owner.bio,
                 instructions = steps.map {
-                    Step(
-                        order = it.order,
-                        instruction = it.instruction,
-                        mediaUrl = it.mediaUrl,
-                        type = it.mediaType.toMediaType(),
-                        period = (it.period * 1000).toLong()
-                    )
+                    it.toStep()
                 },
 
                 ingredients = ingredients.map { ingredient ->

@@ -3,7 +3,6 @@ package com.anbui.recipely.data.local.entities.relations
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.anbui.recipely.data.local.entities.LikeEntity
-import com.anbui.recipely.data.local.entities.RecentEntity
 import com.anbui.recipely.data.local.entities.RecipeEntity
 import com.anbui.recipely.domain.models.IngredientItem
 import com.anbui.recipely.domain.models.MediaType.Companion.toMediaType
@@ -54,13 +53,7 @@ data class LikeAndRecipe(
                 ownerAvatarUrl = owner.avatarUrl,
                 ownerDescription = owner.bio,
                 instructions = steps.map {
-                    Step(
-                        order = it.order,
-                        instruction = it.instruction,
-                        mediaUrl = it.mediaUrl,
-                        type = it.mediaType.toMediaType(),
-                        period = (it.period * 1000).toLong()
-                    )
+                    it.toStep()
                 },
 
                 ingredients = ingredients.map { ingredient ->

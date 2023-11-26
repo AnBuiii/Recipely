@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.anbui.recipely.R
-import com.anbui.recipely.domain.models.IngredientItem
 import com.anbui.recipely.domain.models.Recipe
 import com.anbui.recipely.domain.models.exampleIngredientItems
 import com.anbui.recipely.presentation.recipe.recipe_detail.components.IngredientItem
@@ -40,11 +39,11 @@ fun LazyListScope.ingredientsSection(
     }
     items(recipe.ingredients, key = { it.ingredientId }) {
         IngredientItem(
+            modifier = Modifier.padding(vertical = SpaceMedium),
             imageUrl = it.imageUrl,
             name = it.name,
             amount = it.amount * servings / recipe.servings,
-            unit = it.unit.toString(),
-            modifier = Modifier.padding(vertical = SpaceMedium)
+            unit = it.unit.toString()
         )
     }
 }

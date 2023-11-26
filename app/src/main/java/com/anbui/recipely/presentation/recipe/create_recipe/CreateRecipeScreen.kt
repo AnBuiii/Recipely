@@ -1,5 +1,6 @@
 package com.anbui.recipely.presentation.recipe.create_recipe
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -44,11 +45,27 @@ fun CreateRecipeScreen(
     val ingredientId =
         navController.currentBackStackEntry?.savedStateHandle?.get<String?>("ingredientId")
     val amount = navController.currentBackStackEntry?.savedStateHandle?.get<Double?>("amount")
+    val instructionId =
+        navController.currentBackStackEntry?.savedStateHandle?.get<String?>("instructionId")
+    val period = navController.currentBackStackEntry?.savedStateHandle?.get<Double?>("period")
+    val instruction = navController.currentBackStackEntry?.savedStateHandle?.get<String?>("instruction")
     val uiState by createRecipeViewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(ingredientId, amount) {
         if (ingredientId != null && amount != null) {
             createRecipeViewModel.onEvent(CreateRecipeEvent.AddIngredient(ingredientId, amount))
+            navController.currentBackStackEntry?.savedStateHandle?.set("ingredientId", null)
+            navController.currentBackStackEntry?.savedStateHandle?.set("amount", null)
+        }
+    }
+
+    LaunchedEffect(instructionId, period, instruction) {
+        Log.d("Create", "$instruction $instructionId $period")
+        if (instructionId != null && period != null && instruction != null) {
+            createRecipeViewModel.onEvent(CreateRecipeEvent.AddInstruction(instructionId, instruction, period))
+            navController.currentBackStackEntry?.savedStateHandle?.set("instructionId", null)
+            navController.currentBackStackEntry?.savedStateHandle?.set("instruction", null)
+            navController.currentBackStackEntry?.savedStateHandle?.set("period", null)
         }
     }
     Column() {
@@ -145,12 +162,21 @@ fun CreateRecipeScreen(
                             navController.navigate(
                                 Screen.AddIngredientScreen.route
                             )
+                        },
+                        onEditIngredient = { id, amount ->
+                            navController.navigate(
+                                "${Screen.AddIngredientScreen.route}?ingredientId=$id&amount=$amount"
+                            )
                         }
                     )
 
                     2 -> InstructionSection(
                         steps = uiState.steps,
-                        onAddInstructionClick = {},
+                        onAddInstructionClick = {
+                            navController.navigate(
+                                "${Screen.AddInstructionScreen.route}"
+                            )
+                        },
                         onEvent = createRecipeViewModel::onEvent
                     )
                 }

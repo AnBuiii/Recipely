@@ -71,7 +71,7 @@ interface RecipeDao {
     suspend fun searchIngredient(searchText: String): List<IngredientEntity>
 
     @Query("SELECT * from Ingredient r  WHERE _id = :ingredientId")
-    suspend fun getIngredientById(ingredientId: String): IngredientEntity
+    suspend fun getIngredientById(ingredientId: String): IngredientEntity?
 
 }
 

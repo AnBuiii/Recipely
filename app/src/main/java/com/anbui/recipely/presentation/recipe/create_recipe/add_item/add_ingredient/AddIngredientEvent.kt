@@ -1,4 +1,4 @@
-package com.anbui.recipely.presentation.recipe.add_ingredient
+package com.anbui.recipely.presentation.recipe.create_recipe.add_item.add_ingredient
 
 import com.anbui.recipely.domain.models.Ingredient
 import com.anbui.recipely.domain.models.UnitType

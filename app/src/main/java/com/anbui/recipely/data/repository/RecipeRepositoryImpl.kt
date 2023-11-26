@@ -1,6 +1,5 @@
 package com.anbui.recipely.data.repository
 
-import android.util.Log
 import com.anbui.recipely.data.local.dao.RecipeDao
 import com.anbui.recipely.data.local.entities.LikeEntity
 import com.anbui.recipely.data.local.entities.RecentEntity
@@ -108,8 +107,8 @@ class RecipeRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getIngredientById(ingredientId: String): Ingredient {
-        return recipeDao.getIngredientById(ingredientId).toIngredient()
+    override suspend fun getIngredientById(ingredientId: String): Ingredient? {
+        return recipeDao.getIngredientById(ingredientId)?.toIngredient()
     }
 
     override suspend fun searchRecipes(searchText: String): List<Recipe> {

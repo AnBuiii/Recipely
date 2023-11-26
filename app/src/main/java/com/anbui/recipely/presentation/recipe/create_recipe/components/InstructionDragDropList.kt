@@ -34,7 +34,6 @@ import androidx.compose.ui.unit.dp
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.Step
 import com.anbui.recipely.presentation.ui.components.StandardCard
-import com.anbui.recipely.presentation.ui.theme.DarkGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
@@ -49,7 +48,8 @@ fun InstructionDragDropList(
     items: List<Step>,
     onMove: (Int, Int) -> Unit,
     modifier: Modifier = Modifier,
-    onAddInstructionClick: () -> Unit
+    onAddInstructionClick: () -> Unit,
+    onEditClick: (String) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     var overScrollJob by remember { mutableStateOf<Job?>(null) }
@@ -86,7 +86,7 @@ fun InstructionDragDropList(
             .padding(top = 10.dp, start = 10.dp, end = 10.dp),
         state = dragDropListState.lazyListState
     ) {
-        itemsIndexed(items, key = { _, item -> item.order }) { index, item ->
+        itemsIndexed(items, key = { _, item -> item.id }) { index, item ->
             val isDragging = index == dragDropListState.currentIndexOfDraggedItem
             val color = animateColorAsState(
                 if (isDragging) MaterialTheme.colorScheme.primary else TrueWhite,
@@ -108,16 +108,17 @@ fun InstructionDragDropList(
                 ) {
                     Card(
                         colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.surface
+                            containerColor = color.value
                         ),
-                        modifier = Modifier.size(28.dp)
+                        modifier = Modifier.size(28.dp),
+                        onClick = { onEditClick(item.id) }
                     ) {
                         Box(
                             modifier = Modifier.fillMaxSize(),
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = "${item.order}",
+                                text = "${index + 1}",
                                 style = MaterialTheme.typography.bodyMedium.copy(
                                     color = MaterialTheme.colorScheme.secondary
                                 ),
@@ -129,7 +130,7 @@ fun InstructionDragDropList(
                         text = item.instruction,
                         style = MaterialTheme.typography.bodyMedium.copy(
                             fontWeight = FontWeight.Normal,
-                            color = DarkGrey
+                            color = textColor.value
                         )
                     )
                 }
@@ -146,7 +147,7 @@ fun InstructionDragDropList(
 
             ) {
                 Text(
-                    text = stringResource(R.string.add_ingredient),
+                    text = stringResource(R.string.add_instruction),
                     style = MaterialTheme.typography.bodyMedium.copy(color = TrueWhite),
                     modifier = Modifier.padding(vertical = SpaceSmall)
                 )

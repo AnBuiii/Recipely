@@ -130,4 +130,10 @@
     <string name="off">Off</string>
     <string name="current_language">English</string>
     <string name="log_out">Log out</string>
+    <string name="edit_ingredient">Edit ingredient in recipe</string>
+    <string name="add_instruction">Add instruction to recipe</string>
+    <string name="instruction">Instruction</string>
+    <string name="period">Period</string>
+    <string name="instruction_hint">Enter instruction</string>
+    <string name="period_hint">Enter period</string>
 </resources>

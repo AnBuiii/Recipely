@@ -12,7 +12,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.anbui.recipely.presentation.auth.create_account.CreateAccountScreen
@@ -31,11 +30,11 @@ import com.anbui.recipely.presentation.main_screen.search.SearchScreen
 import com.anbui.recipely.presentation.other_feature.camera.CameraScreen
 import com.anbui.recipely.presentation.other_feature.edit_profile.EditProfileScreen
 import com.anbui.recipely.presentation.other_feature.setting.SettingScreen
-import com.anbui.recipely.presentation.recipe.add_ingredient.AddIngredientScreen
-import com.anbui.recipely.presentation.recipe.add_ingredient.AddIngredientViewModel
 import com.anbui.recipely.presentation.recipe.cooking_detail.CookingDetailScreen
 import com.anbui.recipely.presentation.recipe.create_recipe.CreateRecipeScreen
 import com.anbui.recipely.presentation.recipe.create_recipe.CreateRecipeViewModel
+import com.anbui.recipely.presentation.recipe.create_recipe.add_item.add_ingredient.AddIngredientScreen
+import com.anbui.recipely.presentation.recipe.create_recipe.add_item.add_instruction.AddInstructionScreen
 import com.anbui.recipely.presentation.recipe.recipe_detail.RecipeDetailScreen
 
 @ExperimentalAnimationApi
@@ -122,9 +121,45 @@ fun Navigation(
                 CreateRecipeScreen(navController = navController, createRecipeViewModel)
             }
         }
-        composable(Screen.AddIngredientScreen.route) {
+        composable(
+            "${Screen.AddIngredientScreen.route}?ingredientId={ingredientId}&amount={amount}",
+            arguments = listOf(
+                navArgument("ingredientId") {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                },
+                navArgument("amount") {
+                    type = NavType.FloatType
+                    defaultValue = 0.0
+                }
+            )
+        ) {
             AddIngredientScreen(navController = navController)
         }
+
+        composable(
+            "${Screen.AddInstructionScreen.route}?instructionId={instructionId}&instruction={instruction}&period={period}",
+            arguments = listOf(
+                navArgument("instructionId") {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                },
+                navArgument("instruction") {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                },
+                navArgument("period") {
+                    type = NavType.FloatType
+                    defaultValue = 0.0
+                }
+            )
+        ) {
+            AddInstructionScreen(navController = navController)
+        }
+
         composable(Screen.AddressScreen.route) {
             AddressScreen(navController = navController)
         }

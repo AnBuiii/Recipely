@@ -34,7 +34,7 @@ val exampleRecipes = listOf(
         ownerName = "An Bùi",
         ownerAvatarUrl = "https://scontent.fdad1-1.fna.fbcdn.net/v/t39.30808-6/341759537_537638575202652_5607571306534566825_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=cN7YphncnMoAX958ed4&_nc_ht=scontent.fdad1-1.fna&oh=00_AfA48giUtw1JD4oynAXH0XhZr5hVcuTfgD2RBJqlQdaLbA&oe=64BC70B1",
         ownerDescription = "I'm the author and recipe developer",
-        instructions = listOf(*exampleSteps.toTypedArray()),
+        instructions = emptyList(),
         ingredients = listOf(*exampleIngredientItems.toTypedArray())
     ),
     Recipe(

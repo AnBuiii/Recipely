@@ -2,7 +2,6 @@ package com.anbui.recipely.presentation.recipe.create_recipe
 
 import android.net.Uri
 import com.anbui.recipely.domain.models.Ingredient
-import com.anbui.recipely.domain.models.IngredientItem
 
 sealed class CreateRecipeEvent {
     data class EnterTitle(val value: String) : CreateRecipeEvent()
@@ -13,4 +12,9 @@ sealed class CreateRecipeEvent {
     data class SwapIngredient(val from: Int, val to: Int) : CreateRecipeEvent()
     data class SwapInstruction(val from: Int, val to: Int) : CreateRecipeEvent()
     data class AddIngredient(val ingredientId: String, val amount: Double) : CreateRecipeEvent()
+    data class AddInstruction(
+        val instructionId: String,
+        val instruction: String,
+        val period: Double
+    ) : CreateRecipeEvent()
 }

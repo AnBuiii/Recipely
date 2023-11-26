@@ -123,11 +123,11 @@ fun LazyListScope.ingredientsSection(
     }
     items(recipe.ingredients, key = { it.ingredientId }) {
         IngredientItem(
+            modifier = Modifier.padding(vertical = SpaceMedium),
             imageUrl = it.imageUrl,
             name = it.name,
             amount = it.amount * servings / recipe.servings,
-            unit = it.unit.toString(),
-            modifier = Modifier.padding(vertical = SpaceMedium)
+            unit = it.unit.toString()
         )
     }
     item {

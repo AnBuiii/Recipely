@@ -1,6 +1,5 @@
-package com.anbui.recipely.presentation.recipe.add_ingredient
+package com.anbui.recipely.presentation.recipe.create_recipe.add_item.add_ingredient
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -32,6 +31,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -68,7 +68,6 @@ fun AddIngredientScreen(
 
     LaunchedEffect(uiState.success) {
         if (uiState.success) {
-            Log.d("Success", "Hello")
             navController.previousBackStackEntry?.savedStateHandle?.set(
                 "ingredientId",
                 uiState.selectedIngredientId
@@ -123,7 +122,8 @@ fun AddIngredientScreen(
                     onDone = {
                         focusManager.clearFocus()
                     }
-                )
+                ),
+                isEnabled = !uiState.isEdit
             )
 
             Spacer(modifier = Modifier.height(SpaceMedium))
@@ -158,7 +158,8 @@ fun AddIngredientScreen(
                                         focusManager.clearFocus()
                                     }
                                 ),
-                                maxLines = 1
+                                maxLines = 1,
+                                keyboardType = KeyboardType.Number
                             )
                         }
                         Column(
@@ -201,7 +202,8 @@ fun AddIngredientScreen(
 
                     ) {
                         Text(
-                            text = stringResource(id = R.string.add_ingredient),
+                            text = if (uiState.isEdit) stringResource(id = R.string.add_ingredient)
+                            else stringResource(R.string.edit_ingredient),
                             style = MaterialTheme.typography.bodyMedium.copy(color = TrueWhite),
                             modifier = Modifier.padding(vertical = SpaceSmall)
                         )

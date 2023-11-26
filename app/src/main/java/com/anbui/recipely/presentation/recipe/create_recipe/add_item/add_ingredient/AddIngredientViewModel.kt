@@ -1,4 +1,4 @@
-package com.anbui.recipely.presentation.recipe.add_ingredient
+package com.anbui.recipely.presentation.recipe.create_recipe.add_item.add_ingredient
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
@@ -25,7 +25,27 @@ class AddIngredientViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(AddIngredientState())
+    init {
+        val ingredientId = savedStateHandle.get<String>("ingredientId") ?: ""
+        val amount = savedStateHandle.get<Float>("amount")
+        viewModelScope.launch {
+            recipeRepository.getIngredientById(ingredientId)?.let { ingredient ->
+                _state.update {
+                    AddIngredientState(
+                        selectedIngredientId = ingredient.id,
+                        amount = amount.toString(),
+                        isEdit = true
+                    )
+                }
+                onChangeIngredientName(ingredient.name)
+                onChangeUnit(ingredient.unit.toString())
+            }
+        }
+    }
+
+    private val _state = MutableStateFlow(AddIngredientState(
+
+    ))
     val state = _state.asStateFlow()
 
     private val _unit = MutableStateFlow("")
@@ -76,8 +96,8 @@ class AddIngredientViewModel @Inject constructor(
             is AddIngredientEvent.AddIngredient -> {
                 with(_state.value) {
                     if (selectedIngredientId.isNotEmpty()) {
-                         try {
-                             amount.toDouble()
+                        try {
+                            amount.toDouble()
                             _state.update { it.copy(success = true) }
                         } catch (_: Exception) {
                             _state.update { it.copy(error = "Wrong amount") }

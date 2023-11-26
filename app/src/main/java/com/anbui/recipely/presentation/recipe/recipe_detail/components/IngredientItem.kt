@@ -26,17 +26,19 @@ import com.anbui.recipely.util.vulgarFraction
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun IngredientItem(
+    modifier: Modifier = Modifier,
     imageUrl: String?,
     name: String,
     amount: Float,
     unit: String,
     containerColor: Color = TrueWhite,
     textColor: Color = MaterialTheme.colorScheme.primary,
-    modifier: Modifier = Modifier
+    onClick: () -> Unit = {},
 ) {
     StandardCard(
         modifier = modifier,
-        containerColor = containerColor
+        containerColor = containerColor,
+        onClick = onClick
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
