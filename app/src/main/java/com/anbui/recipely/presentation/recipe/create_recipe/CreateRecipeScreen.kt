@@ -3,7 +3,9 @@ package com.anbui.recipely.presentation.recipe.create_recipe
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -29,6 +31,7 @@ import com.anbui.recipely.presentation.recipe.create_recipe.components.Ingredien
 import com.anbui.recipely.presentation.recipe.create_recipe.components.InstructionSection
 import com.anbui.recipely.presentation.recipe.create_recipe.components.OverviewSection
 import com.anbui.recipely.presentation.ui.components.StandardProgressIndicator
+import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.util.Screen
 import kotlinx.coroutines.launch
 
@@ -48,7 +51,8 @@ fun CreateRecipeScreen(
     val instructionId =
         navController.currentBackStackEntry?.savedStateHandle?.get<String?>("instructionId")
     val period = navController.currentBackStackEntry?.savedStateHandle?.get<Double?>("period")
-    val instruction = navController.currentBackStackEntry?.savedStateHandle?.get<String?>("instruction")
+    val instruction =
+        navController.currentBackStackEntry?.savedStateHandle?.get<String?>("instruction")
     val uiState by createRecipeViewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(ingredientId, amount) {
@@ -62,7 +66,13 @@ fun CreateRecipeScreen(
     LaunchedEffect(instructionId, period, instruction) {
         Log.d("Create", "$instruction $instructionId $period")
         if (instructionId != null && period != null && instruction != null) {
-            createRecipeViewModel.onEvent(CreateRecipeEvent.AddInstruction(instructionId, instruction, period))
+            createRecipeViewModel.onEvent(
+                CreateRecipeEvent.AddInstruction(
+                    instructionId,
+                    instruction,
+                    period
+                )
+            )
             navController.currentBackStackEntry?.savedStateHandle?.set("instructionId", null)
             navController.currentBackStackEntry?.savedStateHandle?.set("instruction", null)
             navController.currentBackStackEntry?.savedStateHandle?.set("period", null)
@@ -87,7 +97,7 @@ fun CreateRecipeScreen(
                                 pagerState.animateScrollToPage(pagerState.currentPage - 1)
                             }
                         } else {
-                            navController.navigateUp()
+                            navController.popBackStack()
                         }
                     }
                 ) {
@@ -109,6 +119,7 @@ fun CreateRecipeScreen(
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)
                             }
                         } else {
+                            createRecipeViewModel.onEvent(CreateRecipeEvent.CreateRecipe)
                         }
                     }
                 ) {
@@ -129,7 +140,7 @@ fun CreateRecipeScreen(
             }
         )
         StandardProgressIndicator(
-            indicatorProgress = (pagerState.currentPage).toFloat() / steps.size
+            indicatorProgress = (pagerState.currentPage).toFloat() / (steps.size - 1)
         )
 
         Column(
@@ -144,7 +155,9 @@ fun CreateRecipeScreen(
                     0 -> OverviewSection(
                         selectedImages = uiState.coverImages,
                         onEvent = createRecipeViewModel::onEvent,
-                        title = uiState.title
+                        title = uiState.title,
+                        description = uiState.description,
+                        servings = uiState.serving
                     )
 
                     1 -> IngredientsSection(
@@ -174,11 +187,22 @@ fun CreateRecipeScreen(
                         steps = uiState.steps,
                         onAddInstructionClick = {
                             navController.navigate(
-                                "${Screen.AddInstructionScreen.route}"
+                                Screen.AddInstructionScreen.route
                             )
                         },
-                        onEvent = createRecipeViewModel::onEvent
+                        onEvent = createRecipeViewModel::onEvent,
+                        onEditClick = { id, instruction, period ->
+                            Log.d("navigate instruction", "$id $instruction $period")
+                            navController.navigate(
+                                "${Screen.AddInstructionScreen.route}?instructionId=$id&instruction=$instruction&period=$period"
+                            )
+                        }
                     )
+
+                    3 -> {
+                        Spacer(modifier = Modifier.padding(top = SpaceLarge))
+                        Text(text = stringResource(R.string.this_feature_still_construction))
+                    }
                 }
             }
         }

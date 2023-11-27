@@ -13,13 +13,15 @@ import com.anbui.recipely.presentation.recipe.create_recipe.CreateRecipeEvent
 fun InstructionSection(
     steps: List<Step>,
     onEvent: (CreateRecipeEvent) -> Unit,
-    onAddInstructionClick: () -> Unit
+    onAddInstructionClick: () -> Unit,
+    onEditClick: (String, String, Float) -> Unit
 ) {
     Column {
         InstructionDragDropList(
             items = steps,
             onMove = { from, to -> onEvent(CreateRecipeEvent.SwapInstruction(from, to)) },
-            onAddInstructionClick = onAddInstructionClick
+            onAddInstructionClick = onAddInstructionClick,
+            onEditClick = onEditClick
         )
     }
 }

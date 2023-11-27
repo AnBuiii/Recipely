@@ -8,7 +8,8 @@ sealed class CreateRecipeEvent {
     data class EditImage(val value: Uri, val index: Int) : CreateRecipeEvent()
     data class AddImage(val value: Uri) : CreateRecipeEvent()
     data class RemoveImage(val index: Int) : CreateRecipeEvent()
-    data class SelectIngredient(val value: Ingredient) : CreateRecipeEvent()
+    data class EditDescription(val value: String) : CreateRecipeEvent()
+    data class EditServings(val value: String) : CreateRecipeEvent()
     data class SwapIngredient(val from: Int, val to: Int) : CreateRecipeEvent()
     data class SwapInstruction(val from: Int, val to: Int) : CreateRecipeEvent()
     data class AddIngredient(val ingredientId: String, val amount: Double) : CreateRecipeEvent()
@@ -17,4 +18,5 @@ sealed class CreateRecipeEvent {
         val instruction: String,
         val period: Double
     ) : CreateRecipeEvent()
+    data object CreateRecipe: CreateRecipeEvent()
 }

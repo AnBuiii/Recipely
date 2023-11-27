@@ -136,4 +136,5 @@
     <string name="period">Period</string>
     <string name="instruction_hint">Enter instruction</string>
     <string name="period_hint">Enter period</string>
+    <string name="this_feature_still_construction">This feature still construction</string>
 </resources>

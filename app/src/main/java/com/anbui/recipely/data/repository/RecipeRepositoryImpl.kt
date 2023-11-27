@@ -3,11 +3,16 @@ package com.anbui.recipely.data.repository
 import com.anbui.recipely.data.local.dao.RecipeDao
 import com.anbui.recipely.data.local.entities.LikeEntity
 import com.anbui.recipely.data.local.entities.RecentEntity
+import com.anbui.recipely.data.local.entities.RecipeEntity
+import com.anbui.recipely.data.local.entities.StepEntity
 import com.anbui.recipely.data.local.entities.relations.RecipeAndOwner
+import com.anbui.recipely.data.local.entities.relations.RecipeIngredientCrossRef
 import com.anbui.recipely.data.local.entities.relations.RecipeWithIngredient
 import com.anbui.recipely.data.local.entities.relations.toRecipe
 import com.anbui.recipely.domain.models.Ingredient
+import com.anbui.recipely.domain.models.IngredientItem
 import com.anbui.recipely.domain.models.Recipe
+import com.anbui.recipely.domain.models.Step
 import com.anbui.recipely.domain.repository.CurrentPreferences
 import com.anbui.recipely.domain.repository.RecipeRepository
 import kotlinx.coroutines.flow.Flow
@@ -29,7 +34,7 @@ class RecipeRepositoryImpl @Inject constructor(
         return flow {
             val id = currentPreferences.getLoggedId().first()
             recipeDao.getFavouriteRecipes(id ?: "").map { map ->
-                map.map {recipe ->
+                map.map { recipe ->
                     recipe.toRecipe()
                 }
             }.collect {
@@ -111,6 +116,46 @@ class RecipeRepositoryImpl @Inject constructor(
         return recipeDao.getIngredientById(ingredientId)?.toIngredient()
     }
 
+    override suspend fun createRecipe(
+        title: String,
+        imageUrl: String,
+        description: String,
+        servings: Int,
+        ingredients: List<IngredientItem>,
+        steps: List<Step>
+    ): Boolean {
+        val loggedId = currentPreferences.getLoggedId().first() ?: ""
+        val recipeId = UUID.randomUUID().toString()
+        RecipeEntity(
+            id = recipeId,
+            title = title,
+            imageUrl = imageUrl,
+            description = description,
+            servings = servings,
+            owner = loggedId
+        ).let { recipeDao.insertRecipe(it) }
+        ingredients.map {
+            RecipeIngredientCrossRef(
+                id = UUID.randomUUID().toString(),
+                recipeId = recipeId,
+                ingredientId = it.ingredientId,
+                amount = it.amount
+            )
+        }.let { recipeDao.insertContains(it) }
+        steps.mapIndexed { idx, it ->
+            StepEntity(
+                id = it.id,
+                period = it.period.toFloat(),
+                recipeId = recipeId,
+                instruction = it.instruction,
+                mediaUrl = it.mediaUrl ?: "",
+                mediaType = it.type.type,
+                order = idx + 1
+            )
+        }.let { recipeDao.insertSteps(it) }
+        return true
+    }
+
     override suspend fun searchRecipes(searchText: String): List<Recipe> {
         val loggedId = currentPreferences.getLoggedId()
         return recipeDao.searchRecipe(searchText).map {
@@ -137,7 +182,7 @@ class RecipeRepositoryImpl @Inject constructor(
         return flow {
             val id = currentPreferences.getLoggedId().first()
             recipeDao.getAllRecent(id ?: "").map { map ->
-                map.map {recipe ->
+                map.map { recipe ->
                     recipe.toRecipe()
                 }
             }.collect {

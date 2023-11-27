@@ -1,5 +1,6 @@
 package com.anbui.recipely.presentation.util
 
+import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -156,7 +157,11 @@ fun Navigation(
                     defaultValue = 0.0
                 }
             )
-        ) {
+        ) { backStack ->
+            val a = backStack.arguments?.getString("instructionId")
+            val b = backStack.arguments?.getString("instruction")
+            val c = backStack.arguments?.getFloat("period")
+            Log.d("instruction screen", "$a, $b, $c")
             AddInstructionScreen(navController = navController)
         }
 

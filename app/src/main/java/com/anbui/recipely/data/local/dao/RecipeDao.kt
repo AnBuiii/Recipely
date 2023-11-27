@@ -9,9 +9,11 @@ import com.anbui.recipely.data.local.entities.IngredientEntity
 import com.anbui.recipely.data.local.entities.LikeEntity
 import com.anbui.recipely.data.local.entities.RecentEntity
 import com.anbui.recipely.data.local.entities.RecipeEntity
+import com.anbui.recipely.data.local.entities.StepEntity
 import com.anbui.recipely.data.local.entities.relations.LikeAndRecipe
 import com.anbui.recipely.data.local.entities.relations.RecentAndRecipe
 import com.anbui.recipely.data.local.entities.relations.RecipeAndOwner
+import com.anbui.recipely.data.local.entities.relations.RecipeIngredientCrossRef
 import com.anbui.recipely.data.local.entities.relations.RecipeWithIngredient
 import kotlinx.coroutines.flow.Flow
 
@@ -72,6 +74,14 @@ interface RecipeDao {
 
     @Query("SELECT * from Ingredient r  WHERE _id = :ingredientId")
     suspend fun getIngredientById(ingredientId: String): IngredientEntity?
+
+    @Transaction
+    @Insert
+    suspend fun insertContains(recipeIngredientCrossRef: List<RecipeIngredientCrossRef>)
+
+    @Transaction
+    @Insert
+    suspend fun insertSteps(steps: List<StepEntity>)
 
 }
 

@@ -2,39 +2,23 @@ package com.anbui.recipely.presentation.recipe.create_recipe.add_item.add_instru
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
 class AddInstructionViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+    private val id = savedStateHandle.get<String>("instructionId")
+    private val instruction = savedStateHandle.get<String>("instruction") ?: ""
+    private val period = savedStateHandle.get<Float>("period")?.toString() ?: ""
 
-
-    init {
-        val id = savedStateHandle.get<String>("instructionId")
-        val instruction = savedStateHandle.get<String>("instruction")
-        val period = savedStateHandle.get<Float>("period")
-        viewModelScope.launch {
-            id?.let { id ->
-                _uiState.update {
-                    it.copy(
-                        instruction = instruction ?: "",
-                        id = id,
-                        period = period.toString()
-                    )
-                }
-            }
-        }
-    }
-
-    private val _uiState = MutableStateFlow(AddInstructionState())
+    private val _uiState =
+        MutableStateFlow(AddInstructionState(id = id, instruction = instruction, period = period))
     val uiState = _uiState.asStateFlow()
 
     fun onChangeInstruction(newValue: String) {

@@ -46,14 +46,6 @@ class CreateRecipeViewModel @Inject constructor(
                 _state.update { it.copy(coverImages = newList) }
             }
 
-
-            is CreateRecipeEvent.SelectIngredient -> {
-//                if(_ingredients.any { it.ingredientId == event.value.id }){
-//                    return
-//                }
-//                _ingredients.add(event.value)
-            }
-
             is CreateRecipeEvent.SwapIngredient -> {
                 try {
                     val newList = _state.value.ingredientItems.toMutableList()
@@ -107,7 +99,10 @@ class CreateRecipeViewModel @Inject constructor(
 
                     if (index != -1) {
                         val items = _state.value.steps.toMutableList()
-                        items[index] = items[index].copy(period = event.period.toLong())
+                        items[index] = items[index].copy(
+                            period = event.period.toLong(),
+                            instruction = event.instruction
+                        )
                         _state.update { it.copy(steps = items) }
                     } else {
                         Step(
@@ -119,6 +114,34 @@ class CreateRecipeViewModel @Inject constructor(
                             period = event.period.toLong()
                         ).let { step ->
                             _state.update { it.copy(steps = it.steps + step) }
+                        }
+                    }
+                }
+            }
+
+            is CreateRecipeEvent.EditDescription -> {
+                _state.update { it.copy(description = event.value) }
+            }
+
+            is CreateRecipeEvent.EditServings -> {
+                _state.update { it.copy(serving = event.value) }
+            }
+
+            CreateRecipeEvent.CreateRecipe -> {
+                viewModelScope.launch {
+                    with(_state.value) {
+                        try {
+                            recipeRepository.createRecipe(
+                                title = title,
+                                imageUrl = coverImages.firstOrNull().toString(),
+                                description = description,
+                                servings = serving.toInt(),
+                                ingredients = ingredientItems,
+                                steps = steps
+                            )
+                            _state.update { it.copy(success = true) }
+                        } catch (_: Exception) {
+
                         }
                     }
                 }

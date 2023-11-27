@@ -49,7 +49,7 @@ fun InstructionDragDropList(
     onMove: (Int, Int) -> Unit,
     modifier: Modifier = Modifier,
     onAddInstructionClick: () -> Unit,
-    onEditClick: (String) -> Unit,
+    onEditClick: (String, String, Float) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     var overScrollJob by remember { mutableStateOf<Job?>(null) }
@@ -101,7 +101,8 @@ fun InstructionDragDropList(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = SpaceMedium)
-                    .animateItemPlacement()
+                    .animateItemPlacement(),
+                onClick = { onEditClick(item.id, item.instruction, item.period.toFloat()) }
             ) {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(SpaceSmall)
@@ -111,7 +112,6 @@ fun InstructionDragDropList(
                             containerColor = color.value
                         ),
                         modifier = Modifier.size(28.dp),
-                        onClick = { onEditClick(item.id) }
                     ) {
                         Box(
                             modifier = Modifier.fillMaxSize(),

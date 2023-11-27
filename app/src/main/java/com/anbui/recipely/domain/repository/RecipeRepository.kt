@@ -4,7 +4,9 @@ package com.anbui.recipely.domain.repository
 import com.anbui.recipely.data.local.entities.relations.RecipeAndOwner
 import com.anbui.recipely.data.local.entities.relations.RecipeWithIngredient
 import com.anbui.recipely.domain.models.Ingredient
+import com.anbui.recipely.domain.models.IngredientItem
 import com.anbui.recipely.domain.models.Recipe
+import com.anbui.recipely.domain.models.Step
 import kotlinx.coroutines.flow.Flow
 
 interface RecipeRepository {
@@ -31,5 +33,14 @@ interface RecipeRepository {
     suspend fun searchIngredients(ingredientName: String): List<Ingredient>
 
     suspend fun getIngredientById(ingredientId: String): Ingredient?
+
+    suspend fun createRecipe(
+        title: String,
+        imageUrl: String,
+        description: String,
+        servings: Int,
+        ingredients: List<IngredientItem>,
+        steps: List<Step>
+    ): Boolean
 }
 

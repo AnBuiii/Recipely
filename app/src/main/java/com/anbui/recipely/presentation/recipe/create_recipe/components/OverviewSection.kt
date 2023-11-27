@@ -47,7 +47,9 @@ import com.anbui.recipely.presentation.ui.theme.ThinGrey
 fun OverviewSection(
     onEvent: (CreateRecipeEvent) -> Unit,
     selectedImages: List<Uri?>,
-    title: String
+    title: String,
+    description: String,
+    servings: String
 ) {
     val pagerState = rememberPagerState { (selectedImages.size + 1).coerceAtMost(3) }
     Column(
@@ -194,8 +196,8 @@ fun OverviewSection(
         Spacer(modifier = Modifier.height(SpaceMedium))
 
         StandardTextField(
-            text = title,
-            onValueChange = { onEvent(CreateRecipeEvent.EnterTitle(it)) },
+            text = description,
+            onValueChange = { onEvent(CreateRecipeEvent.EditDescription(it)) },
             hint = stringResource(R.string.create_recipe_description_hint),
             minLines = 3,
             maxLines = Int.MAX_VALUE,
@@ -213,8 +215,8 @@ fun OverviewSection(
         Spacer(modifier = Modifier.height(SpaceMedium))
 
         StandardTextField(
-            text = title,
-            onValueChange = { onEvent(CreateRecipeEvent.EnterTitle(it)) },
+            text = servings,
+            onValueChange = { onEvent(CreateRecipeEvent.EditServings(it)) },
             hint = "1",
             keyboardType = KeyboardType.Number,
             suffix = " people"
