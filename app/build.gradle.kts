@@ -42,15 +42,13 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.4"
+        kotlinCompilerExtensionVersion = "1.5.5-dev-k2.0.0-Beta1-06b8ae672a4"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
-//            excludes +="/META-INF/*"
         }
     }
-
 }
 
 dependencies {
@@ -76,9 +74,8 @@ dependencies {
     implementation(libs.lifecycle.runtime.compose)
 
     // Dagger - Hilt
-    implementation(libs.hilt.android)
-//    ksp(libs.androidx.hilt.compiler)
     ksp(libs.hilt.android.compiler)
+    implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
 
     // DataStore
@@ -92,6 +89,9 @@ dependencies {
 
     // Coil
     implementation(libs.coil.compose)
+
+    // Splash screen
+    implementation(libs.androidx.core.splashscreen)
 
     // Media3
     implementation(libs.androidx.media3.exoplayer)
@@ -108,7 +108,4 @@ dependencies {
     implementation(libs.tensorflow.lite.task.vision)
     implementation(libs.tensorflow.lite.gpu.delegate.plugin)
     implementation(libs.tensorflow.lite.gpu)
-
-    // Splash screen
-    implementation(libs.androidx.core.splashscreen)
 }

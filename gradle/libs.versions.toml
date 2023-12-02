@@ -1,6 +1,6 @@
 [versions]
 agp = "8.2.0"
-kotlin = "1.9.20"
+kotlin = "2.0.0-Beta1"
 core-ktx = "1.12.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
@@ -9,7 +9,7 @@ androidx-lifecycle = "2.6.2"
 activity-compose = "1.8.1"
 compose-bom = "2023.10.01"
 
-ksp = "1.9.20-1.0.14"
+ksp = "2.0.0-Beta1-1.0.15"
 hilt-android = "2.48.1"
 androidx-hilt = "1.1.0"
 room = "2.6.1"
@@ -24,8 +24,6 @@ media3 = "1.2.0"
 
 tensorflow-lite-gpu = "2.9.0"
 tensorflow-lite= "0.4.0"
-
-
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -46,7 +44,6 @@ material3 = { group = "androidx.compose.material3", name = "material3" }
 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt-android" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt-android" }
-androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt" }
 
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
@@ -80,5 +77,6 @@ com-android-application = { id = "com.android.application", version.ref = "agp" 
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 com-google-dagger-hilt-android = {id = "com.google.dagger.hilt.android", version.ref = "hilt-android"}
 com-google-devtools-ksp = {id = "com.google.devtools.ksp", version.ref = "ksp"}
+
 [bundles]
 
