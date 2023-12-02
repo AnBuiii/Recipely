@@ -63,9 +63,7 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.ui.util)
-    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout.compose)
-    implementation(libs.androidx.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -74,30 +72,14 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
 
-    // Compose
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
-
-    // Coroutine
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.coroutines.android)
-
-    // Coroutine Lifecycle Scopes
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.lifecycle.runtime.ktx)
-//    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation(libs.lifecycle.runtime.compose)
 
     // Dagger - Hilt
     implementation(libs.hilt.android)
-    ksp(libs.androidx.hilt.compiler)
+//    ksp(libs.androidx.hilt.compiler)
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
-
-    // Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.okhttp)
 
     // DataStore
     implementation(libs.androidx.datastore.preferences)
@@ -129,18 +111,4 @@ dependencies {
 
     // Splash screen
     implementation(libs.androidx.core.splashscreen)
-
-    // Local Unit Tests
-    testImplementation(libs.junit)
-    testImplementation(libs.androidx.core.testing)
-    testImplementation(libs.kotlinx.coroutines.test)
-    androidTestImplementation(libs.hilt.android.testing)
-    kspAndroidTest(libs.hilt.android.compiler)
-
-    // Instrumented Unit Tests
-    androidTestImplementation(libs.junit)
-    androidTestImplementation(libs.kotlinx.coroutines.test)
-    androidTestImplementation(libs.androidx.core.testing)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.androidx.core.ktx)
 }
