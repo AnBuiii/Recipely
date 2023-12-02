@@ -44,7 +44,11 @@ fun LanguagePickerBottomSheet(
             windowInsets = WindowInsets(0)
         ) {
             val radioOptions = mapOf("vi-VN" to "Tiếng Việt", "en-US" to "English")
-            Column(Modifier.selectableGroup().padding(bottom = SpaceLarge)) {
+            Column(
+                Modifier
+                    .selectableGroup()
+                    .padding(bottom = SpaceLarge)
+            ) {
                 radioOptions.keys
                     .forEach { text ->
                         Row(

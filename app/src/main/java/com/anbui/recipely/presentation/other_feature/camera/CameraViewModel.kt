@@ -14,6 +14,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.ui.text.capitalize
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
@@ -24,10 +25,12 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.flow.update
 import org.tensorflow.lite.support.label.Category
 import org.tensorflow.lite.task.vision.classifier.Classifications
@@ -70,12 +73,23 @@ class CameraViewModel @Inject constructor(
         .onEach {
             _isSearching.update { true }
         }
-        .map { results ->
-            results?.let { classifications ->
-                classifications[0].categories.sortedBy { it.index }.map {
+        .map { rslts ->
+//            emit(
+            rslts?.let { classifications ->
+                classifications[0].categories.sortedBy { it.index }
+                    .map {
+                        Log.d("Classification", it.label)
                     recipeRepository.searchIngredients(it.label).firstOrNull()
                 }
             } ?: emptyList()
+//            )
+
+
+//            rslts?.let { classifications ->
+//                classifications[0].categories.sortedBy { it.index }.map {
+//                    recipeRepository.searchIngredients(it.label).firstOrNull()
+//                }
+//            } ?: emptyList()
         }
         .onEach { _isSearching.update { false } }
         .stateIn(

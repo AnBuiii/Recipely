@@ -1,22 +1,16 @@
 package com.anbui.recipely.data.local.dao
 
-import androidx.core.view.WindowInsetsCompat.Type.InsetsType
 import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Embedded
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Relation
 import androidx.room.Transaction
 import androidx.room.Upsert
-import com.anbui.recipely.data.local.entities.IngredientEntity
 import com.anbui.recipely.data.local.entities.OrderEntity
 import com.anbui.recipely.data.local.entities.OrderStatusEntity
 import com.anbui.recipely.data.local.entities.relations.AccountWithIngredient
 import com.anbui.recipely.data.local.entities.relations.IngredientAccountCrossRef
 import com.anbui.recipely.data.local.entities.relations.OrderIngredientCrossRef
 import com.anbui.recipely.data.local.entities.relations.OrderWithDetail
-import com.anbui.recipely.data.local.entities.relations.RecipeIngredientCrossRef
 import kotlinx.coroutines.flow.Flow
 
 @Dao

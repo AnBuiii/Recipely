@@ -19,10 +19,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -54,8 +51,8 @@ fun LoginScreen(
     loginViewModel: LoginViewModel = hiltViewModel()
 ) {
     val uiState by loginViewModel.state.collectAsStateWithLifecycle()
-    val coroutineScope  = rememberCoroutineScope()
-    LaunchedEffect(uiState.error){
+    val coroutineScope = rememberCoroutineScope()
+    LaunchedEffect(uiState.error) {
         uiState.error?.let {
             coroutineScope.launch {
                 Log.d("LoginScreen", it)
@@ -65,8 +62,8 @@ fun LoginScreen(
         }
     }
 
-    LaunchedEffect(uiState.success){
-        if(uiState.success){
+    LaunchedEffect(uiState.success) {
+        if (uiState.success) {
             navController.navigate(Screen.HomeScreen.route) {
                 popUpTo(0) {
                     inclusive = true

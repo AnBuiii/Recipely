@@ -4,7 +4,6 @@ import androidx.room.Embedded
 import androidx.room.Relation
 import com.anbui.recipely.data.local.entities.IngredientEntity
 import com.anbui.recipely.domain.models.IngredientItem
-import com.anbui.recipely.domain.models.UnitType.Companion.toUnitType
 
 data class OrderAndIngredientCrossRef(
     @Embedded
@@ -14,8 +13,8 @@ data class OrderAndIngredientCrossRef(
         entityColumn = "_id"
     )
     val ingredient: IngredientEntity
-){
-    fun toIngredientItem(): IngredientItem{
+) {
+    fun toIngredientItem(): IngredientItem {
         return IngredientItem(
             ingredientId = this.ingredient.id,
             name = this.ingredient.name,

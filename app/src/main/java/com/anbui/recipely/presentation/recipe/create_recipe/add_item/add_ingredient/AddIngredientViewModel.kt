@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.transform
@@ -43,9 +44,11 @@ class AddIngredientViewModel @Inject constructor(
         }
     }
 
-    private val _state = MutableStateFlow(AddIngredientState(
+    private val _state = MutableStateFlow(
+        AddIngredientState(
 
-    ))
+        )
+    )
     val state = _state.asStateFlow()
 
     private val _unit = MutableStateFlow("")
@@ -57,8 +60,10 @@ class AddIngredientViewModel @Inject constructor(
     val ingredients = _ingredientName
         .debounce(300)
         .onEach { _state.update { it.copy(isSearching = true) } }
-        .transform {
-            emit(recipeRepository.searchIngredients(it))
+        .map {
+//            emit(
+                recipeRepository.searchIngredients(it)
+//            )
         }
         .onEach { _state.update { it.copy(isSearching = false) } }
         .stateIn(

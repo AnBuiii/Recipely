@@ -166,7 +166,7 @@ fun CookingDetailScreen(
             }
         }
 
-        if(mediaPagerState.currentPage < recipe.instructions.size){
+        if (mediaPagerState.currentPage < recipe.instructions.size) {
             LaunchedEffect(mediaPagerState.currentPage) {
                 cookingDetailViewModel.setTimer(recipe.instructions[mediaPagerState.currentPage].period)
             }
@@ -237,7 +237,10 @@ fun CookingDetailScreen(
                         mediaPagerState.animateScrollToPage(mediaPagerState.currentPage + 1)
                     }
                 } else {
-                    navController.popBackStack(route = Screen.RecipeDetailScreen.route + "/${recipe.id}", false)
+                    navController.popBackStack(
+                        route = Screen.RecipeDetailScreen.route + "/${recipe.id}",
+                        false
+                    )
                 }
             },
             shape = MaterialTheme.shapes.large,

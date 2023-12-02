@@ -64,7 +64,7 @@ fun OnBoardingScreen(
             img = R.drawable.img_illu_3
         )
     )
-    val pageState = rememberPagerState() { onBoardings.size }
+    val pageState = rememberPagerState { onBoardings.size }
     val coroutineScope = rememberCoroutineScope()
     Box(
         modifier = Modifier.fillMaxSize(),

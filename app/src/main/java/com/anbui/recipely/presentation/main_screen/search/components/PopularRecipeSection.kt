@@ -51,7 +51,7 @@ fun LazyListScope.popularRecipeSection(
         RecipelyHorizontallyCard(
             recipe = it,
             modifier = Modifier.padding(horizontal = SpaceLarge, vertical = SpaceSmall + SpaceTiny),
-            onClick = {onRecipeClick(it.id)}
+            onClick = { onRecipeClick(it.id) }
         )
     }
 }

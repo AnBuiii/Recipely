@@ -43,6 +43,7 @@ class ImageClassifierHelper(
             DELEGATE_CPU -> {
                 // Default
             }
+
             DELEGATE_GPU -> {
                 if (CompatibilityList().isDelegateSupportedOnThisDevice) {
                     baseOptionsBuilder.useGpu()
@@ -50,6 +51,7 @@ class ImageClassifierHelper(
                     imageClassifierListener?.onError("GPU is not supported on this device")
                 }
             }
+
             DELEGATE_NNAPI -> {
                 baseOptionsBuilder.useNnapi()
             }
@@ -114,10 +116,13 @@ class ImageClassifierHelper(
         when (rotation) {
             Surface.ROTATION_270 ->
                 return ImageProcessingOptions.Orientation.BOTTOM_RIGHT
+
             Surface.ROTATION_180 ->
                 return ImageProcessingOptions.Orientation.RIGHT_BOTTOM
+
             Surface.ROTATION_90 ->
                 return ImageProcessingOptions.Orientation.TOP_LEFT
+
             else ->
                 return ImageProcessingOptions.Orientation.RIGHT_TOP
         }

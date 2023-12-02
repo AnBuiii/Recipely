@@ -1,5 +1,7 @@
 package com.anbui.recipely.data.repository
 
+import android.util.Log
+import androidx.compose.ui.text.capitalize
 import com.anbui.recipely.data.local.dao.RecipeDao
 import com.anbui.recipely.data.local.entities.LikeEntity
 import com.anbui.recipely.data.local.entities.RecentEntity
@@ -21,6 +23,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import java.util.Locale
 import java.util.UUID
 import javax.inject.Inject
 
@@ -107,8 +110,19 @@ class RecipeRepositoryImpl @Inject constructor(
     }
 
     override suspend fun searchIngredients(ingredientName: String): List<Ingredient> {
-        return recipeDao.searchIngredient(ingredientName).map {
-            it.toIngredient()
+        val a = ingredientName.replaceFirstChar {
+            it.uppercase()
+        }
+        Log.d("Classification search", a)
+        val result = recipeDao.searchIngredient(
+            a
+        )
+        Log.d("Classification search", result.toString())
+
+        return result.map {
+            val b = it.toIngredient()
+            Log.d("Classification search", b.toString())
+            b
         }
     }
 

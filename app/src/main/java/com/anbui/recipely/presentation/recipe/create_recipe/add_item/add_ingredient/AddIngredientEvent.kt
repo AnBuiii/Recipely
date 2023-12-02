@@ -9,5 +9,5 @@ sealed class AddIngredientEvent {
     data class EnterUnit(val value: String) : AddIngredientEvent()
     data class ChooseIngredient(val ingredient: Ingredient) : AddIngredientEvent()
     data class ChooseUnit(val unit: UnitType) : AddIngredientEvent()
-    data object AddIngredient: AddIngredientEvent()
+    data object AddIngredient : AddIngredientEvent()
 }

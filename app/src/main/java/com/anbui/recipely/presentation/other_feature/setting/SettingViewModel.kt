@@ -8,8 +8,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingViewModel @Inject constructor(
     private val accountRepository: AccountRepository
-) : ViewModel(){
-    suspend fun logout (){
+) : ViewModel() {
+    suspend fun logout() {
         accountRepository.logout()
     }
 }

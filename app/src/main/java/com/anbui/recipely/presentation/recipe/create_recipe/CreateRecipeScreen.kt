@@ -78,7 +78,7 @@ fun CreateRecipeScreen(
             navController.currentBackStackEntry?.savedStateHandle?.set("period", null)
         }
     }
-    Column() {
+    Column {
         TopAppBar(
             title = {
                 Text(

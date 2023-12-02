@@ -8,7 +8,6 @@ import com.anbui.recipely.domain.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,8 +21,9 @@ class SplashViewModel @Inject constructor(
         SharingStarted.WhileSubscribed(5000),
         listOf()
     )
-    @Inject lateinit var db: RecipelyDatabase
 
+    @Inject
+    lateinit var db: RecipelyDatabase
 
 
 }

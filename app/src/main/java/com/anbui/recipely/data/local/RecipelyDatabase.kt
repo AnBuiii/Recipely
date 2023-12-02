@@ -35,7 +35,7 @@ import com.anbui.recipely.data.local.entities.relations.RecipeIngredientCrossRef
         IngredientAccountCrossRef::class,
         OrderIngredientCrossRef::class
     ],
-    exportSchema = false
+    exportSchema = false,
 )
 @TypeConverters(LocalDateTimeConverter::class, UnitTypeConverter::class)
 abstract class RecipelyDatabase : RoomDatabase() {

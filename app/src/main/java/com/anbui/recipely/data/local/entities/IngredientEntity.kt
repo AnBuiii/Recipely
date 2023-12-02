@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.anbui.recipely.domain.models.Ingredient
 import com.anbui.recipely.domain.models.UnitType
-import com.anbui.recipely.domain.models.UnitType.Companion.toUnitType
 
 @Entity(tableName = "Ingredient")
 data class IngredientEntity(

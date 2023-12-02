@@ -105,7 +105,7 @@ fun CartScreen(
                 openAlertDialog = false
                 timeOut = -1
             }) {
-                StandardCard() {
+                StandardCard {
                     Text(
                         text = "Succes",
                         modifier = Modifier

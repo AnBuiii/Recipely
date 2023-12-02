@@ -2,16 +2,14 @@ package com.anbui.recipely.presentation.main_screen.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anbui.recipely.domain.models.Account
 import com.anbui.recipely.domain.models.exampleAccounts
 import com.anbui.recipely.domain.repository.AccountRepository
 import com.anbui.recipely.domain.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
@@ -32,7 +30,7 @@ class HomeScreenViewModel @Inject constructor(
 
     fun likeRecipe(recipeId: String, like: Boolean) {
         viewModelScope.launch {
-            recipeRepository.likeRecipe(recipeId, like )
+            recipeRepository.likeRecipe(recipeId, like)
         }
     }
 

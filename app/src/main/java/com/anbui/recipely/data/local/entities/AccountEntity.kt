@@ -42,7 +42,8 @@ data class AccountEntity(
             province = province,
         )
     }
-    fun getAddress(): String{
+
+    fun getAddress(): String {
         return "$street, $district, $province"
     }
 }

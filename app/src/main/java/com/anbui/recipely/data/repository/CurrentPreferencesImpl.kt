@@ -22,7 +22,7 @@ class CurrentPreferencesImpl @Inject constructor(
 
     override suspend fun setLoggedId(id: String?) {
         context.dataStore.edit { settings ->
-            if (id != null){
+            if (id != null) {
                 val logged = stringPreferencesKey("logged_id")
                 settings[logged] = id
             } else {

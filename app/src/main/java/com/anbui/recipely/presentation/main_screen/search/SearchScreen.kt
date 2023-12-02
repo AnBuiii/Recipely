@@ -6,15 +6,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
-import com.anbui.recipely.domain.models.exampleRecipes
 import com.anbui.recipely.presentation.main_screen.search.components.popularRecipeSection
 import com.anbui.recipely.presentation.main_screen.search.components.recentSearchSection
 import com.anbui.recipely.presentation.main_screen.search.components.searchBarSection

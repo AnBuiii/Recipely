@@ -34,9 +34,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.anbui.recipely.R
+import com.anbui.recipely.presentation.recipe.create_recipe.CreateRecipeEvent
 import com.anbui.recipely.presentation.ui.components.StandardHorizontalPagerIndicator
 import com.anbui.recipely.presentation.ui.components.StandardTextField
-import com.anbui.recipely.presentation.recipe.create_recipe.CreateRecipeEvent
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall

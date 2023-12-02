@@ -168,8 +168,8 @@ fun SettingScreen(
                 onClick = {
                     coroutineScope.launch {
                         settingViewModel.logout()
-                        navController.navigate(Screen.SplashScreen.route){
-                            popUpTo(0){
+                        navController.navigate(Screen.SplashScreen.route) {
+                            popUpTo(0) {
                                 inclusive = true
                             }
                         }

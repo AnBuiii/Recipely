@@ -100,9 +100,11 @@ fun Timer(
                         TimerStatus.INIT, TimerStatus.PAUSED -> {
                             painterResource(id = R.drawable.ic_play)
                         }
+
                         TimerStatus.RUNNING -> {
                             painterResource(id = R.drawable.ic_pause)
                         }
+
                         TimerStatus.FINISHED -> {
                             painterResource(id = R.drawable.ic_restart)
                         }

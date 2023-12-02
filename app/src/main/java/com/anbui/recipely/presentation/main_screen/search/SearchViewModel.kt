@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.transform
@@ -31,8 +32,8 @@ class SearchViewModel @Inject constructor(
     val recipes = _searchText
         .debounce(300)
         .onEach { _state.update { it.copy(isSearching = true) } }
-        .transform {
-            emit(recipeRepository.searchRecipes(it))
+        .map {
+            recipeRepository.searchRecipes(it)
         }
         .onEach { _state.update { it.copy(isSearching = false) } }
         .stateIn(
@@ -52,7 +53,7 @@ class SearchViewModel @Inject constructor(
         _searchText.update { value }
     }
 
-    fun onRecipeClick(recipeId: String){
+    fun onRecipeClick(recipeId: String) {
         viewModelScope.launch {
             recipeRepository.addRecentRecipe(recipeId)
         }

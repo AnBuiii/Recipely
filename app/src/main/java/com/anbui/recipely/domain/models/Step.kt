@@ -1,7 +1,5 @@
 package com.anbui.recipely.domain.models
 
-import com.anbui.recipely.domain.models.MediaType.Image
-
 data class Step(
     val id: String,
     val order: Int,
@@ -18,6 +16,7 @@ sealed class MediaType(val type: String) {
     override fun toString(): String {
         return this.type
     }
+
     companion object {
         fun String.toMediaType(): MediaType {
             return when (this) {

@@ -1,6 +1,5 @@
 package com.anbui.recipely.data.local.entities.relations
 
-import android.util.Log
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.anbui.recipely.data.local.entities.AccountEntity
@@ -8,9 +7,7 @@ import com.anbui.recipely.data.local.entities.LikeEntity
 import com.anbui.recipely.data.local.entities.RecipeEntity
 import com.anbui.recipely.data.local.entities.StepEntity
 import com.anbui.recipely.domain.models.IngredientItem
-import com.anbui.recipely.domain.models.MediaType.Companion.toMediaType
 import com.anbui.recipely.domain.models.Recipe
-import com.anbui.recipely.domain.models.Step
 
 data class RecipeAndOwner(
     @Embedded
@@ -39,8 +36,8 @@ data class RecipeAndOwner(
     val ingredients: List<IngredientAndCrossRef>
 )
 
-fun RecipeAndOwner.toRecipe(accountId: String?): Recipe{
-    return  Recipe(
+fun RecipeAndOwner.toRecipe(accountId: String?): Recipe {
+    return Recipe(
         id = recipe.id,
         title = recipe.title,
         imageUrl = recipe.imageUrl,

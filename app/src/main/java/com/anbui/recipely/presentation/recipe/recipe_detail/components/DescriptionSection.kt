@@ -14,7 +14,7 @@ fun LazyListScope.descriptionSection(
     onHintClick: () -> Unit
 ) {
     item {
-        Row() {
+        Row {
             StandardExpandingText(
                 longText = description,
                 isExpanded = isExpanded,

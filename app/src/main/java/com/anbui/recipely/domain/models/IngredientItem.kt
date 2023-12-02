@@ -9,7 +9,7 @@ data class IngredientItem(
     val price: Float = 0.23f
 )
 
-fun List<IngredientItem>.getTotalPrice(): Float{
+fun List<IngredientItem>.getTotalPrice(): Float {
     var sum = 0f
     this.forEach {
         sum += it.price * it.amount

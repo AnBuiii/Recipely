@@ -14,7 +14,7 @@ data class Account(
     val district: String,
     val province: String,
 ) {
-    fun getAddress(): String{
+    fun getAddress(): String {
         return "$street, $district, $province"
     }
 }
