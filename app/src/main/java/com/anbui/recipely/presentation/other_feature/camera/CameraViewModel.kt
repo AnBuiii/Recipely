@@ -13,11 +13,14 @@ import androidx.camera.core.resolutionselector.ResolutionSelector
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.anbui.recipely.domain.models.Ingredient
+import com.anbui.recipely.domain.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,8 +28,10 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.flow.update
 import org.tensorflow.lite.support.label.Category
 import org.tensorflow.lite.task.vision.classifier.Classifications
@@ -35,7 +40,9 @@ import java.util.concurrent.Executors
 import javax.inject.Inject
 
 @HiltViewModel
-class CameraViewModel @Inject constructor() : ViewModel(),
+class CameraViewModel @Inject constructor(
+    private val recipeRepository: RecipeRepository
+) : ViewModel(),
     ImageClassifierHelper.ClassifierListener {
 
     private lateinit var imageClassifierHelper: ImageClassifierHelper
@@ -46,7 +53,7 @@ class CameraViewModel @Inject constructor() : ViewModel(),
     private lateinit var bitmapBuffer: Bitmap
     private var screenOrientation: Int = 0
 
-    private val _inferenceTime = mutableStateOf(0L)
+    private val _inferenceTime = mutableLongStateOf(0L)
     val inferenceTime: State<Long> = _inferenceTime
 
     fun onChangeInferenceTime(value: Long) {
@@ -67,16 +74,18 @@ class CameraViewModel @Inject constructor() : ViewModel(),
         .onEach {
             _isSearching.update { true }
         }
-        .combine(_results) { rslts, _ ->
-            rslts?.let { it ->
-                it[0].categories.sortedBy { it.index }
+        .map { results ->
+           results?.let { classifications ->
+                classifications[0].categories.sortedBy { it.index }.map {
+                    recipeRepository.searchIngredients(it.label).firstOrNull()
+                }
             } ?: emptyList()
         }
         .onEach { _isSearching.update { false } }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000),
-            _results.value
+            emptyList()
         )
 
 //    fun onChangeResult(: ) {
