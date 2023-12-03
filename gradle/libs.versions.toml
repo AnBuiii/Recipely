@@ -16,13 +16,15 @@ room = "2.6.1"
 navigation-compose = "2.7.5"
 camerax = "1.3.0"
 
+google-accompanist = "0.33.2-alpha"
+
 coil-compose = "2.5.0"
 constraintlayout-compose = "1.0.1"
 core-splashscreen = "1.0.1"
 datastore-preferences = "1.0.0"
 media3 = "1.2.0"
 
-tensorflow-lite-gpu = "2.9.0"
+tensorflow-lite-gpu = "2.14.0"
 tensorflow-lite= "0.4.4"
 
 [libraries]
@@ -57,6 +59,7 @@ androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constr
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "core-splashscreen" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose" }
 
+accompanist-permissions = {module = "com.google.accompanist:accompanist-permissions", version.ref = "google-accompanist" }
 androidx-camera-extensions = { module = "androidx.camera:camera-extensions", version.ref = "camerax" }
 androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "camerax" }
 androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "camerax" }
