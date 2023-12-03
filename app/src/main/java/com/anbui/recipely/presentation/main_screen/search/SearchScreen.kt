@@ -1,5 +1,6 @@
 package com.anbui.recipely.presentation.main_screen.search
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -17,6 +19,7 @@ import com.anbui.recipely.presentation.main_screen.search.components.recentSearc
 import com.anbui.recipely.presentation.main_screen.search.components.searchBarSection
 import com.anbui.recipely.presentation.ui.components.StandardToolbar
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
+import com.anbui.recipely.presentation.util.Screen
 
 @ExperimentalMaterial3Api
 @Composable
@@ -31,7 +34,8 @@ fun SearchScreen(
     val searchMode by searchViewModel.searchMode.collectAsStateWithLifecycle()
     LazyColumn(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
+        contentPadding = PaddingValues(bottom = 64.dp)
     ) {
         item(
             key = "tool bar"
@@ -58,7 +62,12 @@ fun SearchScreen(
 
         matchSearchSection(
             popularRecipes = searchRecipes,
-            onRecipeClick = searchViewModel::onRecipeClick
+            onRecipeClick = {
+                searchViewModel.onRecipeClick(it)
+                navController.navigate(
+                    Screen.RecipeDetailScreen.route + "/$it"
+                )
+            }
         )
     }
 }

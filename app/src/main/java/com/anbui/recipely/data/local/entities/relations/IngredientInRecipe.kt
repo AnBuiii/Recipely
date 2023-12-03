@@ -1,5 +1,6 @@
 package com.anbui.recipely.data.local.entities.relations
 
+import android.util.Log
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.anbui.recipely.data.local.entities.IngredientEntity
@@ -20,6 +21,7 @@ data class IngredientInRecipe(
 
 fun IngredientInRecipe.toRecipes(accountId: String?): List<Recipe>{
     return recipes.map {
+        Log.d("An ne", it.toString())
         it.recipe.toRecipe(accountId)
     }
 }

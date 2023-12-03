@@ -1,5 +1,6 @@
 package com.anbui.recipely.presentation.other_feature.camera
 
+import android.util.Log
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -36,6 +37,7 @@ import com.anbui.recipely.presentation.ui.theme.SpaceHuge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
+import com.anbui.recipely.presentation.util.Screen
 
 @ExperimentalMaterial3Api
 @Composable
@@ -120,7 +122,13 @@ fun CameraScreen(
                         .fillMaxWidth()
                         .background(TrueWhite)
                         .clickable {
-                            viewModel.searchForRecipe(displayName)
+                            navController.navigate(
+                                "${Screen.SearchScreen.route}/" + displayName
+                            ) {
+                                popUpTo(Screen.CameraScreen.route) {
+                                    inclusive = true
+                                }
+                            }
                         }
                         .padding(SpaceSmall)
                 ) {

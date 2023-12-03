@@ -58,7 +58,13 @@ fun Navigation(
         composable(Screen.HomeScreen.route) {
             HomeScreen(navController = navController)
         }
-        composable(Screen.SearchScreen.route) {
+        composable("${Screen.SearchScreen.route}/{ingredientName}",
+            arguments = listOf(
+                navArgument("ingredientName") {
+                    type = NavType.StringType
+                    defaultValue = ""
+                }
+            )) {
             SearchScreen(navController = navController)
         }
         composable(Screen.NotificationScreen.route) {
@@ -116,7 +122,7 @@ fun Navigation(
                 Screen.CreateRecipeScreen.route,
             ) { backStackEntry ->
                 val parentEntry = remember(backStackEntry) {
-                    navController.getBackStackEntry("create_recipe?ingredientId={ingredientId}")
+                    navController.getBackStackEntry("create_recipe")
                 }
                 val createRecipeViewModel = hiltViewModel<CreateRecipeViewModel>(parentEntry)
                 CreateRecipeScreen(navController = navController, createRecipeViewModel)

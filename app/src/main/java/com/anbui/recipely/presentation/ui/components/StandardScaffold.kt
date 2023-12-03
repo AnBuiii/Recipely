@@ -29,13 +29,13 @@ fun StandardScaffold(
         ),
 
         BottomNavItem(
-            route = Screen.SearchScreen.route,
+            route = Screen.SearchScreen.route + "/ ",
             unselectedIcon = R.drawable.ic_search,
             selectedIcon = R.drawable.ic_search_filled,
             contentDescription = stringResource(R.string.search)
         ),
         BottomNavItem(
-            route = Screen.SearchScreen.route,
+            route = "",
             unselectedIcon = null,
             selectedIcon = R.drawable.ic_search_filled,
             contentDescription = stringResource(R.string.search)

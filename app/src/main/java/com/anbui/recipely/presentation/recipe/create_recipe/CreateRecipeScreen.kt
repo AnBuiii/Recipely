@@ -78,6 +78,12 @@ fun CreateRecipeScreen(
             navController.currentBackStackEntry?.savedStateHandle?.set("period", null)
         }
     }
+
+    LaunchedEffect(uiState.success){
+        if(uiState.success){
+            navController.popBackStack()
+        }
+    }
     Column {
         TopAppBar(
             title = {

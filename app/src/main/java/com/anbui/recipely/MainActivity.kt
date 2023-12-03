@@ -62,10 +62,9 @@ class MainActivity : ComponentActivity() {
     private fun shouldShowBottomBar(backStackEntry: NavBackStackEntry?): Boolean {
         val doesRouteMatch = backStackEntry?.destination?.route in listOf(
             Screen.HomeScreen.route,
-            Screen.SearchScreen.route,
             Screen.NotificationScreen.route,
             Screen.AccountScreen.route
-        )
+        ) || backStackEntry?.destination?.route?.contains(Screen.SearchScreen.route) == true
         val isOwnProfile =
             backStackEntry?.destination?.route == "${Screen.AccountScreen.route}?userId={userId}" &&
                     backStackEntry.arguments?.getString("userId") == null

@@ -2,6 +2,7 @@
 
 package com.anbui.recipely.presentation.main_screen.search
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anbui.recipely.domain.repository.RecipeRepository
@@ -12,7 +13,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -21,22 +21,27 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val recipeRepository: RecipeRepository
+    private val recipeRepository: RecipeRepository,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+    private val ingredientParameter = savedStateHandle.get<String?>("ingredientName")
+
     private val _state = MutableStateFlow(SearchScreenState())
     val state = _state.asStateFlow()
 
-    private val _searchText = MutableStateFlow("")
+    private val _searchText = MutableStateFlow(ingredientParameter?.trim() ?: "")
     val searchText = _searchText.asStateFlow()
 
-    private val _searchMode = MutableStateFlow(SearchMode.Recipe)
+    private val _searchMode =
+        MutableStateFlow(if (ingredientParameter?.isBlank() == true) SearchMode.Recipe else SearchMode.Ingredient)
+
     val searchMode = _searchMode.asStateFlow()
 
     val recipes = _searchText
         .debounce(300)
         .onEach { _state.update { it.copy(isSearching = true) } }
-        .combine(_searchMode) {text, mode ->
-            if(mode == SearchMode.Recipe){
+        .combine(_searchMode) { text, mode ->
+            if (mode == SearchMode.Recipe) {
                 recipeRepository.searchRecipes(text)
             } else {
                 recipeRepository.searchRecipesByIngredient(text)
@@ -56,6 +61,12 @@ class SearchViewModel @Inject constructor(
             SharingStarted.WhileSubscribed(5000),
             emptyList()
         )
+
+    fun asd(){
+        viewModelScope.launch {
+            recipeRepository.searchRecipesByIngredient(_searchText.value)
+        }
+    }
 
     fun changeSearchText(value: String) {
         _searchText.update { value }
