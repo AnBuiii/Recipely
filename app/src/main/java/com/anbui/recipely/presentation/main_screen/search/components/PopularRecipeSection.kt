@@ -20,12 +20,12 @@ import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.SpaceTiny
 
 @ExperimentalMaterial3Api
-fun LazyListScope.popularRecipeSection(
+fun LazyListScope.matchSearchSection(
     popularRecipes: List<Recipe>,
     onRecipeClick: (String) -> Unit,
 ) {
     item(
-        key = "popular ingredients bar"
+        key = "Matched recipes bar"
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -35,7 +35,7 @@ fun LazyListScope.popularRecipeSection(
                 .padding(horizontal = SpaceLarge)
         ) {
             Text(
-                text = stringResource(R.string.popular_recipes),
+                text = "Matched recipes",
                 style = MaterialTheme.typography.titleLarge
             )
             Text(
@@ -47,7 +47,7 @@ fun LazyListScope.popularRecipeSection(
             )
         }
     }
-    items(popularRecipes, key = { "popular ${it.id}" }) {
+    items(popularRecipes, key = { "match ${it.id}" }) {
         RecipelyHorizontallyCard(
             recipe = it,
             modifier = Modifier.padding(horizontal = SpaceLarge, vertical = SpaceSmall + SpaceTiny),

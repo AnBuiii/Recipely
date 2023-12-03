@@ -2,6 +2,7 @@ package com.anbui.recipely.presentation.other_feature.camera
 
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -22,7 +23,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -32,7 +32,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
-import com.anbui.recipely.presentation.ui.theme.Dark
 import com.anbui.recipely.presentation.ui.theme.SpaceHuge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
@@ -67,38 +66,6 @@ fun CameraScreen(
             .fillMaxSize()
 
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.Blue),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            FilledIconButton(
-                onClick = { /*TODO*/ },
-                shape = MaterialTheme.shapes.small,
-                colors = IconButtonDefaults.filledIconButtonColors(
-                    containerColor = TrueWhite
-                )
-            ) {
-                Icon(painter = painterResource(id = R.drawable.ic_close), contentDescription = "")
-            }
-            Text(text = "Scannings...", style = MaterialTheme.typography.headlineSmall)
-            FilledIconButton(
-                onClick = { /*TODO*/ },
-                shape = MaterialTheme.shapes.small,
-                colors = IconButtonDefaults.filledIconButtonColors(
-                    containerColor = TrueWhite,
-                    contentColor = Dark
-                )
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_add_image),
-                    contentDescription = "",
-                    tint = Color.Unspecified
-                )
-            }
-        }
         AndroidView(
             factory = { previewView },
             modifier = Modifier.fillMaxSize()
@@ -121,7 +88,9 @@ fun CameraScreen(
             }
             Text(text = "Scanning", style = MaterialTheme.typography.headlineSmall)
             FilledIconButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    viewModel.searchForRecipe("")
+                },
                 shape = MaterialTheme.shapes.medium,
                 colors = IconButtonDefaults.filledIconButtonColors(
                     containerColor = TrueWhite
@@ -137,26 +106,27 @@ fun CameraScreen(
         LazyColumn(
             modifier = Modifier.align(Alignment.BottomCenter)
         ) {
-            items(result.filterNotNull()) {
+            items(
+                result.filterNotNull(),
+                key = {
+                    it.label
+                }
+            ) {
+                val displayName = it.label.replaceFirstChar { c ->
+                    c.uppercase()
+                }
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(TrueWhite)
+                        .clickable {
+                            viewModel.searchForRecipe(displayName)
+                        }
                         .padding(SpaceSmall)
                 ) {
-                    Text(text = it.name) // name
-//                    Text(text = it.score.toString())
+                    Text(text = displayName) // name
                 }
             }
         }
-//        Column(
-//            modifier = Modifier
-//                .align(Alignment.BottomCenter)
-// //                .height(300.dp)
-//        ) {
-//            viewModel.resultList.forEach {
-//
-//            }
-//        }
     }
 }

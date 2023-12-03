@@ -10,11 +10,11 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,11 +29,19 @@ class SearchViewModel @Inject constructor(
     private val _searchText = MutableStateFlow("")
     val searchText = _searchText.asStateFlow()
 
+    private val _searchMode = MutableStateFlow(SearchMode.Recipe)
+    val searchMode = _searchMode.asStateFlow()
+
     val recipes = _searchText
         .debounce(300)
         .onEach { _state.update { it.copy(isSearching = true) } }
-        .map {
-            recipeRepository.searchRecipes(it)
+        .combine(_searchMode) {text, mode ->
+            if(mode == SearchMode.Recipe){
+                recipeRepository.searchRecipes(text)
+            } else {
+                recipeRepository.searchRecipesByIngredient(text)
+            }
+
         }
         .onEach { _state.update { it.copy(isSearching = false) } }
         .stateIn(
@@ -56,6 +64,13 @@ class SearchViewModel @Inject constructor(
     fun onRecipeClick(recipeId: String) {
         viewModelScope.launch {
             recipeRepository.addRecentRecipe(recipeId)
+        }
+    }
+
+    fun onChangeSearchMode() {
+        _searchMode.update {
+            if (it == SearchMode.Recipe) SearchMode.Ingredient
+            else SearchMode.Recipe
         }
     }
 

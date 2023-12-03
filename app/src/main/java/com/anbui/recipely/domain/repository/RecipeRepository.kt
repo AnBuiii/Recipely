@@ -26,6 +26,8 @@ interface RecipeRepository {
 
     suspend fun searchRecipes(searchText: String): List<Recipe>
 
+    suspend fun searchRecipesByIngredient(searchText: String): List<Recipe>
+
     suspend fun likeRecipe(recipeId: String, like: Boolean)
 
     suspend fun addRecentRecipe(recipeId: String)

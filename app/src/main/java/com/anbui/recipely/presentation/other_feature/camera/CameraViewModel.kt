@@ -14,7 +14,6 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableLongStateOf
-import androidx.compose.ui.text.capitalize
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
@@ -25,13 +24,13 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.tensorflow.lite.support.label.Category
 import org.tensorflow.lite.task.vision.classifier.Classifications
 import java.util.concurrent.ExecutorService
@@ -52,44 +51,39 @@ class CameraViewModel @Inject constructor(
     private lateinit var bitmapBuffer: Bitmap
     private var screenOrientation: Int = 0
 
-    private val _inferenceTime = mutableLongStateOf(0L)
+/*    private val _inferenceTime = mutableLongStateOf(0L)
     val inferenceTime: State<Long> = _inferenceTime
 
-    fun onChangeInferenceTime(value: Long) {
-        _inferenceTime.value = value
-    }
+    fun onChangeInferenceTime(value: Long)
+    }*/
+
+    private val _uiState = MutableStateFlow(CameraScreenState())
+    val uiState = _uiState.asStateFlow()
 
     private var _resultList = MutableStateFlow<List<Classifications>?>(null)
     val resultList = _resultList.asStateFlow()
 
     private val _isSearching = MutableStateFlow(false)
-    val isSearching = _isSearching.asStateFlow()
 
-    private val _results = MutableStateFlow(listOf<Category>())
+    fun searchForRecipe(ingredientName: String) {
+        viewModelScope.launch {
+            _isSearching.update { true }
+            val a = recipeRepository.searchIngredients("Egg").firstOrNull()
+            Log.d("asd", a.toString())
+        }
+    }
 
     @OptIn(FlowPreview::class)
-    var result = resultList
+    val result = resultList
         .debounce(20)
+        .filterNot { _isSearching.value }
         .onEach {
             _isSearching.update { true }
         }
         .map { rslts ->
-//            emit(
             rslts?.let { classifications ->
                 classifications[0].categories.sortedBy { it.index }
-                    .map {
-                        Log.d("Classification", it.label)
-                    recipeRepository.searchIngredients(it.label).firstOrNull()
-                }
             } ?: emptyList()
-//            )
-
-
-//            rslts?.let { classifications ->
-//                classifications[0].categories.sortedBy { it.index }.map {
-//                    recipeRepository.searchIngredients(it.label).firstOrNull()
-//                }
-//            } ?: emptyList()
         }
         .onEach { _isSearching.update { false } }
         .stateIn(
@@ -191,7 +185,9 @@ class CameraViewModel @Inject constructor(
     }
 
     override fun onResults(results: List<Classifications>?, inferenceTime: Long) {
-        _resultList.value = results?.toMutableList()
+        _resultList.update {
+            results
+        }
     }
 
     override fun onCleared() {

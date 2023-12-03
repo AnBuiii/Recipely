@@ -11,6 +11,7 @@ import com.anbui.recipely.data.local.entities.relations.RecipeAndOwner
 import com.anbui.recipely.data.local.entities.relations.RecipeIngredientCrossRef
 import com.anbui.recipely.data.local.entities.relations.RecipeWithIngredient
 import com.anbui.recipely.data.local.entities.relations.toRecipe
+import com.anbui.recipely.data.local.entities.relations.toRecipes
 import com.anbui.recipely.domain.models.Ingredient
 import com.anbui.recipely.domain.models.IngredientItem
 import com.anbui.recipely.domain.models.Recipe
@@ -126,6 +127,11 @@ class RecipeRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun searchRecipesByIngredient(searchText: String): List<Recipe> {
+        val loggedId = currentPreferences.getLoggedId()
+        return recipeDao.searchRecipesByIngredient(searchText)?.toRecipes(loggedId.first()) ?: emptyList()
+    }
+
     override suspend fun getIngredientById(ingredientId: String): Ingredient? {
         return recipeDao.getIngredientById(ingredientId)?.toIngredient()
     }
@@ -156,14 +162,14 @@ class RecipeRepositoryImpl @Inject constructor(
                 amount = it.amount
             )
         }.let { recipeDao.insertContains(it) }
-        steps.mapIndexed { idx, it ->
+        steps.mapIndexed { idx, step ->
             StepEntity(
-                id = it.id,
-                period = it.period.toFloat(),
+                id = step.id,
+                period = step.period.toFloat(),
                 recipeId = recipeId,
-                instruction = it.instruction,
-                mediaUrl = it.mediaUrl ?: "",
-                mediaType = it.type.type,
+                instruction = step.instruction,
+                mediaUrl = step.mediaUrl ?: "",
+                mediaType = step.type.type,
                 order = idx + 1
             )
         }.let { recipeDao.insertSteps(it) }

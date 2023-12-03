@@ -1,15 +1,20 @@
 package com.anbui.recipely.data.local.dao
 
 import androidx.room.Dao
+import androidx.room.Embedded
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Relation
 import androidx.room.Transaction
 import androidx.room.Upsert
+import com.anbui.recipely.data.local.entities.AccountEntity
 import com.anbui.recipely.data.local.entities.IngredientEntity
 import com.anbui.recipely.data.local.entities.LikeEntity
 import com.anbui.recipely.data.local.entities.RecentEntity
 import com.anbui.recipely.data.local.entities.RecipeEntity
 import com.anbui.recipely.data.local.entities.StepEntity
+import com.anbui.recipely.data.local.entities.relations.IngredientAndCrossRef
+import com.anbui.recipely.data.local.entities.relations.IngredientInRecipe
 import com.anbui.recipely.data.local.entities.relations.LikeAndRecipe
 import com.anbui.recipely.data.local.entities.relations.RecentAndRecipe
 import com.anbui.recipely.data.local.entities.relations.RecipeAndOwner
@@ -69,6 +74,10 @@ interface RecipeDao {
     @Query("SELECT * from recipe r  WHERE title LIKE  '%' || :searchText || '%'")
     suspend fun searchRecipe(searchText: String): List<RecipeAndOwner>
 
+    @Transaction
+    @Query("SELECT * from Ingredient r  WHERE name LIKE  '%' || :searchText || '%' LIMIT 4")
+    suspend fun searchRecipesByIngredient(searchText: String): IngredientInRecipe?
+
     @Query("SELECT * from Ingredient r  WHERE name LIKE  '%' || :searchText || '%' LIMIT 4")
     suspend fun searchIngredient(searchText: String): List<IngredientEntity>
 
@@ -82,6 +91,9 @@ interface RecipeDao {
     @Transaction
     @Insert
     suspend fun insertSteps(steps: List<StepEntity>)
-
 }
+
+
+
+
 

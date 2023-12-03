@@ -7,3 +7,7 @@ data class SearchScreenState(
     val isSearching: Boolean = false,
 )
 
+enum class SearchMode {
+    Recipe, Ingredient
+}
+
