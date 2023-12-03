@@ -3,7 +3,6 @@ package com.anbui.recipely.presentation.other_feature.camera
 import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
-import androidx.camera.core.AspectRatio
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
@@ -12,8 +11,6 @@ import androidx.camera.core.resolutionselector.AspectRatioStrategy
 import androidx.camera.core.resolutionselector.ResolutionSelector
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
@@ -30,8 +27,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-import org.tensorflow.lite.support.label.Category
 import org.tensorflow.lite.task.vision.classifier.Classifications
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -51,11 +46,11 @@ class CameraViewModel @Inject constructor(
     private lateinit var bitmapBuffer: Bitmap
     private var screenOrientation: Int = 0
 
-/*    private val _inferenceTime = mutableLongStateOf(0L)
-    val inferenceTime: State<Long> = _inferenceTime
+    /*    private val _inferenceTime = mutableLongStateOf(0L)
+        val inferenceTime: State<Long> = _inferenceTime
 
-    fun onChangeInferenceTime(value: Long)
-    }*/
+        fun onChangeInferenceTime(value: Long)
+        }*/
 
     private val _uiState = MutableStateFlow(CameraScreenState())
     val uiState = _uiState.asStateFlow()
@@ -64,14 +59,6 @@ class CameraViewModel @Inject constructor(
     val resultList = _resultList.asStateFlow()
 
     private val _isSearching = MutableStateFlow(false)
-
-    fun searchForRecipe(ingredientName: String) {
-        viewModelScope.launch {
-            _isSearching.update { true }
-            val a = recipeRepository.searchIngredients("Egg").firstOrNull()
-            Log.d("asd", a.toString())
-        }
-    }
 
     @OptIn(FlowPreview::class)
     val result = resultList
@@ -92,9 +79,11 @@ class CameraViewModel @Inject constructor(
             emptyList()
         )
 
-//    fun onChangeResult(: ) {
-//        _resultList.value =
-//    }
+    fun changeScan() {
+        _isSearching.update {
+            !it
+        }
+    }
 
     fun setUpCamera(
         context: Context,
@@ -124,7 +113,11 @@ class CameraViewModel @Inject constructor(
                 // Preview. Only using the 4:3 ratio because this is the closest to our models
                 preview =
                     Preview.Builder()
-                        .setTargetAspectRatio(AspectRatio.RATIO_4_3)
+                        .setResolutionSelector(
+                            ResolutionSelector.Builder()
+                                .setAspectRatioStrategy(AspectRatioStrategy.RATIO_4_3_FALLBACK_AUTO_STRATEGY)
+                                .build()
+                        )
                         .setTargetRotation(previewView.display.rotation)
                         .build()
 
@@ -192,6 +185,8 @@ class CameraViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        imageClassifierHelper.clearImageClassifier()
+        if(this::imageClassifierHelper.isInitialized){
+            imageClassifierHelper.clearImageClassifier()
+        }
     }
 }

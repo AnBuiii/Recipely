@@ -1,6 +1,6 @@
 package com.anbui.recipely.presentation.other_feature.camera
 
-import android.util.Log
+import android.Manifest
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -38,7 +38,12 @@ import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
+import com.google.accompanist.permissions.shouldShowRationale
 
+@OptIn(ExperimentalPermissionsApi::class)
 @ExperimentalMaterial3Api
 @Composable
 fun CameraScreen(
@@ -49,18 +54,28 @@ fun CameraScreen(
     val lifecycleOwner = LocalLifecycleOwner.current
     val configuration = LocalConfiguration.current
 
-//    val permissionState = rememberMultiplePermissionsState(
-//        permissions = listOf(
-//            Manifest.permission.CAMERA,
-//            Manifest.permission.RECORD_AUDIO
-//        )
-//    )
 
     val previewView: PreviewView = remember { PreviewView(context) }
     val result by viewModel.result.collectAsStateWithLifecycle()
 
+    val cameraPermissionState = rememberPermissionState(
+        Manifest.permission.CAMERA,
+    ) { granted ->
+        if (granted) {
+            viewModel.setUpCamera(context, previewView, lifecycleOwner, configuration.orientation)
+        } else {
+            navController.popBackStack()
+        }
+    }
     LaunchedEffect(Unit) {
-        viewModel.setUpCamera(context, previewView, lifecycleOwner, configuration.orientation)
+        if(cameraPermissionState.status.shouldShowRationale){
+            navController.popBackStack()
+        }
+        if (!cameraPermissionState.status.isGranted) {
+            cameraPermissionState.launchPermissionRequest()
+        } else {
+            viewModel.setUpCamera(context, previewView, lifecycleOwner, configuration.orientation)
+        }
     }
 
     Box(
@@ -80,7 +95,9 @@ fun CameraScreen(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             FilledIconButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    navController.popBackStack()
+                },
                 shape = MaterialTheme.shapes.medium,
                 colors = IconButtonDefaults.filledIconButtonColors(
                     containerColor = TrueWhite
@@ -90,9 +107,7 @@ fun CameraScreen(
             }
             Text(text = "Scanning", style = MaterialTheme.typography.headlineSmall)
             FilledIconButton(
-                onClick = {
-                    viewModel.searchForRecipe("")
-                },
+                onClick = viewModel::changeScan,
                 shape = MaterialTheme.shapes.medium,
                 colors = IconButtonDefaults.filledIconButtonColors(
                     containerColor = TrueWhite
