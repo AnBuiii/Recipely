@@ -38,10 +38,10 @@ import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.isGranted
-import com.google.accompanist.permissions.rememberPermissionState
-import com.google.accompanist.permissions.shouldShowRationale
+import com.anbui.recipely.util.permission.ExperimentalPermissionsApi
+import com.anbui.recipely.util.permission.isGranted
+import com.anbui.recipely.util.permission.rememberPermissionState
+import com.anbui.recipely.util.permission.shouldShowRationale
 
 @OptIn(ExperimentalPermissionsApi::class)
 @ExperimentalMaterial3Api
