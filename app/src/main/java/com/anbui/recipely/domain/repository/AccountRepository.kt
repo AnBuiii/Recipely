@@ -12,7 +12,7 @@ interface AccountRepository {
 
     suspend fun updateCurrentAccount(account: Account)
 
-    suspend fun addAccount(account: Account)
+    suspend fun addAccount(account: Account): Boolean
 
     suspend fun login(email: String, password: String): Boolean
     suspend fun logout()

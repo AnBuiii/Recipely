@@ -30,20 +30,18 @@ class LoginViewModel @Inject constructor(
         _state.update { it.copy(passwordVisible = value) }
     }
 
-    fun changeError(value: String?) {
-        _state.update { it.copy(error = value) }
+    fun changeState(value: State) {
+        _state.update { it.copy(state = value) }
     }
-
-    fun changeSuccess(value: Boolean) {
-        _state.update { it.copy(success = value) }
-    }
-
 
     fun login() {
         viewModelScope.launch {
             _state.value.let {
-                accountRepository.login("builehoaian2002@gmail.com", "builehoaian")
-                changeSuccess(true)
+                if(accountRepository.login(_state.value.email, _state.value.password)){
+                    changeState(State.Success)
+                } else {
+                    changeState(State.Fail)
+                }
 //                if (accountRepository.login(it.email, it.password)) {
 //                   changeSuccess(true)
 //                } else {

@@ -137,4 +137,5 @@
     <string name="instruction_hint">Enter instruction</string>
     <string name="period_hint">Enter period</string>
     <string name="this_feature_still_construction">This feature still construction</string>
+    <string name="confirm_password_hint">Confirm password</string>
 </resources>

@@ -5,5 +5,9 @@ data class LoginScreenState(
     val password: String = "",
     val passwordVisible: Boolean = false,
     val error: String? = null,
-    val success: Boolean = false
+    val state: State = State.Init
 )
+
+enum class State {
+    Init, Fail, Success
+}

@@ -7,11 +7,11 @@ import com.anbui.recipely.domain.models.Account
 import com.anbui.recipely.domain.models.GenderType
 import com.anbui.recipely.domain.repository.AccountRepository
 import com.anbui.recipely.domain.repository.CurrentPreferences
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.transform
+import java.util.UUID
 import javax.inject.Inject
 
 
@@ -27,10 +27,9 @@ class AccountRepositoryImpl @Inject constructor(
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     override fun getCurrentAccount(): Flow<Account> {
         val loggedId = currentPreferences.getLoggedId()
-        return loggedId.filterNotNull().flatMapLatest { id -> getAccountById(id) }
+        return loggedId.filterNotNull().transform { id -> getAccountById(id) }
     }
 
     override suspend fun logout() {
@@ -60,8 +59,20 @@ class AccountRepositoryImpl @Inject constructor(
         accountDao.updateAccount(account.toAccountEntity())
     }
 
-    override suspend fun addAccount(account: Account) {
-        accountDao.insertAccount(account = account.toAccountEntity())
+    override suspend fun addAccount(account: Account): Boolean {
+        return try {
+            if (accountDao.getAccountFromEmail(account.email) != null) {
+                false
+            } else {
+                accountDao.insertAccount(
+                    account = account.copy(id = UUID.randomUUID().toString()).toAccountEntity()
+                )
+                true
+            }
+        } catch (e: Exception) {
+            false
+        }
+
     }
 
     override suspend fun login(email: String, password: String): Boolean {

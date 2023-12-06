@@ -24,4 +24,7 @@ interface AccountDao {
     @Update
     suspend fun updateAccount(accountEntity: AccountEntity)
 
+    @Query("select * from Account where email = :email")
+    suspend fun getAccountFromEmail(email: String): AccountEntity?
 }
+

@@ -15,6 +15,7 @@ class SplashViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
     private val recipeRepository: RecipeRepository
 ) : ViewModel() {
+    val asd = accountRepository.getCurrentAccount()
 
     val accounts = recipeRepository.findIngredientWithRecipeId("kalka").stateIn(
         viewModelScope,

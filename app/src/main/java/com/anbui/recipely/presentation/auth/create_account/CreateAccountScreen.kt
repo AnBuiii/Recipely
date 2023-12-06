@@ -13,10 +13,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -26,6 +24,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.presentation.ui.components.StandardTextField
@@ -40,16 +40,35 @@ import com.anbui.recipely.presentation.util.Screen
 @ExperimentalMaterial3Api
 @Composable
 fun CreateAccountScreen(
-    navController: NavController
+    navController: NavController,
+    createAccountScreenViewModel: CreateAccountScreenViewModel = hiltViewModel()
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var username by remember { mutableStateOf("") }
-    var firstName by remember { mutableStateOf("") }
-    var lastName by remember { mutableStateOf("") }
-    var isPasswordVisible by remember {
-        mutableStateOf(true)
+    val uiState by createAccountScreenViewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(uiState.state) {
+        when (uiState.state) {
+            SuccessState.Fail.Email -> {
+
+            }
+
+            SuccessState.Fail.Password -> {
+
+            }
+
+            SuccessState.Init -> {
+
+            }
+
+            SuccessState.Success -> {
+                navController.navigate(Screen.HomeScreen.route) {
+                    popUpTo(0) {
+                        inclusive = true
+                    }
+                }
+            }
+        }
     }
+
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -64,17 +83,17 @@ fun CreateAccountScreen(
                 .padding(SpaceLarge)
         ) {
             Text(
-                text = stringResource(R.string.username),
+                text = stringResource(R.string.email_address),
                 style = MaterialTheme.typography.bodyMedium
             )
 
             Spacer(modifier = Modifier.height(SpaceMedium))
 
             StandardTextField(
-                text = username,
-                onValueChange = { username = it },
-                hint = stringResource(R.string.username_hint),
-                leadingIcon = painterResource(id = R.drawable.ic_profile)
+                text = uiState.email,
+                onValueChange = createAccountScreenViewModel::changeEmail,
+                hint = stringResource(R.string.email_hint),
+                leadingIcon = painterResource(id = R.drawable.ic_message)
             )
 
             Spacer(modifier = Modifier.height(SpaceMedium))
@@ -93,8 +112,8 @@ fun CreateAccountScreen(
                     Spacer(modifier = Modifier.height(SpaceMedium))
 
                     StandardTextField(
-                        text = firstName,
-                        onValueChange = { firstName = it },
+                        text = uiState.firstName,
+                        onValueChange = createAccountScreenViewModel::changeFirstName,
                         hint = stringResource(R.string.first_name_hint),
                         leadingIcon = painterResource(id = R.drawable.ic_profile)
                     )
@@ -111,10 +130,10 @@ fun CreateAccountScreen(
                     Spacer(modifier = Modifier.height(SpaceMedium))
 
                     StandardTextField(
-                        text = lastName,
-                        onValueChange = { lastName = it },
+                        text = uiState.lastName,
+                        onValueChange = createAccountScreenViewModel::changeLastName,
                         hint = stringResource(R.string.last_name_hint),
-                        leadingIcon = painterResource(id = R.drawable.ic_message)
+                        leadingIcon = painterResource(id = R.drawable.ic_profile)
                     )
                 }
             }
@@ -122,48 +141,48 @@ fun CreateAccountScreen(
             Spacer(modifier = Modifier.height(SpaceMedium))
 
             Text(
-                text = stringResource(R.string.email_address),
+                text = stringResource(R.string.password_hint),
                 style = MaterialTheme.typography.bodyMedium
             )
 
             Spacer(modifier = Modifier.height(SpaceMedium))
 
             StandardTextField(
-                text = email,
-                onValueChange = { email = it },
-                hint = stringResource(R.string.email_hint),
-                leadingIcon = painterResource(id = R.drawable.ic_message)
+                text = uiState.password,
+                onValueChange = createAccountScreenViewModel::changePassword,
+                hint = stringResource(R.string.password_hint),
+                leadingIcon = painterResource(id = R.drawable.ic_lock),
+                keyboardType = KeyboardType.Password,
+                isPasswordVisible = uiState.passwordVisible,
+                onPasswordToggleClick = createAccountScreenViewModel::changePasswordVisible
             )
 
             Spacer(modifier = Modifier.height(SpaceMedium))
 
             Text(
-                text = stringResource(R.string.password),
+                text = stringResource(R.string.confirm_password_hint),
                 style = MaterialTheme.typography.bodyMedium
             )
 
             Spacer(modifier = Modifier.height(SpaceMedium))
 
             StandardTextField(
-                text = password,
-                onValueChange = { password = it },
+                text = uiState.rePassword,
+                onValueChange = createAccountScreenViewModel::changeConfirmPassword,
                 hint = stringResource(
                     R.string.password_hint
                 ),
                 leadingIcon = painterResource(id = R.drawable.ic_lock),
                 keyboardType = KeyboardType.Password,
-                isPasswordVisible = isPasswordVisible,
-                onPasswordToggleClick = {
-                    isPasswordVisible = it
-                }
+                isPasswordVisible = uiState.rePasswordVisible,
+                onPasswordToggleClick = createAccountScreenViewModel::changeConfirmPasswordVisible,
+                error = if (uiState.password.isNotEmpty() && uiState.password != uiState.rePassword) "Password does not match" else ""
             )
 
             Spacer(modifier = Modifier.height(SpaceLarge + SpaceSmall))
 
             Button(
-                onClick = {
-                    navController.navigate(Screen.SelectInterestScreen.route)
-                },
+                onClick = createAccountScreenViewModel::createAccount,
                 shape = MaterialTheme.shapes.large,
                 modifier = Modifier.fillMaxWidth()
 

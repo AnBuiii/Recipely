@@ -1,6 +1,6 @@
 package com.anbui.recipely.presentation.auth.login
 
-import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -52,21 +53,26 @@ fun LoginScreen(
 ) {
     val uiState by loginViewModel.state.collectAsStateWithLifecycle()
     val coroutineScope = rememberCoroutineScope()
-    LaunchedEffect(uiState.error) {
-        uiState.error?.let {
-            coroutineScope.launch {
-                Log.d("LoginScreen", it)
-                delay(1000)
-                loginViewModel.changeError(null)
-            }
-        }
-    }
+    val context = LocalContext.current
 
-    LaunchedEffect(uiState.success) {
-        if (uiState.success) {
-            navController.navigate(Screen.HomeScreen.route) {
-                popUpTo(0) {
-                    inclusive = true
+    LaunchedEffect(uiState.state) {
+        when (uiState.state) {
+            State.Init -> {}
+            State.Fail -> {
+                coroutineScope.launch {
+                    Toast.makeText(
+                        context, "Email or password not match", Toast.LENGTH_SHORT
+                    ).show()
+                    delay(1000)
+                    loginViewModel.changeState(State.Init)
+                }
+            }
+
+            State.Success -> {
+                navController.navigate(Screen.HomeScreen.route) {
+                    popUpTo(0) {
+                        inclusive = true
+                    }
                 }
             }
         }
