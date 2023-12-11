@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -60,7 +61,7 @@ class CreateAccountScreenViewModel @Inject constructor(
                         password = password,
                         bio = "",
                         avatarUrl = "",
-                        dob = 0,
+                        dob = LocalDateTime.now(),
                         gender = GenderType.Male,
                         street = "",
                         district = "",

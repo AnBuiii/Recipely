@@ -28,10 +28,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,11 +39,12 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.GenderType
-import com.anbui.recipely.domain.models.exampleAccounts
 import com.anbui.recipely.presentation.ui.components.StandardDatePickerDialog
 import com.anbui.recipely.presentation.ui.components.StandardTextField
 import com.anbui.recipely.presentation.ui.components.StandardToolbar
@@ -61,31 +60,24 @@ import java.util.Locale
 @ExperimentalMaterial3Api
 @Composable
 fun EditProfileScreen(
-    navController: NavController
+    navController: NavController,
+    editProfileViewModel: EditProfileViewModel = hiltViewModel()
 ) {
-    val account = exampleAccounts[0]
-    var email by remember { mutableStateOf(account.email) }
-    var firstName by remember { mutableStateOf(account.firstName) }
-    var lastName by remember { mutableStateOf(account.lastName) }
-    var bio by remember { mutableStateOf(account.bio) }
-    var dob by remember {
-        mutableStateOf(account.dob)
-    }
-    var gender by remember {
-        mutableStateOf(account.gender)
-    }
-    var openDialog by remember { mutableStateOf(false) }
-
+    val uiState by editProfileViewModel.uiState.collectAsStateWithLifecycle()
     val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.US)
     StandardDatePickerDialog(
-        isOpen = openDialog,
-        onChangeOpenDialog = { openDialog = it },
-        onConfirm = {
-            dob = it
-        }
+        isOpen = uiState.openDialog,
+        onChangeOpenDialog = editProfileViewModel::setOpenDialog,
+        onConfirm = editProfileViewModel::onChangeDOB
     )
 
     val focusManager = LocalFocusManager.current
+
+    LaunchedEffect(uiState.success) {
+        if (uiState.success) {
+            navController.popBackStack()
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -108,8 +100,8 @@ fun EditProfileScreen(
                 .padding(horizontal = SpaceLarge)
         ) {
             AsyncImage(
-                model = account.avatarUrl,
-                contentDescription = account.id,
+                model = uiState.avatar,
+                contentDescription = "",
                 modifier = Modifier
                     .size(120.dp)
                     .align(Alignment.CenterHorizontally)
@@ -133,8 +125,8 @@ fun EditProfileScreen(
                     Spacer(modifier = Modifier.height(SpaceMedium))
 
                     StandardTextField(
-                        text = firstName,
-                        onValueChange = { firstName = it },
+                        text = uiState.firstName,
+                        onValueChange = editProfileViewModel::onChangeFirstName,
                         hint = stringResource(R.string.first_name_hint),
                         leadingIcon = painterResource(id = R.drawable.ic_profile)
                     )
@@ -151,8 +143,8 @@ fun EditProfileScreen(
                     Spacer(modifier = Modifier.height(SpaceMedium))
 
                     StandardTextField(
-                        text = lastName,
-                        onValueChange = { lastName = it },
+                        text = uiState.lastName,
+                        onValueChange = editProfileViewModel::onChangeLastName,
                         hint = stringResource(R.string.last_name_hint),
                         leadingIcon = painterResource(id = R.drawable.ic_message)
                     )
@@ -169,10 +161,11 @@ fun EditProfileScreen(
             Spacer(modifier = Modifier.height(SpaceMedium))
 
             StandardTextField(
-                text = email,
-                onValueChange = { email = it },
+                text = uiState.email,
+                onValueChange = { },
                 hint = stringResource(R.string.email_hint),
-                leadingIcon = painterResource(id = R.drawable.ic_message)
+                leadingIcon = painterResource(id = R.drawable.ic_message),
+                isEnabled = false
             )
 
             Spacer(modifier = Modifier.height(SpaceMedium))
@@ -185,11 +178,11 @@ fun EditProfileScreen(
             Spacer(modifier = Modifier.height(SpaceMedium))
 
             StandardTextField(
-                text = simpleDateFormat.format(dob),
-                onValueChange = { email = it },
+                text = simpleDateFormat.format(uiState.dob),
+                onValueChange = { },
                 leadingIcon = painterResource(id = R.drawable.ic_birth),
                 trailingIcon = {
-                    IconButton(onClick = { openDialog = true }) {
+                    IconButton(onClick = { editProfileViewModel.setOpenDialog(true) }) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_arrow_down),
                             contentDescription = null,
@@ -210,8 +203,8 @@ fun EditProfileScreen(
             Spacer(modifier = Modifier.height(SpaceMedium))
 
             StandardTextField(
-                text = bio,
-                onValueChange = { bio = it },
+                text = uiState.bio,
+                onValueChange = editProfileViewModel::onChangeBio,
                 hint = stringResource(R.string.recipely_lover),
                 leadingIcon = painterResource(id = R.drawable.ic_edit),
                 minLines = 2,
@@ -247,12 +240,12 @@ fun EditProfileScreen(
                         .weight(1f),
                     colors = CardDefaults.cardColors(containerColor = TrueWhite),
                     border = BorderStroke(
-                        if (gender == GenderType.Male) 2.dp else 0.dp,
+                        if (uiState.gender == GenderType.Male) 2.dp else 0.dp,
                         color = MaterialTheme.colorScheme.primary
                     ),
                     onClick = {
-                        if (gender != GenderType.Male) {
-                            gender = GenderType.Male
+                        if (uiState.gender != GenderType.Male) {
+                            editProfileViewModel.onChangeGender(GenderType.Male)
                         }
                     }
 
@@ -267,7 +260,7 @@ fun EditProfileScreen(
                             modifier = Modifier.align(Alignment.Center),
                             style = MaterialTheme.typography.bodyMedium
                         )
-                        if (gender == GenderType.Male) {
+                        if (uiState.gender == GenderType.Male) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_tick),
                                 contentDescription = stringResource(id = R.string.tick),
@@ -289,11 +282,13 @@ fun EditProfileScreen(
                         .weight(1f),
                     colors = CardDefaults.cardColors(containerColor = TrueWhite),
                     border = BorderStroke(
-                        if (gender == GenderType.Female) 2.dp else 0.dp,
+                        if (uiState.gender == GenderType.Female) 2.dp else 0.dp,
                         color = MaterialTheme.colorScheme.primary
                     ),
                     onClick = {
-                        if (gender != GenderType.Female) gender = GenderType.Female
+                        if (uiState.gender != GenderType.Female) {
+                            editProfileViewModel.onChangeGender(GenderType.Female)
+                        }
                     }
 
                 ) {
@@ -307,7 +302,7 @@ fun EditProfileScreen(
                             modifier = Modifier.align(Alignment.Center),
                             style = MaterialTheme.typography.bodyMedium
                         )
-                        if (gender == GenderType.Female) {
+                        if (uiState.gender == GenderType.Female) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_tick),
                                 contentDescription = stringResource(id = R.string.tick),
@@ -321,9 +316,7 @@ fun EditProfileScreen(
             Spacer(modifier = Modifier.height(SpaceLarge))
 
             Button(
-                onClick = {
-                    navController.popBackStack()
-                },
+                onClick = editProfileViewModel::onUpdateProfile,
                 shape = MaterialTheme.shapes.large,
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(

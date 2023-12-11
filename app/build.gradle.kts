@@ -92,13 +92,9 @@ dependencies {
 
     // Splash screen
     implementation(libs.androidx.core.splashscreen)
-
     // Media3
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui)
-
-//     Google accompanist
-//    implementation(libs.accompanist.permissions)
 
     // CameraX
     implementation(libs.androidx.camera.camera2)

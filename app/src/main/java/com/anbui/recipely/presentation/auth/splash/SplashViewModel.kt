@@ -1,30 +1,40 @@
 package com.anbui.recipely.presentation.auth.splash
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anbui.recipely.data.local.RecipelyDatabase
 import com.anbui.recipely.domain.repository.AccountRepository
-import com.anbui.recipely.domain.repository.RecipeRepository
+import com.anbui.recipely.presentation.util.Screen
+import com.anbui.recipely.util.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
-    private val recipeRepository: RecipeRepository
 ) : ViewModel() {
-    val asd = accountRepository.getCurrentAccount()
+    private val _loading = MutableStateFlow<String?>(null)
+    val loading = _loading.asStateFlow()
 
-    val accounts = recipeRepository.findIngredientWithRecipeId("kalka").stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        listOf()
-    )
-
-    @Inject
-    lateinit var db: RecipelyDatabase
+    init {
+        viewModelScope.launch {
+            try {
+                withTimeout(Constants.SPLASH_SCREEN_DURATION){
+                    accountRepository.getCurrentAccount().first()
+                    _loading.update { Screen.HomeScreen.route }
+                }
+            } catch (_: TimeoutCancellationException){
+                _loading.update { Screen.OnBoardingScreen.route }
+            }
+        }
+    }
 
 
 }
