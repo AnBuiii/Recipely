@@ -9,8 +9,10 @@ import com.anbui.recipely.domain.repository.AccountRepository
 import com.anbui.recipely.domain.repository.CurrentPreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.transform
+import java.time.LocalDateTime
 import java.util.UUID
 import javax.inject.Inject
 
@@ -29,7 +31,9 @@ class AccountRepositoryImpl @Inject constructor(
 
     override fun getCurrentAccount(): Flow<Account> {
         val loggedId = currentPreferences.getLoggedId()
-        return loggedId.filterNotNull().transform { id -> getAccountById(id) }
+        return loggedId.filterNotNull().transform { id ->
+            emit(getAccountById(id).first())
+        }
     }
 
     override suspend fun logout() {
@@ -46,7 +50,7 @@ class AccountRepositoryImpl @Inject constructor(
                 password = account.password,
                 bio = account.bio,
                 avatarUrl = account.avatarUrl,
-                dob = 0,
+                dob = LocalDateTime.now(),
                 gender = GenderType.fromType(account.gender),
                 street = account.street,
                 district = account.district,

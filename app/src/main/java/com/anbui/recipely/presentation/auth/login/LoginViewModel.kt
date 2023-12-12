@@ -42,11 +42,6 @@ class LoginViewModel @Inject constructor(
                 } else {
                     changeState(State.Fail)
                 }
-//                if (accountRepository.login(it.email, it.password)) {
-//                   changeSuccess(true)
-//                } else {
-//                    changeError("Login fail")
-//                }
 
             }
         }
