@@ -7,4 +7,6 @@ interface NotificationRepository {
     fun getCurrentUserNotification(): Flow<List<Notification>>
 
     suspend fun insertNotification(notification: Notification)
+
+    suspend fun readNotification(notificationId: String)
 }

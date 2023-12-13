@@ -330,7 +330,7 @@ fun RecipelyHorizontallyCard(
 @ExperimentalMaterial3Api
 @Composable
 fun RecipelyTinyCard(
-    recipe: Recipe
+    recipe: Recipe,
 ) {
     StandardCard(
         modifier = Modifier.size(width = 100.dp, height = 136.dp),
@@ -356,8 +356,9 @@ fun RecipelyTinyCard(
 @ExperimentalMaterial3Api
 @Composable
 fun RecipelyNotificationCard(
+    modifier: Modifier = Modifier,
     notification: Notification,
-    modifier: Modifier = Modifier
+    onClick: () -> Unit
 ) {
     val titleText = when (notification.notificationType) {
         NotificationType.Like -> {
@@ -381,7 +382,8 @@ fun RecipelyNotificationCard(
 
     StandardCard(
         modifier = modifier.height(80.dp),
-        contentPadding = SpaceMedium
+        contentPadding = SpaceMedium,
+        onClick = onClick
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),
@@ -462,12 +464,14 @@ fun RecipelyNotificationCard(
                         softWrap = true,
                         modifier = Modifier.weight(1f)
                     )
-                    Box(
-                        modifier = Modifier
-                            .size(8.dp)
-                            .clip(CircleShape)
-                            .background(GoogleRed)
-                    )
+                    if(!notification.isRead){
+                        Box(
+                            modifier = Modifier
+                                .size(8.dp)
+                                .clip(CircleShape)
+                                .background(GoogleRed)
+                        )
+                    }
                 }
             }
         }

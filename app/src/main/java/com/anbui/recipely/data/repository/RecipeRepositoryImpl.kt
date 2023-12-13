@@ -2,6 +2,7 @@ package com.anbui.recipely.data.repository
 
 import android.util.Log
 import androidx.compose.ui.text.capitalize
+import com.anbui.recipely.data.local.dao.AccountDao
 import com.anbui.recipely.data.local.dao.RecipeDao
 import com.anbui.recipely.data.local.entities.LikeEntity
 import com.anbui.recipely.data.local.entities.RecentEntity
@@ -34,6 +35,7 @@ import javax.inject.Inject
 
 class RecipeRepositoryImpl @Inject constructor(
     private val recipeDao: RecipeDao,
+    private val accountDao: AccountDao,
     private val currentPreferences: CurrentPreferences,
     private val notificationRepository: NotificationRepository
 ) : RecipeRepository {
@@ -98,7 +100,8 @@ class RecipeRepositoryImpl @Inject constructor(
     }
 
     override suspend fun likeRecipe(recipeId: String, like: Boolean) {
-        val loggedId = currentPreferences.getLoggedId().filterNotNull().first()
+        val loggedId = currentPreferences.getLoggedId().first() ?: return
+        val account = accountDao.getAccountById(loggedId).first()
 
         if (like) {
             val uuid = UUID.randomUUID()
@@ -113,7 +116,7 @@ class RecipeRepositoryImpl @Inject constructor(
                 id = UUID.randomUUID().toString(),
                 userId = loggedId,
                 notificationType = NotificationType.Like,
-                message = "hello",
+                message = "${account.firstName} like your recipe",
                 isRead = false,
                 imageUrl = null
             ).let {

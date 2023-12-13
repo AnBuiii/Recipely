@@ -7,9 +7,12 @@ import com.anbui.recipely.data.local.entities.OrderStatusEntity
 import com.anbui.recipely.data.local.entities.relations.IngredientAccountCrossRef
 import com.anbui.recipely.data.local.entities.relations.OrderIngredientCrossRef
 import com.anbui.recipely.domain.models.IngredientItem
+import com.anbui.recipely.domain.models.Notification
+import com.anbui.recipely.domain.models.NotificationType
 import com.anbui.recipely.domain.models.Order
 import com.anbui.recipely.domain.repository.CartRepository
 import com.anbui.recipely.domain.repository.CurrentPreferences
+import com.anbui.recipely.domain.repository.NotificationRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
@@ -22,6 +25,7 @@ import javax.inject.Inject
 class CartRepositoryImpl @Inject constructor(
     private val orderDao: OrderDao,
     private val accountDao: AccountDao,
+    private val notificationRepository: NotificationRepository,
     private val currentPreferences: CurrentPreferences
 ) : CartRepository {
     override fun getAllInCartOfCurrentAccount(): Flow<List<IngredientItem>> {
@@ -116,6 +120,16 @@ class CartRepositoryImpl @Inject constructor(
             )
         }.let {
             orderDao.insertOrderDetails(it)
+        }
+        Notification(
+            id = UUID.randomUUID().toString(),
+            userId = accountId,
+            notificationType = NotificationType.Order,
+            message = "Your order $orderId has been created",
+            isRead = false,
+            imageUrl = null
+        ).let {
+            notificationRepository.insertNotification(it)
         }
     }
 

@@ -6,15 +6,22 @@ import com.anbui.recipely.domain.repository.NotificationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class NotificationScreenViewModel @Inject constructor(
-    notificationRepository: NotificationRepository
+    private val notificationRepository: NotificationRepository
 ) : ViewModel() {
     val notifications = notificationRepository.getCurrentUserNotification().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
         emptyList()
     )
+
+    fun readNotification(id: String){
+        viewModelScope.launch {
+            notificationRepository.readNotification(id)
+        }
+    }
 }

@@ -91,11 +91,14 @@ fun NotificationScreen(
                 }
                 items(notification, key = { it.id }) {
                     RecipelyNotificationCard(
-                        notification = it,
                         modifier = Modifier.padding(
                             horizontal = SpaceLarge,
                             vertical = SpaceSmall + SpaceTiny
-                        )
+                        ),
+                        notification = it,
+                        onClick = {
+                            notificationScreenViewModel.readNotification(it.id)
+                        }
                     )
                 }
             }

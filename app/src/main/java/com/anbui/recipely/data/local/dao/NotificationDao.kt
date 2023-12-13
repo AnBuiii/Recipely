@@ -13,4 +13,7 @@ interface NotificationDao {
 
     @Insert
     suspend fun insertNotification(notificationEntity: NotificationEntity)
+
+    @Query("Update Notification set isRead = true where _id = :notificationId")
+    suspend fun readNotification(notificationId: String)
 }

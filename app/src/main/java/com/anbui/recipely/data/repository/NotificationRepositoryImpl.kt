@@ -33,4 +33,8 @@ class NotificationRepositoryImpl @Inject constructor(
             notificationDao.insertNotification(it)
         }
     }
+
+    override suspend fun readNotification(notificationId: String){
+        notificationDao.readNotification(notificationId)
+    }
 }
