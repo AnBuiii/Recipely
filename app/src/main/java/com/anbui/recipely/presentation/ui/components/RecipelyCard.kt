@@ -1,5 +1,6 @@
 package com.anbui.recipely.presentation.ui.components
 
+import android.text.format.DateUtils
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -43,6 +44,7 @@ import com.anbui.recipely.domain.models.Notification
 import com.anbui.recipely.domain.models.NotificationType
 import com.anbui.recipely.domain.models.Recipe
 import com.anbui.recipely.domain.models.exampleRecipes
+import com.anbui.recipely.presentation.main_screen.notification.timeAgo
 import com.anbui.recipely.presentation.ui.theme.DarkGrey
 import com.anbui.recipely.presentation.ui.theme.GoogleRed
 import com.anbui.recipely.presentation.ui.theme.MediumGrey
@@ -54,11 +56,11 @@ import com.anbui.recipely.presentation.ui.theme.TrueWhite
 
 @Composable
 fun RecipelyLargeCard(
+    modifier: Modifier = Modifier,
     recipe: Recipe,
-    modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .size(height = 172.dp, width = 264.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         shape = MaterialTheme.shapes.large
@@ -151,9 +153,9 @@ fun RecipelyLargeCard(
 @ExperimentalMaterial3Api
 @Composable
 fun RecipelyVerticallyCard(
+    modifier: Modifier = Modifier,
     recipe: Recipe,
     onLikeClick: () -> Unit = {},
-    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
     StandardCard(
@@ -358,20 +360,8 @@ fun RecipelyNotificationCard(
     modifier: Modifier = Modifier
 ) {
     val titleText = when (notification.notificationType) {
-        NotificationType.CommentedOnRecipe, NotificationType.LikedRecipe -> {
+        NotificationType.Like -> {
             stringResource(R.string.recipe_interaction)
-        }
-
-        NotificationType.FollowedUser -> {
-            stringResource(R.string.about_you)
-        }
-
-        NotificationType.Promo -> {
-            stringResource(R.string.promo)
-        }
-
-        NotificationType.RecipeRecommendation -> {
-            stringResource(R.string.recipe_recommendation)
         }
 
         NotificationType.Order -> {
@@ -380,20 +370,8 @@ fun RecipelyNotificationCard(
     }
 
     val icon = when (notification.notificationType) {
-        NotificationType.CommentedOnRecipe, NotificationType.LikedRecipe -> {
+        NotificationType.Like -> {
             null
-        }
-
-        NotificationType.FollowedUser -> {
-            painterResource(id = R.drawable.ic_profile_filled)
-        }
-
-        NotificationType.Promo -> {
-            painterResource(id = R.drawable.ic_discount)
-        }
-
-        NotificationType.RecipeRecommendation -> {
-            painterResource(id = R.drawable.ic_discount)
         }
 
         NotificationType.Order -> {
@@ -464,7 +442,7 @@ fun RecipelyNotificationCard(
                         modifier = Modifier.weight(1f)
                     )
                     Text(
-                        text = notification.formattedTime,
+                        text = notification.time.timeAgo(DateUtils.MINUTE_IN_MILLIS),
                         style = MaterialTheme.typography.labelLarge.copy(
                             fontWeight = FontWeight.Normal
                         ),
@@ -571,9 +549,9 @@ fun RecipelyAccountCard(
 @ExperimentalMaterial3Api
 @Composable
 fun RecipelyTinyVerticallyCard(
+    modifier: Modifier = Modifier,
     recipe: Recipe,
     onLikeClick: () -> Unit = {},
-    modifier: Modifier = Modifier
 ) {
     StandardCard(
         modifier = modifier.wrapContentHeight()

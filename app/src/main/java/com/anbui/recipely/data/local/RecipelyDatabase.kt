@@ -4,11 +4,13 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.anbui.recipely.data.local.dao.AccountDao
+import com.anbui.recipely.data.local.dao.NotificationDao
 import com.anbui.recipely.data.local.dao.OrderDao
 import com.anbui.recipely.data.local.dao.RecipeDao
 import com.anbui.recipely.data.local.entities.AccountEntity
 import com.anbui.recipely.data.local.entities.IngredientEntity
 import com.anbui.recipely.data.local.entities.LikeEntity
+import com.anbui.recipely.data.local.entities.NotificationEntity
 import com.anbui.recipely.data.local.entities.OrderEntity
 import com.anbui.recipely.data.local.entities.OrderStatusEntity
 import com.anbui.recipely.data.local.entities.RecentEntity
@@ -33,7 +35,8 @@ import com.anbui.recipely.data.local.entities.relations.RecipeIngredientCrossRef
         OrderStatusEntity::class,
         RecipeIngredientCrossRef::class,
         IngredientAccountCrossRef::class,
-        OrderIngredientCrossRef::class
+        OrderIngredientCrossRef::class,
+        NotificationEntity::class
     ],
     exportSchema = false,
 )
@@ -42,4 +45,5 @@ abstract class RecipelyDatabase : RoomDatabase() {
     abstract val accountDao: AccountDao
     abstract val recipeDao: RecipeDao
     abstract val orderDao: OrderDao
+    abstract val notificationDao: NotificationDao
 }

@@ -1,8 +1,10 @@
 package com.anbui.recipely.presentation.main_screen.notification
 
+import android.text.format.DateUtils
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.exampleNotifications
@@ -22,6 +25,26 @@ import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.SpaceTiny
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
+import java.text.ParseException
+import java.time.LocalDateTime
+import java.time.ZoneId
+
+
+fun LocalDateTime.timeAgo(minResolution: Long): String {
+    return try {
+        val then = this.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        val now = System.currentTimeMillis()
+        val ago = DateUtils.getRelativeTimeSpanString(
+            then,
+            now,
+            minResolution,
+        )
+        ago.toString()
+    } catch (e: ParseException) {
+        e.printStackTrace()
+        "fail"
+    }
+}
 
 @ExperimentalFoundationApi
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,7 +52,9 @@ import com.anbui.recipely.presentation.ui.theme.TrueWhite
 fun NotificationScreen(
     navController: NavController
 ) {
-    val groupedNotification = exampleNotifications.groupBy { it.timeGroup }
+    val groupedNotification = exampleNotifications.groupBy {
+        it.time.timeAgo(DateUtils.DAY_IN_MILLIS)
+    }
     Column {
         StandardToolbar(
             navController = navController,
@@ -37,7 +62,8 @@ fun NotificationScreen(
         )
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxSize(),
+            contentPadding = PaddingValues(bottom = 32.dp)
         ) {
             groupedNotification.forEach { (time, notification) ->
                 stickyHeader {
