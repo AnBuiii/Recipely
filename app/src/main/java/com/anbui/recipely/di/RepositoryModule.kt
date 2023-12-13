@@ -3,10 +3,12 @@ package com.anbui.recipely.di
 import com.anbui.recipely.data.repository.AccountRepositoryImpl
 import com.anbui.recipely.data.repository.CartRepositoryImpl
 import com.anbui.recipely.data.repository.CurrentPreferencesImpl
+import com.anbui.recipely.data.repository.NotificationRepositoryImpl
 import com.anbui.recipely.data.repository.RecipeRepositoryImpl
 import com.anbui.recipely.domain.repository.AccountRepository
 import com.anbui.recipely.domain.repository.CartRepository
 import com.anbui.recipely.domain.repository.CurrentPreferences
+import com.anbui.recipely.domain.repository.NotificationRepository
 import com.anbui.recipely.domain.repository.RecipeRepository
 import dagger.Binds
 import dagger.Module
@@ -35,4 +37,9 @@ abstract class RepositoryModule {
     abstract fun bindCartRepository(
         cartRepositoryImpl: CartRepositoryImpl
     ): CartRepository
+
+    @Binds
+    abstract  fun bindNotificationRepository(
+        notificationRepositoryImpl: NotificationRepositoryImpl
+    ): NotificationRepository
 }

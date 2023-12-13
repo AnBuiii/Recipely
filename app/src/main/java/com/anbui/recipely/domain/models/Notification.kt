@@ -1,5 +1,6 @@
 package com.anbui.recipely.domain.models
 
+import com.anbui.recipely.data.local.entities.NotificationEntity
 import java.time.LocalDateTime
 
 data class Notification(
@@ -10,7 +11,20 @@ data class Notification(
     val message: String,
     val isRead: Boolean,
     val imageUrl: String?,
-)
+) {
+    fun toNotificationEntity(): NotificationEntity {
+        return NotificationEntity(
+            id = id,
+            userId = userId,
+            notificationType = notificationType,
+            time = time,
+            message = message,
+            isRead = isRead,
+            imageUrl = imageUrl
+        )
+    }
+
+}
 
 val exampleNotifications = listOf(
     Notification(

@@ -26,7 +26,7 @@ import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 @Composable
 fun PopularRecipeSection(
     popularRecipes: List<Recipe> = emptyList(),
-    onRecipeLikeClick: (String, Boolean) -> Unit,
+    onRecipeLikeClick: (Recipe, Boolean) -> Unit,
     onRecipeClick: (String) -> Unit
 ) {
     Column(
@@ -59,7 +59,7 @@ fun PopularRecipeSection(
             items(popularRecipes, key = { it.id }) {
                 RecipelyVerticallyCard(
                     recipe = it,
-                    onLikeClick = { onRecipeLikeClick(it.id, !it.isLike) },
+                    onLikeClick = { onRecipeLikeClick(it, !it.isLike) },
                     onClick = { onRecipeClick(it.id) }
                 )
             }

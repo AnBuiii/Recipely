@@ -14,9 +14,12 @@ import com.anbui.recipely.data.local.entities.relations.toRecipe
 import com.anbui.recipely.data.local.entities.relations.toRecipes
 import com.anbui.recipely.domain.models.Ingredient
 import com.anbui.recipely.domain.models.IngredientItem
+import com.anbui.recipely.domain.models.Notification
+import com.anbui.recipely.domain.models.NotificationType
 import com.anbui.recipely.domain.models.Recipe
 import com.anbui.recipely.domain.models.Step
 import com.anbui.recipely.domain.repository.CurrentPreferences
+import com.anbui.recipely.domain.repository.NotificationRepository
 import com.anbui.recipely.domain.repository.RecipeRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -32,6 +35,7 @@ import javax.inject.Inject
 class RecipeRepositoryImpl @Inject constructor(
     private val recipeDao: RecipeDao,
     private val currentPreferences: CurrentPreferences,
+    private val notificationRepository: NotificationRepository
 ) : RecipeRepository {
 
     override fun getFavouriteOfCurrentAccount(): Flow<List<Recipe>> {
@@ -94,7 +98,7 @@ class RecipeRepositoryImpl @Inject constructor(
     }
 
     override suspend fun likeRecipe(recipeId: String, like: Boolean) {
-        val loggedId = currentPreferences.getLoggedId()
+        val loggedId = currentPreferences.getLoggedId().filterNotNull().first()
 
         if (like) {
             val uuid = UUID.randomUUID()
@@ -102,12 +106,23 @@ class RecipeRepositoryImpl @Inject constructor(
                 LikeEntity(
                     id = uuid.toString(),
                     recipeId = recipeId,
-                    accountId = loggedId.filterNotNull().first()
+                    accountId = loggedId
                 )
             )
+            Notification(
+                id = UUID.randomUUID().toString(),
+                userId = loggedId,
+                notificationType = NotificationType.Like,
+                message = "hello",
+                isRead = false,
+                imageUrl = null
+            ).let {
+                notificationRepository.insertNotification(it)
+            }
         } else {
-            recipeDao.deleteLike(recipeId = recipeId, accountId = loggedId.filterNotNull().first())
+            recipeDao.deleteLike(recipeId = recipeId, accountId = loggedId)
         }
+
     }
 
     override suspend fun searchIngredients(ingredientName: String): List<Ingredient> {

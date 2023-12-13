@@ -13,9 +13,14 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
 import com.anbui.recipely.domain.models.exampleNotifications
@@ -50,11 +55,19 @@ fun LocalDateTime.timeAgo(minResolution: Long): String {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NotificationScreen(
-    navController: NavController
+    navController: NavController,
+    notificationScreenViewModel: NotificationScreenViewModel = hiltViewModel()
 ) {
-    val groupedNotification = exampleNotifications.groupBy {
-        it.time.timeAgo(DateUtils.DAY_IN_MILLIS)
+    val notification by notificationScreenViewModel.notifications.collectAsStateWithLifecycle()
+
+    val groupedNotification by remember(notification) {
+        derivedStateOf {
+            notification.groupBy {
+                it.time.timeAgo(DateUtils.DAY_IN_MILLIS)
+            }
+        }
     }
+
     Column {
         StandardToolbar(
             navController = navController,

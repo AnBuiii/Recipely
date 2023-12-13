@@ -71,8 +71,8 @@ fun HomeScreen(
 
         PopularRecipeSection(
             popularRecipes = popularRecipes,
-            onRecipeLikeClick = { id, like ->
-                homeScreenViewModel.likeRecipe(id, like)
+            onRecipeLikeClick = { recipe, like ->
+                homeScreenViewModel.likeRecipe(recipe, like)
             }
         ) { id ->
             navController.navigate(
