@@ -14,9 +14,7 @@ hilt-android = "2.49"
 androidx-hilt = "1.1.0"
 room = "2.6.1"
 navigation-compose = "2.7.5"
-camerax = "1.3.0"
-
-google-accompanist = "0.33.2-alpha"
+camerax = "1.3.1"
 
 coil-compose = "2.5.0"
 constraintlayout-compose = "1.0.1"
@@ -59,7 +57,6 @@ androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constr
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "core-splashscreen" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose" }
 
-accompanist-permissions = {module = "com.google.accompanist:accompanist-permissions", version.ref = "google-accompanist" }
 androidx-camera-extensions = { module = "androidx.camera:camera-extensions", version.ref = "camerax" }
 androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "camerax" }
 androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "camerax" }

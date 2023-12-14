@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.transform
-import java.time.LocalDateTime
 import java.util.UUID
 import javax.inject.Inject
 
@@ -50,7 +49,7 @@ class AccountRepositoryImpl @Inject constructor(
                 password = account.password,
                 bio = account.bio,
                 avatarUrl = account.avatarUrl,
-                dob = LocalDateTime.now(),
+                dob = account.dob,
                 gender = GenderType.fromType(account.gender),
                 street = account.street,
                 district = account.district,
@@ -73,7 +72,7 @@ class AccountRepositoryImpl @Inject constructor(
                 )
                 true
             }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             false
         }
 
