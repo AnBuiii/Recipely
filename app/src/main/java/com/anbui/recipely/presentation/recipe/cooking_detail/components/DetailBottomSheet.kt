@@ -115,7 +115,8 @@ fun DetailBottomSheet(
                             Text(
                                 text = "Instructions",
                                 style = MaterialTheme.typography.bodyMedium.copy(
-                                    color = if (viewMode is ViewMode.Instructions) TrueWhite else MaterialTheme.colorScheme.primary
+                                    color = if (viewMode is ViewMode.Instructions) TrueWhite
+                                    else MaterialTheme.colorScheme.primary
                                 )
                             )
                         }

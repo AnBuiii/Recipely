@@ -31,7 +31,6 @@ import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 @ExperimentalFoundationApi
 fun LazyListScope.instructionsSection(
     recipe: Recipe,
-    modifier: Modifier = Modifier
 ) {
     item(
         key = "instruction section title"

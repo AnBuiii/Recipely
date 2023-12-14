@@ -29,8 +29,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -165,8 +167,13 @@ fun CookingDetailScreen(
                 }
             }
         }
+        val isFinish by remember(mediaPagerState.currentPage) {
+            derivedStateOf {
+                (mediaPagerState.currentPage + 1) >= recipe.instructions.size
+            }
+        }
 
-        if (mediaPagerState.currentPage < recipe.instructions.size) {
+        if (recipe.instructions.isNotEmpty()) {
             LaunchedEffect(mediaPagerState.currentPage) {
                 cookingDetailViewModel.setTimer(recipe.instructions[mediaPagerState.currentPage].period)
             }
@@ -200,31 +207,31 @@ fun CookingDetailScreen(
                     cookingDetailViewModel.buttonSelection()
                 }
             )
-            Spacer(modifier = Modifier.weight(1f))
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = SpaceLarge),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = stringResource(R.string.step),
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        color = MaterialTheme.colorScheme.secondary
-                    )
-                )
-                Text(
-                    text = "${mediaPagerState.currentPage + 1} of ${recipe.instructions.size}",
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        color = MaterialTheme.colorScheme.secondary
-                    )
-                )
-            }
         }
 
+        Spacer(modifier = Modifier.weight(1f))
 
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = SpaceLarge),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource(R.string.step),
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    color = MaterialTheme.colorScheme.secondary
+                )
+            )
+            Text(
+                text = "${mediaPagerState.currentPage + 1} of ${recipe.instructions.size}",
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    color = MaterialTheme.colorScheme.secondary
+                )
+            )
+        }
 
         StandardProgressIndicator(
             indicatorProgress = (mediaPagerState.currentPage + 1).toFloat() / recipe.instructions.size
@@ -232,7 +239,7 @@ fun CookingDetailScreen(
 
         Button(
             onClick = {
-                if ((mediaPagerState.currentPage + 1) != recipe.instructions.size) {
+                if (!isFinish) {
                     coroutineScope.launch {
                         mediaPagerState.animateScrollToPage(mediaPagerState.currentPage + 1)
                     }
@@ -258,7 +265,7 @@ fun CookingDetailScreen(
 
         ) {
             Text(
-                text = if ((mediaPagerState.currentPage + 1) != recipe.instructions.size) {
+                text = if (!isFinish) {
                     stringResource(
                         R.string.next_step
                     )
