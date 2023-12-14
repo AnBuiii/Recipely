@@ -1,5 +1,8 @@
 package com.anbui.recipely.presentation.other_feature.edit_profile
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -35,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -56,7 +60,6 @@ import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-@OptIn(ExperimentalStdlibApi::class)
 @ExperimentalMaterial3Api
 @Composable
 fun EditProfileScreen(
@@ -65,6 +68,12 @@ fun EditProfileScreen(
 ) {
     val uiState by editProfileViewModel.uiState.collectAsStateWithLifecycle()
     val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.US)
+    val photoPickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = { uri ->
+            uri?.let(editProfileViewModel::onChangePicture)
+        }
+    )
     StandardDatePickerDialog(
         isOpen = uiState.openDialog,
         onChangeOpenDialog = editProfileViewModel::setOpenDialog,
@@ -102,11 +111,18 @@ fun EditProfileScreen(
             AsyncImage(
                 model = uiState.avatar,
                 contentDescription = "",
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(120.dp)
                     .align(Alignment.CenterHorizontally)
                     .clip(CircleShape)
-                    .clickable { }
+                    .clickable {
+                        photoPickerLauncher.launch(
+                            PickVisualMediaRequest(
+                                ActivityResultContracts.PickVisualMedia.ImageOnly
+                            )
+                        )
+                    }
             )
 
             Spacer(modifier = Modifier.height(SpaceMedium))

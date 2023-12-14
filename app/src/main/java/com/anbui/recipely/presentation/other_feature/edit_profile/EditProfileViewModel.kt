@@ -1,5 +1,6 @@
 package com.anbui.recipely.presentation.other_feature.edit_profile
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anbui.recipely.domain.models.GenderType
@@ -39,6 +40,7 @@ class EditProfileViewModel @Inject constructor(
                         bio = bio,
                         dob = zdt.toInstant().toEpochMilli(),
                         gender = gender,
+                        avatar = avatarUrl
                     )
                 }
             }
@@ -81,6 +83,12 @@ class EditProfileViewModel @Inject constructor(
         }
     }
 
+    fun onChangePicture(uri: Uri){
+        _uiState.update {
+            it.copy(avatar = uri.toString())
+        }
+    }
+
     fun onUpdateProfile() {
         viewModelScope.launch {
             with(_uiState.value) {
@@ -96,6 +104,7 @@ class EditProfileViewModel @Inject constructor(
                             bio = bio,
                             dob = dobTime,
                             gender = gender,
+                            avatarUrl = avatar
                         )
                     )
                 }
