@@ -1,10 +1,8 @@
 package com.anbui.recipely.data.repository
 
 import android.util.Log
-import com.anbui.recipely.data.local.dao.AccountDao
-import com.anbui.recipely.data.local.entities.toAccountEntity
-import com.anbui.recipely.domain.models.Account
-import com.anbui.recipely.domain.models.GenderType
+import com.anbui.database.AccountDao
+import com.anbui.database.toAccountEntity
 import com.anbui.recipely.domain.repository.AccountRepository
 import com.anbui.recipely.domain.repository.CurrentPreferences
 import kotlinx.coroutines.flow.Flow
@@ -17,10 +15,10 @@ import javax.inject.Inject
 
 
 class AccountRepositoryImpl @Inject constructor(
-    private val accountDao: AccountDao,
+    private val accountDao: com.anbui.database.AccountDao,
     private val currentPreferences: CurrentPreferences,
 ) : AccountRepository {
-    override fun getAllAccount(): Flow<List<Account>> {
+    override fun getAllAccount(): Flow<List<com.anbui.model.Account>> {
         return accountDao.getAccounts().map { accountEntities ->
             accountEntities.map {
                 it.toAccount()
@@ -28,7 +26,7 @@ class AccountRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getCurrentAccount(): Flow<Account> {
+    override fun getCurrentAccount(): Flow<com.anbui.model.Account> {
         val loggedId = currentPreferences.getLoggedId()
         return loggedId.filterNotNull().transform { id ->
             emit(getAccountById(id).first())
@@ -39,9 +37,9 @@ class AccountRepositoryImpl @Inject constructor(
         currentPreferences.setLoggedId(null)
     }
 
-    override fun getAccountById(accountId: String): Flow<Account> {
+    override fun getAccountById(accountId: String): Flow<com.anbui.model.Account> {
         return accountDao.getAccountById(accountId).map { account ->
-            Account(
+            com.anbui.model.Account(
                 id = account.id,
                 firstName = account.firstName,
                 lastName = account.lastName,
@@ -50,7 +48,7 @@ class AccountRepositoryImpl @Inject constructor(
                 bio = account.bio,
                 avatarUrl = account.avatarUrl,
                 dob = account.dob,
-                gender = GenderType.fromType(account.gender),
+                gender = com.anbui.model.GenderType.fromType(account.gender),
                 street = account.street,
                 district = account.district,
                 province = account.province,
@@ -58,11 +56,11 @@ class AccountRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun updateCurrentAccount(account: Account) {
+    override suspend fun updateCurrentAccount(account: com.anbui.model.Account) {
         accountDao.updateAccount(account.toAccountEntity())
     }
 
-    override suspend fun addAccount(account: Account): Boolean {
+    override suspend fun addAccount(account: com.anbui.model.Account): Boolean {
         return try {
             if (accountDao.getAccountFromEmail(account.email) != null) {
                 false

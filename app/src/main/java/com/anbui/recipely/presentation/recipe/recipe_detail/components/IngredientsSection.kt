@@ -25,8 +25,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.R
-import com.anbui.recipely.domain.models.Recipe
-import com.anbui.recipely.domain.models.exampleIngredientItems
+import com.anbui.model.Recipe
+import com.anbui.model.exampleIngredientItems
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
@@ -51,7 +51,7 @@ fun LazyListScope.ingredientsSection(
                 Text(
                     text = stringResource(
                         R.string.items,
-                        exampleIngredientItems.size
+                        com.anbui.model.exampleIngredientItems.size
                     ),
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal)
                 )

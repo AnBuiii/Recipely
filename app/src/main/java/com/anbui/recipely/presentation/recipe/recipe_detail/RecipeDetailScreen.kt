@@ -32,7 +32,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.anbui.recipely.R
-import com.anbui.recipely.domain.models.exampleRecipes
+import com.anbui.model.exampleRecipes
 import com.anbui.recipely.presentation.recipe.recipe_detail.components.HeadingSection
 import com.anbui.recipely.presentation.recipe.recipe_detail.components.creatorSection
 import com.anbui.recipely.presentation.recipe.recipe_detail.components.descriptionSection
@@ -103,7 +103,7 @@ fun RecipeDetailScreen(
 
                 creatorSection(recipe = recipe)
                 // related recipe section
-                relatedRecipesSection(recipes = exampleRecipes)
+                relatedRecipesSection(recipes = com.anbui.model.exampleRecipes)
             }
         }
     ) { _ ->

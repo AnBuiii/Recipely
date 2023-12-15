@@ -2,8 +2,8 @@ package com.anbui.recipely.presentation.auth.create_account
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anbui.recipely.domain.models.Account
-import com.anbui.recipely.domain.models.GenderType
+import com.anbui.model.Account
+import com.anbui.model.GenderType
 import com.anbui.recipely.domain.repository.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -53,7 +53,7 @@ class CreateAccountScreenViewModel @Inject constructor(
         viewModelScope.launch {
             with(_uiState.value) {
                 if (_uiState.value.password == _uiState.value.rePassword) {
-                    val account = Account(
+                    val account = com.anbui.model.Account(
                         id = "",
                         firstName = firstName,
                         lastName = lastName,
@@ -62,7 +62,7 @@ class CreateAccountScreenViewModel @Inject constructor(
                         bio = "",
                         avatarUrl = "",
                         dob = LocalDateTime.now(),
-                        gender = GenderType.Male,
+                        gender = com.anbui.model.GenderType.Male,
                         street = "",
                         district = "",
                         province = ""

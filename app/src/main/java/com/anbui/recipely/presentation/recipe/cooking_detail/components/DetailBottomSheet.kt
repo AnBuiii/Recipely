@@ -24,7 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.anbui.recipely.domain.models.Recipe
+import com.anbui.model.Recipe
 import com.anbui.recipely.presentation.recipe.cooking_detail.ViewMode
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
@@ -36,7 +36,7 @@ import com.anbui.recipely.presentation.ui.theme.TrueWhite
 @ExperimentalMaterial3Api
 @Composable
 fun DetailBottomSheet(
-    recipe: Recipe,
+    recipe: com.anbui.model.Recipe,
     serving: Int,
     isOpen: Boolean,
     viewMode: ViewMode,

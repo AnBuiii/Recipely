@@ -7,18 +7,16 @@ plugins {
 
 android {
     namespace = "com.anbui.recipely"
-    compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.anbui.recipely"
-        minSdk = 33
+        applicationId = "com.anbui.recipely" //
         targetSdk = 34
-        versionCode = 1
+        versionCode = 1  //
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner" //
+        vectorDrawables {//
+            useSupportLibrary = true //
         }
     }
 
@@ -30,14 +28,10 @@ android {
                 "proguard-rules.pro"
             )
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+    } //
     kotlinOptions {
         jvmTarget = "17"
-    }
+    } //
     buildFeatures {
         compose = true
     }
@@ -52,6 +46,7 @@ android {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":core:model")))
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
@@ -71,7 +66,7 @@ dependencies {
     debugImplementation(libs.ui.test.manifest)
 
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
 
     // Dagger - Hilt
     ksp(libs.hilt.android.compiler)

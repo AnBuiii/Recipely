@@ -1,17 +1,17 @@
 package com.anbui.recipely.presentation.other_feature.edit_profile
 
-import com.anbui.recipely.domain.models.Account
-import com.anbui.recipely.domain.models.GenderType
+import com.anbui.model.Account
+import com.anbui.model.GenderType
 
 data class EditProfileState(
-    val account: Account? = null,
+    val account: com.anbui.model.Account? = null,
     val avatar: String = "",
     val email: String = "",
     val firstName: String = "",
     val lastName: String = "",
     val bio: String = "",
     val dob: Long = System.currentTimeMillis(),
-    val gender: GenderType = GenderType.Male,
+    val gender: com.anbui.model.GenderType = com.anbui.model.GenderType.Male,
     val openDialog: Boolean = false,
     val success: Boolean = false
 )

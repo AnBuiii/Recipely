@@ -1,7 +1,7 @@
 package com.anbui.recipely.domain.repository
 
-import com.anbui.recipely.domain.models.IngredientItem
-import com.anbui.recipely.domain.models.Order
+import com.anbui.model.IngredientItem
+import com.anbui.model.Order
 import kotlinx.coroutines.flow.Flow
 
 interface CartRepository {

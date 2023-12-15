@@ -23,7 +23,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.R
-import com.anbui.recipely.domain.models.IngredientItem
+import com.anbui.model.IngredientItem
 import com.anbui.recipely.presentation.recipe.recipe_detail.components.IngredientItem
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 @ExperimentalFoundationApi
 @Composable
 fun IngredientDragDropList(
-    items: List<IngredientItem>,
+    items: List<com.anbui.model.IngredientItem>,
     onMove: (Int, Int) -> Unit,
     modifier: Modifier = Modifier,
     onAddIngredientClick: () -> Unit,

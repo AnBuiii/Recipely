@@ -3,9 +3,9 @@ package com.anbui.recipely.presentation.recipe.create_recipe
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anbui.recipely.domain.models.IngredientItem
-import com.anbui.recipely.domain.models.MediaType
-import com.anbui.recipely.domain.models.Step
+import com.anbui.model.IngredientItem
+import com.anbui.model.MediaType
+import com.anbui.model.Step
 import com.anbui.recipely.domain.repository.RecipeRepository
 import com.anbui.recipely.presentation.recipe.create_recipe.components.swap
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -67,7 +67,7 @@ class CreateRecipeViewModel @Inject constructor(
                     } else {
                         val ingredient = recipeRepository.getIngredientById(event.ingredientId)
                         ingredient?.let {
-                            IngredientItem(
+                            com.anbui.model.IngredientItem(
                                 ingredientId = ingredient.id,
                                 name = ingredient.name,
                                 amount = event.amount.toFloat(),
@@ -105,12 +105,12 @@ class CreateRecipeViewModel @Inject constructor(
                         )
                         _state.update { it.copy(steps = items) }
                     } else {
-                        Step(
+                        com.anbui.model.Step(
                             id = event.instructionId,
                             order = 0,
                             instruction = event.instruction,
                             mediaUrl = null,
-                            type = MediaType.Image,
+                            type = com.anbui.model.MediaType.Image,
                             period = event.period.toLong()
                         ).let { step ->
                             _state.update { it.copy(steps = it.steps + step) }

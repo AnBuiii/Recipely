@@ -2,11 +2,11 @@ package com.anbui.recipely.di
 
 import android.content.Context
 import androidx.room.Room
-import com.anbui.recipely.data.local.RecipelyDatabase
-import com.anbui.recipely.data.local.dao.AccountDao
-import com.anbui.recipely.data.local.dao.NotificationDao
-import com.anbui.recipely.data.local.dao.OrderDao
-import com.anbui.recipely.data.local.dao.RecipeDao
+import com.anbui.database.RecipelyDatabase
+import com.anbui.database.AccountDao
+import com.anbui.database.NotificationDao
+import com.anbui.database.OrderDao
+import com.anbui.database.RecipeDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,24 +22,24 @@ object AppModule {
     @Provides
     fun provideAppDatabase(@ApplicationContext appContext: Context) =
         Room
-            .databaseBuilder(appContext, RecipelyDatabase::class.java, "Recipely.sqlite")
+            .databaseBuilder(appContext, com.anbui.database.RecipelyDatabase::class.java, "Recipely.sqlite")
             .createFromAsset("recipely.sqlite")
             .fallbackToDestructiveMigration() // todo remove
             .build()
 
     @Singleton
     @Provides
-    fun provideAccountDao(db: RecipelyDatabase): AccountDao = db.accountDao
+    fun provideAccountDao(db: com.anbui.database.RecipelyDatabase): com.anbui.database.AccountDao = db.accountDao
 
     @Singleton
     @Provides
-    fun provideRecipeDao(db: RecipelyDatabase): RecipeDao = db.recipeDao
+    fun provideRecipeDao(db: com.anbui.database.RecipelyDatabase): com.anbui.database.RecipeDao = db.recipeDao
 
     @Singleton
     @Provides
-    fun provideOrderDao(db: RecipelyDatabase): OrderDao = db.orderDao
+    fun provideOrderDao(db: com.anbui.database.RecipelyDatabase): com.anbui.database.OrderDao = db.orderDao
 
     @Singleton
     @Provides
-    fun provideNotificationDao(db: RecipelyDatabase): NotificationDao = db.notificationDao
+    fun provideNotificationDao(db: com.anbui.database.RecipelyDatabase): com.anbui.database.NotificationDao = db.notificationDao
 }

@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google()
         mavenCentral()
@@ -22,4 +23,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Recipely"
 include(":app")
- 
+include(":core:model")
+include(":core:database")

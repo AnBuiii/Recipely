@@ -1,9 +1,9 @@
 package com.anbui.recipely.presentation.cart_order.address
 
-import com.anbui.recipely.domain.models.Account
+import com.anbui.model.Account
 
 data class AddressScreenState(
-    val account: Account? = null,
+    val account: com.anbui.model.Account? = null,
     val street: String = "",
     val district: String = "",
     val province: String = "",

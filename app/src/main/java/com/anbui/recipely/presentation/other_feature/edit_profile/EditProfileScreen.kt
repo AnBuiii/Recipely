@@ -48,7 +48,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.anbui.recipely.R
-import com.anbui.recipely.domain.models.GenderType
+import com.anbui.model.GenderType
 import com.anbui.recipely.presentation.ui.components.StandardDatePickerDialog
 import com.anbui.recipely.presentation.ui.components.StandardTextField
 import com.anbui.recipely.presentation.ui.components.StandardToolbar
@@ -256,12 +256,12 @@ fun EditProfileScreen(
                         .weight(1f),
                     colors = CardDefaults.cardColors(containerColor = TrueWhite),
                     border = BorderStroke(
-                        if (uiState.gender == GenderType.Male) 2.dp else 0.dp,
+                        if (uiState.gender == com.anbui.model.GenderType.Male) 2.dp else 0.dp,
                         color = MaterialTheme.colorScheme.primary
                     ),
                     onClick = {
-                        if (uiState.gender != GenderType.Male) {
-                            editProfileViewModel.onChangeGender(GenderType.Male)
+                        if (uiState.gender != com.anbui.model.GenderType.Male) {
+                            editProfileViewModel.onChangeGender(com.anbui.model.GenderType.Male)
                         }
                     }
 
@@ -276,7 +276,7 @@ fun EditProfileScreen(
                             modifier = Modifier.align(Alignment.Center),
                             style = MaterialTheme.typography.bodyMedium
                         )
-                        if (uiState.gender == GenderType.Male) {
+                        if (uiState.gender == com.anbui.model.GenderType.Male) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_tick),
                                 contentDescription = stringResource(id = R.string.tick),
@@ -298,12 +298,12 @@ fun EditProfileScreen(
                         .weight(1f),
                     colors = CardDefaults.cardColors(containerColor = TrueWhite),
                     border = BorderStroke(
-                        if (uiState.gender == GenderType.Female) 2.dp else 0.dp,
+                        if (uiState.gender == com.anbui.model.GenderType.Female) 2.dp else 0.dp,
                         color = MaterialTheme.colorScheme.primary
                     ),
                     onClick = {
-                        if (uiState.gender != GenderType.Female) {
-                            editProfileViewModel.onChangeGender(GenderType.Female)
+                        if (uiState.gender != com.anbui.model.GenderType.Female) {
+                            editProfileViewModel.onChangeGender(com.anbui.model.GenderType.Female)
                         }
                     }
 
@@ -318,7 +318,7 @@ fun EditProfileScreen(
                             modifier = Modifier.align(Alignment.Center),
                             style = MaterialTheme.typography.bodyMedium
                         )
-                        if (uiState.gender == GenderType.Female) {
+                        if (uiState.gender == com.anbui.model.GenderType.Female) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_tick),
                                 contentDescription = stringResource(id = R.string.tick),

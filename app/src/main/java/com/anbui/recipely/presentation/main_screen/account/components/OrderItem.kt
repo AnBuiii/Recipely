@@ -24,7 +24,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.anbui.recipely.R
-import com.anbui.recipely.domain.models.Order
+import com.anbui.model.Order
 import com.anbui.recipely.presentation.ui.components.StandardCard
 import com.anbui.recipely.presentation.ui.theme.DarkGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
@@ -34,7 +34,7 @@ import com.anbui.recipely.util.toStringAsFixed
 @ExperimentalMaterial3Api
 @Composable
 fun OrderItem(
-    order: Order,
+    order: com.anbui.model.Order,
     onClick: () -> Unit,
 ) {
     StandardCard(
