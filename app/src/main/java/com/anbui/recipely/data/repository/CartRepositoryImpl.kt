@@ -2,9 +2,14 @@ package com.anbui.recipely.data.repository
 
 import com.anbui.database.dao.OrderDao
 import com.anbui.database.entities.OrderStatusEntity
+import com.anbui.recipely.core.model.IngredientItem
+import com.anbui.recipely.core.model.Notification
+import com.anbui.recipely.core.model.NotificationType
+import com.anbui.recipely.core.model.Order
 import com.anbui.recipely.core.database.dao.AccountDao
 import com.anbui.recipely.core.database.entities.OrderEntity
 import com.anbui.recipely.core.database.relations.IngredientAccountCrossRef
+import com.anbui.recipely.core.database.relations.OrderIngredientCrossRef
 import com.anbui.recipely.domain.repository.CartRepository
 import com.anbui.recipely.domain.repository.CurrentPreferences
 import com.anbui.recipely.domain.repository.NotificationRepository
@@ -25,7 +30,7 @@ class CartRepositoryImpl @Inject constructor(
     private val notificationRepository: NotificationRepository,
     private val currentPreferences: CurrentPreferences
 ) : CartRepository {
-    override fun getAllInCartOfCurrentAccount(): Flow<List<com.anbui.model.IngredientItem>> {
+    override fun getAllInCartOfCurrentAccount(): Flow<List<IngredientItem>> {
         return flow {
             val id = currentPreferences.getLoggedId().first()
             orderDao.getIngredientInCart(id ?: "").collect { list ->
@@ -61,7 +66,7 @@ class CartRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getAllOrderOfCurrentAccount(): Flow<List<com.anbui.model.Order>> {
+    override fun getAllOrderOfCurrentAccount(): Flow<List<Order>> {
         return flow {
             val id = currentPreferences.getLoggedId().first() ?: ""
             orderDao.getAllOrder(id).collect { list ->
@@ -73,8 +78,8 @@ class CartRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getDummyOrder(): com.anbui.model.Order {
-        return com.anbui.model.Order(
+    override fun getDummyOrder(): Order {
+        return Order(
             id = "",
             time = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
             ingredients = listOf(),
@@ -112,7 +117,7 @@ class CartRepositoryImpl @Inject constructor(
 
         orderDao.getInCart(accountId).first().map {
             orderDao.deleteFromCart(it.ingredientId, accountId)
-            com.anbui.database.entities.relations.OrderIngredientCrossRef(
+            OrderIngredientCrossRef(
                 id = UUID.randomUUID().toString(),
                 orderId = orderId,
                 ingredientId = it.ingredientId,
@@ -121,10 +126,10 @@ class CartRepositoryImpl @Inject constructor(
         }.let {
             orderDao.insertOrderDetails(it)
         }
-        com.anbui.model.Notification(
+        Notification(
             id = UUID.randomUUID().toString(),
             userId = accountId,
-            notificationType = com.anbui.model.NotificationType.Order,
+            notificationType = NotificationType.Order,
             message = "Your order $orderId has been created",
             isRead = false,
             imageUrl = null
@@ -133,7 +138,7 @@ class CartRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getOrderById(orderId: String): Flow<com.anbui.model.Order> {
+    override fun getOrderById(orderId: String): Flow<Order> {
         return orderDao.getOrderById(orderId = orderId).map {
             it.toOrder()
         }

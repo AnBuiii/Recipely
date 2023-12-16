@@ -3,8 +3,8 @@ package com.anbui.recipely.core.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.anbui.model.Ingredient
-import com.anbui.model.UnitType
+import com.anbui.recipely.core.model.Ingredient
+import com.anbui.recipely.core.model.UnitType
 
 @Entity(tableName = "Ingredient")
 data class IngredientEntity(

@@ -2,15 +2,13 @@ package com.anbui.recipely.core.database.relations
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.anbui.recipely.core.model.IngredientItem
+import com.anbui.recipely.core.model.Recipe
 import com.anbui.recipely.core.database.entities.AccountEntity
 import com.anbui.recipely.core.database.entities.LikeEntity
 import com.anbui.recipely.core.database.entities.RecipeEntity
 import com.anbui.recipely.core.database.entities.StepEntity
-import com.anbui.database.entities.relations.IngredientAndCrossRef
-import com.anbui.database.entities.relations.RecipeIngredientCrossRef
 import com.anbui.recipely.core.database.entities.toStep
-import com.anbui.model.IngredientItem
-import com.anbui.model.Recipe
 
 data class RecipeAndOwner(
     @Embedded

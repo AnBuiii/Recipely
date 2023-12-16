@@ -16,14 +16,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.R
-import com.anbui.model.Recipe
+import com.anbui.recipely.core.model.Recipe
 import com.anbui.recipely.presentation.ui.theme.MediumGrey
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 
 @Composable
 fun HeadingSection(
-    recipe: com.anbui.model.Recipe
+    recipe: Recipe
 ) {
     Row(
         modifier = Modifier

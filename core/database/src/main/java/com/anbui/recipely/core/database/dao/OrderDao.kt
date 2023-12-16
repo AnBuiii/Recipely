@@ -5,12 +5,12 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
-import com.anbui.recipely.core.database.entities.OrderEntity
 import com.anbui.database.entities.OrderStatusEntity
-import com.anbui.database.entities.relations.OrderIngredientCrossRef
-import com.anbui.database.entities.relations.OrderWithDetail
+import com.anbui.recipely.core.database.relations.OrderWithDetail
+import com.anbui.recipely.core.database.entities.OrderEntity
 import com.anbui.recipely.core.database.relations.AccountWithIngredient
 import com.anbui.recipely.core.database.relations.IngredientAccountCrossRef
+import com.anbui.recipely.core.database.relations.OrderIngredientCrossRef
 import kotlinx.coroutines.flow.Flow
 
 @Dao

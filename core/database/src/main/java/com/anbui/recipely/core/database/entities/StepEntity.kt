@@ -3,8 +3,8 @@ package com.anbui.recipely.core.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.anbui.model.MediaType.Companion.toMediaType
-import com.anbui.model.Step
+import com.anbui.recipely.core.model.MediaType.Companion.toMediaType
+import com.anbui.recipely.core.model.Step
 
 @Entity(tableName = "Step")
 data class StepEntity(

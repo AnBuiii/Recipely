@@ -1,4 +1,4 @@
-package com.anbui.model
+package com.anbui.recipely.core.model
 
 sealed class UnitType(val unitString: String) {
     object Unit : UnitType("")

@@ -1,18 +1,18 @@
 package com.anbui.recipely.domain.repository
 
-import com.anbui.model.Account
+import com.anbui.recipely.core.model.Account
 import kotlinx.coroutines.flow.Flow
 
 interface AccountRepository {
-    fun getAllAccount(): Flow<List<com.anbui.model.Account>>
+    fun getAllAccount(): Flow<List<Account>>
 
-    fun getCurrentAccount(): Flow<com.anbui.model.Account>
+    fun getCurrentAccount(): Flow<Account>
 
-    fun getAccountById(accountId: String): Flow<com.anbui.model.Account>
+    fun getAccountById(accountId: String): Flow<Account>
 
-    suspend fun updateCurrentAccount(account: com.anbui.model.Account)
+    suspend fun updateCurrentAccount(account: Account)
 
-    suspend fun addAccount(account: com.anbui.model.Account): Boolean
+    suspend fun addAccount(account: Account): Boolean
 
     suspend fun login(email: String, password: String): Boolean
 

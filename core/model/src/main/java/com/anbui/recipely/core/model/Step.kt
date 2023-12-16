@@ -1,4 +1,4 @@
-package com.anbui.model
+package com.anbui.recipely.core.model
 
 data class Step(
     val id: String,

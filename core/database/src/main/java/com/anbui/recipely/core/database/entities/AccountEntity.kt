@@ -3,8 +3,9 @@ package com.anbui.recipely.core.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.anbui.model.Account
-import com.anbui.model.GenderType.Companion.getType
+import com.anbui.recipely.core.model.Account
+import com.anbui.recipely.core.model.GenderType
+import com.anbui.recipely.core.model.GenderType.Companion.getType
 import kotlinx.datetime.LocalDateTime
 
 @Entity(
@@ -36,7 +37,7 @@ data class AccountEntity(
             bio = bio,
             dob = dob,
             avatarUrl = avatarUrl,
-            gender = com.anbui.model.GenderType.fromType(gender),
+            gender = GenderType.fromType(gender),
             street = street,
             district = district,
             province = province,

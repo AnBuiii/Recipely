@@ -1,6 +1,6 @@
 package com.anbui.recipely.data.repository
 
-import com.anbui.model.Notification
+import com.anbui.recipely.core.model.Notification
 import com.anbui.database.dao.NotificationDao
 import com.anbui.recipely.data.mapper.toNotificationEntity
 import com.anbui.recipely.domain.repository.CurrentPreferences

@@ -1,4 +1,4 @@
-package com.anbui.database.entities.relations
+package com.anbui.recipely.core.database.relations
 
 import androidx.room.Embedded
 import androidx.room.Relation

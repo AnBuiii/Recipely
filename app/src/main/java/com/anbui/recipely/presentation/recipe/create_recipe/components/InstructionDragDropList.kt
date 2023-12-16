@@ -32,7 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.R
-import com.anbui.model.Step
+import com.anbui.recipely.core.model.Step
 import com.anbui.recipely.presentation.ui.components.StandardCard
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceMedium
@@ -45,7 +45,7 @@ import kotlinx.coroutines.launch
 @ExperimentalFoundationApi
 @Composable
 fun InstructionDragDropList(
-    items: List<com.anbui.model.Step>,
+    items: List<Step>,
     onMove: (Int, Int) -> Unit,
     modifier: Modifier = Modifier,
     onAddInstructionClick: () -> Unit,

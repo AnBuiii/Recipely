@@ -38,7 +38,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.anbui.model.Recipe
+import com.anbui.recipely.core.model.Account
+import com.anbui.recipely.core.model.Notification
+import com.anbui.recipely.core.model.NotificationType
+import com.anbui.recipely.core.model.Recipe
+import com.anbui.recipely.core.model.exampleRecipes
 import com.anbui.recipely.R
 import com.anbui.recipely.presentation.main_screen.notification.timeAgo
 import com.anbui.recipely.presentation.ui.theme.DarkGrey
@@ -150,7 +154,7 @@ fun RecipelyLargeCard(
 @Composable
 fun RecipelyVerticallyCard(
     modifier: Modifier = Modifier,
-    recipe: com.anbui.model.Recipe,
+    recipe: Recipe,
     onLikeClick: () -> Unit = {},
     onClick: () -> Unit
 ) {
@@ -245,7 +249,7 @@ fun RecipelyVerticallyCard(
 @ExperimentalMaterial3Api
 @Composable
 fun RecipelyHorizontallyCard(
-    recipe: com.anbui.model.Recipe,
+    recipe: Recipe,
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
@@ -326,7 +330,7 @@ fun RecipelyHorizontallyCard(
 @ExperimentalMaterial3Api
 @Composable
 fun RecipelyTinyCard(
-    recipe: com.anbui.model.Recipe,
+    recipe: Recipe,
 ) {
     StandardCard(
         modifier = Modifier.size(width = 100.dp, height = 136.dp),
@@ -353,25 +357,25 @@ fun RecipelyTinyCard(
 @Composable
 fun RecipelyNotificationCard(
     modifier: Modifier = Modifier,
-    notification: com.anbui.model.Notification,
+    notification: Notification,
     onClick: () -> Unit
 ) {
     val titleText = when (notification.notificationType) {
-        com.anbui.model.NotificationType.Like -> {
+        NotificationType.Like -> {
             stringResource(R.string.recipe_interaction)
         }
 
-        com.anbui.model.NotificationType.Order -> {
+        NotificationType.Order -> {
             stringResource(R.string.order)
         }
     }
 
     val icon = when (notification.notificationType) {
-        com.anbui.model.NotificationType.Like -> {
+        NotificationType.Like -> {
             null
         }
 
-        com.anbui.model.NotificationType.Order -> {
+        NotificationType.Order -> {
             painterResource(id = R.drawable.ic_bag)
         }
     }
@@ -477,7 +481,7 @@ fun RecipelyNotificationCard(
 @ExperimentalMaterial3Api
 @Composable
 fun RecipelyAccountCard(
-    account: com.anbui.model.Account,
+    account: Account,
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
@@ -550,7 +554,7 @@ fun RecipelyAccountCard(
 @Composable
 fun RecipelyTinyVerticallyCard(
     modifier: Modifier = Modifier,
-    recipe: com.anbui.model.Recipe,
+    recipe: Recipe,
     onLikeClick: () -> Unit = {},
 ) {
     StandardCard(
@@ -623,19 +627,19 @@ fun RecipelyTinyVerticallyCard(
 @Preview
 @Composable
 fun RecipelyLargeCardPreview() {
-    RecipelyLargeCard(recipe = com.anbui.model.exampleRecipes.first())
+    RecipelyLargeCard(recipe = exampleRecipes.first())
 }
 
 @ExperimentalMaterial3Api
 @Preview
 @Composable
 fun RecipelyVerticallyCardPreview() {
-    RecipelyVerticallyCard(recipe = com.anbui.model.exampleRecipes.first(), onClick = {})
+    RecipelyVerticallyCard(recipe = exampleRecipes.first(), onClick = {})
 }
 
 @ExperimentalMaterial3Api
 @Preview
 @Composable
 fun RecipelyTinyCardPreview() {
-    RecipelyTinyCard(recipe = com.anbui.model.exampleRecipes.first())
+    RecipelyTinyCard(recipe = exampleRecipes.first())
 }

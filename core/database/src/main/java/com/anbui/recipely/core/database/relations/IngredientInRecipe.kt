@@ -1,12 +1,11 @@
-package com.anbui.database.entities.relations
+package com.anbui.recipely.core.database.relations
 
 import android.util.Log
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.anbui.recipely.core.model.Recipe
 import com.anbui.recipely.core.database.entities.IngredientEntity
 import com.anbui.recipely.core.database.entities.RecipeEntity
-import com.anbui.recipely.core.database.relations.RecipeAndOwner
-import com.anbui.recipely.core.database.relations.toRecipe
 
 data class IngredientInRecipe(
     @Embedded
@@ -20,7 +19,7 @@ data class IngredientInRecipe(
     val recipes: List<RecipeAndCrossRef>,
 )
 
-fun IngredientInRecipe.toRecipes(accountId: String?): List<com.anbui.model.Recipe> {
+fun IngredientInRecipe.toRecipes(accountId: String?): List<Recipe> {
     return recipes.map {
         Log.d("An ne", it.toString())
         it.recipe.toRecipe(accountId)

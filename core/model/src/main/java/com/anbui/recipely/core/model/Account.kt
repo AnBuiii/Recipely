@@ -1,4 +1,4 @@
-package com.anbui.model
+package com.anbui.recipely.core.model
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime

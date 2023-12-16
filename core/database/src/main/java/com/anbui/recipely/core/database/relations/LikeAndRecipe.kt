@@ -1,11 +1,12 @@
-package com.anbui.database.relations
+package com.anbui.recipely.core.database.relations
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.anbui.recipely.core.model.IngredientItem
+import com.anbui.recipely.core.model.Recipe
 import com.anbui.recipely.core.database.entities.LikeEntity
 import com.anbui.recipely.core.database.entities.RecipeEntity
 import com.anbui.recipely.core.database.entities.toStep
-import com.anbui.recipely.core.database.relations.RecipeAndOwner
 
 data class LikeAndRecipe(
     @Embedded
@@ -18,9 +19,9 @@ data class LikeAndRecipe(
     )
     val recipeAndOwner: RecipeAndOwner
 ) {
-    fun toRecipe(): com.anbui.model.Recipe {
+    fun toRecipe(): Recipe {
         return with(recipeAndOwner) {
-            com.anbui.model.Recipe(
+            Recipe(
                 id = recipe.id,
                 title = recipe.title,
                 imageUrl = recipe.imageUrl,
@@ -55,7 +56,7 @@ data class LikeAndRecipe(
                 },
 
                 ingredients = ingredients.map { ingredient ->
-                    com.anbui.model.IngredientItem(
+                    IngredientItem(
                         imageUrl = ingredient.ingredient.imageUrl,
                         name = ingredient.ingredient.name,
                         ingredientId = ingredient.ingredient.id,

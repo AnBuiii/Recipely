@@ -1,9 +1,9 @@
 package com.anbui.recipely.core.database
 
-import com.anbui.recipely.core.database.dao.AccountDao
 import com.anbui.database.dao.NotificationDao
 import com.anbui.database.dao.OrderDao
 import com.anbui.database.dao.RecipeDao
+import com.anbui.recipely.core.database.dao.AccountDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,11 +1,12 @@
-package com.anbui.database.entities.relations
+package com.anbui.recipely.core.database.relations
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.anbui.database.entities.OrderStatusEntity
+import com.anbui.recipely.core.model.Order
+import com.anbui.recipely.core.model.getTotalPrice
 import com.anbui.recipely.core.database.entities.AccountEntity
 import com.anbui.recipely.core.database.entities.OrderEntity
-import com.anbui.database.entities.OrderStatusEntity
-import com.anbui.model.getTotalPrice
 
 data class OrderWithDetail(
     @Embedded
@@ -27,8 +28,8 @@ data class OrderWithDetail(
     )
     val customer: AccountEntity
 ) {
-    fun toOrder(): com.anbui.model.Order {
-        return com.anbui.model.Order(
+    fun toOrder(): Order {
+        return Order(
             id = this.order.id,
             time = this.order.time,
             ingredients = this.ingredients.map { it.toIngredientItem() },

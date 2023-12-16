@@ -3,7 +3,7 @@ package com.anbui.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.anbui.model.OrderStatus
+import com.anbui.recipely.core.model.OrderStatus
 import kotlinx.datetime.LocalDateTime
 
 @Entity(tableName = "OrderStatus")

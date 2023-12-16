@@ -2,6 +2,7 @@ package com.anbui.recipely.core.database.relations
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.anbui.recipely.core.model.IngredientItem
 import com.anbui.recipely.core.database.entities.IngredientEntity
 
 data class AccountWithIngredient(
@@ -13,8 +14,8 @@ data class AccountWithIngredient(
     )
     val ingredient: IngredientEntity
 ) {
-    fun toIngredientItem(): com.anbui.model.IngredientItem {
-        return com.anbui.model.IngredientItem(
+    fun toIngredientItem(): IngredientItem {
+        return IngredientItem(
             ingredientId = this.ingredient.id,
             name = this.ingredient.name,
             amount = this.cart.amount,

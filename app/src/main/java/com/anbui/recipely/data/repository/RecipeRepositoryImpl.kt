@@ -2,7 +2,14 @@ package com.anbui.recipely.data.repository
 
 import android.util.Log
 import com.anbui.database.dao.RecipeDao
-import com.anbui.database.entities.relations.toRecipes
+import com.anbui.recipely.core.database.relations.RecipeIngredientCrossRef
+import com.anbui.recipely.core.database.relations.toRecipes
+import com.anbui.recipely.core.model.Ingredient
+import com.anbui.recipely.core.model.IngredientItem
+import com.anbui.recipely.core.model.Notification
+import com.anbui.recipely.core.model.NotificationType
+import com.anbui.recipely.core.model.Recipe
+import com.anbui.recipely.core.model.Step
 import com.anbui.recipely.core.database.dao.AccountDao
 import com.anbui.recipely.core.database.entities.LikeEntity
 import com.anbui.recipely.core.database.entities.RecentEntity
@@ -10,6 +17,7 @@ import com.anbui.recipely.core.database.entities.RecipeEntity
 import com.anbui.recipely.core.database.entities.StepEntity
 import com.anbui.recipely.core.database.entities.toIngredient
 import com.anbui.recipely.core.database.relations.RecipeAndOwner
+import com.anbui.recipely.core.database.relations.RecipeWithIngredient
 import com.anbui.recipely.core.database.relations.toRecipe
 import com.anbui.recipely.domain.repository.CurrentPreferences
 import com.anbui.recipely.domain.repository.NotificationRepository
@@ -31,7 +39,7 @@ class RecipeRepositoryImpl @Inject constructor(
     private val notificationRepository: NotificationRepository
 ) : RecipeRepository {
 
-    override fun getFavouriteOfCurrentAccount(): Flow<List<com.anbui.model.Recipe>> {
+    override fun getFavouriteOfCurrentAccount(): Flow<List<Recipe>> {
         return flow {
             val id = currentPreferences.getLoggedId().first()
             recipeDao.getFavouriteRecipes(id ?: "").map { map ->
@@ -44,7 +52,7 @@ class RecipeRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getRecipeWithIngredient(recipeId: String): List<com.anbui.database.entities.relations.RecipeWithIngredient> {
+    override suspend fun getRecipeWithIngredient(recipeId: String): List<RecipeWithIngredient> {
         return recipeDao.getIngredientOfRecipe(recipeId = recipeId)
     }
 
@@ -52,7 +60,7 @@ class RecipeRepositoryImpl @Inject constructor(
         return recipeDao.getAllRecipes()
     }
 
-    override fun getAllRecipes(): Flow<List<com.anbui.model.Recipe>> {
+    override fun getAllRecipes(): Flow<List<Recipe>> {
         val loggedId = currentPreferences.getLoggedId()
         return combine(recipeDao.getAllRecipes(), loggedId) { recipes, id ->
             recipes.map {
@@ -61,15 +69,15 @@ class RecipeRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getRecipesById(recipeId: String): Flow<com.anbui.model.Recipe> {
+    override fun getRecipesById(recipeId: String): Flow<Recipe> {
         val loggedId = currentPreferences.getLoggedId()
         return combine(recipeDao.getRecipe(recipeId = recipeId), loggedId) { recipe, id ->
             recipe.toRecipe(id)
         }
     }
 
-    override fun getDummyRecipe(): com.anbui.model.Recipe {
-        return com.anbui.model.Recipe(
+    override fun getDummyRecipe(): Recipe {
+        return Recipe(
             id = "",
             title = "",
             imageUrl = "",
@@ -103,10 +111,10 @@ class RecipeRepositoryImpl @Inject constructor(
                     accountId = loggedId
                 )
             )
-            com.anbui.model.Notification(
+            Notification(
                 id = UUID.randomUUID().toString(),
                 userId = loggedId,
-                notificationType = com.anbui.model.NotificationType.Like,
+                notificationType = NotificationType.Like,
                 message = "${account.firstName} like your recipe",
                 isRead = false,
                 imageUrl = null
@@ -119,7 +127,7 @@ class RecipeRepositoryImpl @Inject constructor(
 
     }
 
-    override suspend fun searchIngredients(ingredientName: String): List<com.anbui.model.Ingredient> {
+    override suspend fun searchIngredients(ingredientName: String): List<Ingredient> {
         val a = ingredientName.replaceFirstChar {
             it.uppercase()
         }
@@ -136,13 +144,13 @@ class RecipeRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun searchRecipesByIngredient(searchText: String): List<com.anbui.model.Recipe> {
+    override suspend fun searchRecipesByIngredient(searchText: String): List<Recipe> {
         val loggedId = currentPreferences.getLoggedId()
         return recipeDao.searchRecipesByIngredient(searchText)?.toRecipes(loggedId.first())
             ?: emptyList()
     }
 
-    override suspend fun getIngredientById(ingredientId: String): com.anbui.model.Ingredient? {
+    override suspend fun getIngredientById(ingredientId: String): Ingredient? {
         return recipeDao.getIngredientById(ingredientId)?.toIngredient()
     }
 
@@ -151,8 +159,8 @@ class RecipeRepositoryImpl @Inject constructor(
         imageUrl: String,
         description: String,
         servings: Int,
-        ingredients: List<com.anbui.model.IngredientItem>,
-        steps: List<com.anbui.model.Step>
+        ingredients: List<IngredientItem>,
+        steps: List<Step>
     ): Boolean {
         val loggedId = currentPreferences.getLoggedId().first() ?: ""
         val recipeId = UUID.randomUUID().toString()
@@ -165,7 +173,7 @@ class RecipeRepositoryImpl @Inject constructor(
             owner = loggedId
         ).let { recipeDao.insertRecipe(it) }
         ingredients.map {
-            com.anbui.database.entities.relations.RecipeIngredientCrossRef(
+            RecipeIngredientCrossRef(
                 id = UUID.randomUUID().toString(),
                 recipeId = recipeId,
                 ingredientId = it.ingredientId,
@@ -186,7 +194,7 @@ class RecipeRepositoryImpl @Inject constructor(
         return true
     }
 
-    override suspend fun searchRecipes(searchText: String): List<com.anbui.model.Recipe> {
+    override suspend fun searchRecipes(searchText: String): List<Recipe> {
         val loggedId = currentPreferences.getLoggedId()
         return recipeDao.searchRecipe(searchText).map {
             it.toRecipe(loggedId.first())
@@ -208,7 +216,7 @@ class RecipeRepositoryImpl @Inject constructor(
         )
     }
 
-    override fun getAllRecentOfCurrentAccount(): Flow<List<com.anbui.model.Recipe>> {
+    override fun getAllRecentOfCurrentAccount(): Flow<List<Recipe>> {
         return flow {
             val id = currentPreferences.getLoggedId().first()
             recipeDao.getAllRecent(id ?: "").map { map ->

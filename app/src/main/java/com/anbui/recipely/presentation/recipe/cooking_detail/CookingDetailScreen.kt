@@ -52,7 +52,7 @@ import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.anbui.recipely.R
-import com.anbui.model.MediaType
+import com.anbui.recipely.core.model.MediaType
 import com.anbui.recipely.presentation.recipe.cooking_detail.components.DetailBottomSheet
 import com.anbui.recipely.presentation.recipe.cooking_detail.components.Timer
 import com.anbui.recipely.presentation.ui.components.StandardProgressIndicator
@@ -151,7 +151,7 @@ fun CookingDetailScreen(
                     }
             ) {
                 if (page < recipe.instructions.size) {
-                    if (recipe.instructions[page].type is com.anbui.model.MediaType.Image) {
+                    if (recipe.instructions[page].type is MediaType.Image) {
                         AsyncImage(
                             model = recipe.instructions[page].mediaUrl,
                             contentDescription = recipe.instructions[page].instruction,

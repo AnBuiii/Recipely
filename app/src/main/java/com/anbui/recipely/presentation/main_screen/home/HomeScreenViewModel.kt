@@ -2,8 +2,8 @@ package com.anbui.recipely.presentation.main_screen.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anbui.model.Recipe
-import com.anbui.model.exampleAccounts
+import com.anbui.recipely.core.model.Recipe
+import com.anbui.recipely.core.model.exampleAccounts
 import com.anbui.recipely.domain.repository.AccountRepository
 import com.anbui.recipely.domain.repository.NotificationRepository
 import com.anbui.recipely.domain.repository.RecipeRepository
@@ -28,10 +28,10 @@ class HomeScreenViewModel @Inject constructor(
     val currentAccount = accountRepository.getCurrentAccount().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
-        com.anbui.model.exampleAccounts[0]
+        exampleAccounts[0]
     )
 
-    fun likeRecipe(recipe: com.anbui.model.Recipe, like: Boolean) {
+    fun likeRecipe(recipe: Recipe, like: Boolean) {
         viewModelScope.launch {
             recipeRepository.likeRecipe(recipe.id, like)
         }

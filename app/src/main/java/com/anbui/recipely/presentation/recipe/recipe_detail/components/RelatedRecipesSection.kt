@@ -14,7 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.anbui.model.Recipe
+import com.anbui.recipely.core.model.Recipe
 import com.anbui.recipely.R
 import com.anbui.recipely.presentation.ui.components.RecipelyTinyCard
 import com.anbui.recipely.presentation.ui.theme.SpaceLarge

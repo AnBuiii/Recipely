@@ -3,6 +3,7 @@ package com.anbui.recipely.presentation.other_feature.edit_profile
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.anbui.recipely.core.model.GenderType
 import com.anbui.recipely.domain.repository.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,7 +36,7 @@ class EditProfileViewModel @Inject constructor(
                         firstName = firstName,
                         lastName = lastName,
                         bio = bio,
-                        dob = dob.toInstant(kotlinx.datetime.TimeZone.currentSystemDefault())
+                        dob = dob.toInstant(TimeZone.currentSystemDefault())
                             .toEpochMilliseconds(),
                         gender = gender,
                         avatar = avatarUrl
@@ -75,7 +76,7 @@ class EditProfileViewModel @Inject constructor(
         }
     }
 
-    fun onChangeGender(value: com.anbui.model.GenderType) {
+    fun onChangeGender(value: GenderType) {
         _uiState.update {
             it.copy(gender = value)
         }
