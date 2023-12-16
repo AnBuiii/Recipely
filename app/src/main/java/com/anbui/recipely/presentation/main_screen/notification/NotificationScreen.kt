@@ -29,14 +29,15 @@ import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.ui.theme.SpaceTiny
 import com.anbui.recipely.presentation.ui.theme.TrueWhite
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 import java.text.ParseException
-import java.time.LocalDateTime
-import java.time.ZoneId
 
 
 fun LocalDateTime.timeAgo(minResolution: Long): String {
     return try {
-        val then = this.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        val then = this.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
         val now = System.currentTimeMillis()
         val ago = DateUtils.getRelativeTimeSpanString(
             then,

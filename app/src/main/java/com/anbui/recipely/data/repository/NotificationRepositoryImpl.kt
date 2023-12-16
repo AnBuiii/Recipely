@@ -1,7 +1,7 @@
 package com.anbui.recipely.data.repository
 
 import com.anbui.model.Notification
-import com.anbui.database.NotificationDao
+import com.anbui.database.dao.NotificationDao
 import com.anbui.recipely.data.mapper.toNotificationEntity
 import com.anbui.recipely.domain.repository.CurrentPreferences
 import com.anbui.recipely.domain.repository.NotificationRepository
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class NotificationRepositoryImpl @Inject constructor(
-    private val notificationDao: com.anbui.database.NotificationDao,
+    private val notificationDao: NotificationDao,
     private val currentPreferences: CurrentPreferences
 ) : NotificationRepository {
     override fun getCurrentUserNotification(
@@ -29,7 +29,7 @@ class NotificationRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun insertNotification(notification: com.anbui.model.Notification) {
+    override suspend fun insertNotification(notification: Notification) {
         notification.toNotificationEntity().let {
             notificationDao.insertNotification(it)
         }

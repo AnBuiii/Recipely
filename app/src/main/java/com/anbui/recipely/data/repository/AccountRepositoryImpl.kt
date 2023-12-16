@@ -1,8 +1,8 @@
 package com.anbui.recipely.data.repository
 
 import android.util.Log
-import com.anbui.database.AccountDao
-import com.anbui.database.toAccountEntity
+import com.anbui.recipely.core.database.dao.AccountDao
+import com.anbui.recipely.core.database.entities.toAccountEntity
 import com.anbui.recipely.domain.repository.AccountRepository
 import com.anbui.recipely.domain.repository.CurrentPreferences
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 
 class AccountRepositoryImpl @Inject constructor(
-    private val accountDao: com.anbui.database.AccountDao,
+    private val accountDao: AccountDao,
     private val currentPreferences: CurrentPreferences,
 ) : AccountRepository {
     override fun getAllAccount(): Flow<List<com.anbui.model.Account>> {

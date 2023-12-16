@@ -1,14 +1,13 @@
 package com.anbui.recipely.domain.repository
 
 
-import com.anbui.database.entities.relations.RecipeAndOwner
-import com.anbui.database.entities.relations.RecipeWithIngredient
+import com.anbui.recipely.core.database.relations.RecipeAndOwner
 import kotlinx.coroutines.flow.Flow
 
 interface RecipeRepository {
     suspend fun getRecipeWithIngredient(recipeId: String): List<com.anbui.database.entities.relations.RecipeWithIngredient>
 
-    fun findIngredientWithRecipeId(recipeId: String): Flow<List<com.anbui.database.entities.relations.RecipeAndOwner>>
+    fun findIngredientWithRecipeId(recipeId: String): Flow<List<RecipeAndOwner>>
 
     fun getAllRecipes(): Flow<List<com.anbui.model.Recipe>>
 

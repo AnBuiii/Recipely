@@ -1,17 +1,16 @@
 package com.anbui.recipely.data.repository
 
 import android.util.Log
-import com.anbui.database.AccountDao
-import com.anbui.database.RecipeDao
-import com.anbui.database.LikeEntity
-import com.anbui.database.RecentEntity
-import com.anbui.database.RecipeEntity
-import com.anbui.database.StepEntity
-import com.anbui.database.entities.relations.RecipeAndOwner
-import com.anbui.database.entities.relations.RecipeIngredientCrossRef
-import com.anbui.database.entities.relations.RecipeWithIngredient
-import com.anbui.database.entities.relations.toRecipe
+import com.anbui.database.dao.RecipeDao
 import com.anbui.database.entities.relations.toRecipes
+import com.anbui.recipely.core.database.dao.AccountDao
+import com.anbui.recipely.core.database.entities.LikeEntity
+import com.anbui.recipely.core.database.entities.RecentEntity
+import com.anbui.recipely.core.database.entities.RecipeEntity
+import com.anbui.recipely.core.database.entities.StepEntity
+import com.anbui.recipely.core.database.entities.toIngredient
+import com.anbui.recipely.core.database.relations.RecipeAndOwner
+import com.anbui.recipely.core.database.relations.toRecipe
 import com.anbui.recipely.domain.repository.CurrentPreferences
 import com.anbui.recipely.domain.repository.NotificationRepository
 import com.anbui.recipely.domain.repository.RecipeRepository
@@ -26,8 +25,8 @@ import javax.inject.Inject
 
 
 class RecipeRepositoryImpl @Inject constructor(
-    private val recipeDao: com.anbui.database.RecipeDao,
-    private val accountDao: com.anbui.database.AccountDao,
+    private val recipeDao: RecipeDao,
+    private val accountDao: AccountDao,
     private val currentPreferences: CurrentPreferences,
     private val notificationRepository: NotificationRepository
 ) : RecipeRepository {
@@ -49,7 +48,7 @@ class RecipeRepositoryImpl @Inject constructor(
         return recipeDao.getIngredientOfRecipe(recipeId = recipeId)
     }
 
-    override fun findIngredientWithRecipeId(recipeId: String): Flow<List<com.anbui.database.entities.relations.RecipeAndOwner>> {
+    override fun findIngredientWithRecipeId(recipeId: String): Flow<List<RecipeAndOwner>> {
         return recipeDao.getAllRecipes()
     }
 
@@ -98,7 +97,7 @@ class RecipeRepositoryImpl @Inject constructor(
         if (like) {
             val uuid = UUID.randomUUID()
             recipeDao.insertLike(
-                com.anbui.database.LikeEntity(
+                LikeEntity(
                     id = uuid.toString(),
                     recipeId = recipeId,
                     accountId = loggedId
@@ -139,7 +138,8 @@ class RecipeRepositoryImpl @Inject constructor(
 
     override suspend fun searchRecipesByIngredient(searchText: String): List<com.anbui.model.Recipe> {
         val loggedId = currentPreferences.getLoggedId()
-        return recipeDao.searchRecipesByIngredient(searchText)?.toRecipes(loggedId.first()) ?: emptyList()
+        return recipeDao.searchRecipesByIngredient(searchText)?.toRecipes(loggedId.first())
+            ?: emptyList()
     }
 
     override suspend fun getIngredientById(ingredientId: String): com.anbui.model.Ingredient? {
@@ -156,7 +156,7 @@ class RecipeRepositoryImpl @Inject constructor(
     ): Boolean {
         val loggedId = currentPreferences.getLoggedId().first() ?: ""
         val recipeId = UUID.randomUUID().toString()
-        com.anbui.database.RecipeEntity(
+        RecipeEntity(
             id = recipeId,
             title = title,
             imageUrl = imageUrl,
@@ -173,7 +173,7 @@ class RecipeRepositoryImpl @Inject constructor(
             )
         }.let { recipeDao.insertContains(it) }
         steps.mapIndexed { idx, step ->
-            com.anbui.database.StepEntity(
+            StepEntity(
                 id = step.id,
                 period = step.period.toFloat(),
                 recipeId = recipeId,
@@ -200,7 +200,7 @@ class RecipeRepositoryImpl @Inject constructor(
         ) return
         val uuid = UUID.randomUUID()
         recipeDao.addRecent(
-            com.anbui.database.RecentEntity(
+            RecentEntity(
                 id = uuid.toString(),
                 recipeId = recipeId,
                 accountId = loggedId.filterNotNull().first()

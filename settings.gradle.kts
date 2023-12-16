@@ -21,6 +21,8 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = "Recipely"
 include(":app")
 include(":core:model")
