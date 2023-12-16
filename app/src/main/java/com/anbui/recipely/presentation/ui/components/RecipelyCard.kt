@@ -38,12 +38,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.anbui.recipely.R
-import com.anbui.model.Account
-import com.anbui.model.Notification
-import com.anbui.model.NotificationType
 import com.anbui.model.Recipe
-import com.anbui.model.exampleRecipes
+import com.anbui.recipely.R
 import com.anbui.recipely.presentation.main_screen.notification.timeAgo
 import com.anbui.recipely.presentation.ui.theme.DarkGrey
 import com.anbui.recipely.presentation.ui.theme.GoogleRed
@@ -57,7 +53,7 @@ import com.anbui.recipely.presentation.ui.theme.TrueWhite
 @Composable
 fun RecipelyLargeCard(
     modifier: Modifier = Modifier,
-    recipe: com.anbui.model.Recipe,
+    recipe: Recipe,
 ) {
     Card(
         modifier = modifier
@@ -464,7 +460,7 @@ fun RecipelyNotificationCard(
                         softWrap = true,
                         modifier = Modifier.weight(1f)
                     )
-                    if(!notification.isRead){
+                    if (!notification.isRead) {
                         Box(
                             modifier = Modifier
                                 .size(8.dp)

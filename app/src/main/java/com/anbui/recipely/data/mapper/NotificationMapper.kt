@@ -1,10 +1,10 @@
 package com.anbui.recipely.data.mapper
 
 import com.anbui.model.Notification
-import com.anbui.database.NotificationEntity
+import com.anbui.recipely.core.database.entities.NotificationEntity
 
-fun Notification.toNotificationEntity(): com.anbui.database.NotificationEntity {
-    return com.anbui.database.NotificationEntity(
+fun Notification.toNotificationEntity(): NotificationEntity {
+    return NotificationEntity(
         id = id,
         userId = userId,
         notificationType = notificationType,

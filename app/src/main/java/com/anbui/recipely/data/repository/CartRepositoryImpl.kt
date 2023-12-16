@@ -1,11 +1,10 @@
 package com.anbui.recipely.data.repository
 
-import com.anbui.database.AccountDao
-import com.anbui.database.OrderDao
-import com.anbui.database.OrderEntity
-import com.anbui.database.OrderStatusEntity
-import com.anbui.database.entities.relations.IngredientAccountCrossRef
-import com.anbui.database.entities.relations.OrderIngredientCrossRef
+import com.anbui.database.dao.OrderDao
+import com.anbui.database.entities.OrderStatusEntity
+import com.anbui.recipely.core.database.dao.AccountDao
+import com.anbui.recipely.core.database.entities.OrderEntity
+import com.anbui.recipely.core.database.relations.IngredientAccountCrossRef
 import com.anbui.recipely.domain.repository.CartRepository
 import com.anbui.recipely.domain.repository.CurrentPreferences
 import com.anbui.recipely.domain.repository.NotificationRepository
@@ -14,13 +13,15 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import java.time.LocalDateTime
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import java.util.UUID
 import javax.inject.Inject
 
 class CartRepositoryImpl @Inject constructor(
-    private val orderDao: com.anbui.database.OrderDao,
-    private val accountDao: com.anbui.database.AccountDao,
+    private val orderDao: OrderDao,
+    private val accountDao: AccountDao,
     private val notificationRepository: NotificationRepository,
     private val currentPreferences: CurrentPreferences
 ) : CartRepository {
@@ -41,7 +42,7 @@ class CartRepositoryImpl @Inject constructor(
             val uuid = UUID.randomUUID()
 
             orderDao.insertToCart(
-                com.anbui.database.entities.relations.IngredientAccountCrossRef(
+                IngredientAccountCrossRef(
                     id = uuid.toString(),
                     ingredientId = ingredientId,
                     accountId = id,
@@ -74,7 +75,10 @@ class CartRepositoryImpl @Inject constructor(
 
     override fun getDummyOrder(): com.anbui.model.Order {
         return com.anbui.model.Order(
-            id = "", time = LocalDateTime.now(), ingredients = listOf(), orderStatuses = listOf(),
+            id = "",
+            time = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
+            ingredients = listOf(),
+            orderStatuses = listOf(),
             currentStatus = "",
             total = 0.0f,
             customerName = "",
@@ -85,10 +89,10 @@ class CartRepositoryImpl @Inject constructor(
     override suspend fun createOrder() {
         val accountId = currentPreferences.getLoggedId().firstOrNull() ?: return
         val account = accountDao.getAccountById(accountId).first()
-        val now = LocalDateTime.now()
+        val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         val orderId = UUID.randomUUID().toString().substringBefore("-")
 
-        com.anbui.database.OrderEntity(
+        OrderEntity(
             id = orderId,
             accountId = accountId,
             deliveryInfo = account.getAddress(),
@@ -97,7 +101,7 @@ class CartRepositoryImpl @Inject constructor(
             orderDao.insertOrder(it)
         }
 
-        com.anbui.database.OrderStatusEntity(
+        OrderStatusEntity(
             id = UUID.randomUUID().toString(),
             step = "Init",
             time = now,

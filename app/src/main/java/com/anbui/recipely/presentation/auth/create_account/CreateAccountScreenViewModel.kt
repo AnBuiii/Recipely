@@ -2,7 +2,6 @@ package com.anbui.recipely.presentation.auth.create_account
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anbui.model.Account
 import com.anbui.model.GenderType
 import com.anbui.recipely.domain.repository.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,7 +9,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -61,8 +62,8 @@ class CreateAccountScreenViewModel @Inject constructor(
                         password = password,
                         bio = "",
                         avatarUrl = "",
-                        dob = LocalDateTime.now(),
-                        gender = com.anbui.model.GenderType.Male,
+                        dob = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
+                        gender = GenderType.Male,
                         street = "",
                         district = "",
                         province = ""
@@ -73,7 +74,7 @@ class CreateAccountScreenViewModel @Inject constructor(
                     } else {
                         _uiState.update { it.copy(state = SuccessState.Fail.Email) }
                     }
-                } else{
+                } else {
                     _uiState.update { it.copy(state = SuccessState.Fail.Password) }
                 }
             }

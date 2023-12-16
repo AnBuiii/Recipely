@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.anbui.convension
+package com.anbui.convention
 
+import com.anbui.convension.libs
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
@@ -38,14 +39,14 @@ internal fun Project.configureAndroidCompose(
         }
 
         dependencies {
-            val bom = libs.findLibrary("androidx-compose-bom").get()
+            val bom = libs.findLibrary("compose-bom").get()
             add("implementation", platform(bom))
             add("androidTestImplementation", platform(bom))
             // Add ComponentActivity to debug manifest
-            add("debugImplementation", libs.findLibrary("androidx.compose.ui.testManifest").get())
-            // Screenshot Tests on JVM
-            add("testImplementation", libs.findLibrary("robolectric").get())
-            add("testImplementation", libs.findLibrary("roborazzi").get())
+//            add("debugImplementation", libs.findLibrary("androidx.compose.ui.testManifest").get())
+//            // Screenshot Tests on JVM
+//            add("testImplementation", libs.findLibrary("robolectric").get())
+//            add("testImplementation", libs.findLibrary("roborazzi").get())
         }
 
         testOptions {

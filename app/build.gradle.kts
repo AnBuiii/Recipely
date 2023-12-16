@@ -1,8 +1,7 @@
 plugins {
-    alias(libs.plugins.com.android.application)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
-    alias(libs.plugins.com.google.dagger.hilt.android)
-    alias(libs.plugins.com.google.devtools.ksp)
+    alias(libs.plugins.recipely.android.application)
+    alias(libs.plugins.recipely.android.application.compose)
+    alias(libs.plugins.recipely.android.hilt)
 }
 
 android {
@@ -10,7 +9,6 @@ android {
 
     defaultConfig {
         applicationId = "com.anbui.recipely" //
-        targetSdk = 34
         versionCode = 1  //
         versionName = "1.0"
 
@@ -29,24 +27,11 @@ android {
             )
         }
     } //
-    kotlinOptions {
-        jvmTarget = "17"
-    } //
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.5-dev-k2.0.0-Beta1-06b8ae672a4"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
 }
 
 dependencies {
     implementation(project(mapOf("path" to ":core:model")))
+    implementation(project(mapOf("path" to ":core:database")))
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
@@ -102,4 +87,6 @@ dependencies {
     implementation(libs.tensorflow.lite.task.vision)
     implementation(libs.tensorflow.lite.gpu.delegate.plugin)
     implementation(libs.tensorflow.lite.gpu)
+
+    implementation(libs.kotlinx.datetime)
 }
