@@ -10,11 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import com.anbui.recipely.R
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
 import com.anbui.recipely.core.model.Recipe
 import com.anbui.recipely.core.model.exampleIngredientItems
-import com.anbui.recipely.R
 import com.anbui.recipely.presentation.recipe.recipe_detail.components.IngredientItem
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 
 fun LazyListScope.ingredientsSection(
     recipe: Recipe,

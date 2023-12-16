@@ -33,10 +33,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
-import com.anbui.recipely.presentation.ui.theme.SpaceHuge
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
-import com.anbui.recipely.presentation.ui.theme.TrueWhite
+import com.anbui.recipely.core.designsystem.theme.SpaceHuge
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.SpaceSmall
+import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
 import com.anbui.recipely.util.permission.isGranted
 import com.anbui.recipely.util.permission.rememberPermissionState

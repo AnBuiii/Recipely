@@ -31,14 +31,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.anbui.recipely.R
+import com.anbui.recipely.core.designsystem.components.StandardToolbar
+import com.anbui.recipely.core.designsystem.theme.MediumGrey
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.SpaceTiny
+import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import com.anbui.recipely.presentation.other_feature.setting.components.LanguagePickerBottomSheet
 import com.anbui.recipely.presentation.other_feature.setting.components.SettingCard
-import com.anbui.recipely.presentation.ui.components.StandardToolbar
-import com.anbui.recipely.presentation.ui.theme.MediumGrey
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.SpaceTiny
-import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
 import kotlinx.coroutines.launch
 
@@ -60,9 +60,11 @@ fun SettingScreen(
     LanguagePickerBottomSheet(isBottomSheetOpen) { isBottomSheetOpen = it }
     Column {
         StandardToolbar(
-            navController = navController,
             title = stringResource(R.string.settings),
-            showBackArrow = true
+            showBackArrow = true,
+            onBack = {
+                navController.popBackStack()
+            }
         )
         Column(
             modifier = Modifier

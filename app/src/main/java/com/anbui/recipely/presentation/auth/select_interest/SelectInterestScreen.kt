@@ -19,12 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.anbui.recipely.R
+import com.anbui.recipely.core.designsystem.components.StandardToolbar
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceSmall
+import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import com.anbui.recipely.domain.models.Interest
 import com.anbui.recipely.presentation.auth.select_interest.components.InterestCard
-import com.anbui.recipely.presentation.ui.components.StandardToolbar
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
-import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
 
 @ExperimentalLayoutApi
@@ -49,9 +49,11 @@ fun SelectInterestScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         StandardToolbar(
-            navController = navController,
             title = stringResource(R.string.select_interest),
-            showBackArrow = true
+            showBackArrow = true,
+            onBack = {
+                navController.popBackStack()
+            }
         )
 
         Spacer(

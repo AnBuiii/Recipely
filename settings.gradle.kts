@@ -27,3 +27,4 @@ rootProject.name = "Recipely"
 include(":app")
 include(":core:model")
 include(":core:database")
+include(":core:designsystem")

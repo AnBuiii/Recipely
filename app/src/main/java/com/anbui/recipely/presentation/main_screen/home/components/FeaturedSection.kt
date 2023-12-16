@@ -13,10 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.R
+import com.anbui.recipely.core.designsystem.components.RecipelyLargeCard
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
 import com.anbui.recipely.core.model.exampleRecipes
-import com.anbui.recipely.presentation.ui.components.RecipelyLargeCard
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 
 @Composable
 fun FeaturedSection(

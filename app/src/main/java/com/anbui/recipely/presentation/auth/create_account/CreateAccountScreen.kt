@@ -28,13 +28,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
-import com.anbui.recipely.presentation.ui.components.StandardTextField
-import com.anbui.recipely.presentation.ui.components.StandardToolbar
-import com.anbui.recipely.presentation.ui.theme.DarkGrey
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
-import com.anbui.recipely.presentation.ui.theme.TrueWhite
+import com.anbui.recipely.core.designsystem.components.StandardTextField
+import com.anbui.recipely.core.designsystem.components.StandardToolbar
+import com.anbui.recipely.core.designsystem.theme.DarkGrey
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.SpaceSmall
+import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
 
 @ExperimentalMaterial3Api
@@ -73,8 +73,8 @@ fun CreateAccountScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         StandardToolbar(
-            navController = navController,
             title = stringResource(R.string.create_account),
+            onBack = { navController.popBackStack() },
             showBackArrow = true
         )
         Column(

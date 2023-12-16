@@ -36,9 +36,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.R
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.ThinGreen
 import com.anbui.recipely.presentation.recipe.cooking_detail.TimerStatus
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.ThinGreen
 import com.anbui.recipely.util.convertSecondsToHMmSs
 
 @ExperimentalAnimationApi

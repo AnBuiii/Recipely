@@ -18,11 +18,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.SpaceTiny
+import com.anbui.recipely.core.designsystem.theme.ThinGrey
+import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import com.anbui.recipely.presentation.recipe.recipe_detail.ViewMode
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.SpaceTiny
-import com.anbui.recipely.presentation.ui.theme.ThinGrey
-import com.anbui.recipely.presentation.ui.theme.TrueWhite
 
 @ExperimentalMaterial3Api
 fun LazyListScope.viewModeSection(

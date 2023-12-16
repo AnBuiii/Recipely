@@ -17,10 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.R
+import com.anbui.recipely.core.designsystem.components.RecipelyVerticallyCard
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
 import com.anbui.recipely.core.model.Recipe
-import com.anbui.recipely.presentation.ui.components.RecipelyVerticallyCard
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
 
 @ExperimentalMaterial3Api
 @Composable

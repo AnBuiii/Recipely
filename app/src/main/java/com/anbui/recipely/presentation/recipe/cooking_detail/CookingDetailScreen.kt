@@ -52,17 +52,17 @@ import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.anbui.recipely.R
+import com.anbui.recipely.core.designsystem.components.StandardProgressIndicator
+import com.anbui.recipely.core.designsystem.components.StandardToolbar
+import com.anbui.recipely.core.designsystem.theme.SpaceHuge
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.SpaceSmall
+import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import com.anbui.recipely.core.model.MediaType
 import com.anbui.recipely.presentation.recipe.cooking_detail.components.DetailBottomSheet
 import com.anbui.recipely.presentation.recipe.cooking_detail.components.Timer
-import com.anbui.recipely.presentation.ui.components.StandardProgressIndicator
-import com.anbui.recipely.presentation.ui.components.StandardToolbar
-import com.anbui.recipely.presentation.ui.components.StandardVideoPlayer
-import com.anbui.recipely.presentation.ui.theme.SpaceHuge
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
-import com.anbui.recipely.presentation.ui.theme.TrueWhite
+import com.anbui.recipely.presentation.ui.StandardVideoPlayer
 import com.anbui.recipely.presentation.util.Screen
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
@@ -96,7 +96,6 @@ fun CookingDetailScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         StandardToolbar(
-            navController = navController,
             title = recipe.title,
             showBackArrow = true,
             navActions = {
@@ -110,6 +109,9 @@ fun CookingDetailScreen(
                         contentDescription = stringResource(R.string.list)
                     )
                 }
+            },
+            onBack = {
+                navController.popBackStack()
             }
 
         )

@@ -15,12 +15,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.anbui.recipely.core.designsystem.theme.SpaceHuge
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
 import com.anbui.recipely.presentation.main_screen.home.components.CategorySection
 import com.anbui.recipely.presentation.main_screen.home.components.FeaturedSection
 import com.anbui.recipely.presentation.main_screen.home.components.HeadingSection
 import com.anbui.recipely.presentation.main_screen.home.components.PopularRecipeSection
-import com.anbui.recipely.presentation.ui.theme.SpaceHuge
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.util.Screen
 
 @ExperimentalMaterial3Api

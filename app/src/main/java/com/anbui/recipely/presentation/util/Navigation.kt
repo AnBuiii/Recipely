@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavHostController
@@ -37,6 +38,7 @@ import com.anbui.recipely.presentation.recipe.create_recipe.CreateRecipeViewMode
 import com.anbui.recipely.presentation.recipe.create_recipe.add_item.add_ingredient.AddIngredientScreen
 import com.anbui.recipely.presentation.recipe.create_recipe.add_item.add_instruction.AddInstructionScreen
 import com.anbui.recipely.presentation.recipe.recipe_detail.RecipeDetailScreen
+import com.anbui.recipely.util.toPx
 
 @ExperimentalAnimationApi
 @UnstableApi
@@ -48,6 +50,7 @@ import com.anbui.recipely.presentation.recipe.recipe_detail.RecipeDetailScreen
 fun Navigation(
     navController: NavHostController
 ) {
+    val a =  3.dp.toPx()
     NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
         composable(Screen.SplashScreen.route) {
             SplashScreen(navController = navController)

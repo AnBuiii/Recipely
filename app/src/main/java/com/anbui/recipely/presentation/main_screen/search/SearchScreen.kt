@@ -14,11 +14,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
+import com.anbui.recipely.core.designsystem.components.StandardToolbar
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
 import com.anbui.recipely.presentation.main_screen.search.components.matchSearchSection
 import com.anbui.recipely.presentation.main_screen.search.components.recentSearchSection
 import com.anbui.recipely.presentation.main_screen.search.components.searchBarSection
-import com.anbui.recipely.presentation.ui.components.StandardToolbar
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.util.Screen
 
 @ExperimentalMaterial3Api
@@ -41,8 +41,10 @@ fun SearchScreen(
             key = "tool bar"
         ) {
             StandardToolbar(
-                navController = navController,
-                title = stringResource(id = R.string.search)
+                title = stringResource(id = R.string.search),
+                onBack = {
+                    navController.popBackStack()
+                }
             )
         }
 

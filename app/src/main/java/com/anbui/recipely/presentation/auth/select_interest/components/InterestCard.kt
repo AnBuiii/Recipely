@@ -17,10 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.anbui.recipely.core.designsystem.theme.SpaceSmall
+import com.anbui.recipely.core.designsystem.theme.SpaceTiny
+import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import com.anbui.recipely.domain.models.Interest
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
-import com.anbui.recipely.presentation.ui.theme.SpaceTiny
-import com.anbui.recipely.presentation.ui.theme.TrueWhite
 
 @ExperimentalMaterial3Api
 @Composable

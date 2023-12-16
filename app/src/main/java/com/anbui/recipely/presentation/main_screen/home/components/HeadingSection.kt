@@ -14,7 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.anbui.recipely.R
-import com.anbui.recipely.presentation.ui.theme.SpaceTiny
+import com.anbui.recipely.core.designsystem.theme.SpaceTiny
 
 @Composable
 fun HeadingSection(

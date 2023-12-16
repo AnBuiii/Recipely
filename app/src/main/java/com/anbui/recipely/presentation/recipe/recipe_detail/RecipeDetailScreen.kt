@@ -32,6 +32,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.anbui.recipely.R
+import com.anbui.recipely.core.designsystem.theme.SpaceHuge
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import com.anbui.recipely.core.model.exampleRecipes
 import com.anbui.recipely.presentation.recipe.recipe_detail.components.HeadingSection
 import com.anbui.recipely.presentation.recipe.recipe_detail.components.creatorSection
@@ -41,9 +44,6 @@ import com.anbui.recipely.presentation.recipe.recipe_detail.components.instructi
 import com.anbui.recipely.presentation.recipe.recipe_detail.components.overviewSection
 import com.anbui.recipely.presentation.recipe.recipe_detail.components.relatedRecipesSection
 import com.anbui.recipely.presentation.recipe.recipe_detail.components.viewModeSection
-import com.anbui.recipely.presentation.ui.theme.SpaceHuge
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
 
 @ExperimentalFoundationApi

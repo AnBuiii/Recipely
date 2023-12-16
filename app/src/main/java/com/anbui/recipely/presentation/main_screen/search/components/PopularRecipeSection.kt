@@ -13,11 +13,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.anbui.recipely.R
+import com.anbui.recipely.core.designsystem.components.RecipelyHorizontallyCard
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceSmall
+import com.anbui.recipely.core.designsystem.theme.SpaceTiny
 import com.anbui.recipely.core.model.Recipe
-import com.anbui.recipely.presentation.ui.components.RecipelyHorizontallyCard
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
-import com.anbui.recipely.presentation.ui.theme.SpaceTiny
 
 @ExperimentalMaterial3Api
 fun LazyListScope.matchSearchSection(

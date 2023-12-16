@@ -48,15 +48,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.anbui.recipely.R
+import com.anbui.recipely.core.designsystem.components.StandardDatePickerDialog
+import com.anbui.recipely.core.designsystem.components.StandardTextField
+import com.anbui.recipely.core.designsystem.components.StandardToolbar
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.SpaceSmall
+import com.anbui.recipely.core.designsystem.theme.ThinGrey
+import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import com.anbui.recipely.core.model.GenderType
-import com.anbui.recipely.presentation.ui.components.StandardDatePickerDialog
-import com.anbui.recipely.presentation.ui.components.StandardTextField
-import com.anbui.recipely.presentation.ui.components.StandardToolbar
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
-import com.anbui.recipely.presentation.ui.theme.ThinGrey
-import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -99,9 +99,11 @@ fun EditProfileScreen(
             }
     ) {
         StandardToolbar(
-            navController = navController,
             title = stringResource(R.string.edit_profile),
-            showBackArrow = true
+            showBackArrow = true,
+            onBack = {
+                navController.popBackStack()
+            }
         )
         Column(
             modifier = Modifier

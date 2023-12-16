@@ -24,13 +24,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.SpaceTiny
+import com.anbui.recipely.core.designsystem.theme.ThinGrey
+import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import com.anbui.recipely.core.model.Recipe
 import com.anbui.recipely.presentation.recipe.cooking_detail.ViewMode
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.SpaceTiny
-import com.anbui.recipely.presentation.ui.theme.ThinGrey
-import com.anbui.recipely.presentation.ui.theme.TrueWhite
 
 @ExperimentalFoundationApi
 @ExperimentalMaterial3Api

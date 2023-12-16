@@ -22,18 +22,18 @@ import androidx.compose.ui.unit.times
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.anbui.recipely.core.designsystem.components.StandardCard
+import com.anbui.recipely.core.designsystem.components.StandardToolbar
+import com.anbui.recipely.core.designsystem.components.Stepper
+import com.anbui.recipely.core.designsystem.theme.DarkGrey
+import com.anbui.recipely.core.designsystem.theme.LightGrey
+import com.anbui.recipely.core.designsystem.theme.SpaceExtraLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.SpaceSmall
+import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import com.anbui.recipely.presentation.cart_order.order_detail.components.InformationItem
 import com.anbui.recipely.presentation.cart_order.order_detail.components.OrderItem
-import com.anbui.recipely.presentation.ui.components.StandardCard
-import com.anbui.recipely.presentation.ui.components.StandardToolbar
-import com.anbui.recipely.presentation.ui.components.Stepper
-import com.anbui.recipely.presentation.ui.theme.DarkGrey
-import com.anbui.recipely.presentation.ui.theme.LightGrey
-import com.anbui.recipely.presentation.ui.theme.SpaceExtraLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
-import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.util.toStringAsFixed
 
 @ExperimentalMaterial3Api
@@ -45,9 +45,11 @@ fun OrderDetailScreen(
     val order by orderDetailViewModel.order.collectAsStateWithLifecycle()
     Column {
         StandardToolbar(
-            navController = navController,
             title = "Order",
-            showBackArrow = true
+            showBackArrow = true,
+            onBack = {
+                navController.popBackStack()
+            }
         )
         Box {
             LazyColumn {

@@ -30,8 +30,10 @@ android {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":core:model")))
-    implementation(project(mapOf("path" to ":core:database")))
+    implementation(projects.core.model)
+    implementation(projects.core.database)
+    implementation(projects.core.designsystem)
+
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
@@ -41,7 +43,7 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.ui.util)
-    implementation(libs.androidx.constraintlayout.compose)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
