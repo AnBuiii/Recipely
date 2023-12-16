@@ -99,7 +99,7 @@ org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.re
 com-google-dagger-hilt-android = {id = "com.google.dagger.hilt.android", version.ref = "hilt-android"}
 com-google-devtools-ksp = {id = "com.google.devtools.ksp", version.ref = "ksp"}
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
-androidLibrary = { id = "com.android.library", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
 
 
 

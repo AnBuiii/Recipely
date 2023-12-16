@@ -19,7 +19,7 @@ import com.anbui.recipely.core.database.entities.toIngredient
 import com.anbui.recipely.core.database.relations.RecipeAndOwner
 import com.anbui.recipely.core.database.relations.RecipeWithIngredient
 import com.anbui.recipely.core.database.relations.toRecipe
-import com.anbui.recipely.domain.repository.CurrentPreferences
+import com.anbui.recipely.core.datastore.CurrentPreferences
 import com.anbui.recipely.domain.repository.NotificationRepository
 import com.anbui.recipely.domain.repository.RecipeRepository
 import kotlinx.coroutines.flow.Flow
@@ -35,7 +35,7 @@ import javax.inject.Inject
 class RecipeRepositoryImpl @Inject constructor(
     private val recipeDao: RecipeDao,
     private val accountDao: AccountDao,
-    private val currentPreferences: CurrentPreferences,
+    private val currentPreferences: com.anbui.recipely.core.datastore.CurrentPreferences,
     private val notificationRepository: NotificationRepository
 ) : RecipeRepository {
 

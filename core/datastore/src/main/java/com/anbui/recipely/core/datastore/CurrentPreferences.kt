@@ -1,4 +1,4 @@
-package com.anbui.recipely.domain.repository
+package com.anbui.recipely.core.datastore
 
 import kotlinx.coroutines.flow.Flow
 

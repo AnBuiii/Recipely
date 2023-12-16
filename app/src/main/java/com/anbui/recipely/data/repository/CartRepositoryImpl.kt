@@ -11,7 +11,7 @@ import com.anbui.recipely.core.database.entities.OrderEntity
 import com.anbui.recipely.core.database.relations.IngredientAccountCrossRef
 import com.anbui.recipely.core.database.relations.OrderIngredientCrossRef
 import com.anbui.recipely.domain.repository.CartRepository
-import com.anbui.recipely.domain.repository.CurrentPreferences
+import com.anbui.recipely.core.datastore.CurrentPreferences
 import com.anbui.recipely.domain.repository.NotificationRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -28,7 +28,7 @@ class CartRepositoryImpl @Inject constructor(
     private val orderDao: OrderDao,
     private val accountDao: AccountDao,
     private val notificationRepository: NotificationRepository,
-    private val currentPreferences: CurrentPreferences
+    private val currentPreferences: com.anbui.recipely.core.datastore.CurrentPreferences
 ) : CartRepository {
     override fun getAllInCartOfCurrentAccount(): Flow<List<IngredientItem>> {
         return flow {

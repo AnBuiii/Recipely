@@ -1,4 +1,4 @@
-package com.anbui.recipely.util
+package com.anbui.recipely.core.datastore
 
 import android.content.Context
 import androidx.datastore.preferences.preferencesDataStore

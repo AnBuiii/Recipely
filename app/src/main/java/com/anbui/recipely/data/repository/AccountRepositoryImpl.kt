@@ -6,7 +6,7 @@ import com.anbui.recipely.core.model.GenderType
 import com.anbui.recipely.core.database.dao.AccountDao
 import com.anbui.recipely.core.database.entities.toAccountEntity
 import com.anbui.recipely.domain.repository.AccountRepository
-import com.anbui.recipely.domain.repository.CurrentPreferences
+import com.anbui.recipely.core.datastore.CurrentPreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class AccountRepositoryImpl @Inject constructor(
     private val accountDao: AccountDao,
-    private val currentPreferences: CurrentPreferences,
+    private val currentPreferences: com.anbui.recipely.core.datastore.CurrentPreferences,
 ) : AccountRepository {
     override fun getAllAccount(): Flow<List<Account>> {
         return accountDao.getAccounts().map { accountEntities ->

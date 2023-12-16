@@ -3,7 +3,7 @@ package com.anbui.recipely.data.repository
 import com.anbui.recipely.core.model.Notification
 import com.anbui.database.dao.NotificationDao
 import com.anbui.recipely.data.mapper.toNotificationEntity
-import com.anbui.recipely.domain.repository.CurrentPreferences
+import com.anbui.recipely.core.datastore.CurrentPreferences
 import com.anbui.recipely.domain.repository.NotificationRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
