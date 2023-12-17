@@ -1,4 +1,4 @@
-package com.anbui.recipely.presentation.main_screen.search.components
+package com.anbui.recipely.feature.search.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -12,14 +12,14 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.anbui.recipely.R
 import com.anbui.recipely.core.designsystem.components.RecipelyHorizontallyCard
 import com.anbui.recipely.core.designsystem.theme.SpaceLarge
 import com.anbui.recipely.core.designsystem.theme.SpaceSmall
 import com.anbui.recipely.core.designsystem.theme.SpaceTiny
 import com.anbui.recipely.core.model.Recipe
+import com.anbui.recipely.feature.search.R
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 fun LazyListScope.matchSearchSection(
     popularRecipes: List<Recipe>,
     onRecipeClick: (String) -> Unit,

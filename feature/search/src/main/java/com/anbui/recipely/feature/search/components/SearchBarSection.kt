@@ -1,4 +1,4 @@
-package com.anbui.recipely.presentation.main_screen.search.components
+package com.anbui.recipely.feature.search.components
 
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.FilledIconButton
@@ -8,11 +8,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import com.anbui.recipely.R
 import com.anbui.recipely.core.designsystem.components.StandardTextField
 import com.anbui.recipely.core.designsystem.theme.TrueWhite
-import com.anbui.recipely.presentation.main_screen.search.SearchMode
-import com.anbui.recipely.presentation.main_screen.search.SearchMode.Recipe
+import com.anbui.recipely.feature.search.R
+import com.anbui.recipely.feature.search.SearchMode
+import com.anbui.recipely.feature.search.SearchMode.Recipe
 
 fun LazyListScope.searchBarSection(
     searchText: String,

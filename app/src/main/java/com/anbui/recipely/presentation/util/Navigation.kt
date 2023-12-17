@@ -1,6 +1,5 @@
 package com.anbui.recipely.presentation.util
 
-import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -18,12 +17,12 @@ import androidx.navigation.navigation
 import com.anbui.recipely.feature.notification.navigation.notificationGraph
 import com.anbui.recipely.feature.onboard.navigation.OnboardGraph
 import com.anbui.recipely.feature.onboard.navigation.onBoardGraph
+import com.anbui.recipely.feature.search.navigation.searchGraph
 import com.anbui.recipely.presentation.cart_order.address.AddressScreen
 import com.anbui.recipely.presentation.cart_order.cart.CartScreen
 import com.anbui.recipely.presentation.cart_order.order_detail.OrderDetailScreen
 import com.anbui.recipely.presentation.main_screen.account.AccountScreen
 import com.anbui.recipely.presentation.main_screen.home.HomeScreen
-import com.anbui.recipely.presentation.main_screen.search.SearchScreen
 import com.anbui.recipely.presentation.other_feature.camera.CameraScreen
 import com.anbui.recipely.presentation.other_feature.edit_profile.EditProfileScreen
 import com.anbui.recipely.presentation.other_feature.setting.SettingScreen
@@ -60,17 +59,17 @@ fun Navigation(
             onBack = navController::navigateUp
         )
 
+        searchGraph(
+            onBack = navController::navigateUp,
+            onNavigateToRecipe = {
+                navController.navigate(
+                    Screen.RecipeDetailScreen.route + "/$it"
+                )
+            }
+        )
+
         composable(Screen.HomeScreen.route) {
             HomeScreen(navController = navController)
-        }
-        composable("${Screen.SearchScreen.route}/{ingredientName}",
-            arguments = listOf(
-                navArgument("ingredientName") {
-                    type = NavType.StringType
-                    defaultValue = ""
-                }
-            )) {
-            SearchScreen(navController = navController)
         }
 
         composable(Screen.AccountScreen.route) {

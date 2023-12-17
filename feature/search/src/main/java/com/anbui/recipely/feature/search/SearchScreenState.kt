@@ -1,4 +1,4 @@
-package com.anbui.recipely.presentation.main_screen.search
+package com.anbui.recipely.feature.search
 
 data class SearchScreenState(
     val searchText: String = "",

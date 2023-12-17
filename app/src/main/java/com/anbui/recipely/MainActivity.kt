@@ -23,6 +23,7 @@ import com.anbui.recipely.core.designsystem.BottomNavItem
 import com.anbui.recipely.core.designsystem.components.StandardScaffold
 import com.anbui.recipely.core.designsystem.theme.RecipelyTheme
 import com.anbui.recipely.feature.notification.navigation.notificationRoute
+import com.anbui.recipely.feature.search.navigation.searchRoute
 import com.anbui.recipely.presentation.util.Navigation
 import com.anbui.recipely.presentation.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,9 +57,8 @@ class MainActivity : ComponentActivity() {
                             selectedIcon = R.drawable.ic_home_filled,
                             contentDescription = stringResource(R.string.home)
                         ),
-
                         BottomNavItem(
-                            route = Screen.SearchScreen.route + "/ ",
+                            "$searchRoute/ ",
                             unselectedIcon = R.drawable.ic_search,
                             selectedIcon = R.drawable.ic_search_filled,
                             contentDescription = stringResource(R.string.search)
@@ -124,7 +124,7 @@ class MainActivity : ComponentActivity() {
             Screen.HomeScreen.route,
             notificationRoute,
             Screen.AccountScreen.route
-        ) || backStackEntry?.destination?.route?.contains(Screen.SearchScreen.route) == true
+        ) || backStackEntry?.destination?.route?.startsWith(searchRoute) == true
         val isOwnProfile =
             backStackEntry?.destination?.route == "${Screen.AccountScreen.route}?userId={userId}" &&
                     backStackEntry.arguments?.getString("userId") == null

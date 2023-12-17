@@ -1,4 +1,4 @@
-package com.anbui.recipely.presentation.main_screen.search.components
+package com.anbui.recipely.feature.search.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,13 +14,13 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.anbui.recipely.R
 import com.anbui.recipely.core.designsystem.components.RecipelyTinyCard
 import com.anbui.recipely.core.designsystem.theme.SpaceLarge
 import com.anbui.recipely.core.designsystem.theme.SpaceMedium
 import com.anbui.recipely.core.model.Recipe
+import com.anbui.recipely.feature.search.R
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 fun LazyListScope.recentSearchSection(
     recentSearches: List<Recipe>,
     modifier: Modifier = Modifier
@@ -31,7 +31,7 @@ fun LazyListScope.recentSearchSection(
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(horizontal = SpaceLarge)
         ) {

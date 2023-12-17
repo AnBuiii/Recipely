@@ -1,4 +1,4 @@
-package com.anbui.recipely.presentation.main_screen.search
+package com.anbui.recipely.feature.search
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,26 +12,37 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
-import com.anbui.recipely.R
 import com.anbui.recipely.core.designsystem.components.StandardToolbar
 import com.anbui.recipely.core.designsystem.theme.SpaceLarge
-import com.anbui.recipely.presentation.main_screen.search.components.matchSearchSection
-import com.anbui.recipely.presentation.main_screen.search.components.recentSearchSection
-import com.anbui.recipely.presentation.main_screen.search.components.searchBarSection
-import com.anbui.recipely.presentation.util.Screen
+import com.anbui.recipely.feature.search.components.matchSearchSection
+import com.anbui.recipely.feature.search.components.recentSearchSection
+import com.anbui.recipely.feature.search.components.searchBarSection
 
-@ExperimentalMaterial3Api
 @Composable
-fun SearchScreen(
-    navController: NavController,
+fun SearchRoute(
+    onBack: () -> Unit,
+    onNavigateToRecipe: (String) -> Unit,
     searchViewModel: SearchViewModel = hiltViewModel()
 ) {
-    val uiState by searchViewModel.state.collectAsStateWithLifecycle()
-    val searchText by searchViewModel.searchText.collectAsStateWithLifecycle()
-    val searchRecipes by searchViewModel.recipes.collectAsStateWithLifecycle()
-    val recentSearch by searchViewModel.recentRecipes.collectAsStateWithLifecycle()
-    val searchMode by searchViewModel.searchMode.collectAsStateWithLifecycle()
+    SearchScreen(
+        onBack = onBack,
+        onNavigateToRecipe = onNavigateToRecipe,
+        viewModel = searchViewModel
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SearchScreen(
+    onBack: () -> Unit,
+    onNavigateToRecipe: (String) -> Unit,
+    viewModel: SearchViewModel
+) {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val searchText by viewModel.searchText.collectAsStateWithLifecycle()
+    val searchRecipes by viewModel.recipes.collectAsStateWithLifecycle()
+    val recentSearch by viewModel.recentRecipes.collectAsStateWithLifecycle()
+    val searchMode by viewModel.searchMode.collectAsStateWithLifecycle()
     LazyColumn(
         modifier = Modifier
             .fillMaxSize(),
@@ -41,23 +52,21 @@ fun SearchScreen(
             key = "tool bar"
         ) {
             StandardToolbar(
-                title = stringResource(id = R.string.search),
-                onBack = {
-                    navController.popBackStack()
-                }
+                title = stringResource(R.string.search),
+                onBack = onBack
             )
         }
 
         searchBarSection(
             searchText = searchText,
-            onSearchTextChange = searchViewModel::changeSearchText,
+            onSearchTextChange = viewModel::changeSearchText,
             modifier = Modifier.padding(
                 start = SpaceLarge,
                 end = SpaceLarge,
                 bottom = SpaceLarge
             ),
             searchMode = searchMode,
-            onChangeMode = searchViewModel::onChangeSearchMode
+            onChangeMode = viewModel::onChangeSearchMode
         )
 
         recentSearchSection(recentSearches = recentSearch)
@@ -65,10 +74,8 @@ fun SearchScreen(
         matchSearchSection(
             popularRecipes = searchRecipes,
             onRecipeClick = {
-                searchViewModel.onRecipeClick(it)
-                navController.navigate(
-                    Screen.RecipeDetailScreen.route + "/$it"
-                )
+                viewModel.onRecipeClick(it)
+                onNavigateToRecipe(it)
             }
         )
     }

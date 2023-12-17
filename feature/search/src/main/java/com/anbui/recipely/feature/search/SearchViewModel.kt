@@ -1,6 +1,6 @@
 @file:OptIn(FlowPreview::class)
 
-package com.anbui.recipely.presentation.main_screen.search
+package com.anbui.recipely.feature.search
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
