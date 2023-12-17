@@ -3,7 +3,7 @@ package com.anbui.recipely.presentation.cart_order.order_detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anbui.recipely.domain.repository.CartRepository
+import com.anbui.recipely.core.data.repository.CartRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn

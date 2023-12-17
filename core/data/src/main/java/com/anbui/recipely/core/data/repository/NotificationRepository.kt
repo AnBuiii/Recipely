@@ -1,4 +1,4 @@
-package com.anbui.recipely.domain.repository
+package com.anbui.recipely.core.data.repository
 
 import com.anbui.recipely.core.model.Notification
 import kotlinx.coroutines.flow.Flow

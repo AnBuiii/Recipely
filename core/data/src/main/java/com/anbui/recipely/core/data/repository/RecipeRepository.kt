@@ -1,5 +1,4 @@
-package com.anbui.recipely.domain.repository
-
+package com.anbui.recipely.core.data.repository
 
 import com.anbui.recipely.core.database.relations.RecipeAndOwner
 import com.anbui.recipely.core.database.relations.RecipeWithIngredient
@@ -45,4 +44,3 @@ interface RecipeRepository {
         steps: List<Step>
     ): Boolean
 }
-

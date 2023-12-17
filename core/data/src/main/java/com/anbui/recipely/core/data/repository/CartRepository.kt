@@ -1,4 +1,4 @@
-package com.anbui.recipely.domain.repository
+package com.anbui.recipely.core.data.repository
 
 import com.anbui.recipely.core.model.IngredientItem
 import com.anbui.recipely.core.model.Order

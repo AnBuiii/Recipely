@@ -1,7 +1,7 @@
 package com.anbui.recipely.presentation.other_feature.setting
 
 import androidx.lifecycle.ViewModel
-import com.anbui.recipely.domain.repository.AccountRepository
+import com.anbui.recipely.core.data.repository.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

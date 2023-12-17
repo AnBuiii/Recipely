@@ -2,9 +2,9 @@ package com.anbui.recipely.presentation.auth.create_account
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.anbui.recipely.core.data.repository.AccountRepository
 import com.anbui.recipely.core.model.Account
 import com.anbui.recipely.core.model.GenderType
-import com.anbui.recipely.domain.repository.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

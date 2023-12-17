@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.anbui.recipely.core.designsystem.theme.SpaceSmall
 import com.anbui.recipely.core.designsystem.theme.SpaceTiny
 import com.anbui.recipely.core.designsystem.theme.TrueWhite
-import com.anbui.recipely.domain.models.Interest
+import com.anbui.recipely.models.Interest
 
 @ExperimentalMaterial3Api
 @Composable

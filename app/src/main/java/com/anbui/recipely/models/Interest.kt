@@ -1,4 +1,4 @@
-package com.anbui.recipely.domain.models
+package com.anbui.recipely.models
 
 import androidx.annotation.DrawableRes
 import com.anbui.recipely.R

@@ -3,10 +3,10 @@ package com.anbui.recipely.presentation.recipe.create_recipe
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.anbui.recipely.core.data.repository.RecipeRepository
 import com.anbui.recipely.core.model.IngredientItem
 import com.anbui.recipely.core.model.MediaType
 import com.anbui.recipely.core.model.Step
-import com.anbui.recipely.domain.repository.RecipeRepository
 import com.anbui.recipely.presentation.recipe.create_recipe.components.swap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

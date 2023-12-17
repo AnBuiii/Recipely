@@ -1,13 +1,13 @@
-package com.anbui.recipely.di
+package com.anbui.recipely.core.data.di
 
-import com.anbui.recipely.data.repository.AccountRepositoryImpl
-import com.anbui.recipely.data.repository.CartRepositoryImpl
-import com.anbui.recipely.data.repository.NotificationRepositoryImpl
-import com.anbui.recipely.data.repository.RecipeRepositoryImpl
-import com.anbui.recipely.domain.repository.AccountRepository
-import com.anbui.recipely.domain.repository.CartRepository
-import com.anbui.recipely.domain.repository.NotificationRepository
-import com.anbui.recipely.domain.repository.RecipeRepository
+import com.anbui.recipely.core.data.impl.AccountRepositoryImpl
+import com.anbui.recipely.core.data.impl.CartRepositoryImpl
+import com.anbui.recipely.core.data.impl.NotificationRepositoryImpl
+import com.anbui.recipely.core.data.impl.RecipeRepositoryImpl
+import com.anbui.recipely.core.data.repository.AccountRepository
+import com.anbui.recipely.core.data.repository.CartRepository
+import com.anbui.recipely.core.data.repository.NotificationRepository
+import com.anbui.recipely.core.data.repository.RecipeRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

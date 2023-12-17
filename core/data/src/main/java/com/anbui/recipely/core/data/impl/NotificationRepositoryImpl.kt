@@ -1,10 +1,10 @@
-package com.anbui.recipely.data.repository
+package com.anbui.recipely.core.data.impl
 
 import com.anbui.database.dao.NotificationDao
+import com.anbui.recipely.core.data.mapper.toNotificationEntity
+import com.anbui.recipely.core.data.repository.NotificationRepository
 import com.anbui.recipely.core.datastore.RecipelyPreferencesDataSource
 import com.anbui.recipely.core.model.Notification
-import com.anbui.recipely.data.mapper.toNotificationEntity
-import com.anbui.recipely.domain.repository.NotificationRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow

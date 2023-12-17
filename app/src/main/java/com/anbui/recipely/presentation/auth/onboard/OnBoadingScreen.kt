@@ -38,7 +38,7 @@ import com.anbui.recipely.core.designsystem.theme.SpaceLarge
 import com.anbui.recipely.core.designsystem.theme.SpaceMedium
 import com.anbui.recipely.core.designsystem.theme.SpaceSmall
 import com.anbui.recipely.core.designsystem.theme.TrueWhite
-import com.anbui.recipely.domain.models.OnBoardingItem
+import com.anbui.recipely.models.OnBoardingItem
 import com.anbui.recipely.presentation.util.Screen
 import kotlinx.coroutines.launch
 

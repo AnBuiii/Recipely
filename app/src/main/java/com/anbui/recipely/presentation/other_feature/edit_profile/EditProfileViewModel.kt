@@ -3,8 +3,8 @@ package com.anbui.recipely.presentation.other_feature.edit_profile
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.anbui.recipely.core.data.repository.AccountRepository
 import com.anbui.recipely.core.model.GenderType
-import com.anbui.recipely.domain.repository.AccountRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

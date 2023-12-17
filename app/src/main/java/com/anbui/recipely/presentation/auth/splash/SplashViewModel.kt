@@ -2,7 +2,7 @@ package com.anbui.recipely.presentation.auth.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anbui.recipely.domain.repository.AccountRepository
+import com.anbui.recipely.core.data.repository.AccountRepository
 import com.anbui.recipely.presentation.util.Screen
 import com.anbui.recipely.util.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel

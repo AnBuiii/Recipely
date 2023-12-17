@@ -1,4 +1,4 @@
-package com.anbui.recipely.data.mapper
+package com.anbui.recipely.core.data.mapper
 
 import com.anbui.recipely.core.database.entities.NotificationEntity
 import com.anbui.recipely.core.model.Notification

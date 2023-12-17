@@ -48,6 +48,7 @@ dependencies {
     implementation(projects.core.database)
     implementation(projects.core.designsystem)
     implementation(projects.core.datastore)
+    implementation(projects.core.data)
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

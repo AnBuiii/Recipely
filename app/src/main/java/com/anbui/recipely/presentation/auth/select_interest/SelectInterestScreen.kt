@@ -23,7 +23,7 @@ import com.anbui.recipely.core.designsystem.components.StandardToolbar
 import com.anbui.recipely.core.designsystem.theme.SpaceLarge
 import com.anbui.recipely.core.designsystem.theme.SpaceSmall
 import com.anbui.recipely.core.designsystem.theme.TrueWhite
-import com.anbui.recipely.domain.models.Interest
+import com.anbui.recipely.models.Interest
 import com.anbui.recipely.presentation.auth.select_interest.components.InterestCard
 import com.anbui.recipely.presentation.util.Screen
 
