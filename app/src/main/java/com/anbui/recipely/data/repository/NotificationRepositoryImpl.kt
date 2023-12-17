@@ -1,9 +1,9 @@
 package com.anbui.recipely.data.repository
 
-import com.anbui.recipely.core.model.Notification
 import com.anbui.database.dao.NotificationDao
+import com.anbui.recipely.core.datastore.RecipelyPreferencesDataSource
+import com.anbui.recipely.core.model.Notification
 import com.anbui.recipely.data.mapper.toNotificationEntity
-import com.anbui.recipely.core.datastore.CurrentPreferences
 import com.anbui.recipely.domain.repository.NotificationRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -13,13 +13,13 @@ import javax.inject.Inject
 
 class NotificationRepositoryImpl @Inject constructor(
     private val notificationDao: NotificationDao,
-    private val currentPreferences: CurrentPreferences
+    private val preferencesDataSource: RecipelyPreferencesDataSource
 ) : NotificationRepository {
     override fun getCurrentUserNotification(
     ): Flow<List<Notification>> {
         return flow {
-            val id = currentPreferences.getLoggedId().first()
-            notificationDao.getUserNotification(id ?: "").map { map ->
+            val id = preferencesDataSource.loggedId.first()
+            notificationDao.getUserNotification(id).map { map ->
                 map.map { notification ->
                     notification.toNotification()
                 }

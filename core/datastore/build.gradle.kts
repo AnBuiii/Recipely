@@ -1,14 +1,23 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.recipely.android.library)
     alias(libs.plugins.recipely.android.hilt)
 }
 
 android {
+    defaultConfig {
+        consumerProguardFiles("consumer-proguard-rules.pro")
+    }
     namespace = "com.anbui.recipely.core.datastore"
 }
 
 dependencies {
+    api(projects.core.datastoreProto)
     implementation(projects.core.model)
-    implementation(libs.androidx.datastore.preferences)
+
+    implementation(libs.androidx.datastore.core)
+    implementation(libs.protobuf.kotlin.lite)
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.espresso.core)
 }

@@ -1,6 +1,5 @@
 package com.anbui.recipely.presentation.auth.splash
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anbui.recipely.domain.repository.AccountRepository
@@ -26,11 +25,11 @@ class SplashViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             try {
-                withTimeout(Constants.SPLASH_SCREEN_DURATION){
+                withTimeout(Constants.SPLASH_SCREEN_DURATION) {
                     accountRepository.getCurrentAccount().first()
                     _loading.update { Screen.HomeScreen.route }
                 }
-            } catch (_: TimeoutCancellationException){
+            } catch (_: TimeoutCancellationException) {
                 _loading.update { Screen.OnBoardingScreen.route }
             }
         }

@@ -2,20 +2,19 @@ package com.anbui.recipely.data.repository
 
 import com.anbui.database.dao.OrderDao
 import com.anbui.database.entities.OrderStatusEntity
-import com.anbui.recipely.core.model.IngredientItem
-import com.anbui.recipely.core.model.Notification
-import com.anbui.recipely.core.model.NotificationType
-import com.anbui.recipely.core.model.Order
 import com.anbui.recipely.core.database.dao.AccountDao
 import com.anbui.recipely.core.database.entities.OrderEntity
 import com.anbui.recipely.core.database.relations.IngredientAccountCrossRef
 import com.anbui.recipely.core.database.relations.OrderIngredientCrossRef
+import com.anbui.recipely.core.datastore.RecipelyPreferencesDataSource
+import com.anbui.recipely.core.model.IngredientItem
+import com.anbui.recipely.core.model.Notification
+import com.anbui.recipely.core.model.NotificationType
+import com.anbui.recipely.core.model.Order
 import com.anbui.recipely.domain.repository.CartRepository
-import com.anbui.recipely.core.datastore.CurrentPreferences
 import com.anbui.recipely.domain.repository.NotificationRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Clock
@@ -28,11 +27,11 @@ class CartRepositoryImpl @Inject constructor(
     private val orderDao: OrderDao,
     private val accountDao: AccountDao,
     private val notificationRepository: NotificationRepository,
-    private val currentPreferences: com.anbui.recipely.core.datastore.CurrentPreferences
+    private val preferencesDataSource: RecipelyPreferencesDataSource
 ) : CartRepository {
     override fun getAllInCartOfCurrentAccount(): Flow<List<IngredientItem>> {
         return flow {
-            val id = currentPreferences.getLoggedId().first()
+            val id = preferencesDataSource.loggedId.first()
             orderDao.getIngredientInCart(id ?: "").collect { list ->
                 val ingredients = list.map { it.toIngredientItem() }
                 emit(ingredients)
@@ -41,7 +40,7 @@ class CartRepositoryImpl @Inject constructor(
     }
 
     override suspend fun addIngredientToCart(ingredientId: String, amount: Int) {
-        val id = currentPreferences.getLoggedId().first() ?: ""
+        val id = preferencesDataSource.loggedId.first()
         val exist = orderDao.getIngredientInCartByIdAndAccountId(ingredientId, id)
         if (exist.isEmpty()) {
             val uuid = UUID.randomUUID()
@@ -58,7 +57,7 @@ class CartRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateAmountInCartOfCurrentAccount(ingredientId: String, amount: Int) {
-        val id = currentPreferences.getLoggedId().first() ?: ""
+        val id = preferencesDataSource.loggedId.first()
         if (amount > 0) {
             orderDao.updateAmountInCart(ingredientId, id, amount)
         } else {
@@ -68,7 +67,7 @@ class CartRepositoryImpl @Inject constructor(
 
     override fun getAllOrderOfCurrentAccount(): Flow<List<Order>> {
         return flow {
-            val id = currentPreferences.getLoggedId().first() ?: ""
+            val id = preferencesDataSource.loggedId.first()
             orderDao.getAllOrder(id).collect { list ->
                 val orders = list.map {
                     it.toOrder()
@@ -92,7 +91,7 @@ class CartRepositoryImpl @Inject constructor(
     }
 
     override suspend fun createOrder() {
-        val accountId = currentPreferences.getLoggedId().firstOrNull() ?: return
+        val accountId = preferencesDataSource.loggedId.first()
         val account = accountDao.getAccountById(accountId).first()
         val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         val orderId = UUID.randomUUID().toString().substringBefore("-")

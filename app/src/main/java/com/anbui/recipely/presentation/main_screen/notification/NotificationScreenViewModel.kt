@@ -19,7 +19,7 @@ class NotificationScreenViewModel @Inject constructor(
         emptyList()
     )
 
-    fun readNotification(id: String){
+    fun readNotification(id: String) {
         viewModelScope.launch {
             notificationRepository.readNotification(id)
         }

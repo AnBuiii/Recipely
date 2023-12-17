@@ -7,7 +7,6 @@ import com.anbui.database.dao.NotificationDao
 import com.anbui.database.dao.OrderDao
 import com.anbui.database.dao.RecipeDao
 import com.anbui.database.entities.OrderStatusEntity
-import com.anbui.recipely.core.database.relations.RecipeIngredientCrossRef
 import com.anbui.recipely.core.database.converter.LocalDateTimeConverter
 import com.anbui.recipely.core.database.converter.UnitTypeConverter
 import com.anbui.recipely.core.database.dao.AccountDao
@@ -21,6 +20,7 @@ import com.anbui.recipely.core.database.entities.RecipeEntity
 import com.anbui.recipely.core.database.entities.StepEntity
 import com.anbui.recipely.core.database.relations.IngredientAccountCrossRef
 import com.anbui.recipely.core.database.relations.OrderIngredientCrossRef
+import com.anbui.recipely.core.database.relations.RecipeIngredientCrossRef
 
 @Database(
     version = 1,

@@ -185,7 +185,7 @@ class CameraViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        if(this::imageClassifierHelper.isInitialized){
+        if (this::imageClassifierHelper.isInitialized) {
             imageClassifierHelper.clearImageClassifier()
         }
     }

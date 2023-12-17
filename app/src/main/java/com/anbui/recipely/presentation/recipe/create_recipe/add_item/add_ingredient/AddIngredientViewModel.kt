@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -62,7 +61,7 @@ class AddIngredientViewModel @Inject constructor(
         .onEach { _state.update { it.copy(isSearching = true) } }
         .map {
 //            emit(
-                recipeRepository.searchIngredients(it)
+            recipeRepository.searchIngredients(it)
 //            )
         }
         .onEach { _state.update { it.copy(isSearching = false) } }

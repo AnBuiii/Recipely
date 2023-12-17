@@ -1,12 +1,12 @@
 package com.anbui.recipely.domain.repository
 
 
+import com.anbui.recipely.core.database.relations.RecipeAndOwner
+import com.anbui.recipely.core.database.relations.RecipeWithIngredient
 import com.anbui.recipely.core.model.Ingredient
 import com.anbui.recipely.core.model.IngredientItem
 import com.anbui.recipely.core.model.Recipe
 import com.anbui.recipely.core.model.Step
-import com.anbui.recipely.core.database.relations.RecipeAndOwner
-import com.anbui.recipely.core.database.relations.RecipeWithIngredient
 import kotlinx.coroutines.flow.Flow
 
 interface RecipeRepository {

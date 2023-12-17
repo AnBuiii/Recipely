@@ -3,10 +3,10 @@ package com.anbui.recipely.core.database.relations
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.anbui.database.entities.OrderStatusEntity
-import com.anbui.recipely.core.model.Order
-import com.anbui.recipely.core.model.getTotalPrice
 import com.anbui.recipely.core.database.entities.AccountEntity
 import com.anbui.recipely.core.database.entities.OrderEntity
+import com.anbui.recipely.core.model.Order
+import com.anbui.recipely.core.model.getTotalPrice
 
 data class OrderWithDetail(
     @Embedded

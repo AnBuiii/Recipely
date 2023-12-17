@@ -66,7 +66,7 @@ fun CameraScreen(
         }
     }
     LaunchedEffect(Unit) {
-        if(cameraPermissionState.status.shouldShowRationale){
+        if (cameraPermissionState.status.shouldShowRationale) {
             navController.popBackStack()
         }
         if (!cameraPermissionState.status.isGranted) {

@@ -65,6 +65,10 @@ gradlePlugin {
             id = "recipely.android.room"
             implementationClass = "AndroidRoomConventionPlugin"
         }
+        register("androidFlavors") {
+            id = "recipely.android.application.flavors"
+            implementationClass = "AndroidApplicationFlavorsConventionPlugin"
+        }
         register("jvmLibrary") {
             id = "recipely.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"

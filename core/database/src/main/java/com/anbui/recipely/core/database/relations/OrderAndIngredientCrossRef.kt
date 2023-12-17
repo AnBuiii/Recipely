@@ -2,8 +2,8 @@ package com.anbui.recipely.core.database.relations
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.anbui.recipely.core.model.IngredientItem
 import com.anbui.recipely.core.database.entities.IngredientEntity
+import com.anbui.recipely.core.model.IngredientItem
 
 data class OrderAndIngredientCrossRef(
     @Embedded

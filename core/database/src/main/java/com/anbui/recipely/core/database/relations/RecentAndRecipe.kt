@@ -2,11 +2,11 @@ package com.anbui.recipely.core.database.relations
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.anbui.recipely.core.model.IngredientItem
-import com.anbui.recipely.core.model.Recipe
 import com.anbui.recipely.core.database.entities.RecentEntity
 import com.anbui.recipely.core.database.entities.RecipeEntity
 import com.anbui.recipely.core.database.entities.toStep
+import com.anbui.recipely.core.model.IngredientItem
+import com.anbui.recipely.core.model.Recipe
 
 data class RecentAndRecipe(
     @Embedded

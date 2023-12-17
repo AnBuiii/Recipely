@@ -14,13 +14,12 @@
  *   limitations under the License.
  */
 
-package com.anbui.convension
+package com.anbui.convention
 
 /**
  * This is shared between :app and :benchmarks module to provide configurations type safety.
  */
-enum class NiaBuildType(val applicationIdSuffix: String? = null) {
+enum class RecipelyBuildType(val applicationIdSuffix: String? = null) {
     DEBUG(".debug"),
     RELEASE,
-    BENCHMARK(".benchmark")
 }

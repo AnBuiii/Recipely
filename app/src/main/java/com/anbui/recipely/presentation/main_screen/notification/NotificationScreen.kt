@@ -70,7 +70,7 @@ fun NotificationScreen(
 
     Column {
         StandardToolbar(
-            onBack = {  navController.navigateUp()},
+            onBack = { navController.navigateUp() },
             title = stringResource(id = R.string.notifications)
         )
         LazyColumn(

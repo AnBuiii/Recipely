@@ -62,7 +62,7 @@ class SearchViewModel @Inject constructor(
             emptyList()
         )
 
-    fun asd(){
+    fun asd() {
         viewModelScope.launch {
             recipeRepository.searchRecipesByIngredient(_searchText.value)
         }

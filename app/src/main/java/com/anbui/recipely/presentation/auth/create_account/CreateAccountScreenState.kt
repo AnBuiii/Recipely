@@ -8,14 +8,14 @@ data class CreateAccountScreenState(
     val rePassword: String = "",
     val passwordVisible: Boolean = false,
     val rePasswordVisible: Boolean = false,
-    val state : SuccessState = SuccessState.Init
+    val state: SuccessState = SuccessState.Init
 )
 
-sealed class SuccessState{
-    data object Init: SuccessState()
-    data object Success: SuccessState()
-    sealed class Fail: SuccessState(){
-        data object Password: Fail()
-        data object Email: Fail()
+sealed class SuccessState {
+    data object Init : SuccessState()
+    data object Success : SuccessState()
+    sealed class Fail : SuccessState() {
+        data object Password : Fail()
+        data object Email : Fail()
     }
 }

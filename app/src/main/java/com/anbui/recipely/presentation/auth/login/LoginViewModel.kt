@@ -37,7 +37,7 @@ class LoginViewModel @Inject constructor(
     fun login() {
         viewModelScope.launch {
             _state.value.let {
-                if(accountRepository.login(_state.value.email, _state.value.password)){
+                if (accountRepository.login(_state.value.email, _state.value.password)) {
                     changeState(State.Success)
                 } else {
                     changeState(State.Fail)

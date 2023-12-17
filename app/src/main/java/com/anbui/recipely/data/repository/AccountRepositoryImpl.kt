@@ -1,14 +1,14 @@
 package com.anbui.recipely.data.repository
 
 import android.util.Log
-import com.anbui.recipely.core.model.Account
-import com.anbui.recipely.core.model.GenderType
 import com.anbui.recipely.core.database.dao.AccountDao
 import com.anbui.recipely.core.database.entities.toAccountEntity
+import com.anbui.recipely.core.datastore.RecipelyPreferencesDataSource
+import com.anbui.recipely.core.model.Account
+import com.anbui.recipely.core.model.GenderType
 import com.anbui.recipely.domain.repository.AccountRepository
-import com.anbui.recipely.core.datastore.CurrentPreferences
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.transform
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class AccountRepositoryImpl @Inject constructor(
     private val accountDao: AccountDao,
-    private val currentPreferences: com.anbui.recipely.core.datastore.CurrentPreferences,
+    private val preferencesDataSource: RecipelyPreferencesDataSource
 ) : AccountRepository {
     override fun getAllAccount(): Flow<List<Account>> {
         return accountDao.getAccounts().map { accountEntities ->
@@ -29,14 +29,14 @@ class AccountRepositoryImpl @Inject constructor(
     }
 
     override fun getCurrentAccount(): Flow<Account> {
-        val loggedId = currentPreferences.getLoggedId()
-        return loggedId.filterNotNull().transform { id ->
+        val loggedId = preferencesDataSource.loggedId.filterNot { it == "" }
+        return loggedId.transform { id ->
             emit(getAccountById(id).first())
         }
     }
 
     override suspend fun logout() {
-        currentPreferences.setLoggedId(null)
+        preferencesDataSource.setLoggedId("")
     }
 
     override fun getAccountById(accountId: String): Flow<Account> {
@@ -82,7 +82,7 @@ class AccountRepositoryImpl @Inject constructor(
         val account = accountDao.getAccount(email, password)
         account?.let {
             Log.d("???", it.toString())
-            currentPreferences.setLoggedId(it.id)
+            preferencesDataSource.setLoggedId(it.id)
             return true
         }
         return false

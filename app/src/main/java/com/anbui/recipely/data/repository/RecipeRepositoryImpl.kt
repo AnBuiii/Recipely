@@ -2,14 +2,6 @@ package com.anbui.recipely.data.repository
 
 import android.util.Log
 import com.anbui.database.dao.RecipeDao
-import com.anbui.recipely.core.database.relations.RecipeIngredientCrossRef
-import com.anbui.recipely.core.database.relations.toRecipes
-import com.anbui.recipely.core.model.Ingredient
-import com.anbui.recipely.core.model.IngredientItem
-import com.anbui.recipely.core.model.Notification
-import com.anbui.recipely.core.model.NotificationType
-import com.anbui.recipely.core.model.Recipe
-import com.anbui.recipely.core.model.Step
 import com.anbui.recipely.core.database.dao.AccountDao
 import com.anbui.recipely.core.database.entities.LikeEntity
 import com.anbui.recipely.core.database.entities.RecentEntity
@@ -17,14 +9,21 @@ import com.anbui.recipely.core.database.entities.RecipeEntity
 import com.anbui.recipely.core.database.entities.StepEntity
 import com.anbui.recipely.core.database.entities.toIngredient
 import com.anbui.recipely.core.database.relations.RecipeAndOwner
+import com.anbui.recipely.core.database.relations.RecipeIngredientCrossRef
 import com.anbui.recipely.core.database.relations.RecipeWithIngredient
 import com.anbui.recipely.core.database.relations.toRecipe
-import com.anbui.recipely.core.datastore.CurrentPreferences
+import com.anbui.recipely.core.database.relations.toRecipes
+import com.anbui.recipely.core.datastore.RecipelyPreferencesDataSource
+import com.anbui.recipely.core.model.Ingredient
+import com.anbui.recipely.core.model.IngredientItem
+import com.anbui.recipely.core.model.Notification
+import com.anbui.recipely.core.model.NotificationType
+import com.anbui.recipely.core.model.Recipe
+import com.anbui.recipely.core.model.Step
 import com.anbui.recipely.domain.repository.NotificationRepository
 import com.anbui.recipely.domain.repository.RecipeRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -35,14 +34,14 @@ import javax.inject.Inject
 class RecipeRepositoryImpl @Inject constructor(
     private val recipeDao: RecipeDao,
     private val accountDao: AccountDao,
-    private val currentPreferences: com.anbui.recipely.core.datastore.CurrentPreferences,
+    private val preferencesDataSource: RecipelyPreferencesDataSource,
     private val notificationRepository: NotificationRepository
 ) : RecipeRepository {
 
     override fun getFavouriteOfCurrentAccount(): Flow<List<Recipe>> {
         return flow {
-            val id = currentPreferences.getLoggedId().first()
-            recipeDao.getFavouriteRecipes(id ?: "").map { map ->
+            val id = preferencesDataSource.loggedId.first()
+            recipeDao.getFavouriteRecipes(id).map { map ->
                 map.map { recipe ->
                     recipe.toRecipe()
                 }
@@ -61,8 +60,7 @@ class RecipeRepositoryImpl @Inject constructor(
     }
 
     override fun getAllRecipes(): Flow<List<Recipe>> {
-        val loggedId = currentPreferences.getLoggedId()
-        return combine(recipeDao.getAllRecipes(), loggedId) { recipes, id ->
+        return combine(recipeDao.getAllRecipes(), preferencesDataSource.loggedId) { recipes, id ->
             recipes.map {
                 it.toRecipe(id)
             }
@@ -70,8 +68,10 @@ class RecipeRepositoryImpl @Inject constructor(
     }
 
     override fun getRecipesById(recipeId: String): Flow<Recipe> {
-        val loggedId = currentPreferences.getLoggedId()
-        return combine(recipeDao.getRecipe(recipeId = recipeId), loggedId) { recipe, id ->
+        return combine(
+            recipeDao.getRecipe(recipeId = recipeId),
+            preferencesDataSource.loggedId
+        ) { recipe, id ->
             recipe.toRecipe(id)
         }
     }
@@ -99,7 +99,7 @@ class RecipeRepositoryImpl @Inject constructor(
     }
 
     override suspend fun likeRecipe(recipeId: String, like: Boolean) {
-        val loggedId = currentPreferences.getLoggedId().first() ?: return
+        val loggedId = preferencesDataSource.loggedId.first()
         val account = accountDao.getAccountById(loggedId).first()
 
         if (like) {
@@ -145,8 +145,8 @@ class RecipeRepositoryImpl @Inject constructor(
     }
 
     override suspend fun searchRecipesByIngredient(searchText: String): List<Recipe> {
-        val loggedId = currentPreferences.getLoggedId()
-        return recipeDao.searchRecipesByIngredient(searchText)?.toRecipes(loggedId.first())
+        val loggedId = preferencesDataSource.loggedId.first()
+        return recipeDao.searchRecipesByIngredient(searchText)?.toRecipes(loggedId)
             ?: emptyList()
     }
 
@@ -162,7 +162,7 @@ class RecipeRepositoryImpl @Inject constructor(
         ingredients: List<IngredientItem>,
         steps: List<Step>
     ): Boolean {
-        val loggedId = currentPreferences.getLoggedId().first() ?: ""
+        val loggedId = preferencesDataSource.loggedId.first()
         val recipeId = UUID.randomUUID().toString()
         RecipeEntity(
             id = recipeId,
@@ -195,15 +195,15 @@ class RecipeRepositoryImpl @Inject constructor(
     }
 
     override suspend fun searchRecipes(searchText: String): List<Recipe> {
-        val loggedId = currentPreferences.getLoggedId()
+        val loggedId = preferencesDataSource.loggedId.first()
         return recipeDao.searchRecipe(searchText).map {
-            it.toRecipe(loggedId.first())
+            it.toRecipe(loggedId)
         }
     }
 
     override suspend fun addRecentRecipe(recipeId: String) {
-        val loggedId = currentPreferences.getLoggedId()
-        if (recipeDao.getRecentByAccountAndRecipe(accountId = loggedId.first() ?: "", recipeId)
+        val loggedId = preferencesDataSource.loggedId.first()
+        if (recipeDao.getRecentByAccountAndRecipe(accountId = loggedId, recipeId)
                 .isNotEmpty()
         ) return
         val uuid = UUID.randomUUID()
@@ -211,15 +211,15 @@ class RecipeRepositoryImpl @Inject constructor(
             RecentEntity(
                 id = uuid.toString(),
                 recipeId = recipeId,
-                accountId = loggedId.filterNotNull().first()
+                accountId = loggedId
             )
         )
     }
 
     override fun getAllRecentOfCurrentAccount(): Flow<List<Recipe>> {
         return flow {
-            val id = currentPreferences.getLoggedId().first()
-            recipeDao.getAllRecent(id ?: "").map { map ->
+            val id = preferencesDataSource.loggedId.first()
+            recipeDao.getAllRecent(id).map { map ->
                 map.map { recipe ->
                     recipe.toRecipe()
                 }

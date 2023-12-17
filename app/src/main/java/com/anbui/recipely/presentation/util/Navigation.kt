@@ -50,7 +50,7 @@ import com.anbui.recipely.util.toPx
 fun Navigation(
     navController: NavHostController
 ) {
-    val a =  3.dp.toPx()
+    val a = 3.dp.toPx()
     NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
         composable(Screen.SplashScreen.route) {
             SplashScreen(navController = navController)
