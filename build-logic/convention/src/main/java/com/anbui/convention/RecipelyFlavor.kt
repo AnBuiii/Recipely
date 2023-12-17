@@ -19,7 +19,6 @@ enum class RecipelyFlavor(val dimension: FlavorDimension, val applicationIdSuffi
     prod(FlavorDimension.contentType)
 }
 
-@OptIn(ExperimentalStdlibApi::class)
 fun configureFlavors(
     commonExtension: CommonExtension<*, *, *, *, *>,
     flavorConfigurationBlock: ProductFlavor.(flavor: RecipelyFlavor) -> Unit = {}
@@ -27,7 +26,7 @@ fun configureFlavors(
     commonExtension.apply {
         flavorDimensions += FlavorDimension.contentType.name
         productFlavors {
-            RecipelyFlavor.entries.forEach {
+            RecipelyFlavor.values().forEach {
                 create(it.name) {
                     dimension = it.dimension.name
                     flavorConfigurationBlock(this, it)

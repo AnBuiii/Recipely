@@ -29,7 +29,7 @@ class AccountRepositoryImpl @Inject constructor(
     }
 
     override fun getCurrentAccount(): Flow<Account> {
-        val loggedId = preferencesDataSource.loggedId.filterNot { it == "" }
+        val loggedId = preferencesDataSource.loggedId.filterNot { it.isNullOrEmpty() }
         return loggedId.transform { id ->
             emit(getAccountById(id).first())
         }

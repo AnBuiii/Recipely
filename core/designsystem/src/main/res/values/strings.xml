@@ -10,28 +10,14 @@
     <string name="back">Back</string>
     <string name="splash">splash</string>
     <string name="background">background</string>
-    <string name="onboarding_title_1">Discover all the best recipes you needed</string>
-    <string name="onboarding_subtitle_1">5000+ healthy recipes made by people for your healthy life</string>
-    <string name="onboarding_title_2">Order directly the ingredients</string>
-    <string name="onboarding_subtitle_2">Order the ingredients you need quickly with a fast process</string>
-    <string name="onboarding_title_3">Let\'s cook with the recipe you found</string>
-    <string name="onboarding_subtitle_3">Cooking based on the food recipes you find and the food you love</string>
-    <string name="onboarding_image">onboarding image %1$s</string>
-    <string name="skip">Skip</string>
-    <string name="next">Next</string>
     <string name="get_started">Get started</string>
     <string name="login">Login</string>
-    <string name="create_new_account">Create new account</string>
     <string name="email_address">Email Address</string>
     <string name="password">Password</string>
     <string name="email_hint">Enter email address</string>
-    <string name="password_hint">Enter password</string>
-    <string name="forgot_password">Forgot password</string>
     <string name="or_continue_with">or continue with</string>
     <string name="login_with_google">Login with Google</string>
     <string name="google">Google</string>
-    <string name="forgot_password_description">Enter your email and we will send you a link to reset your password.</string>
-    <string name="send_email">Send Email</string>
     <string name="create_account">Create Account</string>
     <string name="username">Username</string>
     <string name="username_hint">Username</string>
@@ -40,11 +26,7 @@
     <string name="last_name">Last name</string>
     <string name="last_name_hint">Last name</string>
     <string name="s_continue">Continue</string>
-    <string name="create_account_hint">By continuing, you agree to the</string>
-    <string name="term_of_services">Term of Services</string>
-    <string name="privacy_policy">Privacy Policy</string>
     <string name="discover_recipes">Discover Recipes</string>
-    <string name="select_interest">Select Interest</string>
     <string name="sun">Sun</string>
     <string name="buy">Buy</string>
     <string name="featured">Featured</string>
@@ -137,5 +119,4 @@
     <string name="instruction_hint">Enter instruction</string>
     <string name="period_hint">Enter period</string>
     <string name="this_feature_still_construction">This feature still construction</string>
-    <string name="confirm_password_hint">Confirm password</string>
 </resources>

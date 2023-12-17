@@ -132,7 +132,7 @@ fun CreateRecipeScreen(
                     Text(
                         text =
                         if (pagerState.currentPage + 1 != steps.size) {
-                            stringResource(id = R.string.next)
+                            stringResource(id = com.anbui.recipely.feature.onboard.R.string.next)
                         } else {
                             stringResource(
                                 R.string.finish

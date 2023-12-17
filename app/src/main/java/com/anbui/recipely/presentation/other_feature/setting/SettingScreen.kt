@@ -37,6 +37,7 @@ import com.anbui.recipely.core.designsystem.theme.SpaceLarge
 import com.anbui.recipely.core.designsystem.theme.SpaceMedium
 import com.anbui.recipely.core.designsystem.theme.SpaceTiny
 import com.anbui.recipely.core.designsystem.theme.TrueWhite
+import com.anbui.recipely.feature.onboard.navigation.navigateToOnboard
 import com.anbui.recipely.presentation.other_feature.setting.components.LanguagePickerBottomSheet
 import com.anbui.recipely.presentation.other_feature.setting.components.SettingCard
 import com.anbui.recipely.presentation.util.Screen
@@ -170,11 +171,7 @@ fun SettingScreen(
                 onClick = {
                     coroutineScope.launch {
                         settingViewModel.logout()
-                        navController.navigate(Screen.SplashScreen.route) {
-                            popUpTo(0) {
-                                inclusive = true
-                            }
-                        }
+                        navController.navigateToOnboard()
                     }
                 }
             )

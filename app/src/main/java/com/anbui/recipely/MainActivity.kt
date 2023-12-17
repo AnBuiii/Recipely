@@ -22,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.anbui.recipely.core.designsystem.BottomNavItem
 import com.anbui.recipely.core.designsystem.components.StandardScaffold
 import com.anbui.recipely.core.designsystem.theme.RecipelyTheme
+import com.anbui.recipely.feature.notification.navigation.notificationRoute
 import com.anbui.recipely.presentation.util.Navigation
 import com.anbui.recipely.presentation.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
@@ -69,7 +70,7 @@ class MainActivity : ComponentActivity() {
                             contentDescription = stringResource(R.string.search)
                         ),
                         BottomNavItem(
-                            route = Screen.NotificationScreen.route,
+                            route = notificationRoute,
                             selectedIcon = R.drawable.ic_notification_filled,
                             unselectedIcon = R.drawable.ic_notification,
                             contentDescription = stringResource(R.string.notifications)
@@ -121,7 +122,7 @@ class MainActivity : ComponentActivity() {
     private fun shouldShowBottomBar(backStackEntry: NavBackStackEntry?): Boolean {
         val doesRouteMatch = backStackEntry?.destination?.route in listOf(
             Screen.HomeScreen.route,
-            Screen.NotificationScreen.route,
+            notificationRoute,
             Screen.AccountScreen.route
         ) || backStackEntry?.destination?.route?.contains(Screen.SearchScreen.route) == true
         val isOwnProfile =

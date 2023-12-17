@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavHostController
@@ -16,18 +15,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.anbui.recipely.presentation.auth.create_account.CreateAccountScreen
-import com.anbui.recipely.presentation.auth.forgot_password.ForgotPasswordScreen
-import com.anbui.recipely.presentation.auth.login.LoginScreen
-import com.anbui.recipely.presentation.auth.onboard.OnBoardingScreen
-import com.anbui.recipely.presentation.auth.select_interest.SelectInterestScreen
-import com.anbui.recipely.presentation.auth.splash.SplashScreen
+import com.anbui.recipely.feature.notification.navigation.notificationGraph
+import com.anbui.recipely.feature.onboard.navigation.OnboardGraph
+import com.anbui.recipely.feature.onboard.navigation.onBoardGraph
 import com.anbui.recipely.presentation.cart_order.address.AddressScreen
 import com.anbui.recipely.presentation.cart_order.cart.CartScreen
 import com.anbui.recipely.presentation.cart_order.order_detail.OrderDetailScreen
 import com.anbui.recipely.presentation.main_screen.account.AccountScreen
 import com.anbui.recipely.presentation.main_screen.home.HomeScreen
-import com.anbui.recipely.presentation.main_screen.notification.NotificationScreen
 import com.anbui.recipely.presentation.main_screen.search.SearchScreen
 import com.anbui.recipely.presentation.other_feature.camera.CameraScreen
 import com.anbui.recipely.presentation.other_feature.edit_profile.EditProfileScreen
@@ -38,7 +33,6 @@ import com.anbui.recipely.presentation.recipe.create_recipe.CreateRecipeViewMode
 import com.anbui.recipely.presentation.recipe.create_recipe.add_item.add_ingredient.AddIngredientScreen
 import com.anbui.recipely.presentation.recipe.create_recipe.add_item.add_instruction.AddInstructionScreen
 import com.anbui.recipely.presentation.recipe.recipe_detail.RecipeDetailScreen
-import com.anbui.recipely.util.toPx
 
 @ExperimentalAnimationApi
 @UnstableApi
@@ -50,14 +44,22 @@ import com.anbui.recipely.util.toPx
 fun Navigation(
     navController: NavHostController
 ) {
-    val a = 3.dp.toPx()
-    NavHost(navController = navController, startDestination = Screen.SplashScreen.route) {
-        composable(Screen.SplashScreen.route) {
-            SplashScreen(navController = navController)
-        }
-        composable(Screen.OnBoardingScreen.route) {
-            OnBoardingScreen(navController = navController)
-        }
+    NavHost(navController = navController, startDestination = OnboardGraph.ROUTE) {
+        onBoardGraph(
+            onHome = {
+                navController.navigate(Screen.HomeScreen.route) {
+                    popUpTo(OnboardGraph.Splash.route) {
+                        inclusive = true
+                    }
+                }
+            },
+            navController = navController
+        )
+
+        notificationGraph(
+            onBack = navController::navigateUp
+        )
+
         composable(Screen.HomeScreen.route) {
             HomeScreen(navController = navController)
         }
@@ -70,24 +72,11 @@ fun Navigation(
             )) {
             SearchScreen(navController = navController)
         }
-        composable(Screen.NotificationScreen.route) {
-            NotificationScreen(navController = navController)
-        }
+
         composable(Screen.AccountScreen.route) {
             AccountScreen(navController = navController)
         }
-        composable(Screen.LoginScreen.route) {
-            LoginScreen(navController = navController)
-        }
-        composable(Screen.ForgotPasswordScreen.route) {
-            ForgotPasswordScreen(navController = navController)
-        }
-        composable(Screen.CreateAccountScreen.route) {
-            CreateAccountScreen(navController = navController)
-        }
-        composable(Screen.SelectInterestScreen.route) {
-            SelectInterestScreen(navController = navController)
-        }
+
         composable(Screen.EditProfileScreen.route) {
             EditProfileScreen(navController = navController)
         }
@@ -166,11 +155,7 @@ fun Navigation(
                     defaultValue = 0.0
                 }
             )
-        ) { backStack ->
-            val a = backStack.arguments?.getString("instructionId")
-            val b = backStack.arguments?.getString("instruction")
-            val c = backStack.arguments?.getFloat("period")
-            Log.d("instruction screen", "$a, $b, $c")
+        ) {
             AddInstructionScreen(navController = navController)
         }
 
@@ -192,64 +177,5 @@ fun Navigation(
         composable(Screen.CameraScreen.route) {
             CameraScreen(navController = navController)
         }
-
-//        navigation(route = "Create Recipe", startDestination = Screen.AddIngredientScreen.route){
-//            composable(Screen.CreateRecipeScreen.route) {backStackEntry->
-//                val parentEntry = remember(backStackEntry) {
-//                    navController.getBackStackEntry("Create Recipe")
-//                }
-//                val createRecipeViewModel = hiltViewModel<CreateRecipeViewModel>(parentEntry)
-//                CreateRecipeScreen(navController = navController, createRecipeViewModel)
-//            }
-//            composable(Screen.AddIngredientScreen.route) {backStackEntry ->
-//                val parentEntry = remember(backStackEntry) {
-//                    navController.getBackStackEntry("Create Recipe")
-//                }
-//                val createRecipeViewModel = hiltViewModel<CreateRecipeViewModel>(parentEntry)
-//                AddIngredientScreen(navController = navController
-// //                    , createRecipeViewModel
-//                )
-//            }
-//        }
-
-//        composable(Screen.MainFeedScreen.route) {
-//            MainFeedScreen(navController = navController)
-//        }
-//        composable(Screen.SearchScreen.route) {
-//            SearchScreen(navController = navController)
-//        }
-//        composable(Screen.ActivityScreen.route) {
-//            ActivityScreen(navController = navController)
-//        }
-//        composable(Screen.MessagesScreen.route) {
-//            MessagesScreen(navController = navController)
-//        }
-//        composable(Screen.ProfileScreen.route) {
-//            ProfileScreen(navController = navController)
-//        }
-//        composable(Screen.ChatScreen.route) {
-//            ActivityScreen(navController = navController)
-//        }
-//        composable(Screen.EditProfileScreen.route){
-//            EditProfileScreen(navController = navController)
-//        }
-
-//        composable(Screen.PostDetailScreen.route) {
-//            PostDetailScreen(
-//                navController = navController,
-//                post = Post(
-//                    username = "An Bui",
-//                    imageUrl = "",
-//                    profilePictureUrl = "",
-//                    description = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed\n" +
-//                            "diam nonumy eirmod tempor invidunt ut labore et dolore \n" +
-//                            "magna aliquyam erat, sed diam voluptua Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed\\n\" +\n" +
-//                            "                    \"diam nonumy eirmod tempor invidunt ut labore et dolore \\n\" +\n" +
-//                            "                    \"magna aliquyam erat, sed diam voluptua",
-//                    likeCount = 17,
-//                    commentCount = 7
-//                )
-//            )
-//        }
     }
 }

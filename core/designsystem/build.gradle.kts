@@ -12,9 +12,10 @@ dependencies {
     implementation(libs.kotlinx.datetime)
     implementation(libs.androidx.constraintlayout.compose)
 
-    implementation(libs.ui.tooling.preview)
-    implementation(libs.core.ktx)
-    implementation(libs.material3)
+    api(libs.ui.tooling.preview)
+    api(libs.core.ktx)
+    api(libs.material3)
+
     implementation(libs.coil.compose)
 
 

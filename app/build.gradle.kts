@@ -50,6 +50,9 @@ dependencies {
     implementation(projects.core.datastore)
     implementation(projects.core.data)
 
+    implementation(projects.feature.onboard)
+    implementation(projects.feature.notification)
+
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
