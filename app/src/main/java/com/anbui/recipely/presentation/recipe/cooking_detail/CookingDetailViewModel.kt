@@ -4,7 +4,7 @@ import android.os.CountDownTimer
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anbui.recipely.domain.repository.RecipeRepository
+import com.anbui.recipely.core.data.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CookingDetailViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
+    savedStateHandle: SavedStateHandle,
     recipeRepository: RecipeRepository
 ) : ViewModel() {
     private val _viewState = MutableStateFlow(CookingDetailTimerState())

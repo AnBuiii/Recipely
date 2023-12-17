@@ -8,12 +8,12 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.anbui.recipely.R
-import com.anbui.model.Recipe
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.model.Recipe
 import kotlin.math.roundToInt
 
 fun LazyListScope.overviewSection(
-    recipe: com.anbui.model.Recipe
+    recipe: Recipe
 ) {
     item {
         Row(

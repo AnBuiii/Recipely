@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="splash">splash</string>
+    <string name="login">Login</string>
+    <string name="email_address">Email Address</string>
+    <string name="email_hint">Enter email address</string>
+    <string name="password">Password</string>
+    <string name="password_hint">Enter password</string>
+    <string name="or_continue_with">or continue with</string>
+    <string name="google">google</string>
+    <string name="login_with_google">Login with Google</string>
+    <string name="forgot_password_description">Enter your email and we will send you a link to reset your password.</string>
+    <string name="create_account">Create account</string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="send_email">Send Email</string>
+    <string name="first_name">First name</string>
+    <string name="first_name_hint">Enter first name</string>
+    <string name="last_name">Last name</string>
+    <string name="last_name_hint">Enter last name</string>
+    <string name="s_continue">Continue</string>
+    <string name="term_of_services">Term of Services</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="onboarding_title_1">Discover all the best recipes you needed</string>
+    <string name="onboarding_subtitle_1">5000+ healthy recipes made by people for your healthy life</string>
+    <string name="onboarding_title_2">Order directly the ingredients</string>
+    <string name="onboarding_subtitle_2">Order the ingredients you need quickly with a fast process</string>
+    <string name="onboarding_title_3">Let\'s cook with the recipe you found</string>
+    <string name="onboarding_subtitle_3">Cooking based on the food recipes you find and the food you love</string>
+    <string name="onboarding_image">onboarding image %1$s</string>
+    <string name="background">background</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="create_new_account">Create new account</string>
+    <string name="create_account_hint">By continuing, you agree to the</string>
+    <string name="confirm_password_hint">Confirm password</string>
+    <string name="select_interest">Select Interest</string>
+</resources>

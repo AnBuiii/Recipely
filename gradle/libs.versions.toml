@@ -19,11 +19,11 @@ camerax = "1.3.1"
 coil-compose = "2.5.0"
 constraintlayout-compose = "1.0.1"
 core-splashscreen = "1.0.1"
-datastore-preferences = "1.0.0"
+datastore = "1.0.0"
 media3 = "1.2.0"
 
 tensorflow-lite-gpu = "2.14.0"
-tensorflow-lite= "0.4.4"
+tensorflow-lite = "0.4.4"
 org-jetbrains-kotlin-jvm = "2.0.0-Beta1"
 
 kotlinx-date-time = "0.5.0"
@@ -32,6 +32,11 @@ material = "1.9.0"
 
 androidTools = "31.1.3"
 androidDesugarJdkLibs = "2.0.3"
+
+androidxComposeCompiler = "1.5.5-dev-k2.0.0-Beta1-06b8ae672a4"
+protobuf = "3.24.4"
+protobufPlugin = "0.9.4"
+googleOssPlugin = "0.10.6"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -61,7 +66,7 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
-androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore-preferences" }
+androidx-datastore-core = { module = "androidx.datastore:datastore", version.ref = "datastore" }
 
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayout-compose" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "core-splashscreen" }
@@ -71,7 +76,7 @@ androidx-camera-extensions = { module = "androidx.camera:camera-extensions", ver
 androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "camerax" }
 androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "camerax" }
 androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "camerax" }
-androidx-camera-video = {module = "androidx.camera:camera-video", version.ref= "camerax"}
+androidx-camera-video = { module = "androidx.camera:camera-video", version.ref = "camerax" }
 
 androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "media3" }
 androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3" }
@@ -84,6 +89,9 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
+protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
+protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
+google-oss-licenses-plugin = { group = "com.google.android.gms", name = "oss-licenses-plugin", version.ref = "googleOssPlugin" }
 
 # build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
@@ -94,10 +102,24 @@ ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devto
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-com-google-dagger-hilt-android = {id = "com.google.dagger.hilt.android", version.ref = "hilt-android"}
-com-google-devtools-ksp = {id = "com.google.devtools.ksp", version.ref = "ksp"}
+com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt-android" }
+com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
-androidLibrary = { id = "com.android.library", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
+
+
+
+# Plugins defined by this project
+recipely-android-application = { id = "recipely.android.application", version = "unspecified" }
+recipely-android-application-compose = { id = "recipely.android.application.compose", version = "unspecified" }
+recipely-android-application-flavors = { id = "recipely.android.application.flavors", version = "unspecified" }
+recipely-android-feature = { id = "recipely.android.feature", version = "unspecified" }
+recipely-android-hilt = { id = "recipely.android.hilt", version = "unspecified" }
+recipely-android-library = { id = "recipely.android.library", version = "unspecified" }
+recipely-android-library-compose = { id = "recipely.android.library.compose", version = "unspecified" }
+recipely-android-room = { id = "recipely.android.room", version = "unspecified" }
+
 
 [bundles]
 

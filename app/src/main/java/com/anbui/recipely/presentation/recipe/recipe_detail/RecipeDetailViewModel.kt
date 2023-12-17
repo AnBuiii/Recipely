@@ -11,8 +11,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anbui.recipely.domain.repository.CartRepository
-import com.anbui.recipely.domain.repository.RecipeRepository
+import com.anbui.recipely.core.data.repository.CartRepository
+import com.anbui.recipely.core.data.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.first

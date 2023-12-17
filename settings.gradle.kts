@@ -21,7 +21,17 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = "Recipely"
 include(":app")
 include(":core:model")
 include(":core:database")
+include(":core:designsystem")
+include(":core:datastore")
+include(":core:datastore-proto")
+include(":core:data")
+include(":feature:onboard")
+include(":feature:notification")
+include(":core:testing")
+include(":feature:search")

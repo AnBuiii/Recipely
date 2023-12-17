@@ -17,10 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.R
-import com.anbui.recipely.presentation.ui.components.StandardChip
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
-import com.anbui.recipely.presentation.ui.theme.SpaceTiny
+import com.anbui.recipely.core.designsystem.components.StandardChip
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceSmall
+import com.anbui.recipely.core.designsystem.theme.SpaceTiny
 
 @ExperimentalMaterial3Api
 @Composable
@@ -31,6 +31,7 @@ fun CategorySection(
 ) {
     val categories = listOf("Breakfast", "Lunch", "Dinner", "Snack")
     Column(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(0.dp)
     ) {
         Row(

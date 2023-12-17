@@ -1,8 +1,10 @@
+import com.anbui.convention.RecipelyBuildType
+
 plugins {
-    alias(libs.plugins.com.android.application)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
-    alias(libs.plugins.com.google.dagger.hilt.android)
-    alias(libs.plugins.com.google.devtools.ksp)
+    alias(libs.plugins.recipely.android.application)
+    alias(libs.plugins.recipely.android.application.compose)
+    alias(libs.plugins.recipely.android.hilt)
+    alias(libs.plugins.recipely.android.application.flavors)
 }
 
 android {
@@ -10,7 +12,6 @@ android {
 
     defaultConfig {
         applicationId = "com.anbui.recipely" //
-        targetSdk = 34
         versionCode = 1  //
         versionName = "1.0"
 
@@ -21,32 +22,38 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix = RecipelyBuildType.DEBUG.applicationIdSuffix
+        }
         release {
             isMinifyEnabled = false
+            applicationIdSuffix = RecipelyBuildType.RELEASE.applicationIdSuffix
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            // To publish on the Play store a private signing key is required, but to allow anyone
+            // who clones the code to sign and run the release variant, use the debug signing key.
+            // TODO: Abstract the signing configuration to a separate file to avoid hardcoding this.
+            signingConfig = signingConfigs.getByName("debug")
+            // Ensure Baseline Profile is fresh for release builds.
+//            baselineProfile.automaticGenerationDuringBuild = true
         }
     } //
-    kotlinOptions {
-        jvmTarget = "17"
-    } //
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.5-dev-k2.0.0-Beta1-06b8ae672a4"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":core:model")))
+    implementation(projects.core.model)
+    implementation(projects.core.database)
+    implementation(projects.core.designsystem)
+    implementation(projects.core.datastore)
+    implementation(projects.core.data)
+
+    implementation(projects.feature.onboard)
+    implementation(projects.feature.notification)
+    implementation(projects.feature.search)
+
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
@@ -56,10 +63,11 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.ui.util)
-    implementation(libs.androidx.constraintlayout.compose)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
@@ -73,20 +81,12 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
 
-    // DataStore
-    implementation(libs.androidx.datastore.preferences)
-
-    // Room
-    implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.compiler)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
-
     // Coil
     implementation(libs.coil.compose)
 
     // Splash screen
     implementation(libs.androidx.core.splashscreen)
+
     // Media3
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui)
@@ -102,4 +102,6 @@ dependencies {
     implementation(libs.tensorflow.lite.task.vision)
     implementation(libs.tensorflow.lite.gpu.delegate.plugin)
     implementation(libs.tensorflow.lite.gpu)
+
+    implementation(libs.kotlinx.datetime)
 }

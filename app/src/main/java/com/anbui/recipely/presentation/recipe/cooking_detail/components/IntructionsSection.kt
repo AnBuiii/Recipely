@@ -21,11 +21,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.anbui.recipely.R
-import com.anbui.model.Recipe
-import com.anbui.recipely.presentation.ui.components.StandardCard
-import com.anbui.recipely.presentation.ui.theme.DarkGrey
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
+import com.anbui.recipely.core.designsystem.components.StandardCard
+import com.anbui.recipely.core.designsystem.theme.DarkGrey
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.SpaceSmall
+import com.anbui.recipely.core.model.Recipe
 
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi

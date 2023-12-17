@@ -22,8 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
 import java.util.Locale
 
 @ExperimentalMaterial3Api

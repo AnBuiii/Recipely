@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddInstructionViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val id = savedStateHandle.get<String>("instructionId")
     private val instruction = savedStateHandle.get<String>("instruction") ?: ""

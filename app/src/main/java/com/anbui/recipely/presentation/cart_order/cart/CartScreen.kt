@@ -43,16 +43,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
-import com.anbui.model.getTotalPrice
+import com.anbui.recipely.core.designsystem.components.StandardCard
+import com.anbui.recipely.core.designsystem.components.StandardToolbar
+import com.anbui.recipely.core.designsystem.theme.DarkGrey
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.SpaceSmall
+import com.anbui.recipely.core.designsystem.theme.ThinGrey
+import com.anbui.recipely.core.designsystem.theme.TrueWhite
+import com.anbui.recipely.core.model.getTotalPrice
 import com.anbui.recipely.presentation.cart_order.cart.components.CartItem
-import com.anbui.recipely.presentation.ui.components.StandardCard
-import com.anbui.recipely.presentation.ui.components.StandardToolbar
-import com.anbui.recipely.presentation.ui.theme.DarkGrey
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
-import com.anbui.recipely.presentation.ui.theme.ThinGrey
-import com.anbui.recipely.presentation.ui.theme.TrueWhite
 import com.anbui.recipely.presentation.util.Screen
 import com.anbui.recipely.util.toStringAsFixed
 import kotlinx.coroutines.delay
@@ -123,10 +123,13 @@ fun CartScreen(
             .fillMaxSize()
     ) {
         StandardToolbar(
-            navController = navController,
             title = stringResource(id = R.string.my_cart),
-            showBackArrow = true
+            showBackArrow = true,
+            onBack = {
+                navController.popBackStack()
+            }
         )
+
         Box(
             modifier = Modifier.fillMaxSize()
         ) {

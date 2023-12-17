@@ -11,7 +11,6 @@
                 <projects>
                   <project path="$PROJECT_DIR$/build-logic" />
                   <project path="$PROJECT_DIR$/build-logic/convention" />
-                  <project path="$PROJECT_DIR$/build-logic/lib" />
                 </projects>
               </build>
             </builds>
@@ -25,10 +24,18 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/build-logic" />
             <option value="$PROJECT_DIR$/build-logic/convention" />
-            <option value="$PROJECT_DIR$/build-logic/lib" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/data" />
             <option value="$PROJECT_DIR$/core/database" />
+            <option value="$PROJECT_DIR$/core/datastore" />
+            <option value="$PROJECT_DIR$/core/datastore-proto" />
+            <option value="$PROJECT_DIR$/core/designsystem" />
             <option value="$PROJECT_DIR$/core/model" />
+            <option value="$PROJECT_DIR$/core/testing" />
+            <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/notification" />
+            <option value="$PROJECT_DIR$/feature/onboard" />
+            <option value="$PROJECT_DIR$/feature/search" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

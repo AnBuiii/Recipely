@@ -32,11 +32,13 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import androidx.navigation.navOptions
 import com.anbui.recipely.R
-import com.anbui.recipely.presentation.ui.theme.SpaceHuge
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
-import com.anbui.recipely.presentation.ui.theme.TrueWhite
+import com.anbui.recipely.core.designsystem.theme.SpaceHuge
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.SpaceSmall
+import com.anbui.recipely.core.designsystem.theme.TrueWhite
+import com.anbui.recipely.feature.search.navigation.navigateToSearch
 import com.anbui.recipely.presentation.util.Screen
 import com.anbui.recipely.util.permission.isGranted
 import com.anbui.recipely.util.permission.rememberPermissionState
@@ -66,7 +68,7 @@ fun CameraScreen(
         }
     }
     LaunchedEffect(Unit) {
-        if(cameraPermissionState.status.shouldShowRationale){
+        if (cameraPermissionState.status.shouldShowRationale) {
             navController.popBackStack()
         }
         if (!cameraPermissionState.status.isGranted) {
@@ -135,13 +137,14 @@ fun CameraScreen(
                         .fillMaxWidth()
                         .background(TrueWhite)
                         .clickable {
-                            navController.navigate(
-                                "${Screen.SearchScreen.route}/" + displayName
-                            ) {
-                                popUpTo(Screen.CameraScreen.route) {
-                                    inclusive = true
+                            navController.navigateToSearch(
+                                ingredientName = displayName,
+                                navOptions = navOptions {
+                                    popUpTo(Screen.CameraScreen.route) {
+                                        inclusive = true
+                                    }
                                 }
-                            }
+                            )
                         }
                         .padding(SpaceSmall)
                 ) {

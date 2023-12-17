@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="splash">splash</string>
+    <string name="login">Login</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="or_continue_with">or continue with</string>
+    <string name="create_account">Create account</string>
+    <string name="first_name">First name</string>
+    <string name="first_name_hint">Enter first name</string>
+    <string name="term_of_services">Term of Services</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="onboarding_title_1">Khám phá các công thức nấu ăn bạn cần</string>
+    <string name="background">background</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="create_new_account">Create new account</string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="send_email">Send Email</string>
+    <string name="confirm_password_hint">Confirm password</string>
+    <string name="select_interest">Select Interest</string>
+</resources>

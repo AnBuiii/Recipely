@@ -9,11 +9,14 @@ Recipely is just a SIMPLE recipe app.
         src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
 
 ## About
-Inspired from many recipe app on store, this app was made to simplify all the usecase of a chef. Intergated with ML using MobilenetV3 model.
+
+Inspired from many recipe app on store, this app was made to simplify all the usecase of a chef.
+Intergated with ML using MobilenetV3 model.
 
 ## Features
 
 This app let you
+
 - Dicover all the best recipes you needed
 - Find and order directly the ingredients
 - Cook with the recipe you found
@@ -27,10 +30,10 @@ This app let you
 <img src = "https://github.com/AnBuiii/Recipely/assets/89350086/f5946059-d021-45fe-8ea0-ec582fb7d55e" width = 300>
 <img src = "https://github.com/AnBuiii/Recipely/assets/89350086/9cc9183e-2d77-43ef-99e9-d0a45b0f0816" width = 300>
 
-
 ## Permissions
 
 On Android versions prior to Android 13.0, Recipely requires the following permissions:
+
 - Full Network Access.
 - Read and write access to external storage.
 - In-app camera
@@ -38,9 +41,11 @@ On Android versions prior to Android 13.0, Recipely requires the following permi
 
 ## Contributing
 
-Recipely app is an open source project developed by [An Bùi](https://github.com/AnBuiii). Please do not use for commercial purposes. Any contributions are welcome. Here are a few ways you can help:
- * [Report bugs and make suggestions.](https://github.com/AnBuiii/Recipely/issues)
- * Write some code. Please follow the code style used in the project to make a review process faster.
+Recipely app is an open source project developed by [An Bùi](https://github.com/AnBuiii). Please do
+not use for commercial purposes. Any contributions are welcome. Here are a few ways you can help:
+
+* [Report bugs and make suggestions.](https://github.com/AnBuiii/Recipely/issues)
+* Write some code. Please follow the code style used in the project to make a review process faster.
 
 ## License
 

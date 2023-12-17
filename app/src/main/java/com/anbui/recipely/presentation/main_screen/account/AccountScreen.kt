@@ -25,13 +25,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
+import com.anbui.recipely.core.designsystem.components.RecipelyAccountCard
+import com.anbui.recipely.core.designsystem.components.RecipelyTinyVerticallyCard
+import com.anbui.recipely.core.designsystem.components.StandardToolbar
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.SpaceSmall
 import com.anbui.recipely.presentation.main_screen.account.components.OrderItem
-import com.anbui.recipely.presentation.ui.components.RecipelyAccountCard
-import com.anbui.recipely.presentation.ui.components.RecipelyTinyVerticallyCard
-import com.anbui.recipely.presentation.ui.components.StandardToolbar
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
 import com.anbui.recipely.presentation.util.Screen
 
 @ExperimentalMaterial3Api
@@ -45,7 +45,6 @@ fun AccountScreen(
     val comingOrder by accountViewModel.comingOrder.collectAsStateWithLifecycle()
     Column {
         StandardToolbar(
-            navController = navController,
             title = stringResource(id = R.string.account),
             navActions = {
                 IconButton(
@@ -63,6 +62,9 @@ fun AccountScreen(
                         )
                     )
                 }
+            },
+            onBack = {
+                navController.popBackStack()
             }
         )
         LazyVerticalGrid(

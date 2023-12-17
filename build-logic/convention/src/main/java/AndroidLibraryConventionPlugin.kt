@@ -1,5 +1,5 @@
 import com.anbui.convension.configureKotlinAndroid
-import com.android.build.api.variant.LibraryAndroidComponentsExtension
+import com.anbui.convention.configureFlavors
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -16,14 +16,15 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             }
 
             extensions.configure<LibraryExtension> {
-                configureKotlinAndroid(this)
                 defaultConfig.targetSdk = 34
+                configureKotlinAndroid(this)
+                configureFlavors(this)
             }
             dependencies {
-//                add("testImplementation", kotlin("test"))
-//                add("testImplementation", project(":core:testing"))
-//                add("androidTestImplementation", kotlin("test"))
-//                add("androidTestImplementation", project(":core:testing"))
+                add("testImplementation", kotlin("test"))
+                add("testImplementation", project(":core:testing"))
+                add("androidTestImplementation", kotlin("test"))
+                add("androidTestImplementation", project(":core:testing"))
             }
         }
     }

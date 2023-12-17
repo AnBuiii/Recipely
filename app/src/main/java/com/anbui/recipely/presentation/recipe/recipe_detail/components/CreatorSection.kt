@@ -19,13 +19,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.anbui.recipely.R
-import com.anbui.model.Recipe
-import com.anbui.recipely.presentation.ui.theme.DarkGrey
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.DarkGrey
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.model.Recipe
 
 fun LazyListScope.creatorSection(
-    recipe: com.anbui.model.Recipe
+    recipe: Recipe
 ) {
     item {
         Spacer(modifier = Modifier.height(SpaceLarge))

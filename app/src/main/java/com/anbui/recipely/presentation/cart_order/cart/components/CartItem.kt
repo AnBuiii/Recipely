@@ -27,11 +27,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.anbui.recipely.R
-import com.anbui.recipely.presentation.ui.components.StandardCard
-import com.anbui.recipely.presentation.ui.theme.SpaceExtraLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.SpaceSmall
-import com.anbui.recipely.presentation.ui.theme.TrueWhite
+import com.anbui.recipely.core.designsystem.components.StandardCard
+import com.anbui.recipely.core.designsystem.theme.SpaceExtraLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.SpaceSmall
+import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)

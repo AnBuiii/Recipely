@@ -27,11 +27,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.anbui.recipely.R
+import com.anbui.recipely.core.designsystem.components.StandardProgressIndicator
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
 import com.anbui.recipely.presentation.recipe.create_recipe.components.IngredientsSection
 import com.anbui.recipely.presentation.recipe.create_recipe.components.InstructionSection
 import com.anbui.recipely.presentation.recipe.create_recipe.components.OverviewSection
-import com.anbui.recipely.presentation.ui.components.StandardProgressIndicator
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
 import com.anbui.recipely.presentation.util.Screen
 import kotlinx.coroutines.launch
 
@@ -79,8 +79,8 @@ fun CreateRecipeScreen(
         }
     }
 
-    LaunchedEffect(uiState.success){
-        if(uiState.success){
+    LaunchedEffect(uiState.success) {
+        if (uiState.success) {
             navController.popBackStack()
         }
     }
@@ -132,7 +132,7 @@ fun CreateRecipeScreen(
                     Text(
                         text =
                         if (pagerState.currentPage + 1 != steps.size) {
-                            stringResource(id = R.string.next)
+                            stringResource(id = com.anbui.recipely.feature.onboard.R.string.next)
                         } else {
                             stringResource(
                                 R.string.finish

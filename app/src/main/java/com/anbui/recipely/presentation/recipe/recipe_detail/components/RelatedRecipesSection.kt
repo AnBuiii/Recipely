@@ -14,11 +14,11 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.anbui.model.Recipe
 import com.anbui.recipely.R
-import com.anbui.recipely.presentation.ui.components.RecipelyTinyCard
-import com.anbui.recipely.presentation.ui.theme.SpaceLarge
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.components.RecipelyTinyCard
+import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.model.Recipe
 
 @ExperimentalMaterial3Api
 fun LazyListScope.relatedRecipesSection(

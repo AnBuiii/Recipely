@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anbui.recipely.domain.repository.RecipeRepository
+import com.anbui.recipely.core.data.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -185,7 +185,7 @@ class CameraViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        if(this::imageClassifierHelper.isInitialized){
+        if (this::imageClassifierHelper.isInitialized) {
             imageClassifierHelper.clearImageClassifier()
         }
     }

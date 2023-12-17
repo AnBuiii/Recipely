@@ -20,21 +20,21 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.anbui.recipely.R
-import com.anbui.recipely.presentation.ui.components.StandardCard
-import com.anbui.recipely.presentation.ui.theme.SpaceMedium
-import com.anbui.recipely.presentation.ui.theme.TrueWhite
+import com.anbui.recipely.core.designsystem.components.StandardCard
+import com.anbui.recipely.core.designsystem.theme.SpaceMedium
+import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrderItem(
+    modifier: Modifier = Modifier,
     imageUrl: String?,
     name: String,
     amount: Float,
     unit: String,
     price: Float,
     containerColor: Color = TrueWhite,
-    modifier: Modifier = Modifier
 ) {
     StandardCard(
         modifier = modifier,

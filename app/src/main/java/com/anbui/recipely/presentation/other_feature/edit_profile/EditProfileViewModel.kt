@@ -3,19 +3,18 @@ package com.anbui.recipely.presentation.other_feature.edit_profile
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anbui.model.GenderType
-import com.anbui.recipely.domain.repository.AccountRepository
+import com.anbui.recipely.core.data.repository.AccountRepository
+import com.anbui.recipely.core.model.GenderType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.util.TimeZone
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import javax.inject.Inject
 
 
@@ -31,14 +30,14 @@ class EditProfileViewModel @Inject constructor(
         viewModelScope.launch {
             with(accountRepository.getCurrentAccount().first()) {
                 _uiState.update {
-                    val zdt = ZonedDateTime.of(this.dob, ZoneId.systemDefault())
                     EditProfileState(
                         account = this,
                         email = email,
                         firstName = firstName,
                         lastName = lastName,
                         bio = bio,
-                        dob = zdt.toInstant().toEpochMilli(),
+                        dob = dob.toInstant(TimeZone.currentSystemDefault())
+                            .toEpochMilliseconds(),
                         gender = gender,
                         avatar = avatarUrl
                     )
@@ -77,13 +76,13 @@ class EditProfileViewModel @Inject constructor(
         }
     }
 
-    fun onChangeGender(value: com.anbui.model.GenderType) {
+    fun onChangeGender(value: GenderType) {
         _uiState.update {
             it.copy(gender = value)
         }
     }
 
-    fun onChangePicture(uri: Uri){
+    fun onChangePicture(uri: Uri) {
         _uiState.update {
             it.copy(avatar = uri.toString())
         }
@@ -92,10 +91,8 @@ class EditProfileViewModel @Inject constructor(
     fun onUpdateProfile() {
         viewModelScope.launch {
             with(_uiState.value) {
-                val dobTime = LocalDateTime.ofInstant(
-                    Instant.ofEpochMilli(dob),
-                    TimeZone.getDefault().toZoneId()
-                )
+                val dobTime = Instant.fromEpochMilliseconds(dob)
+                    .toLocalDateTime(TimeZone.currentSystemDefault())
                 this.account?.let {
                     accountRepository.updateCurrentAccount(
                         it.copy(

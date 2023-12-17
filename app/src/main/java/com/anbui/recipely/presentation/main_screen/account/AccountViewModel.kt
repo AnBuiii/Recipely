@@ -3,10 +3,10 @@ package com.anbui.recipely.presentation.main_screen.account
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anbui.model.exampleAccounts
-import com.anbui.recipely.domain.repository.AccountRepository
-import com.anbui.recipely.domain.repository.CartRepository
-import com.anbui.recipely.domain.repository.RecipeRepository
+import com.anbui.recipely.core.data.repository.AccountRepository
+import com.anbui.recipely.core.data.repository.CartRepository
+import com.anbui.recipely.core.data.repository.RecipeRepository
+import com.anbui.recipely.core.model.exampleAccounts
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -23,7 +23,7 @@ class AccountViewModel @Inject constructor(
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000),
-            com.anbui.model.exampleAccounts[0]
+            exampleAccounts[0]
         )
 
     val favouriteRecipes = recipeRepository.getFavouriteOfCurrentAccount()
