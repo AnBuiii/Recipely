@@ -33,6 +33,7 @@
             <option value="$PROJECT_DIR$/core/model" />
             <option value="$PROJECT_DIR$/core/testing" />
             <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/create_recipe" />
             <option value="$PROJECT_DIR$/feature/notification" />
             <option value="$PROJECT_DIR$/feature/onboard" />
             <option value="$PROJECT_DIR$/feature/recipe_detail" />

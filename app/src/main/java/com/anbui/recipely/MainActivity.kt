@@ -18,9 +18,11 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
 import com.anbui.recipely.core.designsystem.BottomNavItem
 import com.anbui.recipely.core.designsystem.components.StandardScaffold
 import com.anbui.recipely.core.designsystem.theme.RecipelyTheme
+import com.anbui.recipely.feature.create_recipe.navigation.navigateToCreateRecipe
 import com.anbui.recipely.feature.notification.navigation.notificationRoute
 import com.anbui.recipely.feature.search.navigation.searchRoute
 import com.anbui.recipely.presentation.util.Navigation
@@ -86,10 +88,12 @@ class MainActivity : ComponentActivity() {
                         bottomNavItems = bottomNavItems,
                         selected = navController.currentDestination?.route,
                         onNewRecipeClick = {
-                            navController.navigate("create_recipe") {
-                                launchSingleTop = true
-                                restoreState = true
-                            }
+                            navController.navigateToCreateRecipe(
+                                navOptions {
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            )
                         },
                         onScanClick = {
                             navController.navigate(Screen.CameraScreen.route) {

@@ -11,3 +11,14 @@ data class Ingredient(
     val fat: Float,
     val price: Float = 0.23f
 )
+
+fun Ingredient.toIngredientItem(amount: Float): IngredientItem {
+    return IngredientItem(
+        ingredientId = id,
+        name = name,
+        amount = amount,
+        unit = unit,
+        imageUrl = imageUrl,
+        price = price
+    )
+}

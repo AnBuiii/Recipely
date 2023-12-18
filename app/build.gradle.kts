@@ -54,6 +54,7 @@ dependencies {
     implementation(projects.feature.notification)
     implementation(projects.feature.search)
     implementation(projects.feature.recipeDetail)
+    implementation(projects.feature.createRecipe)
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
