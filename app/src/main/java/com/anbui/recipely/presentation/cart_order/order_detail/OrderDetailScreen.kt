@@ -34,7 +34,7 @@ import com.anbui.recipely.core.designsystem.theme.SpaceSmall
 import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import com.anbui.recipely.presentation.cart_order.order_detail.components.InformationItem
 import com.anbui.recipely.presentation.cart_order.order_detail.components.OrderItem
-import com.anbui.recipely.util.toStringAsFixed
+import com.anbui.recipely.feature.recipe_detail.toStringAsFixed
 
 @ExperimentalMaterial3Api
 @Composable

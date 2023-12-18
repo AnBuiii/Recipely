@@ -54,7 +54,7 @@ import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import com.anbui.recipely.core.model.getTotalPrice
 import com.anbui.recipely.presentation.cart_order.cart.components.CartItem
 import com.anbui.recipely.presentation.util.Screen
-import com.anbui.recipely.util.toStringAsFixed
+import com.anbui.recipely.feature.recipe_detail.toStringAsFixed
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
 

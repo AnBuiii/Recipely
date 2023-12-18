@@ -18,7 +18,7 @@ import com.anbui.recipely.core.designsystem.theme.SpaceMedium
 import com.anbui.recipely.core.designsystem.theme.ThinGrey
 import com.anbui.recipely.core.designsystem.theme.TrueWhite
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StandardCard(
     modifier: Modifier = Modifier,

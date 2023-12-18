@@ -29,7 +29,7 @@ import com.anbui.recipely.core.designsystem.theme.DarkGrey
 import com.anbui.recipely.core.designsystem.theme.SpaceMedium
 import com.anbui.recipely.core.designsystem.theme.SpaceSmall
 import com.anbui.recipely.core.model.Order
-import com.anbui.recipely.util.toStringAsFixed
+import com.anbui.recipely.feature.recipe_detail.toStringAsFixed
 
 @ExperimentalMaterial3Api
 @Composable

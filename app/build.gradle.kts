@@ -53,6 +53,7 @@ dependencies {
     implementation(projects.feature.onboard)
     implementation(projects.feature.notification)
     implementation(projects.feature.search)
+    implementation(projects.feature.recipeDetail)
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

@@ -21,8 +21,7 @@ fun StandardScaffold(
     onBottomItemClick: (String) -> Unit,
     selected: String?,
     content: @Composable () -> Unit,
-
-    ) {
+) {
 
     Scaffold(
         bottomBar = {
@@ -40,7 +39,7 @@ fun StandardScaffold(
                                 ),
                                 selectedPainter = painterResource(id = bottomNavItem.selectedIcon),
                                 selected = selected?.startsWith(
-                                    bottomNavItem.route
+                                    bottomNavItem.route.trim()
                                 ) == true,
                                 alertCount = bottomNavItem.alertCount,
                                 enabled = true

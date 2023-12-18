@@ -7,7 +7,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -17,6 +16,7 @@ import androidx.navigation.navigation
 import com.anbui.recipely.feature.notification.navigation.notificationGraph
 import com.anbui.recipely.feature.onboard.navigation.OnboardGraph
 import com.anbui.recipely.feature.onboard.navigation.onBoardGraph
+import com.anbui.recipely.feature.recipe_detail.navigation.recipeDetailGraph
 import com.anbui.recipely.feature.search.navigation.searchGraph
 import com.anbui.recipely.presentation.cart_order.address.AddressScreen
 import com.anbui.recipely.presentation.cart_order.cart.CartScreen
@@ -26,15 +26,12 @@ import com.anbui.recipely.presentation.main_screen.home.HomeScreen
 import com.anbui.recipely.presentation.other_feature.camera.CameraScreen
 import com.anbui.recipely.presentation.other_feature.edit_profile.EditProfileScreen
 import com.anbui.recipely.presentation.other_feature.setting.SettingScreen
-import com.anbui.recipely.presentation.recipe.cooking_detail.CookingDetailScreen
 import com.anbui.recipely.presentation.recipe.create_recipe.CreateRecipeScreen
 import com.anbui.recipely.presentation.recipe.create_recipe.CreateRecipeViewModel
 import com.anbui.recipely.presentation.recipe.create_recipe.add_item.add_ingredient.AddIngredientScreen
 import com.anbui.recipely.presentation.recipe.create_recipe.add_item.add_instruction.AddInstructionScreen
-import com.anbui.recipely.presentation.recipe.recipe_detail.RecipeDetailScreen
 
 @ExperimentalAnimationApi
-@UnstableApi
 @ExperimentalStdlibApi
 @ExperimentalFoundationApi
 @ExperimentalLayoutApi
@@ -68,6 +65,11 @@ fun Navigation(
             }
         )
 
+        recipeDetailGraph(
+            onBack = navController::popBackStack,
+            navController = navController
+        )
+
         composable(Screen.HomeScreen.route) {
             HomeScreen(navController = navController)
         }
@@ -79,29 +81,7 @@ fun Navigation(
         composable(Screen.EditProfileScreen.route) {
             EditProfileScreen(navController = navController)
         }
-        composable("${Screen.RecipeDetailScreen.route}/{recipeId}",
-            arguments = listOf(
-                navArgument("recipeId") {
-                    type = NavType.StringType
-                }
-            )
-        ) {
-            RecipeDetailScreen(navController = navController)
-        }
-        composable(
-            "${Screen.CookingDetailScreen.route}/{recipeId}/{servings}",
-            arguments = listOf(
-                navArgument("recipeId") {
-                    type = NavType.StringType
-                },
-                navArgument("servings") {
-                    type = NavType.IntType
-                }
 
-            )
-        ) {
-            CookingDetailScreen(navController = navController)
-        }
         composable(Screen.CartScreen.route) {
             CartScreen(navController = navController)
         }

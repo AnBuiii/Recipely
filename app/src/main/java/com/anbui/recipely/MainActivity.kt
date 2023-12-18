@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
-import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -30,7 +29,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @ExperimentalAnimationApi
-@UnstableApi
 @ExperimentalStdlibApi
 @ExperimentalFoundationApi
 @ExperimentalLayoutApi
@@ -86,8 +84,7 @@ class MainActivity : ComponentActivity() {
                         showBottomBar = shouldShowBottomBar(navBackStackEntry),
                         modifier = Modifier.fillMaxSize(),
                         bottomNavItems = bottomNavItems,
-                        selected =
-                        navController.currentDestination?.route,
+                        selected = navController.currentDestination?.route,
                         onNewRecipeClick = {
                             navController.navigate("create_recipe") {
                                 launchSingleTop = true

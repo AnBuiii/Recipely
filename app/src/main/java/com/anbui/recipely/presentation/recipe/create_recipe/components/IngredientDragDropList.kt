@@ -28,7 +28,7 @@ import com.anbui.recipely.core.designsystem.theme.SpaceMedium
 import com.anbui.recipely.core.designsystem.theme.SpaceSmall
 import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import com.anbui.recipely.core.model.IngredientItem
-import com.anbui.recipely.presentation.recipe.recipe_detail.components.IngredientItem
+import com.anbui.recipely.feature.recipe_detail.recipe_detail.components.IngredientItem
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 

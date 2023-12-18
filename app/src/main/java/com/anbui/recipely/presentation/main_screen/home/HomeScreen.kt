@@ -17,6 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.anbui.recipely.core.designsystem.theme.SpaceHuge
 import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.feature.recipe_detail.navigation.navigateToRecipeDetail
 import com.anbui.recipely.presentation.main_screen.home.components.CategorySection
 import com.anbui.recipely.presentation.main_screen.home.components.FeaturedSection
 import com.anbui.recipely.presentation.main_screen.home.components.HeadingSection
@@ -73,11 +74,8 @@ fun HomeScreen(
             popularRecipes = popularRecipes,
             onRecipeLikeClick = { recipe, like ->
                 homeScreenViewModel.likeRecipe(recipe, like)
-            }
-        ) { id ->
-            navController.navigate(
-                Screen.RecipeDetailScreen.route + "/$id"
-            )
-        }
+            },
+            onRecipeClick = navController::navigateToRecipeDetail
+        )
     }
 }
