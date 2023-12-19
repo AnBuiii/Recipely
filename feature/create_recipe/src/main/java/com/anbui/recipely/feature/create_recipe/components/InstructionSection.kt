@@ -10,7 +10,7 @@ fun InstructionSection(
     steps: List<Step>,
     onEvent: (CreateRecipeEvent) -> Unit,
     onAddInstructionClick: () -> Unit,
-    onEditClick: (String) -> Unit
+    onEditClick: (Step) -> Unit
 ) {
     Column {
         InstructionDragDropList(

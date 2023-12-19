@@ -27,6 +27,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.anbui.recipely.core.designsystem.components.StandardProgressIndicator
 import com.anbui.recipely.core.designsystem.theme.SpaceLarge
 import com.anbui.recipely.feature.create_recipe.add_ingredient.AddIngredientEvent
+import com.anbui.recipely.feature.create_recipe.add_instruction.AddInstructionEvent
 import com.anbui.recipely.feature.create_recipe.components.IngredientsSection
 import com.anbui.recipely.feature.create_recipe.components.InstructionSection
 import com.anbui.recipely.feature.create_recipe.components.OverviewSection
@@ -161,9 +162,8 @@ fun CreateRecipeScreen(
                         steps = uiState.steps,
                         onAddInstructionClick = onNavigateToInstruction,
                         onEvent = viewModel::onEvent,
-                        onEditClick = { id ->
-
-                            // viewmodel -> edit id
+                        onEditClick = {
+                            viewModel.onAddInstructionEvent(AddInstructionEvent.Init(it))
                             onNavigateToInstruction()
                         }
                     )

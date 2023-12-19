@@ -25,4 +25,5 @@
     <string name="create_recipe_description_hint">Tell us about the food</string>
     <string name="edit">edit</string>
     <string name="serves">Serves</string>
+    <string name="add_instruction_image">Add instruction image</string>
 </resources>
