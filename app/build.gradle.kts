@@ -55,6 +55,8 @@ dependencies {
     implementation(projects.feature.search)
     implementation(projects.feature.recipeDetail)
     implementation(projects.feature.createRecipe)
+    implementation(projects.feature.cart)
+    implementation(projects.feature.account)
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

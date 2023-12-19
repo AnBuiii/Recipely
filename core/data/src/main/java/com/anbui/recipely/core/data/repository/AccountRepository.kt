@@ -10,7 +10,7 @@ interface AccountRepository {
 
     fun getAccountById(accountId: String): Flow<Account>
 
-    suspend fun updateCurrentAccount(account: Account)
+    suspend fun updateAccount(account: Account)
 
     suspend fun addAccount(account: Account): Boolean
 

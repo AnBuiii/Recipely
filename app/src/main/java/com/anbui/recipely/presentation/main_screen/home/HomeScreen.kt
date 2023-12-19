@@ -15,14 +15,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.navOptions
 import com.anbui.recipely.core.designsystem.theme.SpaceHuge
 import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.feature.cart.navigation.onNavigateToCartGraph
 import com.anbui.recipely.feature.recipe_detail.navigation.navigateToRecipeDetail
 import com.anbui.recipely.presentation.main_screen.home.components.CategorySection
 import com.anbui.recipely.presentation.main_screen.home.components.FeaturedSection
 import com.anbui.recipely.presentation.main_screen.home.components.HeadingSection
 import com.anbui.recipely.presentation.main_screen.home.components.PopularRecipeSection
-import com.anbui.recipely.presentation.util.Screen
 
 @ExperimentalMaterial3Api
 @Composable
@@ -30,7 +31,6 @@ fun HomeScreen(
     navController: NavController,
     homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
 ) {
-    val name = "An Bùi"
     val selectedCategories = remember { mutableStateListOf<String>() }
     val popularRecipes by homeScreenViewModel.popularRecipe.collectAsState()
     val currentAccount by homeScreenViewModel.currentAccount.collectAsState()
@@ -45,9 +45,11 @@ fun HomeScreen(
                 .fillMaxWidth()
                 .padding(horizontal = SpaceLarge),
             onCartClick = {
-                navController.navigate(Screen.CartScreen.route) {
-                    launchSingleTop = true
-                }
+                navController.onNavigateToCartGraph(
+                    navOptions = navOptions {
+                        launchSingleTop = true
+                    }
+                )
             }
         )
 

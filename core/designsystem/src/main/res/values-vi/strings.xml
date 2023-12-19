@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="notifications">Notifications</string>
+    <string name="show_password">Show password</string>
+    <string name="hide_password">Hide password</string>
+    <string name="back">Back</string>
     <string name="featured_background">Featured background</string>
     <string name="clock">Đồng hồ</string>
+    <string name="recipe_interaction">Recipe interaction</string>
+    <string name="heart">heart</string>
+    <string name="calories">calories</string>
+    <string name="seperator">seperator</string>
+    <string name="arrow_right">arrow right</string>
+    <string name="order">Order</string>
 </resources>

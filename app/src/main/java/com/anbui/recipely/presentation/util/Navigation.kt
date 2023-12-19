@@ -10,20 +10,18 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.anbui.recipely.feature.account.navigation.accountGraph
+import com.anbui.recipely.feature.cart.navigation.cartGraph
 import com.anbui.recipely.feature.create_recipe.navigation.createRecipeGraph
 import com.anbui.recipely.feature.notification.navigation.notificationGraph
 import com.anbui.recipely.feature.onboard.navigation.OnboardGraph
+import com.anbui.recipely.feature.onboard.navigation.navigateToOnboard
 import com.anbui.recipely.feature.onboard.navigation.onBoardGraph
 import com.anbui.recipely.feature.recipe_detail.navigation.recipeDetailGraph
 import com.anbui.recipely.feature.search.navigation.searchGraph
-import com.anbui.recipely.presentation.cart_order.address.AddressScreen
-import com.anbui.recipely.presentation.cart_order.cart.CartScreen
 import com.anbui.recipely.presentation.cart_order.order_detail.OrderDetailScreen
-import com.anbui.recipely.presentation.main_screen.account.AccountScreen
 import com.anbui.recipely.presentation.main_screen.home.HomeScreen
 import com.anbui.recipely.presentation.other_feature.camera.CameraScreen
-import com.anbui.recipely.presentation.other_feature.edit_profile.EditProfileScreen
-import com.anbui.recipely.presentation.other_feature.setting.SettingScreen
 
 @ExperimentalAnimationApi
 @ExperimentalStdlibApi
@@ -69,28 +67,26 @@ fun Navigation(
             navController = navController
         )
 
+        cartGraph(
+            onBack = navController::popBackStack,
+            navController = navController
+        )
+
+        accountGraph(
+            onBack = navController::popBackStack,
+            onNavigateToOrderDetail = {
+                navController.navigate("${Screen.OrderDetailScreen.route}/$it")
+            },
+            onNavigateToOnboard = {
+                navController.navigateToOnboard()
+            },
+            navController = navController
+        )
+
         composable(Screen.HomeScreen.route) {
             HomeScreen(navController = navController)
         }
 
-        composable(Screen.AccountScreen.route) {
-            AccountScreen(navController = navController)
-        }
-
-        composable(Screen.EditProfileScreen.route) {
-            EditProfileScreen(navController = navController)
-        }
-
-        composable(Screen.CartScreen.route) {
-            CartScreen(navController = navController)
-        }
-
-        composable(Screen.AddressScreen.route) {
-            AddressScreen(navController = navController)
-        }
-        composable(Screen.SettingScreen.route) {
-            SettingScreen(navController = navController)
-        }
         composable(
             "${Screen.OrderDetailScreen.route}/{orderId}", arguments = listOf(
                 navArgument("orderId") {
@@ -105,3 +101,5 @@ fun Navigation(
         }
     }
 }
+
+

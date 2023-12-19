@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StandardDatePickerDialog(
     isOpen: Boolean,

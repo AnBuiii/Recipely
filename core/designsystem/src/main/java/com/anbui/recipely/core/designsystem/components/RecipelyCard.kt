@@ -372,7 +372,6 @@ fun RecipelyNotificationCard(
         NotificationType.Like -> {
             null
         }
-
         NotificationType.Order -> {
             painterResource(id = R.drawable.ic_bag)
         }
@@ -476,7 +475,6 @@ fun RecipelyNotificationCard(
     }
 }
 
-@ExperimentalMaterial3Api
 @Composable
 fun RecipelyAccountCard(
     account: Account,
@@ -548,7 +546,6 @@ fun RecipelyAccountCard(
     }
 }
 
-@ExperimentalMaterial3Api
 @Composable
 fun RecipelyTinyVerticallyCard(
     modifier: Modifier = Modifier,

@@ -58,7 +58,7 @@ class AccountRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun updateCurrentAccount(account: Account) {
+    override suspend fun updateAccount(account: Account) {
         accountDao.updateAccount(account.toAccountEntity())
     }
 

@@ -22,6 +22,7 @@ import androidx.navigation.navOptions
 import com.anbui.recipely.core.designsystem.BottomNavItem
 import com.anbui.recipely.core.designsystem.components.StandardScaffold
 import com.anbui.recipely.core.designsystem.theme.RecipelyTheme
+import com.anbui.recipely.feature.account.navigation.AccountGraph
 import com.anbui.recipely.feature.create_recipe.navigation.navigateToCreateRecipe
 import com.anbui.recipely.feature.notification.navigation.notificationRoute
 import com.anbui.recipely.feature.search.navigation.searchRoute
@@ -76,7 +77,7 @@ class MainActivity : ComponentActivity() {
                             contentDescription = stringResource(R.string.notifications)
                         ),
                         BottomNavItem(
-                            route = Screen.AccountScreen.route,
+                            route = AccountGraph.ROUTE,
                             selectedIcon = R.drawable.ic_profile_filled,
                             unselectedIcon = R.drawable.ic_profile,
                             contentDescription = stringResource(R.string.account)
@@ -124,10 +125,10 @@ class MainActivity : ComponentActivity() {
         val doesRouteMatch = backStackEntry?.destination?.route in listOf(
             Screen.HomeScreen.route,
             notificationRoute,
-            Screen.AccountScreen.route
+            AccountGraph.ROUTE
         ) || backStackEntry?.destination?.route?.startsWith(searchRoute) == true
         val isOwnProfile =
-            backStackEntry?.destination?.route == "${Screen.AccountScreen.route}?userId={userId}" &&
+            backStackEntry?.destination?.route == "${AccountGraph.ROUTE}?userId={userId}" &&
                     backStackEntry.arguments?.getString("userId") == null
         return doesRouteMatch || isOwnProfile
     }

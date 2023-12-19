@@ -48,8 +48,6 @@ fun SignupRoute(
     )
 }
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateAccountScreen(
     onBack: () -> Unit,
