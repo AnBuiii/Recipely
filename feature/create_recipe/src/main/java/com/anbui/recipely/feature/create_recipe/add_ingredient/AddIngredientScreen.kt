@@ -20,6 +20,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,7 +32,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.anbui.recipely.core.designsystem.components.StandardCard
 import com.anbui.recipely.core.designsystem.components.StandardTextField
@@ -55,16 +55,13 @@ fun AddIngredientRoute(
 fun AddIngredientScreen(
     onBack: () -> Unit,
     viewModel: CreateRecipeViewModel,
-    addIngredientViewModel: AddIngredientViewModel = hiltViewModel()
 ) {
     var isNameFocused by remember { mutableStateOf(false) }
     var isUnitFocused by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
 
-    val ingredientName by addIngredientViewModel.ingredientName.collectAsStateWithLifecycle()
-    val uiState by addIngredientViewModel.addIngredientState.collectAsStateWithLifecycle()
-    val ingredients by addIngredientViewModel.ingredients.collectAsStateWithLifecycle()
+    val uiState by viewModel.addIngredientState.collectAsStateWithLifecycle()
 
     LaunchedEffect(uiState.error) {
         if (!uiState.error.isNullOrEmpty()) {
@@ -72,23 +69,23 @@ fun AddIngredientScreen(
         }
     }
 
-//    LaunchedEffect(uiState.success) {
-//        if (uiState.success) {
-//            navController.previousBackStackEntry?.savedStateHandle?.set(
-//                "ingredientId",
-//                uiState.selectedIngredientId
-//            )
-//            navController.previousBackStackEntry?.savedStateHandle?.set(
-//                "amount",
-//                uiState.amount.toDouble()
-//            )
-//            navController.popBackStack()
-//        }
-//    }
+    LaunchedEffect(uiState.success) {
+        if (uiState.success) {
+            onBack()
+        }
+    }
+
+    DisposableEffect(Unit) {
+        viewModel.onAddIngredientEvent(AddIngredientEvent.Init())
+        onDispose {
+            viewModel.onAddIngredientEvent(AddIngredientEvent.Dispose)
+        }
+    }
 
     Column {
         StandardToolbar(
-            title = stringResource(id = R.string.add_ingredient),
+            title = if (!uiState.isEdit) stringResource(id = R.string.add_ingredient)
+            else stringResource(R.string.edit_ingredient),
             showBackArrow = true,
             onBack = onBack
         )
@@ -110,12 +107,10 @@ fun AddIngredientScreen(
             Spacer(modifier = Modifier.height(SpaceMedium))
 
             StandardTextField(
-                text = ingredientName,
+                text = uiState.name,
                 onValueChange = {
-                    addIngredientViewModel.onEvent(
-                        AddIngredientEvent.EnterIngredientName(
-                            it
-                        )
+                    viewModel.onAddIngredientEvent(
+                        AddIngredientEvent.EnterIngredientName(it)
                     )
                 },
                 hint = stringResource(R.string.ingredient_name_hint),
@@ -154,7 +149,7 @@ fun AddIngredientScreen(
                             StandardTextField(
                                 text = uiState.amount,
                                 onValueChange = {
-                                    addIngredientViewModel.onEvent(
+                                    viewModel.onAddIngredientEvent(
                                         AddIngredientEvent.EnterAmount(it)
                                     )
                                 },
@@ -197,7 +192,7 @@ fun AddIngredientScreen(
                     Spacer(modifier = Modifier.weight(1f))
                     Button(
                         onClick = {
-                            addIngredientViewModel.onEvent(
+                            viewModel.onAddIngredientEvent(
                                 AddIngredientEvent.AddIngredient
                             )
                         },
@@ -208,7 +203,7 @@ fun AddIngredientScreen(
 
                     ) {
                         Text(
-                            text = if (uiState.isEdit) stringResource(id = R.string.add_ingredient)
+                            text = if (!uiState.isEdit) stringResource(id = R.string.add_ingredient)
                             else stringResource(R.string.edit_ingredient),
                             style = MaterialTheme.typography.bodyMedium.copy(color = TrueWhite),
                             modifier = Modifier.padding(vertical = SpaceSmall)
@@ -230,12 +225,12 @@ fun AddIngredientScreen(
                         Column(
                             modifier = Modifier.wrapContentHeight()
                         ) {
-                            ingredients.forEach { item ->
+                            uiState.ingredients.forEach { item ->
                                 Text(
                                     text = item.name,
                                     modifier = Modifier
                                         .clickable {
-                                            addIngredientViewModel.onEvent(
+                                            viewModel.onAddIngredientEvent(
                                                 AddIngredientEvent.ChooseIngredient(item)
                                             )
                                         }

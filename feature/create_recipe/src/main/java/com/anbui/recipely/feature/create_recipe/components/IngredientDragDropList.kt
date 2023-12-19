@@ -38,7 +38,7 @@ fun IngredientDragDropList(
     onMove: (Int, Int) -> Unit,
     modifier: Modifier = Modifier,
     onAddIngredientClick: () -> Unit,
-    onEditIngredient: (String) -> Unit
+    onEditIngredient: (IngredientItem) -> Unit
 ) {
     val scope = rememberCoroutineScope()
     var overScrollJob by remember { mutableStateOf<Job?>(null) }
@@ -96,7 +96,7 @@ fun IngredientDragDropList(
                 unit = item.unit.toString(),
                 containerColor = color.value,
                 textColor = textColor.value,
-                onClick = { onEditIngredient(item.ingredientId) }
+                onClick = { onEditIngredient(item) }
             )
         }
 

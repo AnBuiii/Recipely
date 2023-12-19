@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.anbui.recipely.core.designsystem.components.StandardProgressIndicator
 import com.anbui.recipely.core.designsystem.theme.SpaceLarge
+import com.anbui.recipely.feature.create_recipe.add_ingredient.AddIngredientEvent
 import com.anbui.recipely.feature.create_recipe.components.IngredientsSection
 import com.anbui.recipely.feature.create_recipe.components.InstructionSection
 import com.anbui.recipely.feature.create_recipe.components.OverviewSection
@@ -57,39 +58,7 @@ fun CreateRecipeScreen(
     val steps = listOf("Overview", "Ingredients", "Instructions", "Review")
     val pagerState = rememberPagerState(pageCount = { steps.size })
     val coroutineScope = rememberCoroutineScope()
-//    val ingredientId =
-//        navController.currentBackStackEntry?.savedStateHandle?.get<String?>("ingredientId")
-//    val amount = navController.currentBackStackEntry?.savedStateHandle?.get<Double?>("amount")
-//    val instructionId =
-//        navController.currentBackStackEntry?.savedStateHandle?.get<String?>("instructionId")
-//    val period = navController.currentBackStackEntry?.savedStateHandle?.get<Double?>("period")
-//    val instruction =
-//        navController.currentBackStackEntry?.savedStateHandle?.get<String?>("instruction")
     val uiState by viewModel.state.collectAsStateWithLifecycle()
-
-//    LaunchedEffect(ingredientId, amount) {
-//        if (ingredientId != null && amount != null) {
-//            createRecipeViewModel.onEvent(CreateRecipeEvent.AddIngredient(ingredientId, amount))
-//            navController.currentBackStackEntry?.savedStateHandle?.set("ingredientId", null)
-//            navController.currentBackStackEntry?.savedStateHandle?.set("amount", null)
-//        }
-//    }
-//
-//    LaunchedEffect(instructionId, period, instruction) {
-//        Log.d("Create", "$instruction $instructionId $period")
-//        if (instructionId != null && period != null && instruction != null) {
-//            createRecipeViewModel.onEvent(
-//                CreateRecipeEvent.AddInstruction(
-//                    instructionId,
-//                    instruction,
-//                    period
-//                )
-//            )
-//            navController.currentBackStackEntry?.savedStateHandle?.set("instructionId", null)
-//            navController.currentBackStackEntry?.savedStateHandle?.set("instruction", null)
-//            navController.currentBackStackEntry?.savedStateHandle?.set("period", null)
-//        }
-//    }
 
     LaunchedEffect(uiState.success) {
         if (uiState.success) {
@@ -182,11 +151,8 @@ fun CreateRecipeScreen(
                         onEvent = viewModel::onEvent,
                         ingredients = uiState.ingredientItems,
                         onAddIngredientClick = onNavigateToIngredient,
-                        onEditIngredient = { id ->
-//                            navController.navigate(
-//                                "${Screen.AddIngredientScreen.route}?ingredientId=$id&amount=$amount"
-//                            )
-                            // viewmodel -> edit id
+                        onEditIngredient = {
+                            viewModel.onAddIngredientEvent(AddIngredientEvent.Init(it))
                             onNavigateToIngredient()
                         }
                     )

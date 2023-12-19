@@ -11,13 +11,13 @@ import com.anbui.recipely.feature.create_recipe.add_ingredient.AddIngredientEven
 import com.anbui.recipely.feature.create_recipe.add_ingredient.AddIngredientState
 import com.anbui.recipely.feature.create_recipe.components.swap
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -41,15 +41,17 @@ class CreateRecipeViewModel @Inject constructor(
             }
 
             is CreateRecipeEvent.EditImage -> {
-                val newList = _state.value.coverImages.toMutableList()
-                newList[event.index] = event.value
-
+                val newList = _state.value.coverImages.mapIndexed { idx, uri ->
+                    if (idx != event.index) uri
+                    else event.value
+                }
                 _state.update { it.copy(coverImages = newList) }
             }
 
             is CreateRecipeEvent.RemoveImage -> {
-                val newList = _state.value.coverImages.toMutableList()
-                newList.removeAt(event.index)
+                val newList = _state.value.coverImages.filterIndexed { idx, _ ->
+                    idx != event.index
+                }
                 _state.update { it.copy(coverImages = newList) }
             }
 
@@ -64,19 +66,19 @@ class CreateRecipeViewModel @Inject constructor(
 
             is CreateRecipeEvent.AddIngredient -> {
                 viewModelScope.launch {
-                    val index =
-                        _state.value.ingredientItems.indexOfFirst { it.ingredientId == event.ingredientId }
+                    with(_state.value) {
+                        val index =
+                            ingredientItems.indexOfFirst { it.ingredientId == event.ingredientItem.ingredientId }
 
-                    if (index != -1) {
-                        val items = _state.value.ingredientItems.toMutableList()
-                        items[index] = items[index].copy(amount = event.amount.toFloat())
-                        _state.update { it.copy(ingredientItems = items) }
-                    } else {
-                        val ingredient = recipeRepository.getIngredientById(event.ingredientId)
-                        ingredient?.toIngredientItem(event.amount.toFloat())
-                            ?.let { ingredientItem ->
-                                _state.update { it.copy(ingredientItems = it.ingredientItems + ingredientItem) }
+                        if (index != -1) {
+                            val newList = ingredientItems.mapIndexed { idx, item ->
+                                if (idx != index) item
+                                else event.ingredientItem
                             }
+                            _state.update { it.copy(ingredientItems = newList) }
+                        } else {
+                            _state.update { it.copy(ingredientItems = it.ingredientItems + event.ingredientItem) }
+                        }
                     }
                 }
             }
@@ -97,12 +99,14 @@ class CreateRecipeViewModel @Inject constructor(
                         _state.value.steps.indexOfFirst { it.id == event.instructionId }
 
                     if (index != -1) {
-                        val items = _state.value.steps.toMutableList()
-                        items[index] = items[index].copy(
-                            period = event.period.toLong(),
-                            instruction = event.instruction
-                        )
-                        _state.update { it.copy(steps = items) }
+                        val newList = _state.value.steps.mapIndexed { idx, step ->
+                            if (idx != index) step
+                            else step.copy(
+                                period = event.period.toLong(),
+                                instruction = event.instruction
+                            )
+                        }
+                        _state.update { it.copy(steps = newList) }
                     } else {
                         Step(
                             id = event.instructionId,
@@ -148,34 +152,29 @@ class CreateRecipeViewModel @Inject constructor(
         }
     }
 
+    private var searchJob: Job? = null
+
     private val _addIngredientState = MutableStateFlow(AddIngredientState())
     val addIngredientState = _addIngredientState.asStateFlow()
 
-    private val _ingredientName = MutableStateFlow("")
-    val ingredientName = _ingredientName.asStateFlow()
-
-    val ingredients = _ingredientName
-        .debounce(300)
-        .onEach { _addIngredientState.update { it.copy(isSearching = true) } }
-        .map(recipeRepository::searchIngredients)
-        .onEach { _addIngredientState.update { it.copy(isSearching = false) } }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(5000),
-            emptyList(),
-        )
+    private suspend fun searchIngredient() {
+        _addIngredientState
+            .map { it.name }
+            .distinctUntilChanged()
+            .debounce(300)
+            .onEach { _addIngredientState.update { it.copy(isSearching = true) } }
+            .map(recipeRepository::searchIngredients)
+            .onEach { _addIngredientState.update { it.copy(isSearching = false) } }
+            .collect { list ->
+                Log.d("ingredient", list.toString())
+                _addIngredientState.update { it.copy(ingredients = list) }
+            }
+    }
 
     fun onAddIngredientEvent(event: AddIngredientEvent) {
-        fun onChangeIngredientName(newValue: String) {
-            _ingredientName.update { newValue }
-        }
-
-        fun onChangeUnit(newValue: String) {
-            _addIngredientState.update { it.copy(unit = newValue) }
-        }
         when (event) {
             is AddIngredientEvent.EnterIngredientName -> {
-                _ingredientName.update { event.value }
+                _addIngredientState.update { it.copy(name = event.value) }
             }
 
             is AddIngredientEvent.EnterAmount -> {
@@ -186,7 +185,11 @@ class CreateRecipeViewModel @Inject constructor(
                 with(_addIngredientState.value) {
                     if (selectedIngredientId.isNotEmpty()) {
                         try {
-                            amount.toDouble()
+                            _addIngredientState.value.ingredients.find {
+                                it.id == selectedIngredientId
+                            }?.let {
+                                onEvent(CreateRecipeEvent.AddIngredient(it.toIngredientItem(amount.toFloat())))
+                            }
                             _addIngredientState.update { it.copy(success = true) }
                         } catch (_: Exception) {
                             _addIngredientState.update { it.copy(error = "Wrong amount") }
@@ -200,12 +203,36 @@ class CreateRecipeViewModel @Inject constructor(
             }
 
             is AddIngredientEvent.ChooseIngredient -> {
-                onChangeIngredientName(event.ingredient.name)
+                _addIngredientState.update { it.copy(name = event.ingredient.name) }
                 _addIngredientState.update {
                     it.copy(
                         selectedIngredientId = event.ingredient.id,
                         unit = event.ingredient.unit.toString()
                     )
+                }
+            }
+
+            is AddIngredientEvent.Dispose -> {
+                _addIngredientState.update { AddIngredientState() }
+                searchJob?.cancel()
+            }
+
+            is AddIngredientEvent.Init -> {
+                if (searchJob?.isActive != true) {
+                    searchJob = viewModelScope.launch {
+                        searchIngredient()
+                    }
+                }
+                event.ingredientItem?.let { item ->
+                    _addIngredientState.update {
+                        it.copy(
+                            name = item.name,
+                            selectedIngredientId = item.ingredientId,
+                            amount = item.amount.toString(),
+                            unit = item.unit.unitString,
+                            isEdit = true
+                        )
+                    }
                 }
             }
         }

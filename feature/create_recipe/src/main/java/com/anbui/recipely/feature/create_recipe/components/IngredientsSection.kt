@@ -10,7 +10,7 @@ fun IngredientsSection(
     onEvent: (CreateRecipeEvent) -> Unit,
     ingredients: List<IngredientItem>,
     onAddIngredientClick: () -> Unit,
-    onEditIngredient: (String) -> Unit
+    onEditIngredient: (IngredientItem) -> Unit
 ) {
     Column {
         IngredientDragDropList(
