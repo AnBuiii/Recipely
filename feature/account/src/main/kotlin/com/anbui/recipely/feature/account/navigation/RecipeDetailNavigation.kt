@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.anbui.recipely.feature.account.account.AccountRoute
 import com.anbui.recipely.feature.account.edit_profile.EditProfileRoute
+import com.anbui.recipely.feature.account.my_order.MyOrderRoute
 import com.anbui.recipely.feature.account.my_recipe.MyRecipeRoute
 import com.anbui.recipely.feature.account.setting.SettingRoute
 
@@ -47,9 +48,9 @@ fun NavGraphBuilder.accountGraph(
                 onBack = onBack,
                 navigateToOnboard = onNavigateToOnboard,
                 navigateToMyOrder = {
-//                    navController.navigate(AccountGraph.MyOrder.route) {
-//                        launchSingleTop = true
-//                    }
+                    navController.navigate(AccountGraph.MyOrder.route) {
+                        launchSingleTop = true
+                    }
                 },
                 navigateToMyRecipe = {
                     navController.navigate(AccountGraph.MyRecipe.route) {
@@ -64,8 +65,7 @@ fun NavGraphBuilder.accountGraph(
             MyRecipeRoute(onBack = onBack, onNavigateToRecipe = onNavigateToRecipe)
         }
         composable(route = AccountGraph.MyOrder.route) {
-
+            MyOrderRoute(onBack = onBack, onNavigateToOrder = onNavigateToOrderDetail)
         }
     }
-
 }

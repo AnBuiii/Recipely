@@ -28,4 +28,5 @@
     <string name="arrow_right">arrow right</string>
     <string name="log_out">Log out</string>
     <string name="my_recipe">My recipe</string>
+    <string name="my_order">My Order</string>
 </resources>

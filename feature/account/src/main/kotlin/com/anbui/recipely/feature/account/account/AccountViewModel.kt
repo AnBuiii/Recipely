@@ -42,6 +42,4 @@ class AccountViewModel @Inject constructor(
             SharingStarted.WhileSubscribed(5000),
             emptyList()
         )
-
-
 }
