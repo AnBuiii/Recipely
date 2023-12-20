@@ -51,6 +51,13 @@ interface RecipeDao {
     @Query("SELECT * from Recent WHERE recipe_id = :recipeId AND account_id = :accountId")
     suspend fun getRecentByAccountAndRecipe(accountId: String, recipeId: String): List<RecentEntity>
 
+    @Transaction
+    @Query("SELECT * from Recipe WHERE owner_id = :accountId")
+    fun getRecipeByAccountId(accountId: String): Flow<List<RecipeAndOwner>>
+
+    @Query("DELETE  FROM Recipe WHERE _id = :recipeId")
+    suspend fun deleteRecipe(recipeId: String)
+
     @Query("SELECT recipe_id FROM `Like` WHERE account_id = :accountId")
     fun getFavouriteRecipeIds(accountId: String): Flow<List<String>>
 

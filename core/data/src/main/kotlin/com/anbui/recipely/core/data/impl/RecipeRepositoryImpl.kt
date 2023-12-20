@@ -228,4 +228,21 @@ class RecipeRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override fun getAllRecipeOfCurrentAccount(): Flow<List<Recipe>> {
+        return flow {
+            val id = preferencesDataSource.loggedId.first()
+            recipeDao.getRecipeByAccountId(id).map { map ->
+                map.map { recipe ->
+                    recipe.toRecipe(id)
+                }
+            }.collect {
+                emit(it)
+            }
+        }
+    }
+
+    override suspend fun deleteRecipe(recipeId: String) {
+        recipeDao.deleteRecipe(recipeId)
+    }
 }

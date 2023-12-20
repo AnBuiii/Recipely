@@ -17,6 +17,7 @@ import com.anbui.recipely.feature.notification.navigation.notificationGraph
 import com.anbui.recipely.feature.onboard.navigation.OnboardGraph
 import com.anbui.recipely.feature.onboard.navigation.navigateToOnboard
 import com.anbui.recipely.feature.onboard.navigation.onBoardGraph
+import com.anbui.recipely.feature.recipe_detail.navigation.navigateToRecipeDetail
 import com.anbui.recipely.feature.recipe_detail.navigation.recipeDetailGraph
 import com.anbui.recipely.feature.search.navigation.searchGraph
 import com.anbui.recipely.presentation.cart_order.order_detail.OrderDetailScreen
@@ -50,11 +51,7 @@ fun Navigation(
 
         searchGraph(
             onBack = navController::navigateUp,
-            onNavigateToRecipe = {
-                navController.navigate(
-                    Screen.RecipeDetailScreen.route + "/$it"
-                )
-            }
+            onNavigateToRecipe = navController::navigateToRecipeDetail
         )
 
         recipeDetailGraph(
@@ -80,6 +77,7 @@ fun Navigation(
             onNavigateToOnboard = {
                 navController.navigateToOnboard()
             },
+            onNavigateToRecipe = navController::navigateToRecipeDetail,
             navController = navController
         )
 

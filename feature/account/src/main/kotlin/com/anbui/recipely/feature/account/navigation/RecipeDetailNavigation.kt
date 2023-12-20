@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.anbui.recipely.feature.account.account.AccountRoute
 import com.anbui.recipely.feature.account.edit_profile.EditProfileRoute
+import com.anbui.recipely.feature.account.my_recipe.MyRecipeRoute
 import com.anbui.recipely.feature.account.setting.SettingRoute
 
 fun NavController.onNavigateToAccountGraph(navOptions: NavOptions? = null) {
@@ -15,6 +16,7 @@ fun NavController.onNavigateToAccountGraph(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.accountGraph(
     onBack: () -> Unit,
+    onNavigateToRecipe: (String) -> Unit,
     onNavigateToOrderDetail: (String) -> Unit,
     onNavigateToOnboard: () -> Unit,
     navController: NavController,
@@ -41,10 +43,28 @@ fun NavGraphBuilder.accountGraph(
             )
         }
         composable(route = AccountGraph.Setting.route) {
-            SettingRoute(onBack = onBack, navigateToOnboard = onNavigateToOnboard)
+            SettingRoute(
+                onBack = onBack,
+                navigateToOnboard = onNavigateToOnboard,
+                navigateToMyOrder = {
+//                    navController.navigate(AccountGraph.MyOrder.route) {
+//                        launchSingleTop = true
+//                    }
+                },
+                navigateToMyRecipe = {
+                    navController.navigate(AccountGraph.MyRecipe.route) {
+                        launchSingleTop = true
+                    }
+                })
         }
         composable(route = AccountGraph.EditProfile.route) {
             EditProfileRoute(onBack = onBack)
+        }
+        composable(route = AccountGraph.MyRecipe.route) {
+            MyRecipeRoute(onBack = onBack, onNavigateToRecipe = onNavigateToRecipe)
+        }
+        composable(route = AccountGraph.MyOrder.route) {
+
         }
     }
 

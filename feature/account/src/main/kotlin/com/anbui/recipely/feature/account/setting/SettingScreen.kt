@@ -42,11 +42,15 @@ import kotlinx.coroutines.launch
 @Composable
 fun SettingRoute(
     onBack: () -> Unit,
+    navigateToMyOrder: () -> Unit,
+    navigateToMyRecipe: () -> Unit,
     navigateToOnboard: () -> Unit,
     settingViewModel: SettingViewModel = hiltViewModel()
 ) {
     SettingScreen(
         onBack = onBack,
+        navigateToMyOrder = navigateToMyOrder,
+        navigateToMyRecipe = navigateToMyRecipe,
         navigateToOnboard = navigateToOnboard,
         settingViewModel = settingViewModel
     )
@@ -55,6 +59,8 @@ fun SettingRoute(
 @Composable
 fun SettingScreen(
     onBack: () -> Unit,
+    navigateToMyOrder: () -> Unit,
+    navigateToMyRecipe: () -> Unit,
     navigateToOnboard: () -> Unit,
     settingViewModel: SettingViewModel
 ) {
@@ -119,8 +125,14 @@ fun SettingScreen(
                 onClick = { notification = !notification }
             )
             SettingCard(
+                leadingIcon = painterResource(id = R.drawable.ic_cook),
+                text = stringResource(R.string.my_recipe),
+                onClick = navigateToMyRecipe
+            )
+            SettingCard(
                 leadingIcon = painterResource(id = R.drawable.ic_time_square),
-                text = stringResource(R.string.your_orders)
+                text = stringResource(R.string.my_orders),
+                onClick = navigateToMyOrder
             )
             SettingCard(
                 leadingIcon = painterResource(id = R.drawable.ic_language),

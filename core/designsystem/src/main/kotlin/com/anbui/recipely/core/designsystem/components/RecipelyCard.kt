@@ -244,7 +244,6 @@ fun RecipelyVerticallyCard(
     }
 }
 
-@ExperimentalMaterial3Api
 @Composable
 fun RecipelyHorizontallyCard(
     recipe: Recipe,
@@ -372,6 +371,7 @@ fun RecipelyNotificationCard(
         NotificationType.Like -> {
             null
         }
+
         NotificationType.Order -> {
             painterResource(id = R.drawable.ic_bag)
         }

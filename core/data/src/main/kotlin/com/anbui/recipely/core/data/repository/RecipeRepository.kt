@@ -23,6 +23,8 @@ interface RecipeRepository {
 
     fun getAllRecentOfCurrentAccount(): Flow<List<Recipe>>
 
+    fun getAllRecipeOfCurrentAccount(): Flow<List<Recipe>>
+
     suspend fun searchRecipes(searchText: String): List<Recipe>
 
     suspend fun searchRecipesByIngredient(searchText: String): List<Recipe>
@@ -34,6 +36,8 @@ interface RecipeRepository {
     suspend fun searchIngredients(ingredientName: String): List<Ingredient>
 
     suspend fun getIngredientById(ingredientId: String): Ingredient?
+
+    suspend fun deleteRecipe(recipeId: String)
 
     suspend fun createRecipe(
         title: String,

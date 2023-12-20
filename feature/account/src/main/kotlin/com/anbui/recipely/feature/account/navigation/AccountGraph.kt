@@ -7,4 +7,6 @@ sealed class AccountGraph(val route: String){
     data object Home: AccountGraph("home")
     data object Setting: AccountGraph("setting")
     data object EditProfile: AccountGraph("edit_profile")
+    data object MyRecipe: AccountGraph("my_recipe")
+    data object MyOrder: AccountGraph("my_order")
 }

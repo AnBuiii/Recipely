@@ -2,7 +2,7 @@
 <resources>
     <string name="incoming_order">Incoming order</string>
     <string name="order_image">order_image</string>
-    <string name="your_orders">Your orders</string>
+    <string name="my_orders">Đơn hàng của tôi</string>
     <string name="language">Language</string>
     <string name="about_app">About app</string>
     <string name="current_language">English</string>
@@ -27,4 +27,5 @@
     <string name="notifications">Notifications</string>
     <string name="arrow_right">arrow right</string>
     <string name="log_out">Log out</string>
+    <string name="my_recipe">My recipe</string>
 </resources>

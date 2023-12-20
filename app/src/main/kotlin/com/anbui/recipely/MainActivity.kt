@@ -125,7 +125,7 @@ class MainActivity : ComponentActivity() {
         val doesRouteMatch = backStackEntry?.destination?.route in listOf(
             Screen.HomeScreen.route,
             notificationRoute,
-            AccountGraph.ROUTE
+            AccountGraph.Home.route
         ) || backStackEntry?.destination?.route?.startsWith(searchRoute) == true
         val isOwnProfile =
             backStackEntry?.destination?.route == "${AccountGraph.ROUTE}?userId={userId}" &&
