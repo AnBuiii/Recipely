@@ -11,4 +11,5 @@
     <string name="arrow_right">arrow right</string>
     <string name="order">Order</string>
     <string name="recipe_interaction">Recipe interaction</string>
+    <string name="close">Close</string>
 </resources>

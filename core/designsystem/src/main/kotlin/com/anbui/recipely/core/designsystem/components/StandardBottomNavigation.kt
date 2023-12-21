@@ -1,8 +1,13 @@
 package com.anbui.recipely.core.designsystem.components
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -20,18 +25,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.asComposeRenderEffect
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.anbui.recipely.core.designsystem.R
 import com.anbui.recipely.core.designsystem.theme.MediumGrey
 import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import com.anbui.recipely.core.designsystem.toPx
@@ -50,11 +66,10 @@ fun StandardBottomNavigation(
 //            .height(128.dp)
         contentAlignment = Alignment.BottomCenter
     ) {
-        val isMenuExtended = remember { mutableStateOf(false) }
+        var isMenuExtended by remember { mutableStateOf(false) }
         val renderEffect = getRenderEffect().asComposeRenderEffect()
-
         val fabAnimationProgress by animateFloatAsState(
-            targetValue = if (isMenuExtended.value) 1f else 0f,
+            targetValue = if (isMenuExtended) 1f else 0f,
             animationSpec = tween(
                 durationMillis = 800,
                 easing = LinearEasing
@@ -62,13 +77,19 @@ fun StandardBottomNavigation(
             label = ""
         )
         val clickAnimationProgress by animateFloatAsState(
-            targetValue = if (isMenuExtended.value) 1f else 0f,
+            targetValue = if (isMenuExtended) 1f else 0f,
             animationSpec = tween(
                 durationMillis = 400,
                 easing = LinearEasing
             ),
             label = ""
         )
+
+        AnimatedVisibility(visible = isMenuExtended, enter = fadeIn(), exit = fadeOut()) {
+            Scrim(
+                modifier = Modifier.fillMaxSize(),
+                onClose = { isMenuExtended = !isMenuExtended })
+        }
 
         ElevatedCard(
             modifier = Modifier
@@ -108,7 +129,7 @@ fun StandardBottomNavigation(
             renderEffect = null,
             animationProgress = fabAnimationProgress,
             toggleAnimation = {
-                isMenuExtended.value = isMenuExtended.value.not()
+                isMenuExtended = !isMenuExtended
             },
             onScanClick = onScanClick,
             onNewRecipeClick = onNewRecipeClick
@@ -202,4 +223,29 @@ class BottomNavigationShape(private val cornerRadius: Float) : Shape {
         }
         return Outline.Generic(path)
     }
+}
+
+@Composable
+fun Scrim(onClose: () -> Unit, modifier: Modifier = Modifier) {
+    val strClose = stringResource(R.string.close)
+    Box(
+        modifier
+            .pointerInput(onClose) { detectTapGestures { onClose() } }
+            .semantics(mergeDescendants = true) {
+                contentDescription = strClose
+                onClick {
+                    onClose()
+                    true
+                }
+            }
+            .onKeyEvent {
+                if (it.key == Key.Escape) {
+                    onClose()
+                    true
+                } else {
+                    false
+                }
+            }
+            .background(Color.DarkGray.copy(alpha = 0.75f))
+    )
 }
