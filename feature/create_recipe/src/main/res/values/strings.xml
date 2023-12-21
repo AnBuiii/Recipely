@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="back">Back</string>
+    <string name="finish">Finish</string>
+    <string name="next">Next</string>
+    <string name="this_feature_still_construction">This feature still construction</string>
+    <string name="add_ingredient">Add ingredient to recipe</string>
+    <string name="ingredient_name">Ingredient name</string>
+    <string name="ingredient_name_hint">Enter ingredient name</string>
+    <string name="amount">Amount</string>
+    <string name="unit">Unit</string>
+    <string name="enter_amount_hint">Ex: 1 1/2</string>
+    <string name="enter_unit_hint">Ex: can</string>
+    <string name="edit_ingredient">Edit ingredient in recipe</string>
+    <string name="add_instruction">Add instruction to recipe</string>
+    <string name="instruction">Instruction</string>
+    <string name="period">Period</string>
+    <string name="instruction_hint">Enter instruction</string>
+    <string name="period_hint">Enter period</string>
+    <string name="recipely">Recipely</string>
+    <string name="title_image_hint">Add recipe cover image</string>
+    <string name="title">Title</string>
+    <string name="enter_recipe_title">Enter recipe title</string>
+    <string name="description">Description</string>
+    <string name="create_recipe_description_hint">Tell us about the food</string>
+    <string name="edit">edit</string>
+    <string name="serves">Serves</string>
+    <string name="add_instruction_image">Add instruction image</string>
+</resources>
