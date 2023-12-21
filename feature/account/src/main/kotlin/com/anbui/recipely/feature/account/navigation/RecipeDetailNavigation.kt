@@ -3,12 +3,15 @@ package com.anbui.recipely.feature.account.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import androidx.navigation.navArgument
 import com.anbui.recipely.feature.account.account.AccountRoute
 import com.anbui.recipely.feature.account.edit_profile.EditProfileRoute
 import com.anbui.recipely.feature.account.my_order.MyOrderRoute
 import com.anbui.recipely.feature.account.my_recipe.MyRecipeRoute
+import com.anbui.recipely.feature.account.order_detail.OrderDetailRoute
 import com.anbui.recipely.feature.account.setting.SettingRoute
 
 fun NavController.onNavigateToAccountGraph(navOptions: NavOptions? = null) {
@@ -18,7 +21,6 @@ fun NavController.onNavigateToAccountGraph(navOptions: NavOptions? = null) {
 fun NavGraphBuilder.accountGraph(
     onBack: () -> Unit,
     onNavigateToRecipe: (String) -> Unit,
-    onNavigateToOrderDetail: (String) -> Unit,
     onNavigateToOnboard: () -> Unit,
     navController: NavController,
 ) {
@@ -40,7 +42,11 @@ fun NavGraphBuilder.accountGraph(
                         launchSingleTop = true
                     }
                 },
-                onNavigateToOrderDetail = onNavigateToOrderDetail
+                onNavigateToOrderDetail = {
+                    navController.navigate("order_detail/$it") {
+                        launchSingleTop = true
+                    }
+                }
             )
         }
         composable(route = AccountGraph.Setting.route) {
@@ -65,7 +71,24 @@ fun NavGraphBuilder.accountGraph(
             MyRecipeRoute(onBack = onBack, onNavigateToRecipe = onNavigateToRecipe)
         }
         composable(route = AccountGraph.MyOrder.route) {
-            MyOrderRoute(onBack = onBack, onNavigateToOrder = onNavigateToOrderDetail)
+            MyOrderRoute(
+                onBack = onBack,
+                onNavigateToOrder = {
+                    navController.navigate("order_detail/$it") {
+                        launchSingleTop = true
+                    }
+                }
+            )
+        }
+        composable(
+            route = AccountGraph.OrderDetail.route,
+            arguments = listOf(
+                navArgument(AccountGraph.ORDER_ARG) {
+                    type = NavType.StringType
+                },
+            )
+        ) {
+            OrderDetailRoute(onBack = onBack)
         }
     }
 }

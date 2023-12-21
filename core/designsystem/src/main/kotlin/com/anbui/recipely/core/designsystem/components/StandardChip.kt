@@ -13,7 +13,7 @@ import com.anbui.recipely.core.designsystem.theme.SpaceSmall
 import com.anbui.recipely.core.designsystem.theme.TinyGreen
 import com.anbui.recipely.core.designsystem.theme.TrueWhite
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StandardChip(
     title: String,

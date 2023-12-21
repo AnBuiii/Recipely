@@ -8,6 +8,11 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
+/**
+ * Handle init logged id value
+ *
+ * TODO this function not behave correctly if the app is in background
+ */
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     accountRepository: AccountRepository,

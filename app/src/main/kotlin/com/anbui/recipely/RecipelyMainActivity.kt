@@ -3,11 +3,7 @@ package com.anbui.recipely
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
@@ -26,16 +22,10 @@ import com.anbui.recipely.feature.account.navigation.AccountGraph
 import com.anbui.recipely.feature.create_recipe.navigation.navigateToCreateRecipe
 import com.anbui.recipely.feature.notification.navigation.notificationRoute
 import com.anbui.recipely.feature.search.navigation.searchRoute
-import com.anbui.recipely.presentation.util.Navigation
-import com.anbui.recipely.presentation.util.Screen
+import com.anbui.recipely.home.navigation.homeRoute
+import com.example.ingredient_detect.navigation.navigateToCameraGraph
 import dagger.hilt.android.AndroidEntryPoint
 
-
-@ExperimentalAnimationApi
-@ExperimentalStdlibApi
-@ExperimentalFoundationApi
-@ExperimentalLayoutApi
-@ExperimentalMaterial3Api
 @AndroidEntryPoint
 class RecipelyMainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +43,7 @@ class RecipelyMainActivity : ComponentActivity() {
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                     val bottomNavItems: List<BottomNavItem> = listOf(
                         BottomNavItem(
-                            route = Screen.HomeScreen.route,
+                            route = homeRoute,
                             unselectedIcon = R.drawable.ic_home,
                             selectedIcon = R.drawable.ic_home_filled,
                             contentDescription = stringResource(R.string.home)
@@ -97,17 +87,19 @@ class RecipelyMainActivity : ComponentActivity() {
                             )
                         },
                         onScanClick = {
-                            navController.navigate(Screen.CameraScreen.route) {
-                                launchSingleTop = true
-                                restoreState = true
-                            }
+                            navController.navigateToCameraGraph(
+                                navOptions {
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            )
                         },
                         onBottomItemClick = {
                             if (navController.currentDestination?.route != it) {
                                 navController.navigate(it) {
                                     launchSingleTop = true
                                     restoreState = true
-                                    popUpTo(Screen.HomeScreen.route) {
+                                    popUpTo(homeRoute) {
                                         saveState = true
                                     }
                                 }
@@ -123,7 +115,7 @@ class RecipelyMainActivity : ComponentActivity() {
 
     private fun shouldShowBottomBar(backStackEntry: NavBackStackEntry?): Boolean {
         val doesRouteMatch = backStackEntry?.destination?.route in listOf(
-            Screen.HomeScreen.route,
+            homeRoute,
             notificationRoute,
             AccountGraph.Home.route
         ) || backStackEntry?.destination?.route?.startsWith(searchRoute) == true

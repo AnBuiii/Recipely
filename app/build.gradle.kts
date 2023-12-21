@@ -57,6 +57,7 @@ dependencies {
     implementation(projects.feature.createRecipe)
     implementation(projects.feature.cart)
     implementation(projects.feature.account)
+    implementation(projects.feature.ingredientDetect)
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
@@ -94,18 +95,6 @@ dependencies {
     // Media3
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui)
-
-    // CameraX
-    implementation(libs.androidx.camera.camera2)
-    implementation(libs.androidx.camera.lifecycle)
-    implementation(libs.androidx.camera.view)
-    implementation(libs.androidx.camera.extensions)
-    implementation(libs.androidx.camera.video)
-
-    // Tensorflow
-    implementation(libs.tensorflow.lite.task.vision)
-    implementation(libs.tensorflow.lite.gpu.delegate.plugin)
-    implementation(libs.tensorflow.lite.gpu)
 
     implementation(libs.kotlinx.datetime)
 }
