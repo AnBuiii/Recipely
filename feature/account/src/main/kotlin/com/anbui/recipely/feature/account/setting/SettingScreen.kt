@@ -112,7 +112,7 @@ fun SettingScreen(
                         Switch(
                             checked = notification,
                             onCheckedChange = {
-                                notification = it
+//                                notification = it
                             },
                             colors = SwitchDefaults.colors(
                                 uncheckedBorderColor = MaterialTheme.colorScheme.primary,

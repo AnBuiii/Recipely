@@ -107,7 +107,7 @@ class CartRepositoryImpl @Inject constructor(
 
         OrderStatusEntity(
             id = UUID.randomUUID().toString(),
-            step = "Init",
+            step = "Init", // TODO refactor
             time = now,
             orderId = orderId
         ).let {
@@ -130,6 +130,29 @@ class CartRepositoryImpl @Inject constructor(
             userId = accountId,
             notificationType = NotificationType.Order,
             message = "Your order $orderId has been created",
+            isRead = false,
+            imageUrl = null
+        ).let {
+            notificationRepository.insertNotification(it)
+        }
+    }
+
+    override suspend fun cancelOrder(id: String) {
+        val accountId = preferencesDataSource.loggedId.first()
+
+        OrderStatusEntity(
+            id = UUID.randomUUID().toString(),
+            step = "Cancel", // TODO refactor
+            time = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
+            orderId = id
+        ).let {
+            orderDao.insertOrderStatus(it)
+        }
+        Notification(
+            id = UUID.randomUUID().toString(),
+            userId = accountId,
+            notificationType = NotificationType.Order,
+            message = "Your order $id has been cancel",
             isRead = false,
             imageUrl = null
         ).let {

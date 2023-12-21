@@ -35,7 +35,7 @@ data class OrderWithDetail(
             time = this.order.time,
             ingredients = this.ingredients.map { it.toIngredientItem() },
             orderStatuses = this.status.map { it.toOrderStatus() },
-            currentStatus = this.status.minByOrNull { it.time }?.step ?: "error",
+            currentStatus = this.status.maxByOrNull { it.time }?.step ?: "error",
             total = this.ingredients.map { it.toIngredientItem() }.getTotalPrice(),
             customerName = this.customer.lastName + " " + this.customer.firstName,
             deliveryInfo = this.order.deliveryInfo,

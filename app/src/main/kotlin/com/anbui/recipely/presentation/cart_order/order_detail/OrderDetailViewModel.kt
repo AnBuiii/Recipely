@@ -7,11 +7,12 @@ import com.anbui.recipely.core.data.repository.CartRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class OrderDetailViewModel @Inject constructor(
-    cartRepository: CartRepository,
+    private val cartRepository: CartRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val orderId: String = checkNotNull(savedStateHandle["orderId"])
@@ -22,4 +23,10 @@ class OrderDetailViewModel @Inject constructor(
             SharingStarted.WhileSubscribed(5000),
             cartRepository.getDummyOrder()
         )
+
+    fun cancelOrder(id: String){
+        viewModelScope.launch {
+            cartRepository.cancelOrder(id)
+        }
+    }
 }

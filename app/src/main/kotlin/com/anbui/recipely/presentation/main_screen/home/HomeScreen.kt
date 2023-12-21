@@ -1,5 +1,6 @@
 package com.anbui.recipely.presentation.main_screen.home
 
+import android.Manifest
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
@@ -24,6 +26,9 @@ import com.anbui.recipely.presentation.main_screen.home.components.CategorySecti
 import com.anbui.recipely.presentation.main_screen.home.components.FeaturedSection
 import com.anbui.recipely.presentation.main_screen.home.components.HeadingSection
 import com.anbui.recipely.presentation.main_screen.home.components.PopularRecipeSection
+import com.anbui.recipely.util.permission.isGranted
+import com.anbui.recipely.util.permission.rememberPermissionState
+import com.anbui.recipely.util.permission.shouldShowRationale
 
 @ExperimentalMaterial3Api
 @Composable
@@ -34,6 +39,16 @@ fun HomeScreen(
     val selectedCategories = remember { mutableStateListOf<String>() }
     val popularRecipes by homeScreenViewModel.popularRecipe.collectAsState()
     val currentAccount by homeScreenViewModel.currentAccount.collectAsState()
+
+    val cameraPermissionState = rememberPermissionState(
+        Manifest.permission.POST_NOTIFICATIONS,
+    )
+    LaunchedEffect(Unit) {
+        if (!cameraPermissionState.status.isGranted) {
+            cameraPermissionState.launchPermissionRequest()
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()

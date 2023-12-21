@@ -32,17 +32,17 @@ import com.anbui.recipely.core.designsystem.theme.SpaceLarge
 import com.anbui.recipely.core.designsystem.theme.SpaceMedium
 import com.anbui.recipely.core.designsystem.theme.SpaceSmall
 import com.anbui.recipely.core.designsystem.theme.TrueWhite
+import com.anbui.recipely.feature.recipe_detail.toStringAsFixed
 import com.anbui.recipely.presentation.cart_order.order_detail.components.InformationItem
 import com.anbui.recipely.presentation.cart_order.order_detail.components.OrderItem
-import com.anbui.recipely.feature.recipe_detail.toStringAsFixed
 
 @ExperimentalMaterial3Api
 @Composable
 fun OrderDetailScreen(
     navController: NavController,
-    orderDetailViewModel: OrderDetailViewModel = hiltViewModel()
+    viewModel: OrderDetailViewModel = hiltViewModel()
 ) {
-    val order by orderDetailViewModel.order.collectAsStateWithLifecycle()
+    val order by viewModel.order.collectAsStateWithLifecycle()
     Column {
         StandardToolbar(
             title = "Order",
@@ -161,23 +161,28 @@ fun OrderDetailScreen(
                     Spacer(modifier = Modifier.height(2.5 * SpaceExtraLarge))
                 }
             }
-            Text(text = "")
-            Button(
-                onClick = {
-                },
-                shape = MaterialTheme.shapes.large,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .fillMaxWidth()
-                    .padding(SpaceLarge)
 
-            ) {
-                Text(
-                    text = "Cancel Order",
-                    style = MaterialTheme.typography.bodyMedium.copy(color = TrueWhite),
-                    modifier = Modifier.padding(vertical = SpaceSmall)
-                )
+            if (order.currentStatus != "Cancel") {
+                Button(
+                    onClick = {
+                        viewModel.cancelOrder(order.id)
+                    },
+                    shape = MaterialTheme.shapes.large,
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .fillMaxWidth()
+                        .padding(SpaceLarge)
+
+                ) {
+
+                    Text(
+                        text = "Cancel Order",
+                        style = MaterialTheme.typography.bodyMedium.copy(color = TrueWhite),
+                        modifier = Modifier.padding(vertical = SpaceSmall)
+                    )
+                }
             }
+
         }
     }
 }

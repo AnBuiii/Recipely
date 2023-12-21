@@ -5,6 +5,6 @@ sealed class RecipeDetailGraph(val route: String){
         const val ARG = "recipeId"
         const val ROUTE = "recipe_detail_graph/{$ARG}"
     }
-    data object Home: RecipeDetailGraph("home")
+    data object Home: RecipeDetailGraph("recipe_detail_graph_home")
     data object Cooking: RecipeDetailGraph("cooking")
 }

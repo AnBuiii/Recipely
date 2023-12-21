@@ -37,7 +37,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @ExperimentalLayoutApi
 @ExperimentalMaterial3Api
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class RecipelyMainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()

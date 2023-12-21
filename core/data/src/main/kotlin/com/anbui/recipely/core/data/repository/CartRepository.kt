@@ -19,4 +19,6 @@ interface CartRepository {
 
     suspend fun createOrder()
 
+    suspend fun cancelOrder(id: String)
+
 }
