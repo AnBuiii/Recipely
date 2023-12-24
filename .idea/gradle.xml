@@ -36,6 +36,7 @@
             <option value="$PROJECT_DIR$/feature/account" />
             <option value="$PROJECT_DIR$/feature/cart" />
             <option value="$PROJECT_DIR$/feature/create_recipe" />
+            <option value="$PROJECT_DIR$/feature/ingredient_detect" />
             <option value="$PROJECT_DIR$/feature/notification" />
             <option value="$PROJECT_DIR$/feature/onboard" />
             <option value="$PROJECT_DIR$/feature/recipe_detail" />

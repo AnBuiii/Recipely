@@ -29,7 +29,7 @@ import com.anbui.recipely.core.designsystem.theme.MediumGrey
 import com.anbui.recipely.core.designsystem.theme.SpaceLarge
 import com.anbui.recipely.core.designsystem.theme.TrueWhite
 
-@ExperimentalMaterial3Api
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Throws(IllegalArgumentException::class)
 fun RowScope.StandardBottomNavItem(

@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import com.anbui.recipely.core.designsystem.BottomNavItem
 import com.anbui.recipely.core.designsystem.R
 
-@ExperimentalMaterial3Api
 @Composable
 fun StandardScaffold(
     modifier: Modifier = Modifier,

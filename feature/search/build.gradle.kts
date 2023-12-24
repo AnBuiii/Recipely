@@ -14,5 +14,4 @@ dependencies {
     implementation(libs.activity.compose)
 
     implementation(libs.kotlinx.datetime)
-
 }

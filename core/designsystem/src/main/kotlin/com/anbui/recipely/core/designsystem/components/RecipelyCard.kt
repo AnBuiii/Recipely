@@ -148,7 +148,6 @@ fun RecipelyLargeCard(
     }
 }
 
-@ExperimentalMaterial3Api
 @Composable
 fun RecipelyVerticallyCard(
     modifier: Modifier = Modifier,

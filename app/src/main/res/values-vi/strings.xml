@@ -4,9 +4,10 @@
     <string name="notifications">Thông báo</string>
     <string name="search">TÌm kiếm</string>
     <string name="account">Tài khoản</string>
-    <string name="make_recipe">Tạo công thức</string>
-    <string name="show_password">Hiện mật khẩu</string>
-    <string name="hide_password">Ẩn mật khẩu</string>
-    <string name="back">Trở về</string>
-    <string name="this_feature_still_construction">This feature still construction</string>
+    <string name="sun">Sun</string>
+    <string name="buy">Buy</string>
+    <string name="category">Category</string>
+    <string name="home">Home</string>
+    <string name="featured">Featured</string>
+    <string name="popular_recipe">Popular Recipes</string>
 </resources>
