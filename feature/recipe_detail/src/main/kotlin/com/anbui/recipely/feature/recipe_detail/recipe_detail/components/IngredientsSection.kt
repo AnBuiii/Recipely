@@ -28,7 +28,6 @@ import com.anbui.recipely.core.designsystem.theme.SpaceMedium
 import com.anbui.recipely.core.designsystem.theme.SpaceSmall
 import com.anbui.recipely.core.designsystem.theme.TrueWhite
 import com.anbui.recipely.core.model.Recipe
-import com.anbui.recipely.core.model.exampleIngredientItems
 import com.anbui.recipely.feature.recipe_detail.R
 
 fun LazyListScope.ingredientsSection(
@@ -51,7 +50,7 @@ fun LazyListScope.ingredientsSection(
                 Text(
                     text = stringResource(
                         R.string.items,
-                        exampleIngredientItems.size
+                        recipe.ingredients.size
                     ),
                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Normal)
                 )

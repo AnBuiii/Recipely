@@ -22,6 +22,6 @@ object DatabaseModule {
                 "Recipely.sqlite"
             )
             .createFromAsset("recipely.sqlite")
-            .fallbackToDestructiveMigration() // todo remove
+//            .fallbackToDestructiveMigration() // todo remove
             .build()
 }
