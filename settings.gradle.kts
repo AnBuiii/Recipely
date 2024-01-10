@@ -24,7 +24,7 @@ dependencyResolutionManagement {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "Recipely"
-include(":app")
+include(":composeApp")
 include(":core:model")
 include(":core:database")
 include(":core:designsystem")
@@ -40,3 +40,5 @@ include(":feature:create_recipe")
 include(":feature:cart")
 include(":feature:account")
 include(":feature:ingredient_detect")
+include(":shared")
+include(":server")
