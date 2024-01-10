@@ -59,6 +59,8 @@ dependencies {
     implementation(projects.feature.account)
     implementation(projects.feature.ingredientDetect)
 
+    implementation(projects.shared)
+
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)

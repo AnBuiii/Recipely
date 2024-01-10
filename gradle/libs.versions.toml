@@ -37,8 +37,8 @@ protobuf = "3.24.4"
 protobufPlugin = "0.9.4"
 googleOssPlugin = "0.10.6"
 
-ktor = "2.3.6"
-logback = "1.4.13"
+ktor = "2.3.7"
+logback = "1.4.14"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -128,7 +128,9 @@ recipely-android-library-compose = { id = "recipely.android.library.compose", ve
 recipely-android-room = { id = "recipely.android.room", version = "unspecified" }
 
 #multiplatform plugin
-#ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
+ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [bundles]
 

@@ -64,7 +64,7 @@ fun HomeScreen(
             .padding(top = SpaceHuge)
     ) {
         HeadingSection(
-            name = currentAccount.firstName + " " + currentAccount.lastName,
+            name = currentAccount.firstName + " " + currentAccount.lastName + viewModel.platform.name,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = SpaceLarge),

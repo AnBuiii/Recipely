@@ -7,6 +7,7 @@ import com.anbui.recipely.core.data.repository.RecipeRepository
 import com.anbui.recipely.core.model.Recipe
 import com.anbui.recipely.core.model.exampleAccounts
 import dagger.hilt.android.lifecycle.HiltViewModel
+import getPlatform
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -17,6 +18,7 @@ class HomeScreenViewModel @Inject constructor(
     private val recipeRepository: RecipeRepository,
     accountRepository: AccountRepository
 ) : ViewModel() {
+    val platform = getPlatform()
     val popularRecipe = recipeRepository.getAllRecipes().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
