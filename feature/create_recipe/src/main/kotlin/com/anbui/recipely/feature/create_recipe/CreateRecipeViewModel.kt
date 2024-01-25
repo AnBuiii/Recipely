@@ -5,7 +5,7 @@ import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anbui.recipely.core.data.repository.RecipeRepository
-import com.anbui.recipely.core.model.MediaType
+import com.anbui.recipely.core.model.NotMediaType
 import com.anbui.recipely.core.model.Step
 import com.anbui.recipely.core.model.toIngredientItem
 import com.anbui.recipely.feature.create_recipe.add_ingredient.AddIngredientEvent
@@ -249,7 +249,7 @@ class CreateRecipeViewModel @Inject constructor(
                                     order = 0,
                                     instruction = instruction,
                                     mediaUrl = uri?.toString(),
-                                    type = MediaType.Image,
+                                    type = NotMediaType.Image,
                                     period = period.toLong()
                                 )
                             )

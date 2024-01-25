@@ -55,7 +55,7 @@ import com.anbui.recipely.core.designsystem.theme.SpaceLarge
 import com.anbui.recipely.core.designsystem.theme.SpaceMedium
 import com.anbui.recipely.core.designsystem.theme.SpaceSmall
 import com.anbui.recipely.core.designsystem.theme.TrueWhite
-import com.anbui.recipely.core.model.MediaType
+import com.anbui.recipely.core.model.NotMediaType
 import com.anbui.recipely.feature.recipe_detail.R
 import com.anbui.recipely.feature.recipe_detail.cooking_detail.components.DetailBottomSheet
 import com.anbui.recipely.feature.recipe_detail.cooking_detail.components.StandardVideoPlayer
@@ -162,7 +162,7 @@ fun CookingDetailScreen(
                     }
             ) {
                 if (page < recipe.instructions.size) {
-                    if (recipe.instructions[page].type is MediaType.Image) {
+                    if (recipe.instructions[page].type is NotMediaType.Image) {
                         AsyncImage(
                             model = recipe.instructions[page].mediaUrl,
                             contentDescription = recipe.instructions[page].instruction,
