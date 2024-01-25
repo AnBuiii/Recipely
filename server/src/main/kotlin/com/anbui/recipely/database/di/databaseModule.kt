@@ -1,12 +1,11 @@
 package com.anbui.recipely.database.di
 
-import com.anbui.recipely.database.objects.DAOFacade
-import com.anbui.recipely.database.objects.DAOFacadeImpl
+import com.anbui.recipely.database.objects.article.DAOFacade
+import com.anbui.recipely.database.objects.article.DAOFacadeImpl
+import com.anbui.recipely.database.objects.recipe.RecipeDao
+import com.anbui.recipely.database.objects.recipe.RecipeDaoImpl
 import kotlinx.coroutines.runBlocking
-import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
-import org.koin.core.module.dsl.bind
-import org.koin.core.module.dsl.singleOf
 
 val databaseModule = module {
     single<DAOFacade> {
@@ -17,5 +16,9 @@ val databaseModule = module {
                 }
             }
         }
+    }
+
+    single<RecipeDao> {
+        RecipeDaoImpl()
     }
 }

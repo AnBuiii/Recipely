@@ -1,4 +1,4 @@
-package com.anbui.recipely.database.objects
+package com.anbui.recipely.database.objects.article
 
 import com.anbui.recipely.database.objects.DatabaseSingleton.dbQuery
 import org.jetbrains.exposed.sql.*

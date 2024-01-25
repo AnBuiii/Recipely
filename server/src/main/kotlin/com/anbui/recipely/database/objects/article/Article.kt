@@ -1,4 +1,4 @@
-package com.anbui.recipely.database.objects
+package com.anbui.recipely.database.objects.article
 
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.Table

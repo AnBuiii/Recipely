@@ -33,9 +33,8 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
 
-    // h2
-    val h2_version = "2.1.214"
-    implementation("com.h2database:h2:$h2_version")
+    // SQLite JDBC
+    implementation("org.xerial:sqlite-jdbc:3.45.0.0")
 
     // Koin
     val koin_version = "3.6.0-wasm-alpha1"

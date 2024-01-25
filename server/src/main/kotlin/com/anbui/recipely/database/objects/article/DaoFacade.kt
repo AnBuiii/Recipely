@@ -1,4 +1,4 @@
-package com.anbui.recipely.database.objects
+package com.anbui.recipely.database.objects.article
 
 interface DAOFacade {
     suspend fun allArticles(): List<Article>

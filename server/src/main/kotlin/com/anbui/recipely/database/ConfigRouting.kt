@@ -1,24 +1,17 @@
 package com.anbui.recipely.database
 
-import com.anbui.recipely.Meals
-import com.anbui.recipely.core.model.NotMediaType
-import com.anbui.recipely.core.model.Recipe
-import com.anbui.recipely.core.model.Step
-import com.anbui.recipely.database.objects.Article
-import com.anbui.recipely.database.objects.Articles
-import com.anbui.recipely.database.objects.DAOFacade
+import com.anbui.recipely.database.objects.article.DAOFacade
+import com.anbui.recipely.database.objects.recipe.RecipeDao
 import getPlatform
-import io.ktor.server.application.Application
-import io.ktor.server.application.call
-import io.ktor.server.response.respond
-import io.ktor.server.response.respondText
-import io.ktor.server.routing.get
-import io.ktor.server.routing.routing
+import io.ktor.server.application.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
-import java.util.UUID
+import java.util.*
 
 fun Application.configRouting() {
     val dao: DAOFacade by inject()
+    val recipeDao: RecipeDao by inject()
     routing {
         get("/") {
             val platform = getPlatform()
@@ -26,37 +19,13 @@ fun Application.configRouting() {
         }
 
         get("/recipe") {
-            val meals = Meals(title = "enim", amount = 2.3f)
+            val respond = recipeDao.getAllRecipes()
+            call.respond(respond)
+        }
 
-            val recipe = Recipe(
-                id = "dapibus",
-                title = "egestas",
-                imageUrl = "https://www.google.com/#q=ridiculus",
-                description = "quod",
-                isLike = false,
-                cookTime = "sapientem",
-                servings = 5669,
-                totalCalories = 12.13f,
-                totalCarb = 14.15f,
-                totalProtein = 16.17f,
-                totalFat = 18.19f,
-                ownerId = "prompta",
-                ownerName = "Tamera Beach",
-                ownerAvatarUrl = "https://duckduckgo.com/?q=vidisse",
-                ownerDescription = "aliquid",
-                instructions = listOf(
-                    Step(
-                        id = "aeque",
-                        order = 2504,
-                        instruction = "aptent",
-                        mediaUrl = null,
-                        type = NotMediaType.Image,
-                        period = 5154
-                    )
-                ),
-                ingredients = listOf()
-            )
-            call.respond(recipe)
+        get("/recipe/add") {
+            val respond = recipeDao.addRecipe()
+            call.respond(respond ?: "null")
         }
 
         get("/article") {
