@@ -162,7 +162,7 @@ fun CookingDetailScreen(
                     }
             ) {
                 if (page < recipe.instructions.size) {
-                    if (recipe.instructions[page].type is NotMediaType.Image) {
+                    if (recipe.instructions[page].type == NotMediaType.Image) {
                         AsyncImage(
                             model = recipe.instructions[page].mediaUrl,
                             contentDescription = recipe.instructions[page].instruction,

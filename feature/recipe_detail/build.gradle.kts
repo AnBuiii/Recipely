@@ -9,12 +9,7 @@ android {
 }
 
 dependencies {
-    api(libs.ui.tooling.preview)
-    api(libs.core.ktx)
-    api(libs.material3)
-
-    implementation(libs.ui.util)
-    implementation(libs.activity.compose)
+    api(libs.ui.util)
 
     implementation(libs.kotlinx.datetime)
     implementation(libs.coil.compose)
@@ -22,5 +17,4 @@ dependencies {
     // Media3
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui)
-
 }

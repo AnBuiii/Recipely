@@ -8,11 +8,6 @@ android {
 }
 
 dependencies {
-    api(libs.ui.tooling.preview)
-    api(libs.core.ktx)
-    api(libs.material3)
-    implementation(libs.activity.compose)
-
     // CameraX
     implementation(libs.androidx.camera.camera2)
     implementation(libs.androidx.camera.lifecycle)
