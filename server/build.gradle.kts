@@ -16,7 +16,7 @@ application {
 
 dependencies {
     // model
-    implementation(projects.core.model)
+//    implementation(projects.core.model)
 
     implementation(projects.shared)
     implementation(libs.logback)

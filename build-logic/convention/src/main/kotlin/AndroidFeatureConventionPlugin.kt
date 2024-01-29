@@ -26,6 +26,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", project(":core:designsystem"))
                 add("implementation", project(":core:data"))
                 add("implementation", project(":core:database"))
+                add("implementation", project(":core:testing"))
 //                add("implementation", project(":core:common"))
 //                add("implementation", project(":core:domain"))
 //                add("implementation", project(":core:analytics"))

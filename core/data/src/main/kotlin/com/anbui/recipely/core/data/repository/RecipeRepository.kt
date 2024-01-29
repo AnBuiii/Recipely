@@ -1,7 +1,5 @@
 package com.anbui.recipely.core.data.repository
 
-import com.anbui.recipely.core.database.relations.RecipeAndOwner
-import com.anbui.recipely.core.database.relations.RecipeWithIngredient
 import com.anbui.recipely.core.model.Ingredient
 import com.anbui.recipely.core.model.IngredientItem
 import com.anbui.recipely.core.model.Recipe
@@ -9,9 +7,6 @@ import com.anbui.recipely.core.model.Step
 import kotlinx.coroutines.flow.Flow
 
 interface RecipeRepository {
-    suspend fun getRecipeWithIngredient(recipeId: String): List<RecipeWithIngredient>
-
-    fun findIngredientWithRecipeId(recipeId: String): Flow<List<RecipeAndOwner>>
 
     fun getAllRecipes(): Flow<List<Recipe>>
 

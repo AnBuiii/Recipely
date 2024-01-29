@@ -15,3 +15,7 @@ data class Step(
 enum class NotMediaType {
     Image, Video,
 }
+
+fun String.toMediaType(): NotMediaType{
+    return NotMediaType.valueOf(this)
+}
