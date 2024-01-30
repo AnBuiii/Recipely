@@ -3,6 +3,9 @@ package com.anbui.recipely.feature.account.account
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import com.anbui.recipely.core.testing.HiltComponentActivity
+import com.anbui.recipely.core.testing.TestAccountRepository
+import com.anbui.recipely.core.testing.TestCartRepository
+import com.anbui.recipely.core.testing.TestRecipeRepository
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Assert.assertEquals
@@ -24,6 +27,12 @@ class AccountScreenTest {
     @get:Rule(order = 1)
     val composeTestRule = createAndroidComposeRule<HiltComponentActivity>()
 
+    val accountViewModel = AccountViewModel(
+        accountRepository = TestAccountRepository(),
+        recipeRepository = TestRecipeRepository(),
+        cartRepository = TestCartRepository()
+    )
+
 
     @Test
     fun initTest() {
@@ -34,6 +43,7 @@ class AccountScreenTest {
                 onNavigateToSettingScreen = {},
                 onNavigateToEditProfileScreen = {},
                 onNavigateToOrderDetail = {},
+                accountViewModel = accountViewModel
             )
         }
     }
