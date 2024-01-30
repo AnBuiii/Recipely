@@ -1,33 +1,40 @@
-package com.anbui.recipely.feature.account
+package com.anbui.recipely.feature.account.account
 
-import androidx.activity.ComponentActivity
-import androidx.compose.material3.Text
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.anbui.recipely.feature.account.account.AccountScreen
+import com.anbui.recipely.core.testing.HiltComponentActivity
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 
 /**
  * Instrumented test, which will execute on an Android device.
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-//@RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
+@HiltAndroidTest
+class AccountScreenTest {
+
+    @get:Rule(order = 0)
+    val hiltRule = HiltAndroidRule(this)
+
+    @get:Rule(order = 1)
+    val composeTestRule = createAndroidComposeRule<HiltComponentActivity>()
+
 
     @Test
     fun initTest() {
+        hiltRule.inject()
         composeTestRule.setContent {
-            Text("asd")
+            AccountRoute(
+                onBack = {},
+                onNavigateToSettingScreen = {},
+                onNavigateToEditProfileScreen = {},
+                onNavigateToOrderDetail = {},
+            )
         }
     }
 
