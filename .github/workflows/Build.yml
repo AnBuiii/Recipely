@@ -6,7 +6,6 @@ on:
       - master
 
 jobs:
-
   build:
     name: Build app
     runs-on: ubuntu-latest
