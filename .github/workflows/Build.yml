@@ -25,6 +25,10 @@ jobs:
   androidTest:
     name: Run Android Test
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        api-level: [ 31 ]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -37,6 +41,22 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Build projects before running emulator
+        run: ./gradlew packageDemoDebug packageDemoDebugAndroidTest
+
+      - name: Run instrumentation tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          arch: x86_64
+          disable-animations: true
+          disk-size: 6000M
+          heap-size: 600M
+          script: ./gradlew connectedDemoDebugAndroidTest --daemon
 
   unitTest:
     name: Run Unit Test
@@ -53,4 +73,11 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 17
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Run Unit test
+        run: ./gradlew testDemoDebug
+
 
