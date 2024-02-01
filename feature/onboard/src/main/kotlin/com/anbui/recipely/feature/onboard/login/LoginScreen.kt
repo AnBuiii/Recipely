@@ -25,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -91,6 +93,9 @@ fun LoginScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         StandardToolbar(
+            modifier = Modifier.semantics {
+                contentDescription = "Login"
+            },
             title = stringResource(R.string.login),
             showBackArrow = true,
             onBack = onBack
@@ -108,6 +113,9 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(SpaceMedium))
 
             StandardTextField(
+                modifier = Modifier.semantics {
+                    contentDescription = "emailTextField"
+                },
                 text = uiState.email,
                 onValueChange = loginViewModel::changeEmail,
                 hint = stringResource(R.string.email_hint),
@@ -124,6 +132,9 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(SpaceMedium))
 
             StandardTextField(
+                modifier = Modifier.semantics {
+                    contentDescription = "passwordTextField"
+                },
                 text = uiState.password,
                 onValueChange = loginViewModel::changePassword,
                 hint = stringResource(R.string.password_hint),
@@ -138,7 +149,11 @@ fun LoginScreen(
             Button(
                 onClick = loginViewModel::login,
                 shape = MaterialTheme.shapes.large,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .semantics {
+                        contentDescription = "loginButton"
+                    }
 
             ) {
                 Text(

@@ -1,5 +1,8 @@
 package com.anbui.recipely.core.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 sealed class UnitType(val unitString: String) {
     object Unit : UnitType("")
     object Can : UnitType("can")

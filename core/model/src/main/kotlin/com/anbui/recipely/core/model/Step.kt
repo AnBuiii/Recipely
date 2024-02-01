@@ -1,28 +1,21 @@
 package com.anbui.recipely.core.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Step(
     val id: String,
     val order: Int,
     val instruction: String,
     val mediaUrl: String?,
-    val type: MediaType,
+    val type: NotMediaType,
     val period: Long
 )
 
-sealed class MediaType(val type: String) {
-    object Image : MediaType("image")
-    object Video : MediaType("video")
+enum class NotMediaType {
+    Image, Video,
+}
 
-    override fun toString(): String {
-        return this.type
-    }
-
-    companion object {
-        fun String.toMediaType(): MediaType {
-            return when (this) {
-                Image.type -> Image
-                else -> Video
-            }
-        }
-    }
+fun String.toMediaType(): NotMediaType{
+    return NotMediaType.valueOf(this)
 }

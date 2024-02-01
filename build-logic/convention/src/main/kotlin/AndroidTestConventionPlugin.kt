@@ -1,4 +1,5 @@
 import com.anbui.convension.configureKotlinAndroid
+import com.anbui.convention.configureGradleManagedDevices
 import com.android.build.gradle.TestExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -15,6 +16,7 @@ class AndroidTestConventionPlugin : Plugin<Project> {
             extensions.configure<TestExtension> {
                 configureKotlinAndroid(this)
                 defaultConfig.targetSdk = 34
+                configureGradleManagedDevices(this)
             }
         }
     }

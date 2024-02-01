@@ -1,5 +1,8 @@
 package com.anbui.recipely.core.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class IngredientItem(
     val ingredientId: String,
     val name: String,

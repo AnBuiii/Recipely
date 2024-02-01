@@ -1,18 +1,16 @@
 package com.anbui.recipely.core.data.impl
 
 import android.util.Log
-import com.anbui.recipely.core.database.dao.RecipeDao
 import com.anbui.recipely.core.data.repository.NotificationRepository
 import com.anbui.recipely.core.data.repository.RecipeRepository
 import com.anbui.recipely.core.database.dao.AccountDao
+import com.anbui.recipely.core.database.dao.RecipeDao
 import com.anbui.recipely.core.database.entities.LikeEntity
 import com.anbui.recipely.core.database.entities.RecentEntity
 import com.anbui.recipely.core.database.entities.RecipeEntity
+import com.anbui.recipely.core.database.entities.RecipeIngredientCrossRef
 import com.anbui.recipely.core.database.entities.StepEntity
 import com.anbui.recipely.core.database.entities.toIngredient
-import com.anbui.recipely.core.database.relations.RecipeAndOwner
-import com.anbui.recipely.core.database.entities.RecipeIngredientCrossRef
-import com.anbui.recipely.core.database.relations.RecipeWithIngredient
 import com.anbui.recipely.core.database.relations.toRecipe
 import com.anbui.recipely.core.database.relations.toRecipes
 import com.anbui.recipely.core.datastore.RecipelyPreferencesDataSource
@@ -49,14 +47,6 @@ class RecipeRepositoryImpl @Inject constructor(
                 emit(it)
             }
         }
-    }
-
-    override suspend fun getRecipeWithIngredient(recipeId: String): List<RecipeWithIngredient> {
-        return recipeDao.getIngredientOfRecipe(recipeId = recipeId)
-    }
-
-    override fun findIngredientWithRecipeId(recipeId: String): Flow<List<RecipeAndOwner>> {
-        return recipeDao.getAllRecipes()
     }
 
     override fun getAllRecipes(): Flow<List<Recipe>> {
@@ -187,7 +177,7 @@ class RecipeRepositoryImpl @Inject constructor(
                 recipeId = recipeId,
                 instruction = step.instruction,
                 mediaUrl = step.mediaUrl ?: "",
-                mediaType = step.type.type,
+                mediaType = step.type.toString(),
                 order = idx + 1
             )
         }.let { recipeDao.insertSteps(it) }
