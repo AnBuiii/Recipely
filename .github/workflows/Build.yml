@@ -42,8 +42,8 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
-#      - name: Setup Gradle
-#        uses: gradle/gradle-build-action@v2
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
       - name: Build projects before running emulator
         run: ./gradlew packageDemoDebug packageDemoDebugAndroidTest
@@ -74,8 +74,8 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
-#      - name: Setup Gradle
-#        uses: gradle/gradle-build-action@v2
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
       - name: Run Unit test
         run: ./gradlew testDemoDebug
