@@ -2,13 +2,13 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ExampleInstrumentedTest">
-        <State />
-      </entry>
-      <entry key="app">
+      <entry key="LoginScreenTest">
         <State />
       </entry>
       <entry key="composeApp">
+        <State />
+      </entry>
+      <entry key="core.testing">
         <State />
       </entry>
     </value>

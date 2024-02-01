@@ -101,6 +101,8 @@ dependencies {
 //    debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
 
+//    testImplementation(libs.kotlinx.coroutines.test)
+
     androidTestImplementation(projects.core.testing)
     androidTestImplementation(kotlin("test"))
 
