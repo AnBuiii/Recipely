@@ -11,13 +11,13 @@ Recipely is just a SIMPLE recipe app.
 ## About
 
 Inspired from many recipe app on store, this app was made to simplify all the usecase of a chef.
-Intergated with ML using MobilenetV3 model.
+Integrated with ML using MobilenetV3 model.
 
 ## Features
 
 This app let you
 
-- Dicover all the best recipes you needed
+- Discover all the best recipes you needed
 - Find and order directly the ingredients
 - Cook with the recipe you found
 
@@ -28,7 +28,7 @@ This app let you
 <img src = "https://github.com/AnBuiii/Recipely/assets/89350086/45c56e0b-86d0-4578-9e4d-1d432cc14233" width = 300>
 <img src = "https://github.com/AnBuiii/Recipely/assets/89350086/100f9c3f-7b11-4325-b370-aae3779b4aa4" width = 300>
 <img src = "https://github.com/AnBuiii/Recipely/assets/89350086/f5946059-d021-45fe-8ea0-ec582fb7d55e" width = 300>
-<img src = "https://github.com/AnBuiii/Recipely/assets/89350086/9cc9183e-2d77-43ef-99e9-d0a45b0f0816" width = 300>
+<img src = "https://github.com/AnBuiii/Recipely/assets/89350086/9cc9183e-2d77-43ef-99e9-d0a45b0f0816" width = 300> </a>
 
 ## Permissions
 

@@ -21,6 +21,15 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            keyAlias = "upload"
+            keyPassword = "sherlockholmes"
+            storePassword = "sherlockholmes"
+            storeFile = file("keystore/recipely-keystore.jks")
+        }
+    }
+
     buildTypes {
         debug {
             applicationIdSuffix = RecipelyBuildType.DEBUG.applicationIdSuffix
@@ -36,12 +45,16 @@ android {
             // To publish on the Play store a private signing key is required, but to allow anyone
             // who clones the code to sign and run the release variant, use the debug signing key.
             // TODO: Abstract the signing configuration to a separate file to avoid hardcoding this.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
             // Ensure Baseline Profile is fresh for release builds.
 //            baselineProfile.automaticGenerationDuringBuild = true
         }
     } //
+
+
 }
+
+
 
 dependencies {
     implementation(projects.core.model)
@@ -108,8 +121,6 @@ dependencies {
 
     testImplementation(projects.core.testing)
     testImplementation(kotlin("test"))
-
-
 
 
 }

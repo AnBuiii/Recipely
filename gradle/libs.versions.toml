@@ -7,7 +7,7 @@ androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 androidx-lifecycle = "2.6.2"
 activity-compose = "1.8.2"
-compose-bom = "2023.10.01"
+compose-bom = "2024.01.00"
 
 ksp = "2.0.0-Beta1-1.0.15"
 hilt-android = "2.49"

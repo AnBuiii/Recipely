@@ -15,7 +15,7 @@
     <string name="send_email">Send Email</string>
     <string name="first_name">First name</string>
     <string name="first_name_hint">Enter first name</string>
-    <string name="last_name">Last name</string>
+    <string name="last_name">Last Name</string>
     <string name="last_name_hint">Enter last name</string>
     <string name="s_continue">Continue</string>
     <string name="term_of_services">Term of Services</string>
