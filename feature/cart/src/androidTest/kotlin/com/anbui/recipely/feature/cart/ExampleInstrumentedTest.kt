@@ -2,11 +2,12 @@ package com.anbui.recipely.feature.cart
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.junit.Assert.assertEquals
 
 import org.junit.Test
 import org.junit.runner.RunWith
 
-import org.junit.Assert.*
+
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -19,6 +20,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.anbui.recipely.feature.create_order.test", appContext.packageName)
+        assertEquals("com.anbui.recipely.feature.cart.test", appContext.packageName)
     }
 }
