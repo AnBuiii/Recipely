@@ -10,9 +10,30 @@ Inspired from many recipe app on store, this app was made to simplify all the us
 
 ## Built with 🔨
 - [Kotlin](https://kotlinlang.org/) - Official programming language for Android development.
+- [Jetpack Compose](https://developer.android.com/jetpack/compose) - Modern toolkit for native UI
 - [Corountine](https://kotlinlang.org/docs/coroutines-overview.html) - For asynchronous stuff
-- [Room](https://developer.android.com/topic/libraries/architecture/room) - SQLite database for data presistent
-- [Coil-kt](https://coil-kt.github.io/coil/) - An image loading library for Android backed by Kotlin Coroutines.
+- [Material3 Componenet](https://m3.material.io/develop/android/mdc-android) - Modular and customizable Material Design UI components for Android.
+- [Room](https://developer.android.com/topic/libraries/architecture/room) - SQLite database for data persistence
+- [Dependency Injection](https://developer.android.com/training/dependency-injection) - 
+  - [Hilt-Dagger](https://dagger.dev/hilt/) - Standard library to incorporate Dagger dependency injection into an Android application.
+  - [Hilt-ViewModel](https://developer.android.com/training/dependency-injection/hilt-jetpack) - DI for injecting `ViewModel`.
+- [Coil](https://coil-kt.github.io/coil/) - An image loading library for Android backed by Kotlin Coroutines.
+- [CameraX](https://developer.android.com/media/camera/camerax) - Jetpack library for in-app camera
+- [Media3](https://developer.android.com/media/media3) - Media libraries that enables Android apps to display rich audio and visual experiences
+- [DataStore](https://developer.android.com/jetpack/androidx/releases/datastore) - Data presistence library for simple dataset
+- [Protobuf](https://protobuf.dev/) - Protocol Buffers are language-neutral, platform-neutral extensible mechanisms for serializing structured data.
+- [Tensorflow Lite](https://www.tensorflow.org/lite) - Library for deploys models on mobile device
+
+### Further plain
+- [Kotlinx-Datetime](https://github.com/Kotlin/kotlinx-datetime) - KotlinX multiplatform date/time library
+- [Ktor](https://ktor.io/) - Ktor is a framework for building asynchronous server-side and client-side applications
+
+## Lint
+[Detekt](https://github.com/detekt/detekt) is Static code analysis for Kotlin
+
+# Structure
+
+
 ## Screenshots
 
 <img src = "https://github.com/AnBuiii/Recipely/assets/89350086/f320f9b4-6140-4cd5-8415-5bf759c8c8ce" width = 300>
