@@ -1,26 +1,18 @@
-# Recipely
+# Recipely 🍗
 
-Recipely is just a SIMPLE recipe app.
-
-<p align="left">
-<a href="">
-    <img alt="Get it on Google Play"
-        height="80"
-        src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
+**Recipely** is just a SIMPLE recipe app. Built with Modern Android developement tool. Intergrated with ML
 
 ## About
+Inspired from many recipe app on store, this app was made to simplify all the use case of a chef.
+- Well design with Material 3 UI
+- Offline! All recipes are loaded in local database. You alway can create a new one.
+- Ingredient predicted include
 
-Inspired from many recipe app on store, this app was made to simplify all the usecase of a chef.
-Intergated with ML using MobilenetV3 model.
-
-## Features
-
-This app let you
-
-- Dicover all the best recipes you needed
-- Find and order directly the ingredients
-- Cook with the recipe you found
-
+## Built with 🔨
+- [Kotlin](https://kotlinlang.org/) - Official programming language for Android development.
+- [Corountine](https://kotlinlang.org/docs/coroutines-overview.html) - For asynchronous stuff
+- [Room](https://developer.android.com/topic/libraries/architecture/room) - SQLite database for data presistent
+- [Coil-kt](https://coil-kt.github.io/coil/) - An image loading library for Android backed by Kotlin Coroutines.
 ## Screenshots
 
 <img src = "https://github.com/AnBuiii/Recipely/assets/89350086/f320f9b4-6140-4cd5-8415-5bf759c8c8ce" width = 300>
