@@ -7,7 +7,7 @@ Inspired from many recipe app on store, this app was made to simplify all the us
 - Well design with Material 3 UI
 - Offline! All recipes are loaded in local database. You alway can create a new one.
 - Ingredient predicted include
-
+  
 ## Built with 🔨
 - [Kotlin](https://kotlinlang.org/) - Official programming language for Android development.
 - [Jetpack Compose](https://developer.android.com/jetpack/compose) - Modern toolkit for native UI
@@ -24,14 +24,7 @@ Inspired from many recipe app on store, this app was made to simplify all the us
 - [Protobuf](https://protobuf.dev/) - Protocol Buffers are language-neutral, platform-neutral extensible mechanisms for serializing structured data.
 - [Tensorflow Lite](https://www.tensorflow.org/lite) - Library for deploys models on mobile device
 
-### Further plans
-- [Kotlinx-Datetime](https://github.com/Kotlin/kotlinx-datetime) - KotlinX multiplatform date/time library
-- [Ktor](https://ktor.io/) - Ktor is a framework for building asynchronous server-side and client-side applications
-
-## Lint
-[Detekt](https://github.com/detekt/detekt) is Static code analysis for Kotlin
-
-# Project Structure 🏭
+## Project Structure 🏭
     com.anbui.recipely         # Root Package
     
     .
@@ -82,6 +75,20 @@ Inspired from many recipe app on store, this app was made to simplify all the us
 ## Architecture	🏢
 This project use a combination of [Multi-module architecture](https://developer.android.com/topic/modularization) and [(Model-View Model-Model](https://developer.android.com/topic/architecture#recommended-app-arch), explain as clean architecture for Android Developement.
 A very well-made example by Android can be found [Now in Android](https://github.com/android/nowinandroid)
+
+## Image-classification
+I use pre-trained [MobileNet](https://keras.io/api/applications/mobilenet/) and retained with Tensorflow library. Here are some resources:
+- [Tensorflow Image retraining](https://www.tensorflow.org/hub/tutorials/tf2_image_retraining)
+- My [Google colab](https://colab.research.google.com/drive/13r6H_8RC1Lh5fiO0cNKwRJ75WKGiv9ti?usp=drive_link)
+- My [Ingredient Dataset](https://drive.google.com/file/d/19jeOCHd5IpK1dKwNMXXp1HxGqADh0YaA/view?usp=drive_link)
+
+## Further plans
+Make it an cross-platform application
+- [Kotlinx-Datetime](https://github.com/Kotlin/kotlinx-datetime) - KotlinX multiplatform date/time library
+- [Ktor](https://ktor.io/) - Ktor is a framework for building asynchronous server-side and client-side applications
+
+## Lint
+[Detekt](https://github.com/detekt/detekt) is Static code analysis for Kotlin
 
 ## Contribute 🪖
 Any contributions are welcome! Here are some note 
