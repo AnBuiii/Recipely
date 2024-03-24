@@ -1,5 +1,5 @@
+![Untitled design](https://github.com/AnBuiii/Recipely/assets/89350086/53041bfa-6796-40b4-957f-b9c224af3954)
 # Recipely 🍗
-
 **Recipely** is just a SIMPLE recipe app. Built with Modern Android developement tool. Intergrated with ML
 
 ## About
@@ -24,41 +24,72 @@ Inspired from many recipe app on store, this app was made to simplify all the us
 - [Protobuf](https://protobuf.dev/) - Protocol Buffers are language-neutral, platform-neutral extensible mechanisms for serializing structured data.
 - [Tensorflow Lite](https://www.tensorflow.org/lite) - Library for deploys models on mobile device
 
-### Further plain
+### Further plans
 - [Kotlinx-Datetime](https://github.com/Kotlin/kotlinx-datetime) - KotlinX multiplatform date/time library
 - [Ktor](https://ktor.io/) - Ktor is a framework for building asynchronous server-side and client-side applications
 
 ## Lint
 [Detekt](https://github.com/detekt/detekt) is Static code analysis for Kotlin
 
-# Structure
+# Project Structure 🏭
+    com.anbui.recipely         # Root Package
+    
+    .
+	├── composeApp             # Project entry point
+	|
+	├── build-logic            # Handle gradle build logic
+	|   ├── convention         # For specific options
+	|
+	├── config
+	|   ├── detekt             # Detekt config
+	|
+	├── core                   # Core modules
+	|   ├── data               # 
+	│   |   ├── di             # DI for Data module
+	|   |   ├── impl           # Impl single source of data
+	|   |   ├── mapper         # Map core model to entity vice versa
+	|   |   
+	|   ├── database           # Local database module
+	|   |   ├── assets         # Default data for application
+	|   |   ├── converter      # Room converter
+	|   |   ├── dao            # Room dao
+	|   |   ├── entities       # Room entities
+	|   |   ├── relation       # Room cross-ref relation for better query
+	|   |   
+	|   ├── datastore-proto    # Define proto entity for datastore module
+	|   |   
+	|   ├── datastore          # Datastore module
+	|   |   ├── di             # DI for datastore module
+	|   |   
+	|   ├── designsystem       # Design system module
+	|   |   ├── components     # Application specific design component
+	|   |   ├── theme          # Application specific theme system
+	|   |   
+	|   ├── model              # Core model module
+	|   |   
+	|   ├── testing            # Testing module
+	|   |   ├── di             # DI for testing module
+	|
+	├── feature                # Feature module
+	|   ├── account            # Account-related feature module
+	|   |   ├── account        # Account screen, its viewmdel and components
+	|   |   ├── edit_profile   # Edit profile screen,...
+	|   |   ├── ...
+	|   |   ├── navigation     # navigation system in account feature
+	|   |   ├── components     # account feature UI component
+	|   ├── ...
+	
+## Architecture	🏢
+This project use a combination of [Multi-module architecture](https://developer.android.com/topic/modularization) and [(Model-View Model-Model](https://developer.android.com/topic/architecture#recommended-app-arch), explain as clean architecture for Android Developement.
+A very well-made example by Android can be found [Now in Android](https://github.com/android/nowinandroid)
 
-
-## Screenshots
-
-<img src = "https://github.com/AnBuiii/Recipely/assets/89350086/f320f9b4-6140-4cd5-8415-5bf759c8c8ce" width = 300>
-<img src = "https://github.com/AnBuiii/Recipely/assets/89350086/9e213e91-25a3-4ac5-a368-2a8a029580fd" width = 300>
-<img src = "https://github.com/AnBuiii/Recipely/assets/89350086/45c56e0b-86d0-4578-9e4d-1d432cc14233" width = 300>
-<img src = "https://github.com/AnBuiii/Recipely/assets/89350086/100f9c3f-7b11-4325-b370-aae3779b4aa4" width = 300>
-<img src = "https://github.com/AnBuiii/Recipely/assets/89350086/f5946059-d021-45fe-8ea0-ec582fb7d55e" width = 300>
-<img src = "https://github.com/AnBuiii/Recipely/assets/89350086/9cc9183e-2d77-43ef-99e9-d0a45b0f0816" width = 300>
-
-## Permissions
-
-On Android versions prior to Android 13.0, Recipely requires the following permissions:
-
-- Full Network Access.
-- Read and write access to external storage.
-- In-app camera
-- System notification
-
-## Contributing
-
-Recipely app is an open source project developed by [An Bùi](https://github.com/AnBuiii). Please do
-not use for commercial purposes. Any contributions are welcome. Here are a few ways you can help:
-
-* [Report bugs and make suggestions.](https://github.com/AnBuiii/Recipely/issues)
-* Write some code. Please follow the code style used in the project to make a review process faster.
+## Contribute 🪖
+Any contributions are welcome! Here are some note 
+- Open issue to report a bug and make your suggestion.
+- Fork this repo and do your changes. Remember to follow project's code style.
+- Open PR against `main` branch with nice description and you are good to go 😊.
+Recipely is an open source project developed by [me](https://github.com/AnBuiii). My purpose is to demonstrate my knowleadge in Android Development and share with everyone who interested ☺️. Please do
+not use for commercial purposes.
 
 ## License
 
